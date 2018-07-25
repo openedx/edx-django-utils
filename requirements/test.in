@@ -1,5 +1,5 @@
 # Requirements for test runs.
 
-
+mock                      # Backport of unittest.mock, available in Python 3.3
 pytest-cov                # pytest extension for code coverage statistics
 pytest-django             # pytest extension for better Django support
