@@ -49,6 +49,9 @@ upgrade: ## update the requirements/*.txt files with the latest packages satisfy
 	sed '/^django==/d' requirements/test.txt > requirements/test.tmp
 	mv requirements/test.tmp requirements/test.txt
 
+isort: ## fixes isort issues found during quality check
+	tox -e isort
+
 quality: ## check coding style with pycodestyle and pylint
 	tox -e quality
 
@@ -70,29 +73,3 @@ validate: quality test ## run tests and quality checks
 
 selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."
-
-## Localization targets
-
-extract_translations: ## extract strings to be translated, outputting .mo files
-	rm -rf docs/_build
-	cd edx-django-utils && ../manage.py makemessages -l en -v1 -d django
-	cd edx-django-utils && ../manage.py makemessages -l en -v1 -d djangojs
-
-compile_translations: ## compile translation files, outputting .po files for each supported language
-	cd edx-django-utils && ../manage.py compilemessages
-
-detect_changed_source_translations:
-	cd edx-django-utils && i18n_tool changed
-
-pull_translations: ## pull translations from Transifex
-	tx pull -af --mode reviewed
-
-push_translations: ## push source translation files (.po) from Transifex
-	tx push -s
-
-dummy_translations: ## generate dummy translation (.po) files
-	cd edx_django_utils && i18n_tool dummy
-
-build_dummy_translations: extract_translations dummy_translations compile_translations ## generate and compile dummy translation files
-
-validate_translations: build_dummy_translations detect_changed_source_translations ## validate translations
