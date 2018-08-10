@@ -5,7 +5,7 @@ Caching utility middleware.
 from . import RequestCache, TieredCache
 
 
-class CacheUtilsMiddleware(object):
+class RequestCacheMiddleware(object):
     """
     Middleware to clear the request cache as appropriate for new requests.
     """
