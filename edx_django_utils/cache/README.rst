@@ -44,9 +44,11 @@ Sample Usage using is_miss::
         # calculate x, set in cache, and return value.
     return x_cached_response.value
 
+RequestCacheMiddleware
+----------------------
 
-You must include 'ecommerce.cache_utils.middleware.CacheUtilsMiddleware'
-for the TieredCache to work properly.
+You must include 'edx_django_utils.cache.middleware.RequestCacheMiddleware'
+when using either the RequestCache or TieredCache.
 
 Force Django Cache Miss
 ^^^^^^^^^^^^^^^^^^^^^^^

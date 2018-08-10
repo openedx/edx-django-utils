@@ -16,6 +16,31 @@ Unreleased
 
 *
 
+[0.4.0] - 2018-08-10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Added
+_____
+
+* Rename CacheUtilsMiddleware to RequestCacheMiddleware.
+
+[0.3.0] - 2018-08-02
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Removed
+_______
+
+* Temporarily dropped Python 3 support to land this.
+
+[0.2.0] - 2018-08-01
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Added
+_____
+
+* Added cache and monitoring utilities.
+
+
 [0.1.0] - 2018-07-23
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Tests for the CacheUtilsMiddleware.
+Tests for the RequestCacheMiddleware.
 """
 # pylint: disable=missing-docstring
 
@@ -16,11 +16,11 @@ EXPECTED_VALUE = "bertclob"
 TEST_NAMESPACE = "test_namespace"
 
 
-class TestCacheUtilsMiddleware(TestCase):
+class TestRequestCacheMiddleware(TestCase):
 
     def setUp(self):
-        super(TestCacheUtilsMiddleware, self).setUp()
-        self.middleware = middleware.CacheUtilsMiddleware()
+        super(TestRequestCacheMiddleware, self).setUp()
+        self.middleware = middleware.RequestCacheMiddleware()
         self.request = RequestFactory().get('/')
         self.request.user = self._mock_user(is_staff=True)
 
