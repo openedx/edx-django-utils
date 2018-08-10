@@ -9,6 +9,15 @@ A thread-local for storing request scoped cache values.
 An optional namespace can be used with the RequestCache, or you can use
 the `DEFAULT_REQUEST_CACHE`.
 
+RequestCacheMiddleware
+----------------------
+
+You must include 'edx_django_utils.cache.middleware.RequestCacheMiddleware'
+when using the RequestCache to ensure it is emptied between requests. This
+should be added before most middleware, in case any other middleware wants
+to use the request cache.
+
+Note: This middleware may just be a safety net, but safe is good.
 
 TieredCache
 -----------
@@ -44,11 +53,16 @@ Sample Usage using is_miss::
         # calculate x, set in cache, and return value.
     return x_cached_response.value
 
-RequestCacheMiddleware
-----------------------
+TieredCacheMiddleware
+---------------------
 
-You must include 'edx_django_utils.cache.middleware.RequestCacheMiddleware'
-when using either the RequestCache or TieredCache.
+You must include 'edx_django_utils.cache.middleware.TieredCacheMiddleware'
+when using the TieredCache if you want to enable the `Force Django Cache Miss`_
+functionality.
+
+This middleware should come after the RequestCacheMiddleware. Additionally,
+since this functionality checks for staff permissions, it should come after any
+authentication middleware.
 
 Force Django Cache Miss
 ^^^^^^^^^^^^^^^^^^^^^^^

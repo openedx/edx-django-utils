@@ -9,13 +9,11 @@ class RequestCacheMiddleware(object):
     """
     Middleware to clear the request cache as appropriate for new requests.
     """
-    def process_request(self, request):
+    def process_request(self, request):  # pylint: disable=unused-argument
         """
-        Stores whether or not FORCE_DJANGO_CACHE_MISS_KEY was supplied in the
-        request. Also, clears the request cache.
+        Clears the request cache before processing the request.
         """
         RequestCache.clear_all_namespaces()
-        TieredCache._get_and_set_force_cache_miss(request)  # pylint: disable=protected-access
 
     def process_response(self, request, response):  # pylint: disable=unused-argument
         """
@@ -30,3 +28,15 @@ class RequestCacheMiddleware(object):
         """
         RequestCache.clear_all_namespaces()
         return None
+
+
+class TieredCacheMiddleware(object):
+    """
+    Middleware to store whether or not to force django cache misses.
+    """
+    def process_request(self, request):
+        """
+        Stores whether or not FORCE_DJANGO_CACHE_MISS_KEY was supplied in the
+        request.
+        """
+        TieredCache._get_and_set_force_cache_miss(request)  # pylint: disable=protected-access

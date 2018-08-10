@@ -16,11 +16,19 @@ Unreleased
 
 *
 
+[0.4.1] - 2018-08-10
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Changed
+_______
+
+* Split out TieredCacheMiddleware from RequestCacheMiddleware.
+
 [0.4.0] - 2018-08-10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Added
-_____
+Changed
+_______
 
 * Rename CacheUtilsMiddleware to RequestCacheMiddleware.
 
