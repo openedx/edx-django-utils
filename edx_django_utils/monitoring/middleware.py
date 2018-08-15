@@ -16,6 +16,7 @@ import psutil
 import waffle
 from django.utils import six
 from edx_django_utils.cache import RequestCache
+from edx_django_utils.private_utils import _check_middleware_dependencies
 
 log = logging.getLogger(__name__)
 try:
@@ -29,11 +30,20 @@ _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
 _REQUEST_CACHE_NAMESPACE = '{}.custom_metrics'.format(_DEFAULT_NAMESPACE)
 
 
-class MonitoringCustomMetrics(object):
+class MonitoringCustomMetricsMiddleware(object):
     """
-    The middleware class.  Make sure to add below the request cache in
-    MIDDLEWARE_CLASSES.
+    The middleware class for adding custom metrics.
+
+    Make sure to add below the request cache in MIDDLEWARE_CLASSES.
     """
+
+    def __init__(self):
+        super(MonitoringCustomMetricsMiddleware, self).__init__()
+        # checks proper dependency order as well.
+        _check_middleware_dependencies(self, required_middleware=[
+            'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+            'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
+        ])
 
     @classmethod
     def _get_metrics_cache(cls):
@@ -60,7 +70,7 @@ class MonitoringCustomMetrics(object):
         if not newrelic:
             return
         metrics_cache = cls._get_metrics_cache()
-        for cached_metric_response in metrics_cache.iteritems():
+        for cached_metric_response in metrics_cache.items():
             newrelic.agent.add_custom_parameter(cached_metric_response.key, cached_metric_response.value)
 
     # Whether or not there was an exception, report any custom NR metrics that
@@ -84,9 +94,19 @@ class MonitoringCustomMetrics(object):
 class MonitoringMemoryMiddleware(object):
     """
     Middleware for monitoring memory usage.
+
+    Make sure to add below the request cache in MIDDLEWARE_CLASSES.
     """
     memory_data_key = u'memory_data'
     guid_key = u'guid_key'
+
+    def __init__(self):
+        super(MonitoringMemoryMiddleware, self).__init__()
+        # checks proper dependency order as well.
+        _check_middleware_dependencies(self, required_middleware=[
+            'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+            'edx_django_utils.monitoring.middleware.MonitoringMemoryMiddleware',
+        ])
 
     def process_request(self, request):
         """
@@ -155,16 +175,16 @@ class MonitoringMemoryMiddleware(object):
         Computes and logs the difference in memory utilization
         between the given old and new memory data.
         """
-        def _vmem_used(memory_data):  # pylint: disable=missing-docstring
+        def _vmem_used(memory_data):
             return memory_data['machine_data'].used
 
-        def _process_mem_percent(memory_data):  # pylint: disable=missing-docstring
+        def _process_mem_percent(memory_data):
             return memory_data['process_data']['memory_percent']
 
-        def _process_rss(memory_data):  # pylint: disable=missing-docstring
+        def _process_rss(memory_data):
             return memory_data['process_data']['memory_info'].rss
 
-        def _process_vms(memory_data):  # pylint: disable=missing-docstring
+        def _process_vms(memory_data):
             return memory_data['process_data']['memory_info'].vms
 
         if new_memory_data and old_memory_data:
@@ -181,6 +201,4 @@ class MonitoringMemoryMiddleware(object):
         """
         Returns whether this middleware is enabled.
         """
-        # TODO: Can we change this to 'edx_django_utils.monitoring.enable_memory_middleware', or do
-        # we need to support legacy waffle settings?
-        return waffle.switch_is_active(u'monitoring_utils.enable_memory_middleware')
+        return waffle.switch_is_active(u'edx_django_utils.monitoring.enable_memory_middleware')

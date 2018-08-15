@@ -1,6 +1,11 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
-# pylint: disable=C0111,W6005,W6100
+# Note: pylint disable of useless-suppression is required because the errors
+# are different for python 2.7 and python 3.6.
+# pylint: disable=C0111,W6100,useless-suppression
+"""
+Package metadata for edx-django-utils.
+"""
 from __future__ import absolute_import, print_function
 
 import os
@@ -21,6 +26,38 @@ def get_version(*file_paths):
     if version_match:
         return version_match.group(1)
     raise RuntimeError('Unable to find version string.')
+
+
+def load_requirements(*requirements_paths):
+    """
+    Load all requirements from the specified requirements files.
+
+    Returns:
+        list: Requirements file relative path strings
+    """
+    requirements = set()
+    for path in requirements_paths:
+        requirements.update(
+            line.split('#')[0].strip() for line in open(path).readlines()
+            if is_requirement(line.strip())
+        )
+    return list(requirements)
+
+
+def is_requirement(line):
+    """
+    Return True if the requirement line is a package requirement.
+
+    Returns:
+        bool: True if the line is not blank, a comment, a URL, or an included file
+    """
+    return not (
+        line == '' or
+        line.startswith('-r') or
+        line.startswith('#') or
+        line.startswith('-e') or
+        line.startswith('git+')
+    )
 
 
 VERSION = get_version('edx_django_utils', '__init__.py')
@@ -46,9 +83,7 @@ setup(
         'edx_django_utils',
     ],
     include_package_data=True,
-    install_requires=[
-        "Django>=1.8,<2.1"
-    ],
+    install_requires=load_requirements('requirements/base.in'),
     license="AGPL 3.0",
     zip_safe=False,
     keywords='Django edx',
@@ -63,8 +98,7 @@ setup(
         'Natural Language :: English',
         'Programming Language :: Python :: 2',
         'Programming Language :: Python :: 2.7',
-        # TODO: Restore Python 3
-        # 'Programming Language :: Python :: 3',
-        # 'Programming Language :: Python :: 3.6',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 3.6',
     ],
 )

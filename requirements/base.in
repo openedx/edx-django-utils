@@ -1,6 +1,6 @@
 # Core requirements for using this application
 
-Django                    # Web application framework
+Django>=1.8,<2.0          # Web application framework
 django-waffle             # Allows for feature toggles in Django.
 newrelic                  # New Relic agent for performance monitoring
 psutil==1.2.1             # Library for retrieving information on running processes and system utilization

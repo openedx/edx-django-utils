@@ -3,10 +3,11 @@ coverage:
     project:
       default:
         enabled: yes
+        threshold: 0.1
         target: auto
     patch:
       default:
         enabled: yes
-        target: 100%
+        target: 74%
 
 comment: false

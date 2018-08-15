@@ -71,7 +71,7 @@ class TestRequestCache(TestCase):
         self.request_cache.set(TEST_KEY, EXPECTED_VALUE)
         self.request_cache.set(TEST_KEY_2, EXPECTED_VALUE_2)
         cached_responses = {}
-        for cached_response in self.request_cache.iteritems():
+        for cached_response in self.request_cache.items():
             cached_responses[cached_response.key] = cached_response
         self.assertTrue(TEST_KEY in cached_responses)
         self.assertTrue(cached_responses[TEST_KEY].is_hit)
@@ -190,10 +190,10 @@ class CacheResponseTests(TestCase):
         self.assertTrue(cached_response.is_miss)
         self.assertFalse(cached_response.is_hit)
         self.assertEqual(cached_response.key, TEST_KEY)
-        with self.assertRaises(CachedResponseError):
+        with self.assertRaises(AttributeError):
             cached_response.value  # pylint: disable=pointless-statement
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE_2)
-        self.assertEqual(cached_response.__repr__(), 'CachedResponse for {} is miss'.format(TEST_KEY))
+        self.assertIn('CachedResponse(is_miss={}, key={}'.format(True, TEST_KEY), cached_response.__repr__())
 
     def test_is_hit(self):
         is_miss = False
@@ -203,7 +203,35 @@ class CacheResponseTests(TestCase):
         self.assertEqual(cached_response.key, TEST_KEY)
         self.assertEqual(cached_response.value, EXPECTED_VALUE)
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE)
-        self.assertEqual(cached_response.__repr__(), 'CachedResponse for {} is hit'.format(TEST_KEY))
+        self.assertIn('CachedResponse(is_miss={}, key={}'.format(False, TEST_KEY), cached_response.__repr__())
+
+    def test_cached_response_equals(self):
+        self.assertEqual(
+            CachedResponse(False, TEST_KEY, EXPECTED_VALUE),
+            CachedResponse(False, TEST_KEY, EXPECTED_VALUE),
+        )
+        self.assertEqual(
+            CachedResponse(True, TEST_KEY, EXPECTED_VALUE),
+            CachedResponse(True, TEST_KEY, EXPECTED_VALUE),
+        )
+
+        self.assertNotEqual(
+            CachedResponse(False, TEST_KEY, EXPECTED_VALUE),
+            CachedResponse(True, TEST_KEY, EXPECTED_VALUE),
+        )
+        self.assertNotEqual(
+            CachedResponse(False, TEST_KEY, EXPECTED_VALUE),
+            CachedResponse(False, TEST_KEY_2, EXPECTED_VALUE),
+        )
+        self.assertNotEqual(
+            CachedResponse(False, TEST_KEY, EXPECTED_VALUE),
+            CachedResponse(False, TEST_KEY, EXPECTED_VALUE_2),
+        )
+
+    def test_cached_response_not_equals(self):
+        self.assertTrue(
+            CachedResponse(False, TEST_KEY, EXPECTED_VALUE) != CachedResponse(False, TEST_KEY, EXPECTED_VALUE_2)
+        )
 
     def test_cached_response_misuse(self):
         cached_response = CachedResponse(False, TEST_KEY, EXPECTED_VALUE)
@@ -216,23 +244,5 @@ class CacheResponseTests(TestCase):
             cached_response.__bool__()
 
         with self.assertRaises(CachedResponseError):
-            cached_response.get('x')
-
-        with self.assertRaises(CachedResponseError):
-            cached_response.x = None
-
-        with self.assertRaises(CachedResponseError):
-            cached_response['key']  # pylint: disable=pointless-statement
-
-        with self.assertRaises(CachedResponseError):
-            cached_response['key'] = None
-
-        with self.assertRaises(CachedResponseError):
-            ['a list'][cached_response]  # pylint: disable=expression-not-assigned, pointless-statement
-
-        with self.assertRaises(CachedResponseError):
-            'x' in cached_response  # pylint: disable=pointless-statement
-
-        with self.assertRaises(CachedResponseError):
-            for _ in cached_response:
-                pass
+            other_object = object()
+            cached_response == other_object  # pylint: disable=pointless-statement
