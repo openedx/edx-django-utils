@@ -1,6 +1,10 @@
 Cache Utils
 ===========
 
+Cache utilities that implement `OEP-0022: Caching in Django`_.
+
+.. _OEP-0022: Caching in Django: https://github.com/edx/open-edx-proposals/blob/master/oeps/oep-0022-bp-django-caches.rst
+
 RequestCache
 ------------
 
@@ -62,7 +66,15 @@ functionality.
 
 This middleware should come after the RequestCacheMiddleware. Additionally,
 since this functionality checks for staff permissions, it should come after any
-authentication middleware.
+authentication middleware.  Here is an example::
+
+    MIDDLEWARE_CLASSES = (
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'django.contrib.sessions.middleware.SessionMiddleware',
+        ...
+        # TieredCacheMiddleware middleware must come after these.
+        'edx_django_utils.cache.middleware.TieredCacheMiddleware',
+    )
 
 Force Django Cache Miss
 ^^^^^^^^^^^^^^^^^^^^^^^

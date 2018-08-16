@@ -17,8 +17,6 @@ https://openedx.atlassian.net/wiki/display/PERF/Custom+Metrics+in+New+Relic
 
 At this time, these custom metrics will only be reported to New Relic.
 
-TODO: supply additional public functions for storing strings and booleans.
-
 """
 from contextlib import contextmanager
 
@@ -51,7 +49,7 @@ def accumulate(name, value):
             for that metric.  For metrics which don't make sense to accumulate,
             make sure to only call this function once during a request.
     """
-    middleware.MonitoringCustomMetrics.accumulate_metric(name, value)
+    middleware.MonitoringCustomMetricsMiddleware.accumulate_metric(name, value)
 
 
 def increment(name):

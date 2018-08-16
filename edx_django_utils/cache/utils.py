@@ -78,12 +78,11 @@ class RequestCache(object):
         """
         self._get_data().clear()
 
-    def iteritems(self):
+    def items(self):
         """
-        Returns an iterable of cached responses for all keys in the request cache.
-        # TODO: Determine the proper naming for this Python 3.
+        Returns the cached responses for all keys in the request cache.
         """
-        return iter(self.get_cached_response(key) for key in self._get_data().keys())
+        return (self.get_cached_response(key) for key in self._get_data())
 
     def get_cached_response(self, key):
         """
@@ -207,6 +206,10 @@ class TieredCache(object):
         backing cache.
 
         Important: This should probably only be called for testing purposes.
+
+        TODO: Move CacheIsolationMixin from edx-platform to edx-django-utils
+        and kill this method.
+
         """
         DEFAULT_REQUEST_CACHE.clear()
         django_cache.clear()
@@ -279,7 +282,7 @@ class CachedResponseError(Exception):
     """
     Error used when CachedResponse is misused.
     """
-    USAGE_MESSAGE = 'CachedResponse was misused. Only use the attributes is_hit, is_miss, value or key.'
+    USAGE_MESSAGE = 'CachedResponse was misused. Try the attributes is_hit, is_miss, value or key.'
 
     def __init__(self, message=USAGE_MESSAGE):  # pylint: disable=useless-super-delegation
         super(CachedResponseError, self).__init__(message)
@@ -308,7 +311,7 @@ class CachedResponse(object):
     def __repr__(self):
         # Important: Do not include the cached value to help avoid any security
         # leaks that could happen if these are logged.
-        return 'CachedResponse for {} is {}'.format(self.key, 'hit' if self.is_hit else 'miss')
+        return '''CachedResponse(is_miss={}, key={}, value='*****')'''.format(self.is_miss, self.key)
 
     @property
     def is_hit(self):
@@ -335,25 +338,17 @@ class CachedResponse(object):
     def __bool__(self):
         raise CachedResponseError()
 
-    def __index__(self):
-        raise CachedResponseError()
-
-    def __getattr__(self, name):
-        raise CachedResponseError()
-
-    def __setattr__(self, name, val):
-        if name not in self.VALID_ATTRIBUTES:
+    def __eq__(self, other):
+        if not isinstance(other, CachedResponse):
             raise CachedResponseError()
-        return super(CachedResponse, self).__setattr__(name, val)
+        if self.is_hit != other.is_hit:
+            return False
 
-    def __getitem__(self, key):
-        raise CachedResponseError()
+        if self.is_hit:
+            return (self.key, self.value) == (other.key, other.value)
+        else:
+            return self.key == other.key  # cache misses have no value attribute
 
-    def __setitem__(self, key, val):
-        raise CachedResponseError()
-
-    def __iter__(self):
-        raise CachedResponseError()
-
-    def __contains__(self, value):
-        raise CachedResponseError()
+    def __ne__(self, other):
+        """Overrides the default implementation (unnecessary in Python 3)"""
+        return not self.__eq__(other)

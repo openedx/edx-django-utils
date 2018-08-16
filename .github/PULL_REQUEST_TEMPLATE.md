@@ -1,12 +1,22 @@
-**Description:** Describe in a couple of sentence what this PR adds
+**Description:**
 
-**JIRA:** Link to JIRA ticket
+Describe in a couple of sentence what this PR adds
 
-**Dependencies:** dependencies on other outstanding PRs, issues, etc. 
+**JIRA:**
 
-**Merge deadline:** List merge deadline (if any)
+[XXX-XXXX](https://openedx.atlassian.net/browse/XXX-XXXX)
 
-**Installation instructions:** List any non-trivial installation 
+**Dependencies:**
+
+List dependencies on other outstanding PRs, issues, etc.
+
+**Merge deadline:**
+
+List merge deadline (if any)
+
+**Installation instructions:**
+
+List any non-trivial installation
 instructions.
 
 **Testing instructions:**
@@ -17,8 +27,8 @@ instructions.
 4. If D happened instead - check failed.
 
 **Reviewers:**
+- [ ] @edx/arch-review
 - [ ] tag reviewer
-- [ ] tag reviewer 
 
 **Merge checklist:**
 - [ ] All reviewers approved
@@ -35,6 +45,8 @@ instructions.
       finished.
 - [ ] Delete working branch (if not needed anymore)
 
-**Author concerns:** List any concerns about this PR - inelegant 
+**Author concerns:**
+
+List any concerns about this PR - inelegant
 solutions, hacks, quick-and-dirty implementations, concerns about 
 migrations, etc.

@@ -4,9 +4,7 @@ Tests for the RequestCacheMiddleware.
 """
 # pylint: disable=missing-docstring
 
-from unittest import TestCase
-
-from django.test import RequestFactory
+from django.test import RequestFactory, TestCase, override_settings
 from edx_django_utils.cache import middleware
 from edx_django_utils.cache.utils import FORCE_CACHE_MISS_PARAM, SHOULD_FORCE_CACHE_MISS_KEY, RequestCache
 from mock import MagicMock
@@ -18,6 +16,7 @@ TEST_NAMESPACE = "test_namespace"
 
 class TestRequestCacheMiddleware(TestCase):
 
+    @override_settings(MIDDLEWARE=['edx_django_utils.cache.middleware.RequestCacheMiddleware'])
     def setUp(self):
         super(TestRequestCacheMiddleware, self).setUp()
         self.middleware = middleware.RequestCacheMiddleware()
@@ -57,6 +56,10 @@ class TestRequestCacheMiddleware(TestCase):
 
 class TestTieredCacheMiddleware(TestCase):
 
+    @override_settings(MIDDLEWARE=[
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'edx_django_utils.monitoring.middleware.TieredCacheMiddleware'
+    ])
     def setUp(self):
         super(TestTieredCacheMiddleware, self).setUp()
         self.middleware = middleware.TieredCacheMiddleware()
@@ -86,6 +89,11 @@ class TestTieredCacheMiddleware(TestCase):
         self.middleware.process_request(request)
 
         self.assertFalse(self.request_cache.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY).value)
+
+    @override_settings(MIDDLEWARE=['some.Middleware'])
+    def test_tiered_cache_missing_middleware(self):
+        with self.assertRaises(AssertionError):
+            middleware.TieredCacheMiddleware()
 
     def _mock_user(self, is_staff=True):
         mock_user = MagicMock()

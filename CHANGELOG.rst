@@ -16,6 +16,16 @@ Unreleased
 
 *
 
+[0.5.0] - 2018-08-16
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Changed
+_______
+
+* Restored Python 3 support.
+* Refactor/clean-up, including Middleware dependency checking.
+* Docs updates and other cookiecutter updates.
+
 [0.4.1] - 2018-08-10
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 

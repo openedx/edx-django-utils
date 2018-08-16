@@ -15,14 +15,14 @@ serve to show the default.
 
 from __future__ import absolute_import, unicode_literals
 
+import io
 import os
 import re
 import sys
 from subprocess import check_call
 
 import edx_theme
-
-import django
+from django import setup as django_setup
 from django.conf import settings
 from django.utils import six
 
@@ -32,7 +32,7 @@ def get_version(*file_paths):
     Extract the version string from the file at the given relative path fragments.
     """
     filename = os.path.join(os.path.dirname(__file__), *file_paths)
-    version_file = open(filename).read()    # pylint: disable=open-builtin
+    version_file = io.open(filename).read()
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
     if version_match:
         return version_match.group(1)
@@ -46,7 +46,7 @@ VERSION = get_version('../edx_django_utils', '__init__.py')
 
 # Configure Django for autodoc usage
 settings.configure()
-django.setup()
+django_setup()
 
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the

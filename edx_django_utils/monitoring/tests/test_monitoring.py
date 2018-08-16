@@ -1,9 +1,9 @@
 """
 Tests for monitoring custom metrics.
 """
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from edx_django_utils import monitoring
-from edx_django_utils.monitoring.middleware import MonitoringCustomMetrics
+from edx_django_utils.monitoring.middleware import MonitoringCustomMetricsMiddleware, MonitoringMemoryMiddleware
 from mock import call, patch
 
 
@@ -13,6 +13,10 @@ class TestMonitoringCustomMetrics(TestCase):
     """
 
     @patch('newrelic.agent')
+    @override_settings(MIDDLEWARE=[
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
+    ])
     def test_custom_metrics_with_new_relic(self, mock_newrelic_agent):
         """
         Test normal usage of collecting custom metrics and reporting to New Relic
@@ -31,7 +35,7 @@ class TestMonitoringCustomMetrics(TestCase):
         ]
 
         # fake a response to trigger metrics reporting
-        MonitoringCustomMetrics().process_response(
+        MonitoringCustomMetricsMiddleware().process_response(
             'fake request',
             'fake response',
         )
@@ -44,3 +48,27 @@ class TestMonitoringCustomMetrics(TestCase):
         # Assert call args to newrelic.agent.add_custom_parameter().  Due to
         # the nature of python dicts, call order is undefined.
         mock_newrelic_agent.add_custom_parameter.has_calls(nr_agent_calls_expected, any_order=True)
+
+    @override_settings(MIDDLEWARE=[
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
+    ])
+    def test_custom_metrics_middleware_dependencies_success(self):
+        MonitoringCustomMetricsMiddleware()
+
+    @override_settings(MIDDLEWARE=['some.Middleware'])
+    def test_custom_metrics_middleware_dependencies_failure(self):
+        with self.assertRaises(AssertionError):
+            MonitoringCustomMetricsMiddleware()
+
+    @override_settings(MIDDLEWARE=[
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'edx_django_utils.monitoring.middleware.MonitoringMemoryMiddleware',
+    ])
+    def test_memory_middleware_dependencies_success(self):
+        MonitoringMemoryMiddleware()
+
+    @override_settings(MIDDLEWARE=['some.Middleware'])
+    def test_memory_middleware_dependencies_failure(self):
+        with self.assertRaises(AssertionError):
+            MonitoringMemoryMiddleware()

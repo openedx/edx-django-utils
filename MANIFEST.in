@@ -3,4 +3,5 @@ include CHANGELOG.rst
 include CONTRIBUTING.rst
 include LICENSE.txt
 include README.rst
+include requirements/base.in
 recursive-include edx_django_utils *.html *.png *.gif *js *.css *jpg *jpeg *svg *py
