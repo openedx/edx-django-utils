@@ -42,7 +42,7 @@ class TieredCacheMiddleware(object):
             'edx_django_utils.cache.middleware.RequestCacheMiddleware',
             # Some Authentication Middleware also needs to be in between,
             # but don't want to hard-code that dependency.
-            'edx_django_utils.monitoring.middleware.TieredCacheMiddleware',
+            'edx_django_utils.cache.middleware.TieredCacheMiddleware',
         ])
 
     def process_request(self, request):
