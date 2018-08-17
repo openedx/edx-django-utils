@@ -58,7 +58,7 @@ class TestTieredCacheMiddleware(TestCase):
 
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
-        'edx_django_utils.monitoring.middleware.TieredCacheMiddleware'
+        'edx_django_utils.cache.middleware.TieredCacheMiddleware'
     ])
     def setUp(self):
         super(TestTieredCacheMiddleware, self).setUp()
