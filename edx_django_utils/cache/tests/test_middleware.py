@@ -45,8 +45,8 @@ class TestRequestCacheMiddleware(TestCase):
 
     def _check_request_caches_cleared(self):
         """ Checks that all request caches were cleared. """
-        self.assertTrue(self.request_cache.get_cached_response(TEST_KEY).is_miss)
-        self.assertTrue(self.other_request_cache.get_cached_response(TEST_KEY).is_miss)
+        self.assertFalse(self.request_cache.get_cached_response(TEST_KEY).is_found)
+        self.assertFalse(self.other_request_cache.get_cached_response(TEST_KEY).is_found)
 
     def _dirty_request_cache(self):
         """ Dirties the request caches to ensure the middleware is clearing it. """

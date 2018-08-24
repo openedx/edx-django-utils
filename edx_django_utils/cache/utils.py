@@ -72,17 +72,18 @@ class RequestCache(object):
         """
         _RequestCache.clear()
 
+    @property
+    def data(self):
+        """
+        Returns the namespaced cached key/value pairs as a dict.
+        """
+        return _RequestCache.get_data(self.namespace)
+
     def clear(self):
         """
         Clears data for the namespaced request cache.
         """
-        self._get_data().clear()
-
-    def items(self):
-        """
-        Returns the cached responses for all keys in the request cache.
-        """
-        return (self.get_cached_response(key) for key in self._get_data())
+        self.data.clear()
 
     def get_cached_response(self, key):
         """
@@ -92,12 +93,12 @@ class RequestCache(object):
             key (string)
 
         Returns:
-            A CachedResponse with hit/miss status and value.
+            A CachedResponse with is_found status and value.
 
         """
-        cached_value = self._get_data().get(key, _CACHE_MISS)
-        is_miss = cached_value is _CACHE_MISS
-        return CachedResponse(is_miss, key, cached_value)
+        cached_value = self.data.get(key, _CACHE_MISS)
+        is_found = cached_value is not _CACHE_MISS
+        return CachedResponse(is_found, key, cached_value)
 
     def set(self, key, value):
         """
@@ -108,7 +109,7 @@ class RequestCache(object):
             value (object)
 
         """
-        self._get_data()[key] = value
+        self.data[key] = value
 
     def setdefault(self, key, value):
         """
@@ -119,7 +120,7 @@ class RequestCache(object):
             value (object)
 
         """
-        self._get_data().setdefault(key, value)
+        self.data.setdefault(key, value)
 
     def delete(self, key):
         """
@@ -129,15 +130,8 @@ class RequestCache(object):
             key (string)
 
         """
-        if key in self._get_data():
-            del self._get_data()[key]
-
-    def _get_data(self):
-        """
-        Returns:
-            (dict): The data for this namespaced cache.
-        """
-        return _RequestCache.get_data(self.namespace)
+        if key in self.data:
+            del self.data[key]
 
 
 DEFAULT_REQUEST_CACHE = RequestCache()
@@ -157,11 +151,11 @@ class TieredCache(object):
             key (string)
 
         Returns:
-            A CachedResponse with hit/miss status and value.
+            A CachedResponse with is_found status and value.
 
         """
         request_cached_response = DEFAULT_REQUEST_CACHE.get_cached_response(key)
-        if request_cached_response.is_miss:
+        if not request_cached_response.is_found:
             django_cached_response = cls._get_cached_response_from_django_cache(key)
             cls._set_request_cache_if_django_cache_hit(key, django_cached_response)
             return django_cached_response
@@ -226,15 +220,15 @@ class TieredCache(object):
             key (string)
 
         Returns:
-            A CachedResponse with hit/miss status and value.
+            A CachedResponse with is_found status and value.
 
         """
         if TieredCache._should_force_django_cache_miss():
-            return CachedResponse(is_miss=True, key=key, value=None)
+            return CachedResponse(is_found=False, key=key, value=None)
 
         cached_value = django_cache.get(key, _CACHE_MISS)
-        is_miss = cached_value is _CACHE_MISS
-        return CachedResponse(is_miss, key, cached_value)
+        is_found = cached_value is not _CACHE_MISS
+        return CachedResponse(is_found, key, cached_value)
 
     @staticmethod
     def _set_request_cache_if_django_cache_hit(key, django_cached_response):
@@ -246,7 +240,7 @@ class TieredCache(object):
             django_cached_response (CachedResponse)
 
         """
-        if django_cached_response.is_hit:
+        if django_cached_response.is_found:
             DEFAULT_REQUEST_CACHE.set(key, django_cached_response.value)
 
     @staticmethod
@@ -275,14 +269,14 @@ class TieredCache(object):
 
         """
         cached_response = DEFAULT_REQUEST_CACHE.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY)
-        return False if cached_response.is_miss else cached_response.value
+        return False if not cached_response.is_found else cached_response.value
 
 
 class CachedResponseError(Exception):
     """
     Error used when CachedResponse is misused.
     """
-    USAGE_MESSAGE = 'CachedResponse was misused. Try the attributes is_hit, is_miss, value or key.'
+    USAGE_MESSAGE = 'CachedResponse was misused. Try the attributes is_found, value or key.'
 
     def __init__(self, message=USAGE_MESSAGE):  # pylint: disable=useless-super-delegation
         super(CachedResponseError, self).__init__(message)
@@ -290,35 +284,27 @@ class CachedResponseError(Exception):
 
 class CachedResponse(object):
     """
-    Represents a cache response including hit status and value.
+    Represents a cache response including is_found status and value.
     """
-    VALID_ATTRIBUTES = ['is_miss', 'is_hit', 'value', 'key']
-
-    def __init__(self, is_miss, key, value):
+    def __init__(self, is_found, key, value):
         """
         Creates a cached response object.
 
         Args:
-            is_miss (bool): True if this is a miss, False otherwise.
+            is_found (bool): True if the key was found in the cache, False
+                otherwise.
             key (string): The key originally used to retrieve the value.
             value (object)
         """
         self.key = key
-        self.is_miss = is_miss
-        if self.is_hit:
+        self.is_found = is_found
+        if self.is_found:
             self.value = value
 
     def __repr__(self):
         # Important: Do not include the cached value to help avoid any security
         # leaks that could happen if these are logged.
-        return '''CachedResponse(is_miss={}, key={}, value='*****')'''.format(self.is_miss, self.key)
-
-    @property
-    def is_hit(self):
-        """
-        Returns True if this response represents a cache hit, False otherwise.
-        """
-        return not self.is_miss
+        return '''CachedResponse(is_found={}, key={}, value='*****')'''.format(self.is_found, self.key)
 
     def get_value_or_default(self, default):
         """
@@ -327,10 +313,10 @@ class CachedResponse(object):
         This method is safe to use, even for a cache_miss.
 
         WARNING: Never pass None as the default and then test the return value
-        of this method. Use is_hit or is_miss instead for any checks.
+        of this method. Use is_found instead for any checks.
 
         """
-        return default if self.is_miss else self.value
+        return default if not self.is_found else self.value
 
     def __nonzero__(self):
         raise CachedResponseError()
@@ -341,10 +327,10 @@ class CachedResponse(object):
     def __eq__(self, other):
         if not isinstance(other, CachedResponse):
             raise CachedResponseError()
-        if self.is_hit != other.is_hit:
+        if self.is_found != other.is_found:
             return False
 
-        if self.is_hit:
+        if self.is_found:
             return (self.key, self.value) == (other.key, other.value)
         else:
             return self.key == other.key  # cache misses have no value attribute

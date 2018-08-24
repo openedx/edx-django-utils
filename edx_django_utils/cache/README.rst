@@ -43,17 +43,17 @@ Some baseline rules:
    item to only be cached across the duration of the request and will not
    cause a write to the remote cache.
 
-Sample Usage using is_hit::
+Sample Usage (cache hit)::
 
     x_cached_response = TieredCache.get_cached_response(key)
-    if x_cached_response.is_hit:
+    if x_cached_response.is_found:
         return x_cached_response.value
      # calculate x, set in cache, and return value.
 
-Sample Usage using is_miss::
+Sample Usage (cache miss)::
 
     x_cached_response = TieredCache.get_cached_response(key)
-    if x_cached_response.is_miss:
+    if not x_cached_response.is_found:
         # calculate x, set in cache, and return value.
     return x_cached_response.value
 
@@ -92,8 +92,8 @@ Example::
 CachedResponse
 --------------
 
-A CachedResponse includes the cache miss/hit status and value stored in the
-cache.
+A CachedResponse includes the cache miss/hit status (is_found) and the value
+stored in the cache (for cache hits).
 
 The purpose of the CachedResponse is to avoid a common bug with the default
 Django cache interface where a cache hit that is Falsey (e.g. None) is
@@ -101,6 +101,7 @@ misinterpreted as a cache miss.
 
 An example of the Bug::
 
+    # DON'T DO THIS!
     cache_value = cache.get(key)
     if cache_value:
         # calculated value is None, set None in cache, and return value.
