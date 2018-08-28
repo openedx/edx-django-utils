@@ -70,8 +70,8 @@ class MonitoringCustomMetricsMiddleware(object):
         if not newrelic:
             return
         metrics_cache = cls._get_metrics_cache()
-        for cached_metric_response in metrics_cache.items():
-            newrelic.agent.add_custom_parameter(cached_metric_response.key, cached_metric_response.value)
+        for key, value in metrics_cache.data.items():
+            newrelic.agent.add_custom_parameter(key, value)
 
     # Whether or not there was an exception, report any custom NR metrics that
     # may have been collected.

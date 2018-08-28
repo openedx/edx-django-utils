@@ -13,8 +13,20 @@ Change Log
 
 Unreleased
 ~~~~~~~~~~
-
 *
+
+[1.0.0] - 2018-08-28
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Added
+_______
+
+* Add ``data`` dict property to better match legacy RequestCache interface.
+
+Changed
+_______
+
+* Change is_hit/is_miss to is_found.
 
 [0.5.1] - 2018-08-17
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
