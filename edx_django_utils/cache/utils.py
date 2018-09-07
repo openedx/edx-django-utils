@@ -20,33 +20,39 @@ class _RequestCache(threading.local):
 
     The data is a dict of dicts, keyed by namespace.
     """
-    _data = {}
+    def __init__(self):
+        super(_RequestCache, self).__init__()
+        self._data = {}
 
-    @classmethod
-    def clear(cls):
+    def clear(self):
         """
         Clears all data for all namespaces.
         """
-        cls._data = {}
+        self._data = {}
 
-    @classmethod
-    def get_data(cls, namespace):
+    def data(self, namespace):
         """
         Gets the thread.local data (dict) for a given namespace.
 
         Args:
-            namespace: The namespace, or key, of the data dict.
+            namespace (string): The namespace, or key, of the data dict.
 
         Returns:
             (dict)
 
         """
-        if namespace in cls._data:
-            return cls._data[namespace]
+        assert namespace
+
+        if namespace in self._data:
+            return self._data[namespace]
 
         new_data = {}
-        cls._data[namespace] = new_data
+        self._data[namespace] = new_data
         return new_data
+
+
+# Singleton with thread-local cache
+_REQUEST_CACHE = _RequestCache()
 
 
 class RequestCache(object):
@@ -70,14 +76,14 @@ class RequestCache(object):
         """
         Clears the data for all namespaces.
         """
-        _RequestCache.clear()
+        _REQUEST_CACHE.clear()
 
     @property
     def data(self):
         """
         Returns the namespaced cached key/value pairs as a dict.
         """
-        return _RequestCache.get_data(self.namespace)
+        return _REQUEST_CACHE.data(self.namespace)
 
     def clear(self):
         """
@@ -304,7 +310,7 @@ class CachedResponse(object):
     def __repr__(self):
         # Important: Do not include the cached value to help avoid any security
         # leaks that could happen if these are logged.
-        return '''CachedResponse(is_found={}, key={}, value='*****')'''.format(self.is_found, self.key)
+        return u'''CachedResponse(is_found={}, key={}, value='*****')'''.format(self.is_found, self.key)
 
     def get_value_or_default(self, default):
         """

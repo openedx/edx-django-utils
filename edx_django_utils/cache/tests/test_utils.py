@@ -1,8 +1,10 @@
+# -*- coding: utf-8 -*-
 """
 Tests for the request cache.
 """
 # pylint: disable=missing-docstring
 
+from threading import Thread
 from unittest import TestCase
 
 import mock
@@ -15,11 +17,12 @@ from edx_django_utils.cache.utils import (
     TieredCache
 )
 
-TEST_KEY = "clobert"
-TEST_KEY_2 = "clobert2"
-EXPECTED_VALUE = "bertclob"
-EXPECTED_VALUE_2 = "bertclob2"
-TEST_NAMESPACE = "test_namespace"
+TEST_KEY = u"clöbert"
+TEST_KEY_2 = u"clöbert2"
+TEST_KEY_UNICODE = u"clöbert"
+EXPECTED_VALUE = u"bertclöb"
+EXPECTED_VALUE_2 = u"bertclöb2"
+TEST_NAMESPACE = u"test_namespåce"
 TEST_DJANGO_TIMEOUT_CACHE = 1
 
 
@@ -99,6 +102,19 @@ class TestRequestCache(TestCase):
 
         cached_response = self.other_request_cache.get_cached_response(TEST_KEY)
         self.assertFalse(cached_response.is_found)
+
+    def test_clear_all_namespaces_other_thread(self):
+        """
+        Clearing all namespaces for a different thread should not clear this
+        request cache.
+        """
+        self.request_cache.set(TEST_KEY, EXPECTED_VALUE)
+        other_thread = Thread(target=lambda: RequestCache.clear_all_namespaces())  # pylint: disable=unnecessary-lambda
+        other_thread.start()
+        other_thread.join()
+
+        cached_response = self.request_cache.get_cached_response(TEST_KEY)
+        self.assertTrue(cached_response.is_found)
 
     def test_delete(self):
         self.request_cache.set(TEST_KEY, EXPECTED_VALUE)
@@ -193,7 +209,7 @@ class CacheResponseTests(TestCase):
         with self.assertRaises(AttributeError):
             cached_response.value  # pylint: disable=pointless-statement
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE_2)
-        self.assertIn('CachedResponse(is_found={}, key={}'.format(False, TEST_KEY), cached_response.__repr__())
+        self.assertIn(u'CachedResponse(is_found={}, key={}'.format(False, TEST_KEY), cached_response.__repr__())
 
     def test_is_hit(self):
         is_found = True
@@ -202,7 +218,7 @@ class CacheResponseTests(TestCase):
         self.assertEqual(cached_response.key, TEST_KEY)
         self.assertEqual(cached_response.value, EXPECTED_VALUE)
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE)
-        self.assertIn('CachedResponse(is_found={}, key={}'.format(True, TEST_KEY), cached_response.__repr__())
+        self.assertIn(u'CachedResponse(is_found={}, key={}'.format(True, TEST_KEY), cached_response.__repr__())
 
     def test_cached_response_equals(self):
         self.assertEqual(
