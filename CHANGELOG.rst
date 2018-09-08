@@ -15,6 +15,15 @@ Unreleased
 ~~~~~~~~~~
 *
 
+[1.0.1] - 2018-09-07
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+Changed
+_______
+
+* Fixed: RequestCache now properly uses thread.local.
+* Fixed: CachedResponse.__repr__ now handles unicode.
+
 [1.0.0] - 2018-08-28
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
