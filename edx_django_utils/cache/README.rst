@@ -57,6 +57,14 @@ Sample Usage (cache miss)::
         # calculate x, set in cache, and return value.
     return x_cached_response.value
 
+**Warning**: When storing a bool, `Memcached will return an int`_.
+However, the RequestCache will return a bool. The first time a value is set
+the TieredCache may return a bool and in later requests the TieredCache may
+return an int. Therefore, do not check if the value ``is False`` or
+``is True`` explicitly.
+
+.. _Memcached will return an int: https://stackoverflow.com/questions/8169001/why-is-bool-a-subclass-of-int
+
 TieredCacheMiddleware
 ---------------------
 
