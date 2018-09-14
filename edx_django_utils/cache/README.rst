@@ -115,3 +115,11 @@ An example of the Bug::
         # calculated value is None, set None in cache, and return value.
         # BUG: None will be treated as a cache miss every time.
     return  cache_value
+    
+Future Ideas
+------------
+
+* See `ARCH-240`_ for a discussion of additional cache utilities that could
+  be made available.
+
+.. _ARCH-240: https://openedx.atlassian.net/browse/ARCH-240
