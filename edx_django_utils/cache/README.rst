@@ -57,11 +57,31 @@ Sample Usage (cache miss)::
         # calculate x, set in cache, and return value.
     return x_cached_response.value
 
-**Warning**: When storing a bool, `Memcached will return an int`_.
-However, the RequestCache will return a bool. The first time a value is set
-the TieredCache may return a bool and in later requests the TieredCache may
-return an int. Therefore, do not check if the value ``is False`` or
-``is True`` explicitly.
+Warning when storing bools
+^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+**Warning**: When storing a bool in a TieredCache that uses Memcached,
+`Memcached will return an int`_. However, the RequestCache will return a
+bool. Therefore, the first time a bool is set the TieredCache will return a
+bool and in later requests the TieredCache will return an int.
+
+Where possible, you can ensure a consistent return value by storing
+``int(my_bool)`` rather than ``my_bool``.
+
+Additionally, when checking the value, do the following check that works
+for ints::
+
+    # do this.
+    if my_bool_cached_response.is_found:
+        if my_bool_cached_response.value:
+            ...
+
+Do **not** explictly test against ``True`` or ``False``::
+
+    # do NOT do this.
+    if my_bool_cached_response.is_found:
+        if my_bool_cached_response.value is True:
+            ...
 
 .. _Memcached will return an int: https://stackoverflow.com/questions/8169001/why-is-bool-a-subclass-of-int
 
