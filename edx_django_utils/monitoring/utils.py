@@ -4,7 +4,7 @@ defined in this module can be used to report monitoring custom metrics.
 
 Usage:
 
-    from openedx.core.djangoapps import monitoring_utils
+    from edx_django_utils import monitoring as monitoring_utils
     ...
     monitoring_utils.accumulate('xb_user_state.get_many.num_items', 4)
 
