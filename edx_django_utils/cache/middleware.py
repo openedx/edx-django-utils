@@ -1,6 +1,8 @@
 """
 Caching utility middleware.
 """
+from __future__ import absolute_import, unicode_literals
+
 from edx_django_utils.private_utils import _check_middleware_dependencies
 
 from . import RequestCache, TieredCache

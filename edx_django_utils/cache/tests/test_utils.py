@@ -4,17 +4,23 @@ Tests for the request cache.
 """
 # pylint: disable=missing-docstring
 
+from __future__ import absolute_import, unicode_literals
+
 from threading import Thread
 from unittest import TestCase
 
 import mock
+import pytest
+from django.contrib.auth.models import User
+
 from edx_django_utils.cache.utils import (
     DEFAULT_REQUEST_CACHE_NAMESPACE,
     SHOULD_FORCE_CACHE_MISS_KEY,
     CachedResponse,
     CachedResponseError,
     RequestCache,
-    TieredCache
+    TieredCache,
+    get_user
 )
 
 TEST_KEY = u"clöbert"
@@ -28,6 +34,7 @@ TEST_DJANGO_TIMEOUT_CACHE = 1
 
 class TestRequestCache(TestCase):
     def setUp(self):
+        super(TestRequestCache, self).setUp()
         RequestCache.clear_all_namespaces()
         self.request_cache = RequestCache()
         self.other_request_cache = RequestCache(TEST_NAMESPACE)
@@ -143,6 +150,7 @@ class TestRequestCache(TestCase):
 
 class TestTieredCache(TestCase):
     def setUp(self):
+        super(TestTieredCache, self).setUp()
         self.request_cache = RequestCache()
         TieredCache.dangerous_clear_all_tiers()
 
@@ -244,9 +252,7 @@ class CacheResponseTests(TestCase):
         )
 
     def test_cached_response_not_equals(self):
-        self.assertTrue(
-            CachedResponse(True, TEST_KEY, EXPECTED_VALUE) != CachedResponse(True, TEST_KEY, EXPECTED_VALUE_2)
-        )
+        assert CachedResponse(True, TEST_KEY, EXPECTED_VALUE) != CachedResponse(True, TEST_KEY, EXPECTED_VALUE_2)
 
     def test_cached_response_misuse(self):
         cached_response = CachedResponse(True, TEST_KEY, EXPECTED_VALUE)
@@ -261,3 +267,17 @@ class CacheResponseTests(TestCase):
         with self.assertRaises(CachedResponseError):
             other_object = object()
             cached_response == other_object  # pylint: disable=pointless-statement
+
+
+@pytest.mark.django_db
+class UserCacheTests(TestCase):
+    def test_get_cached_user(self):
+        user = User.objects.create_user('test_user')
+        c_user = get_user(user.id)
+        assert user == c_user
+        c_user = get_user(user.id)
+        assert user == c_user
+
+    def test_get_cached_user_missing(self):
+        with self.assertRaises(User.DoesNotExist):
+            get_user(101010101)

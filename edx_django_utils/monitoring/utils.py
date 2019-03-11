@@ -18,6 +18,8 @@ https://openedx.atlassian.net/wiki/display/PERF/Custom+Metrics+in+New+Relic
 At this time, these custom metrics will only be reported to New Relic.
 
 """
+from __future__ import absolute_import, unicode_literals
+
 from contextlib import contextmanager
 
 from django.utils import six

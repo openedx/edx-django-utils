@@ -2,6 +2,7 @@
 
 -r test.txt               # Core and testing dependencies for this package
 
+futures; python_version < '3.6'
 caniusepython3            # Additional Python 3 compatibility pylint checks
 edx-lint                  # edX pylint rules and plugins
 isort                     # to standardize order of imports

@@ -2,8 +2,10 @@
 Tests for the private utils.
 """
 # pylint: disable=missing-docstring
+from __future__ import absolute_import, unicode_literals
 
 from django.test import TestCase, override_settings
+
 from edx_django_utils.private_utils import _check_middleware_dependencies
 
 

@@ -6,6 +6,8 @@ edx-django-utils).  In some cases, these utilities could be elevated to public
 methods once they get some burn-in time and find a more permanent home in the
 library.
 """
+from __future__ import absolute_import, unicode_literals
+
 from django.conf import settings
 
 

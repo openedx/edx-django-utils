@@ -1,8 +1,11 @@
 """
 Cache utilities.
 """
+from __future__ import absolute_import, unicode_literals
+
 import threading
 
+from django.contrib.auth import get_user_model
 from django.core.cache import cache as django_cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 
@@ -10,6 +13,7 @@ FORCE_CACHE_MISS_PARAM = 'force_cache_miss'
 DEFAULT_NAMESPACE = 'edx_django_utils.cache'
 DEFAULT_REQUEST_CACHE_NAMESPACE = '{}.default'.format(DEFAULT_NAMESPACE)
 SHOULD_FORCE_CACHE_MISS_KEY = 'edx_django_utils.cache.should_force_cache_miss'
+USER_MODEL = get_user_model()
 
 _CACHE_MISS = object()
 
@@ -310,7 +314,7 @@ class CachedResponse(object):
     def __repr__(self):
         # Important: Do not include the cached value to help avoid any security
         # leaks that could happen if these are logged.
-        return u'''CachedResponse(is_found={}, key={}, value='*****')'''.format(self.is_found, self.key)
+        return '''CachedResponse(is_found={}, key={}, value='*****')'''.format(self.is_found, self.key)
 
     def get_value_or_default(self, default):
         """
@@ -324,6 +328,7 @@ class CachedResponse(object):
         """
         return default if not self.is_found else self.value
 
+    # pylint: disable=nonzero-method,useless-suppression
     def __nonzero__(self):
         raise CachedResponseError()
 
@@ -341,6 +346,21 @@ class CachedResponse(object):
         else:
             return self.key == other.key  # cache misses have no value attribute
 
+    def __hash__(self):
+        return hash(self.key)
+
     def __ne__(self, other):
         """Overrides the default implementation (unnecessary in Python 3)"""
         return not self.__eq__(other)
+
+
+def get_user(user_id):
+    """
+    Return the user object from the request cache
+    """
+    key = 'auth_user.%s' % user_id
+    user = DEFAULT_REQUEST_CACHE.data.get(key, None)
+    if user is None and user_id:
+        user = USER_MODEL.objects.get(pk=user_id)
+        DEFAULT_REQUEST_CACHE.set(key, user)
+    return user
