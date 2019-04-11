@@ -108,13 +108,13 @@ Force Django Cache Miss
 ^^^^^^^^^^^^^^^^^^^^^^^
 
 To force recompute a value stored in the django cache, add the query
-parameter 'force_django_cache_miss'. This will force a CACHE_MISS.
+parameter 'force_cache_miss'. This will force a CACHE_MISS.
 
 This requires staff permissions.
 
 Example::
 
-    http://clobert.com/api/v1/resource?force_django_cache_miss=true
+    http://clobert.com/api/v1/resource?force_cache_miss=true
 
 
 CachedResponse

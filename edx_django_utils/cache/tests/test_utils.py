@@ -167,7 +167,7 @@ class TestTieredCache(TestCase):
         self.assertTrue(cached_response.is_found, 'Django cache hit should cache value in request cache.')
 
     @mock.patch('django.core.cache.cache.get')
-    def test_get_cached_response_force_django_cache_miss(self, mock_cache_get):
+    def test_get_cached_response_force_cache_miss(self, mock_cache_get):
         self.request_cache.set(SHOULD_FORCE_CACHE_MISS_KEY, True)
         mock_cache_get.return_value = EXPECTED_VALUE
         cached_response = TieredCache.get_cached_response(TEST_KEY)
