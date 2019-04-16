@@ -74,7 +74,7 @@ class TestTieredCacheMiddleware(TestCase):
 
         self.assertFalse(self.request_cache.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY).value)
 
-    def test_process_request_force_django_cache_miss(self):
+    def test_process_request_force_cache_miss(self):
         request = RequestFactory().get('/?{}=tRuE'.format(FORCE_CACHE_MISS_PARAM))
         request.user = self._mock_user(is_staff=True)
 
@@ -82,7 +82,7 @@ class TestTieredCacheMiddleware(TestCase):
 
         self.assertTrue(self.request_cache.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY).value)
 
-    def test_process_request_force_django_cache_miss_non_staff(self):
+    def test_process_request_force_cache_miss_non_staff(self):
         request = RequestFactory().get('/?{}=tRuE'.format(FORCE_CACHE_MISS_PARAM))
         request.user = self._mock_user(is_staff=False)
 

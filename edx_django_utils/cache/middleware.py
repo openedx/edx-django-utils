@@ -47,7 +47,7 @@ class TieredCacheMiddleware(object):
 
     def process_request(self, request):
         """
-        Stores whether or not FORCE_DJANGO_CACHE_MISS_KEY was supplied in the
+        Stores whether or not FORCE_CACHE_MISS_PARAM was supplied in the
         request.
         """
         TieredCache._get_and_set_force_cache_miss(request)  # pylint: disable=protected-access
