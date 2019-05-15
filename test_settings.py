@@ -41,3 +41,5 @@ LOCALE_PATHS = [
 ROOT_URLCONF = 'edx_django_utils.urls'
 
 SECRET_KEY = 'insecure-secret-key'
+CELERY_TASK_ALWAYS_EAGER = True
+TEST_RUNNER = 'djcelery.contrib.test_runner.CeleryTestSuiteRunner'

@@ -4,18 +4,20 @@
 #
 #    make upgrade
 #
-certifi==2018.8.13        # via requests
+certifi==2019.3.9         # via requests
 chardet==3.0.4            # via requests
 codecov==2.0.15
-coverage==4.5.1           # via codecov
-idna==2.7                 # via requests
-mock==2.0.0
-pbr==4.2.0                # via mock
-pluggy==0.7.1             # via tox
-py==1.5.4                 # via tox
-requests==2.19.1          # via codecov
-six==1.11.0               # via mock, tox
+coverage==4.5.3           # via codecov
+filelock==3.0.10          # via tox
+funcsigs==1.0.2           # via mock
+idna==2.8                 # via requests
+mock==3.0.5
+pluggy==0.11.0            # via tox
+py==1.8.0                 # via tox
+requests==2.21.0          # via codecov
+six==1.12.0               # via mock, tox
+toml==0.10.0              # via tox
 tox-battery==0.5.1
-tox==3.2.1
-urllib3==1.23             # via requests
-virtualenv==16.0.0        # via tox
+tox==3.11.0
+urllib3==1.24.3           # via requests
+virtualenv==16.6.0        # via tox
