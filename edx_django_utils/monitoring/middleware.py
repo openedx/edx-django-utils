@@ -15,6 +15,7 @@ from uuid import uuid4
 import psutil
 import waffle
 from django.utils import six
+
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.private_utils import _check_middleware_dependencies
 
@@ -80,7 +81,7 @@ class MonitoringCustomMetricsMiddleware(object):
     # Whether or not there was an exception, report any custom NR metrics that
     # may have been collected.
 
-    def process_response(self, request, response):  # pylint: disable=unused-argument
+    def process_response(self, request, response):
         """
         Django middleware handler to process a response
         """

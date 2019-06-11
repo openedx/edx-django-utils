@@ -4,6 +4,7 @@ Tests for the private utils.
 # pylint: disable=missing-docstring
 
 from django.test import TestCase, override_settings
+
 from edx_django_utils.private_utils import _check_middleware_dependencies
 
 

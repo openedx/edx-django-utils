@@ -8,6 +8,7 @@ from threading import Thread
 from unittest import TestCase
 
 import mock
+
 from edx_django_utils.cache.utils import (
     DEFAULT_REQUEST_CACHE_NAMESPACE,
     SHOULD_FORCE_CACHE_MISS_KEY,
@@ -28,6 +29,7 @@ TEST_DJANGO_TIMEOUT_CACHE = 1
 
 class TestRequestCache(TestCase):
     def setUp(self):
+        super(TestRequestCache, self).setUp()
         RequestCache.clear_all_namespaces()
         self.request_cache = RequestCache()
         self.other_request_cache = RequestCache(TEST_NAMESPACE)
@@ -143,6 +145,7 @@ class TestRequestCache(TestCase):
 
 class TestTieredCache(TestCase):
     def setUp(self):
+        super(TestTieredCache, self).setUp()
         self.request_cache = RequestCache()
         TieredCache.dangerous_clear_all_tiers()
 
@@ -244,8 +247,8 @@ class CacheResponseTests(TestCase):
         )
 
     def test_cached_response_not_equals(self):
-        self.assertTrue(
-            CachedResponse(True, TEST_KEY, EXPECTED_VALUE) != CachedResponse(True, TEST_KEY, EXPECTED_VALUE_2)
+        self.assertNotEqual(
+            CachedResponse(True, TEST_KEY, EXPECTED_VALUE), CachedResponse(True, TEST_KEY, EXPECTED_VALUE_2)
         )
 
     def test_cached_response_misuse(self):

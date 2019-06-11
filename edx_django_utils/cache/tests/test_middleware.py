@@ -5,9 +5,10 @@ Tests for the RequestCacheMiddleware.
 # pylint: disable=missing-docstring
 
 from django.test import RequestFactory, TestCase, override_settings
+from mock import MagicMock
+
 from edx_django_utils.cache import middleware
 from edx_django_utils.cache.utils import FORCE_CACHE_MISS_PARAM, SHOULD_FORCE_CACHE_MISS_KEY, RequestCache
-from mock import MagicMock
 
 TEST_KEY = "clobert"
 EXPECTED_VALUE = "bertclob"

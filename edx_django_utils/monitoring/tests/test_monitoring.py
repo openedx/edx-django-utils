@@ -2,9 +2,10 @@
 Tests for monitoring custom metrics.
 """
 from django.test import TestCase, override_settings
+from mock import call, patch
+
 from edx_django_utils import monitoring
 from edx_django_utils.monitoring.middleware import MonitoringCustomMetricsMiddleware, MonitoringMemoryMiddleware
-from mock import call, patch
 
 
 class TestMonitoringCustomMetrics(TestCase):
