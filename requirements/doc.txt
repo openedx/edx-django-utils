@@ -15,7 +15,7 @@ configparser==3.7.4
 contextlib2==0.5.5
 coverage==4.5.3
 django-waffle==0.16.0
-django==1.11.20
+django==1.11.21
 doc8==0.8.0
 docutils==0.14            # via doc8, readme-renderer, restructuredtext-lint, sphinx
 edx-sphinx-theme==1.4.0
@@ -28,17 +28,17 @@ markupsafe==1.1.1         # via jinja2
 mock==3.0.5
 more-itertools==5.0.0
 newrelic==4.20.0.120
-packaging==19.0           # via sphinx
+packaging==19.0
 pathlib2==2.3.3
 pbr==5.2.1                # via stevedore
 pluggy==0.12.0
 psutil==1.2.1
 py==1.8.0
 pygments==2.4.2           # via readme-renderer, sphinx
-pyparsing==2.4.0          # via packaging
+pyparsing==2.4.0
 pytest-cov==2.7.1
-pytest-django==3.4.8
-pytest==4.5.0
+pytest-django==3.5.0
+pytest==4.6.2
 pytz==2019.1
 readme-renderer==24.0
 requests==2.22.0          # via sphinx

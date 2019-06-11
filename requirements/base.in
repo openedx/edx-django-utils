@@ -1,5 +1,7 @@
 # Core requirements for using this application
 
+-c constraints.txt
+
 Django>=1.8,<2.0          # Web application framework
 django-waffle             # Allows for feature toggles in Django.
 newrelic                  # New Relic agent for performance monitoring

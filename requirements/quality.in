@@ -1,5 +1,6 @@
 # Requirements for code quality checks
 
+-c constraints.txt
 -r test.txt               # Core and testing dependencies for this package
 
 caniusepython3            # Additional Python 3 compatibility pylint checks
