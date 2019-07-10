@@ -1,12 +1,14 @@
 """
 Caching utility middleware.
 """
+from django.utils.deprecation import MiddlewareMixin
+
 from edx_django_utils.private_utils import _check_middleware_dependencies
 
 from . import RequestCache, TieredCache
 
 
-class RequestCacheMiddleware(object):
+class RequestCacheMiddleware(MiddlewareMixin):
     """
     Middleware to clear the request cache as appropriate for new requests.
     """
@@ -31,12 +33,12 @@ class RequestCacheMiddleware(object):
         return None
 
 
-class TieredCacheMiddleware(object):
+class TieredCacheMiddleware(MiddlewareMixin):
     """
     Middleware to store whether or not to force django cache misses.
     """
-    def __init__(self):
-        super(TieredCacheMiddleware, self).__init__()
+    def __init__(self, get_response=None):
+        super(TieredCacheMiddleware, self).__init__(get_response=get_response)
         # checks proper dependency order as well.
         _check_middleware_dependencies(self, required_middleware=[
             'edx_django_utils.cache.middleware.RequestCacheMiddleware',

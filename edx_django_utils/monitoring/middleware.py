@@ -35,7 +35,7 @@ class MonitoringCustomMetricsMiddleware(object):
     """
     The middleware class for adding custom metrics.
 
-    Make sure to add below the request cache in MIDDLEWARE_CLASSES.
+    Make sure to add below the request cache in MIDDLEWARE.
     """
 
     def __init__(self):
@@ -100,7 +100,7 @@ class MonitoringMemoryMiddleware(object):
     """
     Middleware for monitoring memory usage.
 
-    Make sure to add below the request cache in MIDDLEWARE_CLASSES.
+    Make sure to add below the request cache in MIDDLEWARE.
     """
     memory_data_key = u'memory_data'
     guid_key = u'guid_key'

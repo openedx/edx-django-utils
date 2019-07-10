@@ -8,7 +8,7 @@ Here is how you add the middleware::
 
 .. code-block::
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
         ...
         # Monitoring middleware must come after RequestCacheMiddleware
