@@ -31,12 +31,12 @@ def _check_middleware_dependencies(concerned_object, required_middleware):
 
     Raises:
         AssertionError if the provided dependencies don't appear in
-            MIDDLEWARE_CLASSES in the correct order.
+            MIDDLEWARE in the correct order.
 
     """
     declared_middleware = getattr(settings, 'MIDDLEWARE', None)
     if declared_middleware is None:
-        declared_middleware = settings.MIDDLEWARE_CLASSES  # Django 1.8 support
+        declared_middleware = settings.MIDDLEWARE_CLASSES  # Pre-Django 2 support
 
     # Filter out all the middleware except the ones we care about for ordering.
     matching_middleware = [mw for mw in declared_middleware if mw in required_middleware]

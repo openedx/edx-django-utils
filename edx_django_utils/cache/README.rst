@@ -96,7 +96,7 @@ This middleware should come after the RequestCacheMiddleware. Additionally,
 since this functionality checks for staff permissions, it should come after any
 authentication middleware.  Here is an example::
 
-    MIDDLEWARE_CLASSES = (
+    MIDDLEWARE = (
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
         'django.contrib.sessions.middleware.SessionMiddleware',
         ...
@@ -135,7 +135,7 @@ An example of the Bug::
         # calculated value is None, set None in cache, and return value.
         # BUG: None will be treated as a cache miss every time.
     return  cache_value
-    
+
 Future Ideas
 ------------
 
