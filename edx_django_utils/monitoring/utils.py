@@ -105,9 +105,17 @@ def function_trace(function_name):
     Wraps a chunk of code that we want to appear as a separate, explicit,
     segment in our monitoring tools.
     """
-    if newrelic:
-        nr_transaction = newrelic.agent.current_transaction()
-        with newrelic.agent.FunctionTrace(nr_transaction, function_name):
-            yield
+    # Not covering this because if we mock it, we're not really testing anything
+    # anyway. If something did break, it should show up in tests for apps that
+    # use this code with newrelic enabled, on whatever version of newrelic they
+    # run.
+    if newrelic:  # pragma: no cover
+        if newrelic.version_info[0] >= 5:
+            with newrelic.agent.FunctionTrace(function_name):
+                yield
+        else:
+            nr_transaction = newrelic.agent.current_transaction()
+            with newrelic.agent.FunctionTrace(nr_transaction, function_name):
+                yield
     else:
         yield
