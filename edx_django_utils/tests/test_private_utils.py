@@ -2,7 +2,9 @@
 Tests for the private utils.
 """
 # pylint: disable=missing-docstring
+import unittest
 
+import django
 from django.test import TestCase, override_settings
 
 from edx_django_utils.private_utils import _check_middleware_dependencies
@@ -19,6 +21,7 @@ class TestPrivateUtils(TestCase):
         middleware = _TestMiddleware()
         _check_middleware_dependencies(middleware, required_middleware=['required.Middleware'])
 
+    @unittest.skipIf(django.VERSION[0] > 1, 'MIDDLEWARE_CLASSES only works with less than django-2 versions.')
     @override_settings(MIDDLEWARE_CLASSES=['required.Middleware'])
     def test_check_middleware_dependencies_simple__classes_success(self):
         middleware = _TestMiddleware()

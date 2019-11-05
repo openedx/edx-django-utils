@@ -6,6 +6,7 @@ edx-django-utils).  In some cases, these utilities could be elevated to public
 methods once they get some burn-in time and find a more permanent home in the
 library.
 """
+import django
 from django.conf import settings
 
 
@@ -35,7 +36,7 @@ def _check_middleware_dependencies(concerned_object, required_middleware):
 
     """
     declared_middleware = getattr(settings, 'MIDDLEWARE', None)
-    if declared_middleware is None:
+    if declared_middleware is None and django.VERSION[0] < 2:
         declared_middleware = settings.MIDDLEWARE_CLASSES  # Pre-Django 2 support
 
     # Filter out all the middleware except the ones we care about for ordering.
