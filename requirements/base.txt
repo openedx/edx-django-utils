@@ -4,8 +4,8 @@
 #
 #    make upgrade
 #
-django-waffle==0.16.0
-django==1.11.21
-newrelic==4.20.0.120
+django-waffle==0.18.0
+django==1.11.26
+newrelic==5.2.2.130
 psutil==1.2.1
-pytz==2019.1              # via django
+pytz==2019.3              # via django
