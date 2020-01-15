@@ -64,17 +64,13 @@ class MonitoringCustomMetricsMiddleware(object):
         metrics_cache.set(name, value)
 
     @classmethod
-    def _batch_report(cls, request):
+    def _batch_report(cls):
         """
         Report the collected custom metrics to New Relic.
         """
         if not newrelic:
             return
         metrics_cache = cls._get_metrics_cache()
-        try:
-            newrelic.agent.add_custom_parameter('user_id', request.user.id)
-        except AttributeError:
-            pass
         for key, value in metrics_cache.data.items():
             newrelic.agent.add_custom_parameter(key, value)
 
@@ -85,14 +81,14 @@ class MonitoringCustomMetricsMiddleware(object):
         """
         Django middleware handler to process a response
         """
-        self._batch_report(request)
+        self._batch_report()
         return response
 
     def process_exception(self, request, exception):  # pylint: disable=unused-argument
         """
         Django middleware handler to process an exception
         """
-        self._batch_report(request)
+        self._batch_report()
         return None
 
 
