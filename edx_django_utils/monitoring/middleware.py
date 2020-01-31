@@ -15,6 +15,7 @@ from uuid import uuid4
 import psutil
 import waffle
 from django.utils import six
+from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.private_utils import _check_middleware_dependencies
@@ -31,15 +32,15 @@ _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
 _REQUEST_CACHE_NAMESPACE = '{}.custom_metrics'.format(_DEFAULT_NAMESPACE)
 
 
-class MonitoringCustomMetricsMiddleware(object):
+class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
     """
     The middleware class for adding custom metrics.
 
     Make sure to add below the request cache in MIDDLEWARE.
     """
 
-    def __init__(self):
-        super(MonitoringCustomMetricsMiddleware, self).__init__()
+    def __init__(self, *args, **kwargs):
+        super(MonitoringCustomMetricsMiddleware, self).__init__(*args, **kwargs)
         # checks proper dependency order as well.
         _check_middleware_dependencies(self, required_middleware=[
             'edx_django_utils.cache.middleware.RequestCacheMiddleware',
@@ -92,7 +93,7 @@ class MonitoringCustomMetricsMiddleware(object):
         return None
 
 
-class MonitoringMemoryMiddleware(object):
+class MonitoringMemoryMiddleware(MiddlewareMixin):
     """
     Middleware for monitoring memory usage.
 
@@ -101,8 +102,8 @@ class MonitoringMemoryMiddleware(object):
     memory_data_key = u'memory_data'
     guid_key = u'guid_key'
 
-    def __init__(self):
-        super(MonitoringMemoryMiddleware, self).__init__()
+    def __init__(self, *args, **kwargs):
+        super(MonitoringMemoryMiddleware, self).__init__(*args, **kwargs)
         # checks proper dependency order as well.
         _check_middleware_dependencies(self, required_middleware=[
             'edx_django_utils.cache.middleware.RequestCacheMiddleware',
