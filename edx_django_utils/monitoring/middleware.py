@@ -14,7 +14,6 @@ from uuid import uuid4
 
 import psutil
 import waffle
-from django.utils import six
 from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
@@ -85,12 +84,11 @@ class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
         self._batch_report()
         return response
 
-    def process_exception(self, request, exception):  # pylint: disable=unused-argument
+    def process_exception(self, request, exception):
         """
         Django middleware handler to process an exception
         """
         self._batch_report()
-        return None
 
 
 class MonitoringMemoryMiddleware(MiddlewareMixin):
@@ -115,7 +113,7 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
         Store memory data to log later.
         """
         if self._is_enabled():
-            self._cache.set(self.guid_key, six.text_type(uuid4()))
+            self._cache.set(self.guid_key, str(uuid4()))
             log_prefix = self._log_prefix(u"Before", request)
             self._cache.set(self.memory_data_key, self._memory_data(log_prefix))
 

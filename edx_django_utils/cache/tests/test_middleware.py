@@ -3,7 +3,6 @@
 Tests for the RequestCacheMiddleware.
 """
 # pylint: disable=missing-docstring
-
 from django.test import RequestFactory, TestCase, override_settings
 from mock import MagicMock
 
@@ -39,6 +38,7 @@ class TestRequestCacheMiddleware(TestCase):
         self._check_request_caches_cleared()
 
     def test_process_exception(self):
+        # pylint: disable=assignment-from-no-return
         response = self.middleware.process_exception(self.request, EXPECTED_VALUE)
 
         self.assertEqual(response, None)

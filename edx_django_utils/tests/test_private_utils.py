@@ -10,7 +10,7 @@ from django.test import TestCase, override_settings
 from edx_django_utils.private_utils import _check_middleware_dependencies
 
 
-class _TestMiddleware(object):
+class _TestMiddleware:
     pass
 
 
