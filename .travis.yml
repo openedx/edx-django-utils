@@ -3,7 +3,6 @@
 language: python
 
 python:
-  - 2.7
   - 3.5
   - 3.6
 
@@ -15,12 +14,6 @@ env:
 
 matrix:
   exclude:
-    - python: 2.7
-      env: TOXENV=django20
-    - python: 2.7
-      env: TOXENV=django21
-    - python: 2.7
-      env: TOXENV=django22
   include:
     - python: 3.6
       env: TOXENV=quality

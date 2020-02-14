@@ -20,8 +20,6 @@ At this time, these custom metrics will only be reported to New Relic.
 """
 from contextlib import contextmanager
 
-from django.utils import six
-
 from . import middleware
 
 try:
@@ -69,10 +67,9 @@ def set_custom_metrics_for_course_key(course_key):
     This is not cached, and only support reporting to New Relic Insights.
 
     """
-    if not newrelic:
-        return
-    newrelic.agent.add_custom_parameter('course_id', six.text_type(course_key))
-    newrelic.agent.add_custom_parameter('org', six.text_type(course_key.org))
+    if newrelic:  # pragma: no cover
+        newrelic.agent.add_custom_parameter('course_id', str(course_key))
+        newrelic.agent.add_custom_parameter('org', str(course_key.org))
 
 
 def set_custom_metric(key, value):
@@ -82,9 +79,8 @@ def set_custom_metric(key, value):
     This is not cached, and only support reporting to New Relic Insights.
 
     """
-    if not newrelic:
-        return
-    newrelic.agent.add_custom_parameter(key, value)
+    if newrelic:  # pragma: no cover
+        newrelic.agent.add_custom_parameter(key, value)
 
 
 def set_monitoring_transaction_name(name, group=None, priority=None):
@@ -94,9 +90,8 @@ def set_monitoring_transaction_name(name, group=None, priority=None):
     This is not cached, and only support reporting to New Relic.
 
     """
-    if not newrelic:
-        return
-    newrelic.agent.set_transaction_name(name, group, priority)
+    if newrelic:  # pragma: no cover
+        newrelic.agent.set_transaction_name(name, group, priority)
 
 
 @contextmanager

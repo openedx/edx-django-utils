@@ -10,3 +10,6 @@
 
  # These packages are backports which can only be installed on Python 2.7
 futures ; python_version == "2.7"
+Django<3.0 # not yet testing django 3.0
+mock<4.0   # requires python>3.5
+zipp<2.0   # newer versions require python>3.5

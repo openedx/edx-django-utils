@@ -28,6 +28,7 @@ TEST_DJANGO_TIMEOUT_CACHE = 1
 
 
 class TestRequestCache(TestCase):
+
     def setUp(self):
         super(TestRequestCache, self).setUp()
         RequestCache.clear_all_namespaces()
@@ -144,6 +145,7 @@ class TestRequestCache(TestCase):
 
 
 class TestTieredCache(TestCase):
+
     def setUp(self):
         super(TestTieredCache, self).setUp()
         self.request_cache = RequestCache()
@@ -204,6 +206,7 @@ class TestTieredCache(TestCase):
 
 
 class CacheResponseTests(TestCase):
+
     def test_is_miss(self):
         is_found = False
         cached_response = CachedResponse(is_found, TEST_KEY, EXPECTED_VALUE)
@@ -256,10 +259,6 @@ class CacheResponseTests(TestCase):
 
         with self.assertRaises(CachedResponseError):
             bool(cached_response)
-
-        with self.assertRaises(CachedResponseError):
-            # For Python 3
-            cached_response.__bool__()
 
         with self.assertRaises(CachedResponseError):
             other_object = object()

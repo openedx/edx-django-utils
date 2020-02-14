@@ -55,7 +55,7 @@ class _RequestCache(threading.local):
 _REQUEST_CACHE = _RequestCache()
 
 
-class RequestCache(object):
+class RequestCache:
     """
     A namespaced request cache for caching per-request data.
     """
@@ -143,7 +143,7 @@ class RequestCache(object):
 DEFAULT_REQUEST_CACHE = RequestCache()
 
 
-class TieredCache(object):
+class TieredCache:
     """
     A two tiered caching object with a request cache backed by a django cache.
     """
@@ -288,7 +288,7 @@ class CachedResponseError(Exception):
         super(CachedResponseError, self).__init__(message)
 
 
-class CachedResponse(object):
+class CachedResponse:
     """
     Represents a cache response including is_found status and value.
     """
@@ -323,9 +323,6 @@ class CachedResponse(object):
 
         """
         return default if not self.is_found else self.value
-
-    def __nonzero__(self):
-        raise CachedResponseError()
 
     def __bool__(self):
         raise CachedResponseError()
