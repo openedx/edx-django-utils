@@ -27,7 +27,7 @@ instructions.
 4. If D happened instead - check failed.
 
 **Reviewers:**
-- [ ] @edx/arch-review
+- [ ] @edx/arch-review (Required)
 - [ ] tag reviewer
 
 **Merge checklist:**
