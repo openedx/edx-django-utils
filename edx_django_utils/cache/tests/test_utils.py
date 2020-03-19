@@ -2,7 +2,6 @@
 """
 Tests for the request cache.
 """
-# pylint: disable=missing-docstring
 
 from threading import Thread
 from unittest import TestCase
@@ -27,8 +26,7 @@ TEST_NAMESPACE = u"test_namespåce"
 TEST_DJANGO_TIMEOUT_CACHE = 1
 
 
-class TestRequestCache(TestCase):
-
+class TestRequestCache(TestCase):  # pylint: disable=missing-class-docstring
     def setUp(self):
         super(TestRequestCache, self).setUp()
         RequestCache.clear_all_namespaces()
@@ -144,8 +142,7 @@ class TestRequestCache(TestCase):
             RequestCache(DEFAULT_REQUEST_CACHE_NAMESPACE)
 
 
-class TestTieredCache(TestCase):
-
+class TestTieredCache(TestCase):  # pylint: disable=missing-class-docstring
     def setUp(self):
         super(TestTieredCache, self).setUp()
         self.request_cache = RequestCache()
@@ -205,8 +202,7 @@ class TestTieredCache(TestCase):
         mock_cache_delete.assert_called_with(TEST_KEY)
 
 
-class CacheResponseTests(TestCase):
-
+class CacheResponseTests(TestCase):  # pylint: disable=missing-class-docstring
     def test_is_miss(self):
         is_found = False
         cached_response = CachedResponse(is_found, TEST_KEY, EXPECTED_VALUE)
