@@ -2,7 +2,6 @@
 """
 Tests for the RequestCacheMiddleware.
 """
-# pylint: disable=missing-docstring
 from django.test import RequestFactory, TestCase, override_settings
 from mock import MagicMock
 
@@ -14,7 +13,7 @@ EXPECTED_VALUE = "bertclob"
 TEST_NAMESPACE = "test_namespace"
 
 
-class TestRequestCacheMiddleware(TestCase):
+class TestRequestCacheMiddleware(TestCase):  # pylint: disable=missing-class-docstring
 
     @override_settings(MIDDLEWARE=['edx_django_utils.cache.middleware.RequestCacheMiddleware'])
     def setUp(self):
@@ -55,7 +54,7 @@ class TestRequestCacheMiddleware(TestCase):
         self.other_request_cache.set(TEST_KEY, EXPECTED_VALUE)
 
 
-class TestTieredCacheMiddleware(TestCase):
+class TestTieredCacheMiddleware(TestCase):  # pylint: disable=missing-class-docstring
 
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',

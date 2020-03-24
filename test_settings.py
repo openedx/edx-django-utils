@@ -18,26 +18,32 @@ def root(*args):
 
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': 'default.db',
-        'USER': '',
-        'PASSWORD': '',
-        'HOST': '',
-        'PORT': '',
-    }
+    "default": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "default.db",
+        "USER": "",
+        "PASSWORD": "",
+        "HOST": "",
+        "PORT": "",
+    },
+    "read_replica": {
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": "read_replica.db",
+        "USER": "",
+        "PASSWORD": "",
+        "HOST": "",
+        "PORT": "",
+    },
 }
 
 INSTALLED_APPS = (
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'edx_django_utils',
+    "django.contrib.auth",
+    "django.contrib.contenttypes",
+    "edx_django_utils",
 )
 
-LOCALE_PATHS = [
-    root('edx_django_utils', 'conf', 'locale'),
-]
+LOCALE_PATHS = [root("edx_django_utils", "conf", "locale")]
 
-ROOT_URLCONF = 'edx_django_utils.urls'
+ROOT_URLCONF = "edx_django_utils.urls"
 
-SECRET_KEY = 'insecure-secret-key'
+SECRET_KEY = "insecure-secret-key"

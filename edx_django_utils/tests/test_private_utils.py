@@ -1,7 +1,6 @@
 """
 Tests for the private utils.
 """
-# pylint: disable=missing-docstring
 import unittest
 
 import django
@@ -14,7 +13,7 @@ class _TestMiddleware:
     pass
 
 
-class TestPrivateUtils(TestCase):
+class TestPrivateUtils(TestCase):  # pylint: disable=missing-class-docstring
 
     @override_settings(MIDDLEWARE=['required.Middleware'])
     def test_check_middleware_dependencies_simple_success(self):
