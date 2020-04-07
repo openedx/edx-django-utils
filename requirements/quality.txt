@@ -9,26 +9,26 @@ astroid==2.3.3            # via pylint, pylint-celery
 attrs==19.3.0
 backports.functools-lru-cache==1.6.1  # via caniusepython3
 caniusepython3==7.2.0
-certifi==2019.11.28       # via requests
+certifi==2020.4.5.1       # via requests
 chardet==3.0.4            # via requests
 click-log==0.3.2          # via edx-lint
-click==7.0                # via click-log, edx-lint
-coverage==5.0.3
+click==7.1.1              # via click-log, edx-lint
+coverage==5.0.4
 distlib==0.3.0            # via caniusepython3
-django-waffle==0.19.0
-django==2.2.10
+django-waffle==0.20.0
+django==2.2.12
 edx-lint==1.4.1
-idna==2.8                 # via requests
-importlib-metadata==1.5.0
+idna==2.9                 # via requests
+importlib-metadata==1.6.0
 isort==4.3.21
 lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
 mock==3.0.5
 more-itertools==8.2.0
-newrelic==5.6.0.135
-packaging==20.1
+newrelic==5.10.0.138
+packaging==20.3
 pluggy==0.13.1
-psutil==1.2.1
+psutil==5.7.0
 py==1.8.1
 pycodestyle==2.5.0
 pydocstyle==5.0.2
@@ -36,20 +36,20 @@ pylint-celery==0.3        # via edx-lint
 pylint-django==2.0.11     # via edx-lint
 pylint-plugin-utils==0.6  # via pylint-celery, pylint-django
 pylint==2.4.2             # via edx-lint, pylint-celery, pylint-django, pylint-plugin-utils
-pyparsing==2.4.6
+pyparsing==2.4.7
 pytest-cov==2.8.1
-pytest-django==3.8.0
-pytest==5.3.5
+pytest-django==3.9.0
+pytest==5.4.1
 pytz==2019.3
-requests==2.22.0          # via caniusepython3
+requests==2.23.0          # via caniusepython3
 six==1.14.0
 snowballstemmer==2.0.0    # via pydocstyle
-sqlparse==0.3.0
+sqlparse==0.3.1
 typed-ast==1.4.1          # via astroid
 urllib3==1.25.8           # via requests
-wcwidth==0.1.8
+wcwidth==0.1.9
 wrapt==1.11.2             # via astroid
-zipp==1.1.0
+zipp==1.2.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools

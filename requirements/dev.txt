@@ -10,21 +10,22 @@ astroid==2.3.3
 attrs==19.3.0
 backports.functools-lru-cache==1.6.1
 caniusepython3==7.2.0
-certifi==2019.11.28
+certifi==2020.4.5.1
 chardet==3.0.4
 click-log==0.3.2
-click==7.0
-codecov==2.0.15
-coverage==5.0.3
+click==7.1.1
+codecov==2.0.22
+coverage==5.0.4
 diff-cover==2.6.0
 distlib==0.3.0
-django-waffle==0.19.0
-django==2.2.10
+django-waffle==0.20.0
+django==2.2.12
 edx-i18n-tools==0.5.0
 edx-lint==1.4.1
 filelock==3.0.12
-idna==2.8
-importlib-metadata==1.5.0
+idna==2.9
+importlib-metadata==1.6.0
+importlib-resources==1.4.0
 inflect==4.1.0            # via jinja2-pluralize
 isort==4.3.21
 jinja2-pluralize==0.3.0   # via diff-cover
@@ -34,41 +35,41 @@ markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1
 mock==3.0.5
 more-itertools==8.2.0
-newrelic==5.6.0.135
-packaging==20.1
+newrelic==5.10.0.138
+packaging==20.3
 path.py==12.4.0           # via edx-i18n-tools
 path==13.1.0              # via path.py
-pip-tools==4.4.1
+pip-tools==4.5.1
 pluggy==0.13.1
 polib==1.1.0              # via edx-i18n-tools
-psutil==1.2.1
+psutil==5.7.0
 py==1.8.1
 pycodestyle==2.5.0
 pydocstyle==5.0.2
-pygments==2.5.2           # via diff-cover
+pygments==2.6.1           # via diff-cover
 pylint-celery==0.3
 pylint-django==2.0.11
 pylint-plugin-utils==0.6
 pylint==2.4.2
-pyparsing==2.4.6
+pyparsing==2.4.7
 pytest-cov==2.8.1
-pytest-django==3.8.0
-pytest==5.3.5
+pytest-django==3.9.0
+pytest==5.4.1
 pytz==2019.3
-pyyaml==5.3               # via edx-i18n-tools
-requests==2.22.0
+pyyaml==5.3.1             # via edx-i18n-tools
+requests==2.23.0
 six==1.14.0
 snowballstemmer==2.0.0
-sqlparse==0.3.0
+sqlparse==0.3.1
 toml==0.10.0
 tox-battery==0.5.2
-tox==3.14.3
+tox==3.14.6
 typed-ast==1.4.1
 urllib3==1.25.8
-virtualenv==20.0.3
-wcwidth==0.1.8
+virtualenv==20.0.16
+wcwidth==0.1.9
 wrapt==1.11.2
-zipp==1.1.0
+zipp==1.2.0
 
 # The following packages are considered to be unsafe in a requirements file:
 # setuptools
