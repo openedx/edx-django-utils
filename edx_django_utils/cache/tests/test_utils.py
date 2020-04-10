@@ -6,6 +6,7 @@ Tests for the request cache.
 from threading import Thread
 from unittest import TestCase
 
+import ddt
 import mock
 
 from edx_django_utils.cache.utils import (
@@ -14,7 +15,8 @@ from edx_django_utils.cache.utils import (
     CachedResponse,
     CachedResponseError,
     RequestCache,
-    TieredCache
+    TieredCache,
+    get_cache_key
 )
 
 TEST_KEY = u"clöbert"
@@ -259,3 +261,25 @@ class CacheResponseTests(TestCase):  # pylint: disable=missing-class-docstring
         with self.assertRaises(CachedResponseError):
             other_object = object()
             cached_response == other_object  # pylint: disable=pointless-statement
+
+
+@ddt.ddt
+class TestCacheUtils(TestCase):
+
+    """
+        Class to test cache utils.
+    """
+    @ddt.data(
+        (get_cache_key(site_domain="example.com", resource="catalogs"), True),   # test same key
+        (get_cache_key(resource="catalogs", site_domain="example.com"), True),   # test sorted arguments
+        (get_cache_key(site_domain=b"example.com", resource="catalogs"), True),  # test byte str value
+        (get_cache_key(site_domain="example.com", resource="users"), False),     # test one different argument
+        (get_cache_key(site_domain="other.com", resource="catalogs"), False),    # test another different argument
+    )
+    @ddt.unpack
+    def test_get_cache_key(self, test_key, result):
+        """
+            tests get_cache_key utility.
+        """
+        key = get_cache_key(site_domain="example.com", resource="catalogs")
+        self.assertEqual(key == test_key, result)
