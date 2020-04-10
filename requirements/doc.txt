@@ -11,6 +11,7 @@ bleach==3.1.0             # via readme-renderer
 certifi==2019.11.28       # via requests
 chardet==3.0.4            # via doc8, requests
 coverage==5.0.3
+ddt==1.3.1                # via -r requirements/test.txt
 django-waffle==0.19.0
 django==2.2.10
 doc8==0.8.0

@@ -1,10 +1,12 @@
 """
 Cache utilities.
 """
+import hashlib
 import threading
 
 from django.core.cache import cache as django_cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
+from django.utils.encoding import force_str
 
 FORCE_CACHE_MISS_PARAM = 'force_cache_miss'
 DEFAULT_NAMESPACE = 'edx_django_utils.cache'
@@ -12,6 +14,30 @@ DEFAULT_REQUEST_CACHE_NAMESPACE = '{}.default'.format(DEFAULT_NAMESPACE)
 SHOULD_FORCE_CACHE_MISS_KEY = 'edx_django_utils.cache.should_force_cache_miss'
 
 _CACHE_MISS = object()
+
+
+def get_cache_key(**kwargs):
+    """
+    Get MD5 encoded cache key for given arguments.
+
+    **Note:** We convert keyword arguments to their string form to build the cache key. So do not pass
+    arguments that can't be converted to strings.  Also, don't pass arguments that may not consistently
+    be converted to the same string, like an unsorted dict.
+    Here is the format of key before MD5 encryption.
+        key1:value1__key2:value2 ...
+    Example:
+        >>> get_cache_key(site_domain="example.com", resource="catalogs")
+        # Here is key format for above call
+        # "site_domain:example.com__resource:catalogs"
+        a54349175618ff1659dee0978e3149ca
+    Arguments:
+        **kwargs: Key word arguments that need to be present in cache key.
+    Returns:
+         An MD5 encoded key uniquely identified by the key word arguments.
+    """
+    key = '__'.join([u'{}:{}'.format(k, force_str(v)) for k, v in sorted(kwargs.items())])
+
+    return hashlib.md5(key.encode('utf-8')).hexdigest()
 
 
 class _RequestCache(threading.local):
