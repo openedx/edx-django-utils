@@ -115,6 +115,11 @@ An example of the Bug::
         # BUG: None will be treated as a cache miss every time.
     return  cache_value
 
+User Cache Utilities
+--------------------
+
+See docstrings for details of ``CachedAuthenticatedUserDetails``, used to cache authenticated user details that are not stored in the database.
+
 Future Ideas
 ------------
 
