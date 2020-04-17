@@ -5,6 +5,11 @@ Cache utilities that implement `OEP-0022: Caching in Django`_.
 
 .. _`OEP-0022: Caching in Django`: https://github.com/edx/open-edx-proposals/blob/master/oeps/oep-0022-bp-django-caches.rst
 
+get_cache_key
+-------------
+
+A function for easily creating cache keys.  See its docstring for details.
+
 RequestCache
 ------------
 
