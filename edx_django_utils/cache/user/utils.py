@@ -3,8 +3,7 @@ User cache utilities.
 """
 import logging
 
-from edx_django_utils.cache import TieredCache
-from edx_django_utils.cache.utils import get_cache_key
+from edx_django_utils.cache import TieredCache, get_cache_key
 from edx_django_utils.monitoring import set_custom_metric
 
 log = logging.getLogger(__name__)
