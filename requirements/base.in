@@ -2,7 +2,7 @@
 
 -c constraints.txt
 
-Django>=1.11              # Web application framework
+Django                    # Web application framework
 django-waffle             # Allows for feature toggles in Django.
 newrelic                  # New Relic agent for performance monitoring
 psutil==1.2.1             # Library for retrieving information on running processes and system utilization
