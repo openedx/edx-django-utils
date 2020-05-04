@@ -1,37 +1,22 @@
 # Config file for automatic testing at travis-ci.org
 
 language: python
-
 python:
-  - 3.5
-  - 3.6
-
+- 3.5
+- 3.8
 env:
-  - TOXENV=django111
-  - TOXENV=django20
-  - TOXENV=django21
-  - TOXENV=django22
-
-matrix:
-  exclude:
-  include:
-    - python: 3.6
-      env: TOXENV=quality
-    - python: 3.6
-      env: TOXENV=docs
+- TOXENV=django22
+- TOXENV=docs
+- TOXENV=quality
 
 cache:
-  - pip
-
+- pip
 install:
-  - pip install -r requirements/travis.txt
-
+- pip install -r requirements/travis.txt
 script:
-  - tox
-
+- tox
 after_success:
-  - codecov
-
+- codecov
 deploy:
   provider: pypi
   user: edx
@@ -40,4 +25,5 @@ deploy:
   distributions: sdist bdist_wheel
   on:
     tags: true
-    condition: '$TOXENV = quality'
+    python: 3.5
+    condition: $TOXENV = quality
