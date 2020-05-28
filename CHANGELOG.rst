@@ -12,6 +12,10 @@ Change Log
 .. There should always be an "Unreleased" section for changes pending release.
 
 
+[3.2.3] - 2020-05-30
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+* Removed ceninusepy3 usage.
+
 [3.2.2] - 2020-05-04
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 * Added support for python 3.8 and dropped support for Django versions older than 2.2

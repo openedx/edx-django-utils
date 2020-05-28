@@ -8,8 +8,9 @@
 # pin when possible.  Writing an issue against the offending project and
 # linking to it here is good.
 
- # These packages are backports which can only be installed on Python 2.7
-futures ; python_version == "2.7"
+
+
 Django<2.3 # to stay on LTS version
 mock<4.0   # requires python>3.5
 zipp<2.0   # newer versions require python>3.5
+

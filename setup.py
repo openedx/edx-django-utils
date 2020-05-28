@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 # Note: pylint disable of useless-suppression is required because the errors
 # are different for python 2.7 and python 3.6.
-# pylint: disable=C0111,W6100,useless-suppression
+# pylint: disable=C0111,useless-suppression
 """
 Package metadata for edx-django-utils.
 """
