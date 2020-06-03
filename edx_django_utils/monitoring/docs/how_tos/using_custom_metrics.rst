@@ -5,7 +5,7 @@ Enhanced Monitoring and Custom Metrics
    :local:
    :depth: 2
 
-What is a Custom Metrics?
+What is a Custom Metric?
 -------------------------
 
 A custom metric is a name/value pair that you define, which will be associated with a request and available in various places in your monitoring software. For example, in Open edX, there is a ``request_user_id`` made available to all requests using the `RequestMetricsMiddleware`_.
