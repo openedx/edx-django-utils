@@ -51,7 +51,6 @@ Tips for Using Custom Metrics
     * is_request_auth_session: True/False.
 
 * When possible, set the custom metric for both the positive and negative case. This helps avoid misinterpreting an incorrect query that doesn't turn up a metric.
-* Easily check a custom metric across multiple environments (``appName`` in NewRelic).  For example, for edx.org, this means checking Production and Edge, where Edge might often be forgotten.
 * Avoid dynamic metric names. More than 2000 metrics (for NewRelic) may cause issues.
 
 Common Use Cases for Custom Metrics
@@ -73,6 +72,7 @@ In addition to `Tips for Using Custom Metrics`_, remember to:
 * Use ``metric-name is not null`` to find all rows with a value.
 * Look at the metric values in addition to getting non-null counts.  A value of 'None' is not null, but would be counted.
 * If the metric is added to a library, ensure all applications have the upgraded library before deciding whether or not the code is in use.
+* Check across multiple environments (``appName`` in NewRelic).  For example, for edx.org, you can ensure that the metric is also not in use in Edge, which is sometimes different than Production.
 
 Debugging Production Issues
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
