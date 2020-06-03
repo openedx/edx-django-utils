@@ -10,7 +10,7 @@ What is a Custom Metric?
 
 A custom metric is a name/value pair that you define, which will be associated with a request and available in various places in your monitoring software. For example, in Open edX, there is a ``request_user_id`` made available to all requests using the `RequestMetricsMiddleware`_.
 
-If you are using NewRelic, you can search for PageVeiws, Transactions, TransactionErrors, etc. using NewRelic Insights, either with custom queries using the Data Explorer (searching "Events", not Metrics). They will also appear in other places, like when viewing an error in NewRelic APM.
+If you are using NewRelic, you can search for PageViews, Transactions, TransactionErrors, etc. using NewRelic Insights, either with custom queries using the Data Explorer (searching "Events", not Metrics). They will also appear in other places, like when viewing an error in NewRelic APM.
 
 .. _RequestMetricsMiddleware: https://github.com/edx/edx-drf-extensions/blob/master/edx_rest_framework_extensions/middleware.py#L12-L39
 
