@@ -19,6 +19,10 @@ Here is how you add the middleware:
 
     MIDDLEWARE = (
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        # Generate code ownership metrics. Keep this immediately after RequestCacheMiddleware.
+        # TODO: ARCHBOM-1283: Once this ticket is closed this middleware can live
+        # anywhere, and the above comment will no longer be required.
+        'edx_django_utils.monitoring.code_owner.middleware.CodeOwnerMetricMiddleware',
         ...
         # Monitoring middleware must come after RequestCacheMiddleware
         'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
@@ -29,3 +33,8 @@ Monitoring Memory Usage
 -----------------------
 
 In addition to adding the MonitoringMemoryMiddleware, you will need to enable a waffle switch ``edx_django_utils.monitoring.enable_memory_middleware`` to enable the additional monitoring.
+
+Code Owner Custom Metric
+------------------------
+
+See docstrings for ``CodeOwnerMetricMiddleware`` for configuring the ``code_owner`` custom metric for your IDA.
