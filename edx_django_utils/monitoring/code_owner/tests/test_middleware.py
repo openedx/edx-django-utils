@@ -1,14 +1,14 @@
 """
 Tests for the code_owner monitoring middleware
 """
+from unittest import TestCase
+from unittest.mock import ANY
+
 import ddt
 from django.conf.urls import url
 from django.test import override_settings, RequestFactory
-from django.urls import resolve
 from django.views.generic import View
 from mock import call, patch, Mock
-from unittest import TestCase
-from unittest.mock import ANY
 
 from edx_django_utils.monitoring.code_owner.middleware import CodeOwnerMetricMiddleware
 from edx_django_utils.monitoring.code_owner.tests.mock_views import MockViewTest
@@ -63,10 +63,12 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     def test_code_owner_mapping_hits_and_misses(
         self, request_path, expected_owner, mock_set_custom_metric
     ):
-        with patch('edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS', _process_code_owner_mappings()):
+        with patch(
+                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
+                _process_code_owner_mappings()
+        ):
             request = RequestFactory().get(request_path)
             self.middleware(request)
-            view_func, _, _ = resolve(request_path)
             expected_view_func_module = self._REQUEST_PATH_TO_MODULE_PATH[request_path]
             self._assert_code_owner_custom_metrics(
                 expected_view_func_module, mock_set_custom_metric, expected_code_owner=expected_owner
@@ -83,7 +85,10 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     )
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_metric')
     def test_no_resolver_for_request_path(self, mock_set_custom_metric):
-        with patch('edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS', _process_code_owner_mappings()):
+        with patch(
+                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
+                _process_code_owner_mappings()
+        ):
             request = RequestFactory().get('/bad/path/')
             self.middleware(request)
             self._assert_code_owner_custom_metrics(
@@ -96,7 +101,10 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     )
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_metric')
     def test_load_config_with_invalid_dict(self, mock_set_custom_metric):
-        with patch('edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS', _process_code_owner_mappings()):
+        with patch(
+                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
+                _process_code_owner_mappings()
+        ):
             request = RequestFactory().get('/test/')
             self.middleware(request)
             expected_view_func_module = self._REQUEST_PATH_TO_MODULE_PATH['/test/']
@@ -106,7 +114,6 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
 
     def _assert_code_owner_custom_metrics(
         self, view_func_module, mock_set_custom_metric, expected_code_owner=None, has_error=False,
-        process_view_func=None,
     ):
         call_list = []
         if view_func_module:
