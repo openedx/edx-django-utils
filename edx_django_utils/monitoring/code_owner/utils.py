@@ -92,6 +92,7 @@ def _process_code_owner_mappings():
         # this will also trigger an error custom metric that can be alerted on.
         return _INVALID_CODE_OWNER_MAPPING
 
+
 # .. toggle_name: CODE_OWNER_MAPPINGS
 # .. toggle_implementation: DjangoSetting
 # .. toggle_default: None
