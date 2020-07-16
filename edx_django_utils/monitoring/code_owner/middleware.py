@@ -44,6 +44,8 @@ class CodeOwnerMetricMiddleware:
             if code_owner:
                 set_custom_metric('code_owner', code_owner)
         except Resolver404:
-            set_custom_metric('code_owner_mapping_error', "Couldn't resolve view for request path {}".format(request.path))
-        except Exception as e:
+            set_custom_metric(
+                'code_owner_mapping_error', "Couldn't resolve view for request path {}".format(request.path)
+            )
+        except Exception as e:  # pylint: disable=broad-except
             set_custom_metric('code_owner_mapping_error', e)

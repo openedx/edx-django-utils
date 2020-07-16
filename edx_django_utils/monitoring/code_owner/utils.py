@@ -86,16 +86,17 @@ def _process_code_owner_mappings():
                     path_to_code_owner_mappings[path_without_prefix] = code_owner
 
         return path_to_code_owner_mappings
-    except Exception as e:
+    except Exception as e:  # pylint: disable=broad-except
         log.exception('Error processing code_owner_mappings. {}'.format(e))
         # errors should be unlikely due do scripting the setting values.
-        # this will trigger an error custom metric that can be alerted on.
+        # this will also trigger an error custom metric that can be alerted on.
         return _INVALID_CODE_OWNER_MAPPING
 
 # .. toggle_name: CODE_OWNER_MAPPINGS
 # .. toggle_implementation: DjangoSetting
 # .. toggle_default: None
-# .. toggle_description: Used to set monitoring custom metrics for owner. Dict with keys of code owner and value as list of dotted path module names owned by code owner.
+# .. toggle_description: Used to set monitoring custom metrics for owner. Dict with keys of code owner and value as
+#      list of dotted path module names owned by code owner.
 # .. toggle_category: monitoring
 # .. toggle_use_cases: open_edx
 # .. toggle_creation_date: 2020-05-29

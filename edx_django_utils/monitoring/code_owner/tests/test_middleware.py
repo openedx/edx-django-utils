@@ -115,6 +115,7 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     def _assert_code_owner_custom_metrics(
         self, view_func_module, mock_set_custom_metric, expected_code_owner=None, has_error=False,
     ):
+        """ Performs a set of assertions around having set the proper custom metrics. """
         call_list = []
         if view_func_module:
             call_list.append(call('view_func_module', view_func_module))

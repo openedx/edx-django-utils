@@ -10,4 +10,3 @@ class MockViewTest(View):
     """
     Mock view for use in testing.
     """
-    pass
