@@ -104,4 +104,3 @@ class MonitoringUtilsTests(TestCase):
                 )
                 average_time = time / call_iterations
                 self.assertLess(average_time, 0.0005, 'Mapping takes {}s which is too slow.'.format(average_time))
-
