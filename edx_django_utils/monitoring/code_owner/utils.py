@@ -3,6 +3,7 @@ Utilities for monitoring code_owner
 """
 import logging
 import re
+
 from django.conf import settings
 
 log = logging.getLogger(__name__)

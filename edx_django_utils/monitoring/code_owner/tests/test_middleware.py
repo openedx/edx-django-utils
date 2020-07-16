@@ -6,9 +6,9 @@ from unittest.mock import ANY
 
 import ddt
 from django.conf.urls import url
-from django.test import override_settings, RequestFactory
+from django.test import RequestFactory, override_settings
 from django.views.generic import View
-from mock import call, patch, Mock
+from mock import Mock, call, patch
 
 from edx_django_utils.monitoring.code_owner.middleware import CodeOwnerMetricMiddleware
 from edx_django_utils.monitoring.code_owner.tests.mock_views import MockViewTest

@@ -2,7 +2,9 @@
 Middleware for code_owner custom metric
 """
 import logging
+
 from django.urls import Resolver404, resolve
+
 from edx_django_utils.monitoring import set_custom_metric
 
 from .utils import get_code_owner_from_module, is_code_owner_mappings_configured

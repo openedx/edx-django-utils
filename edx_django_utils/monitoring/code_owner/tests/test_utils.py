@@ -11,7 +11,7 @@ from mock import patch
 from edx_django_utils.monitoring.code_owner.utils import (
     _process_code_owner_mappings,
     get_code_owner_from_module,
-    is_code_owner_mappings_configured,
+    is_code_owner_mappings_configured
 )
 
 
