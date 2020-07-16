@@ -105,4 +105,4 @@ class MonitoringUtilsTests(TestCase):
                 average_time = time / call_iterations
                 self.assertLess(average_time, 0.0005, 'Mapping takes {}s which is too slow.'.format(average_time))
 
-# Keeping pycodestyle happy.  pylint: disable=trailing-newlines
+# Pointless comment to keep both pycodestyle and pylint happy.
