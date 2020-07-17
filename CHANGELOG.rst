@@ -11,11 +11,24 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
-
-[3.3.0] - 2020-07-017
-~~~~~~~~~~~~~~~~~~~~~
+[3.4.0] - 2020-07-20
+~~~~~~~~~~~~~~~~~~~~
 
 Added
+-----
+
+* Added get_current_transaction for monitoring that returns a transaction object with a name property.
+
+Updated
+-------
+
+* Updated CodeOwnerMetricMiddleware to use NewRelic's current transaction for cases where resolve() doesn't work to determine the code_owner, like for Middleware.
+
+[3.3.0] - 2020-07-16
+~~~~~~~~~~~~~~~~~~~~
+
+Added
+-----
 
 * CodeOwnerMetricMiddleware was moved here (from edx-platform) in order to be able to take advantage of the ``code_owner`` metric in other IDAs. For details on this decision, see the `ADR for monitoring code owner`_. See the docstring for more details on usage.
 
