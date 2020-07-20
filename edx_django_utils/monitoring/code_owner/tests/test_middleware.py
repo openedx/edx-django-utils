@@ -74,6 +74,13 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
                 mock_set_custom_metric, expected_code_owner=expected_owner, path_module=expected_path_module
             )
 
+            mock_set_custom_metric.reset_mock()
+            process_exception = self.middleware.process_exception(request, None)
+            self._assert_code_owner_custom_metrics(
+                mock_set_custom_metric, expected_code_owner=expected_owner, path_module=expected_path_module
+            )
+            self.assertIsNone(process_exception)
+
     @override_settings(
         CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views']},
         ROOT_URLCONF=__name__,
@@ -97,6 +104,31 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
             self.middleware(request)
             self._assert_code_owner_custom_metrics(
                 mock_set_custom_metric, expected_code_owner=expected_owner, transaction_name=transaction_name
+            )
+
+            mock_set_custom_metric.reset_mock()
+            process_exception = self.middleware.process_exception(request, None)
+            self._assert_code_owner_custom_metrics(
+                mock_set_custom_metric, expected_code_owner=expected_owner, transaction_name=transaction_name
+            )
+            self.assertIsNone(process_exception)
+
+    @override_settings(
+        CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views']},
+        ROOT_URLCONF=__name__,
+    )
+    @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_metric')
+    @patch('newrelic.agent')
+    def test_code_owner_transaction_mapping_error(self, mock_newrelic_agent, mock_set_custom_metric):
+        mock_newrelic_agent.current_transaction = Mock(side_effect=Exception('forced exception'))
+        with patch(
+                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
+                _process_code_owner_mappings()
+        ):
+            request = RequestFactory().get('/bad/path/')
+            self.middleware(request)
+            self._assert_code_owner_custom_metrics(
+                mock_set_custom_metric, has_path_error=True, has_transaction_error=True
             )
 
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_metric')

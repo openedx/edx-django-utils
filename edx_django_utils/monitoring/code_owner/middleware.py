@@ -36,7 +36,7 @@ class CodeOwnerMetricMiddleware:
         return response
 
     def process_exception(self, request, exception):
-        pass
+        self._set_code_owner_metric(request)
 
     def _set_code_owner_metric(self, request):
         """
@@ -75,7 +75,7 @@ class CodeOwnerMetricMiddleware:
             (str, str): (code_owner, error_message), where at least one of these should be None
 
         """
-        if not is_code_owner_mappings_configured():
+        if not is_code_owner_mappings_configured():  # pragma: no cover
             return None, None
 
         try:
