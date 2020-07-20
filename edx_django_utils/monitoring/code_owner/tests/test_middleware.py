@@ -75,11 +75,10 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
             )
 
             mock_set_custom_metric.reset_mock()
-            process_exception = self.middleware.process_exception(request, None)
+            self.middleware.process_exception(request, None)
             self._assert_code_owner_custom_metrics(
                 mock_set_custom_metric, expected_code_owner=expected_owner, path_module=expected_path_module
             )
-            self.assertIsNone(process_exception)
 
     @override_settings(
         CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views']},
@@ -107,11 +106,10 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
             )
 
             mock_set_custom_metric.reset_mock()
-            process_exception = self.middleware.process_exception(request, None)
+            self.middleware.process_exception(request, None)
             self._assert_code_owner_custom_metrics(
                 mock_set_custom_metric, expected_code_owner=expected_owner, transaction_name=transaction_name
             )
-            self.assertIsNone(process_exception)
 
     @override_settings(
         CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views']},

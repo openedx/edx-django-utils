@@ -37,7 +37,6 @@ class CodeOwnerMetricMiddleware:
 
     def process_exception(self, request, exception):
         self._set_code_owner_metric(request)
-        return None
 
     def _set_code_owner_metric(self, request):
         """
