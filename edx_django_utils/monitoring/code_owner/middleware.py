@@ -40,7 +40,10 @@ class CodeOwnerMetricMiddleware:
 
     def _set_code_owner_metric(self, request):
         """
-        Sets the code_owner custom metric.
+        Sets the code_owner custom metric, as well as several supporting custom metrics.
+
+        See CodeOwnerMetricMiddleware docstring for a complete list of metrics.
+
         """
         code_owner, path_error = self._set_code_owner_metric_from_path(request)
         if code_owner:
