@@ -73,3 +73,13 @@ class TestMonitoringCustomMetrics(TestCase):
     def test_memory_middleware_dependencies_failure(self):
         with self.assertRaises(AssertionError):
             MonitoringMemoryMiddleware()
+
+    @patch('newrelic.agent')
+    def test_get_current_transaction(self, mock_newrelic_agent):
+        mock_newrelic_agent.current_transaction().name = 'fake-transaction'
+        current_transaction = monitoring.get_current_transaction()
+        self.assertEqual(current_transaction.name, 'fake-transaction')
+
+    def test_get_current_transaction_without_newrelic(self):
+        current_transaction = monitoring.get_current_transaction()
+        self.assertEqual(current_transaction.name, None)
