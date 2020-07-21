@@ -81,6 +81,33 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
             )
 
     @override_settings(
+        CODE_OWNER_MAPPINGS={
+            'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views'],
+            'team-blue': ['*'],
+        },
+        ROOT_URLCONF=__name__,
+    )
+    @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_metric')
+    @ddt.data(
+        ('/middleware-test/', 'team-blue'),
+        ('/test/', 'team-red'),
+    )
+    @ddt.unpack
+    def test_code_owner_path_mapping_with_catch_all(
+        self, request_path, expected_owner, mock_set_custom_metric
+    ):
+        with patch(
+                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
+                _process_code_owner_mappings()
+        ):
+            request = RequestFactory().get(request_path)
+            self.middleware(request)
+            expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH[request_path]
+            self._assert_code_owner_custom_metrics(
+                mock_set_custom_metric, expected_code_owner=expected_owner, path_module=expected_path_module
+            )
+
+    @override_settings(
         CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views']},
         ROOT_URLCONF=__name__,
     )
@@ -107,6 +134,34 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
 
             mock_set_custom_metric.reset_mock()
             self.middleware.process_exception(request, None)
+            self._assert_code_owner_custom_metrics(
+                mock_set_custom_metric, expected_code_owner=expected_owner, transaction_name=transaction_name
+            )
+
+    @override_settings(
+        CODE_OWNER_MAPPINGS={
+            'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views'],
+            'team-blue': ['*'],
+        },
+        ROOT_URLCONF=__name__,
+    )
+    @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_metric')
+    @patch('newrelic.agent')
+    @ddt.data(
+        ('edx_django_utils.monitoring.code_owner.tests.test_middleware:MockMiddlewareViewTest', 'team-blue'),
+        ('edx_django_utils.monitoring.code_owner.tests.mock_views:MockViewTest', 'team-red'),
+    )
+    @ddt.unpack
+    def test_code_owner_transaction_mapping__with_catch_all(
+        self, transaction_name, expected_owner, mock_newrelic_agent, mock_set_custom_metric
+    ):
+        mock_newrelic_agent.current_transaction().name = transaction_name
+        with patch(
+                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
+                _process_code_owner_mappings()
+        ):
+            request = RequestFactory().get('/bad/path/')
+            self.middleware(request)
             self._assert_code_owner_custom_metrics(
                 mock_set_custom_metric, expected_code_owner=expected_owner, transaction_name=transaction_name
             )
@@ -149,6 +204,19 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
             self._assert_code_owner_custom_metrics(
                 mock_set_custom_metric, has_path_error=True, has_transaction_error=True
             )
+
+    @override_settings(
+        CODE_OWNER_MAPPINGS={'team-red': ['*']},
+    )
+    @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_metric')
+    def test_catch_all_instead_of_errors(self, mock_set_custom_metric):
+        with patch(
+                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
+                _process_code_owner_mappings()
+        ):
+            request = RequestFactory().get('/bad/path/')
+            self.middleware(request)
+            self._assert_code_owner_custom_metrics(mock_set_custom_metric, expected_code_owner='team-red')
 
     @override_settings(
         CODE_OWNER_MAPPINGS=['invalid_setting_as_list'],

@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[3.5.0] - 2020-07-22
+
+Updated
+-------
+
+* Added a catch-all capability to CodeOwnerMetricMiddleware when CODE_OWNER_MAPPINGS includes a '*' as a team's module. The catch-all is used only if there is no other match.
+
 [3.4.0] - 2020-07-20
 ~~~~~~~~~~~~~~~~~~~~
 
