@@ -12,6 +12,7 @@ Change Log
 .. There should always be an "Unreleased" section for changes pending release.
 
 [3.5.0] - 2020-07-22
+~~~~~~~~~~~~~~~~~~~~
 
 Updated
 -------
