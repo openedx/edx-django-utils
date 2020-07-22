@@ -18,6 +18,18 @@ def get_code_owner_from_module(module):
     this lookup would match on 'openedx.features.discounts' before
     'openedx.features', because the former is more specific.
 
+    Uses CODE_OWNER_MAPPINGS Django Setting.  An example::
+
+        CODE_OWNER_MAPPINGS = {
+            'team-red': [
+                'xblock_django',
+                'openedx.core.djangoapps.xblock',
+            ],
+            'team-blue': [
+                'badges',
+            ],
+        }
+
     """
     assert _PATH_TO_CODE_OWNER_MAPPINGS != _INVALID_CODE_OWNER_MAPPING,\
         'CODE_OWNER_MAPPINGS django setting set with invalid configuration. See logs for details.'
@@ -48,18 +60,6 @@ def _process_code_owner_mappings():
          (dict): optimized dict for success processing, None if there are no
             configured mappings, or _INVALID_CODE_OWNER_MAPPING if there is an
             error processing the setting.
-
-    Example CODE_OWNER_MAPPINGS Django Setting::
-
-        CODE_OWNER_MAPPINGS = {
-            'team-red': [
-                'xblock_django',
-                'openedx.core.djangoapps.xblock',
-            ],
-            'team-blue': [
-                'badges',
-            ],
-        }
 
     Example return value::
 
@@ -109,8 +109,8 @@ def _process_code_owner_mappings():
 # TODO: Update annotations.  This is more of a non-toggle setting than a toggle setting.
 _CODE_OWNER_MAPPINGS = None
 
-# TODO: ARCHBOM-1283: Either remove this if it is no longer needed when using the NewRelic transaction name, or
-# add a new Django Setting named CODE_OWNER_OPTIONAL_MODULE_PREFIXES that takes a list of prefixes.
+# TODO: Remove this LMS spcific configuration by replacing with a Django Setting named
+#    CODE_OWNER_OPTIONAL_MODULE_PREFIXES that takes a list of module prefixes (without the final period).
 _OPTIONAL_MODULE_PREFIX_PATTERN = re.compile(r'^(lms|common|openedx\.core)\.djangoapps\.')
 _INVALID_CODE_OWNER_MAPPING = 'invalid-code-owner-mapping'
 # lookup table for code owner given a module path

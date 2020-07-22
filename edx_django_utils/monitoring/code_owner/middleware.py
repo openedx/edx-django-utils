@@ -16,6 +16,9 @@ class CodeOwnerMetricMiddleware:
     """
     Django middleware object to set custom metrics for the owner of each view.
 
+    Uses Django Setting CODE_OWNER_MAPPINGS as documented in get_code_owner_from_module.
+    Note: Use '*' as a configured module if you want a catch-all when there is no other match.
+
     Custom metrics set:
     - code_owner: The owning team mapped to the current view.
     - code_owner_mapping_error: If there are any errors when trying to perform the mapping.
@@ -51,6 +54,9 @@ class CodeOwnerMetricMiddleware:
             return
         if not path_error:
             # module found, but mapping wasn't configured
+            code_owner = self._set_code_owner_metric_catch_all()
+            if code_owner:
+                set_custom_metric('code_owner', code_owner)
             return
 
         code_owner, transaction_error = self._set_code_owner_metric_from_current_transaction(request)
@@ -59,9 +65,17 @@ class CodeOwnerMetricMiddleware:
             return
         if not transaction_error:
             # transaction name found, but mapping wasn't configured
+            code_owner = self._set_code_owner_metric_catch_all()
+            if code_owner:
+                set_custom_metric('code_owner', code_owner)
             return
 
-        # only report errors if either code_owner couldn't be found
+        code_owner = self._set_code_owner_metric_catch_all()
+        if code_owner:
+            set_custom_metric('code_owner', code_owner)
+            return
+
+        # only report errors if code_owner couldn't be found, including catch-all
         if path_error:
             set_custom_metric('code_owner_path_error', path_error)
         if transaction_error:
@@ -78,7 +92,7 @@ class CodeOwnerMetricMiddleware:
             (str, str): (code_owner, error_message), where at least one of these should be None
 
         """
-        if not is_code_owner_mappings_configured():  # pragma: no cover
+        if not is_code_owner_mappings_configured():
             return None, None
 
         try:
@@ -115,3 +129,20 @@ class CodeOwnerMetricMiddleware:
             return code_owner, None
         except Exception as e:  # pylint: disable=broad-except
             return None, str(e)
+
+    def _set_code_owner_metric_catch_all(self):
+        """
+        If the catch-all module "*" is configured, return the code_owner.
+
+        Returns:
+            (str): code_owner or None if no catch-all configured.
+
+        """
+        if not is_code_owner_mappings_configured():
+            return None
+
+        try:
+            code_owner = get_code_owner_from_module('*')
+            return code_owner
+        except Exception:  # pylint: disable=broad-except; #pragma: no cover
+            return None
