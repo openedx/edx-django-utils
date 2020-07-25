@@ -18,6 +18,7 @@ class CodeOwnerMetricMiddleware:
 
     Uses Django Setting CODE_OWNER_MAPPINGS as documented in get_code_owner_from_module.
     Note: Use '*' as a configured module if you want a catch-all when there is no other match.
+        If this config is in yaml, you need to include the quotes around the '*'.
 
     Custom metrics set:
     - code_owner: The owning team mapped to the current view.
