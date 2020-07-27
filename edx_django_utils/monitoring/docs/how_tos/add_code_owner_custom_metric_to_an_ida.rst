@@ -14,7 +14,7 @@ You can now easily add this same metric to any IDA so that your dashboards and a
 
 If you want to know about custom metrics in general, see: using_custom_metrics.rst.
 
-.. _ADR on monitoring by code owner: https://github.com/edx/edx-platform/blob/59e0f6efcf2a297806918f8e0020255c1f59ea5f/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
+.. _ADR on monitoring by code owner: https://github.com/edx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
 Setting up the Middleware
 -------------------------
@@ -26,7 +26,7 @@ Configuring your app settings
 
 Once the Middleware is made available, simply set the Django Setting ``CODE_OWNER_MAPPINGS`` appropriately.
 
-The following example shows how you can include an optional config for a catch-all using ``'*'``.  The example is provided in YAML format because quotes are required to not break the YAML.
+The following example shows how you can include an optional config for a catch-all using ``'*'``. Although you might expect this example to use Python, it is intentionally illustrated in YAML because the catch-all requires special care in YAML.
 
 ::
 
