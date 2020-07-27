@@ -16,8 +16,8 @@ class CodeOwnerMetricMiddleware:
     """
     Django middleware object to set custom metrics for the owner of each view.
 
-    Uses Django Setting CODE_OWNER_MAPPINGS as documented in get_code_owner_from_module.
-    Note: Use '*' as a configured module if you want a catch-all when there is no other match.
+    For instructions on usage, see:
+    https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_metric_to_an_ida.rst
 
     Custom metrics set:
     - code_owner: The owning team mapped to the current view.

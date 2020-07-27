@@ -1,5 +1,6 @@
+==========
 Change Log
-----------
+==========
 
 ..
    All enhancements and patches to edx_django_utils will be documented
@@ -11,11 +12,19 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+Unreleased
+~~~~~~~~~~
+
+Added
+_____
+
+* Improved documentation for CodeOwnerMetricMiddleware, including a how_tos/add_code_owner_custom_metric_to_an_ida.rst for adding it to a new IDA.
+
 [3.5.0] - 2020-07-22
 ~~~~~~~~~~~~~~~~~~~~
 
 Updated
--------
+_______
 
 * Added a catch-all capability to CodeOwnerMetricMiddleware when CODE_OWNER_MAPPINGS includes a '*' as a team's module. The catch-all is used only if there is no other match.
 
@@ -23,12 +32,12 @@ Updated
 ~~~~~~~~~~~~~~~~~~~~
 
 Added
------
+_____
 
 * Added get_current_transaction for monitoring that returns a transaction object with a name property.
 
 Updated
--------
+_______
 
 * Updated CodeOwnerMetricMiddleware to use NewRelic's current transaction for cases where resolve() doesn't work to determine the code_owner, like for Middleware.
 
@@ -36,7 +45,7 @@ Updated
 ~~~~~~~~~~~~~~~~~~~~
 
 Added
------
+_____
 
 * CodeOwnerMetricMiddleware was moved here (from edx-platform) in order to be able to take advantage of the ``code_owner`` metric in other IDAs. For details on this decision, see the `ADR for monitoring code owner`_. See the docstring for more details on usage.
 

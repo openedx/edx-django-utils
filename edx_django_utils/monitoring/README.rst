@@ -20,11 +20,9 @@ Here is how you add the middleware:
     MIDDLEWARE = (
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
         # Generate code ownership metrics. Keep this immediately after RequestCacheMiddleware.
-        # TODO: ARCHBOM-1283: Once this ticket is closed this middleware can live
-        # anywhere, and the above comment will no longer be required.
-        'edx_django_utils.monitoring.code_owner.middleware.CodeOwnerMetricMiddleware',
         ...
         # Monitoring middleware must come after RequestCacheMiddleware
+        'edx_django_utils.monitoring.code_owner.middleware.CodeOwnerMetricMiddleware',
         'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
         'edx_django_utils.monitoring.middleware.MonitoringMemoryMiddleware',
     )

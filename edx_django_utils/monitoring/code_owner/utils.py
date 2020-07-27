@@ -18,17 +18,8 @@ def get_code_owner_from_module(module):
     this lookup would match on 'openedx.features.discounts' before
     'openedx.features', because the former is more specific.
 
-    Uses CODE_OWNER_MAPPINGS Django Setting.  An example::
-
-        CODE_OWNER_MAPPINGS = {
-            'team-red': [
-                'xblock_django',
-                'openedx.core.djangoapps.xblock',
-            ],
-            'team-blue': [
-                'badges',
-            ],
-        }
+    Uses CODE_OWNER_MAPPINGS Django Setting as detailed in:
+    https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_metric_to_an_ida.rst
 
     """
     assert _PATH_TO_CODE_OWNER_MAPPINGS != _INVALID_CODE_OWNER_MAPPING,\
