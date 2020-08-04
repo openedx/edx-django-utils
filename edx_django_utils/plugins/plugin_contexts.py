@@ -1,8 +1,10 @@
+"""
+Various functions to get view contexts
+"""
+import functools
 from importlib import import_module
 
 from logging import getLogger
-
-from openedx.core.lib.cache_utils import process_cached
 
 from . import constants, registry
 
@@ -35,7 +37,7 @@ def get_plugins_view_context(project_type, view_name, existing_context=None):
     for (context_function, plugin_name) in context_functions:
         try:
             plugin_context = context_function(existing_context)
-        except Exception as exc:
+        except Exception as exc:  # pylint: disable=broad-except
             # We're catching this because we don't want the core to blow up when a
             # plugin is broken. This exception will probably need some sort of
             # monitoring hooked up to it to make sure that these errors don't go
@@ -48,7 +50,7 @@ def get_plugins_view_context(project_type, view_name, existing_context=None):
     return aggregate_context
 
 
-@process_cached
+@functools.lru_cache(maxsize=None)
 def _get_cached_context_functions_for_view(project_type, view_name):
     """
     Returns a list of tuples where the first item is the context function
@@ -67,7 +69,7 @@ def _get_cached_context_functions_for_view(project_type, view_name):
             module_path, _, name = context_function_path.rpartition(".")
             try:
                 module = import_module(module_path)
-            except (ImportError, ModuleNotFoundError):
+            except ImportError:
                 log.exception(
                     "Failed to import %s plugin when creating %s context",
                     module_path,

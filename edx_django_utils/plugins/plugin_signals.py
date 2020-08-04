@@ -9,6 +9,9 @@ log = getLogger(__name__)
 
 
 def connect_receivers(project_type):
+    """
+    connects receivers to right signal
+    """
     for signals_module, signals_config in _iter_plugins(project_type):
         for signal, receiver_func, receiver_config in _iter_receivers(
             signals_module, signals_config

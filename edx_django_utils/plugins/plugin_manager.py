@@ -2,7 +2,6 @@
 Adds support for first class plugins that can be added to the edX platform.
 """
 
-import collections
 import functools
 
 
@@ -31,9 +30,10 @@ class PluginManager:
         # Note: we're creating the extension manager lazily to ensure that the Python path
         # has been correctly set up. Trying to create this statically will fail, unfortunately.
         plugins = OrderedDict()
+        # pylint: disable=no-member
         extension_manager = ExtensionManager(
             namespace=namespace or cls.NAMESPACE
-        )  # pylint: disable=no-member
+        )
         for plugin_name in extension_manager.names():
             plugins[plugin_name] = extension_manager[plugin_name].plugin
         return plugins

@@ -1,16 +1,16 @@
 """
 Code to create Registry of django app plugins
 """
-from .plugin_manager import PluginManager
 import six
+
+from .plugin_manager import PluginManager
+
 
 
 class DjangoAppRegistry(PluginManager):
     """
     DjangoAppRegistry is a registry of django app plugins.
     """
-
-    pass
 
 
 def get_app_configs(project_type):

@@ -1,3 +1,6 @@
+"""
+Methods to get plugin apps
+"""
 from logging import getLogger
 from . import constants, registry
 

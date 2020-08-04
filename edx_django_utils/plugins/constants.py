@@ -1,3 +1,7 @@
+"""
+Constants/Enums used during interfacing with plugin system
+"""
+
 # Name of the class attribute to put in the AppConfig class of the Plugin App.
 PLUGIN_APP_CLASS_ATTRIBUTE_NAME = u"plugin_app"
 
@@ -9,7 +13,7 @@ PLUGIN_APP_CLASS_ATTRIBUTE_NAME = u"plugin_app"
 PLUGIN_APP_SETTINGS_FUNC_NAME = u"plugin_settings"
 
 
-class ProjectType(object):
+class ProjectType():
     """
     The ProjectType enum defines the possible values for the Django Projects
     that are available in the edx-platform. Plugin apps use these values to
@@ -20,7 +24,7 @@ class ProjectType(object):
     CMS = u"cms.djangoapp"
 
 
-class SettingsType(object):
+class SettingsType():
     """
     The SettingsType enum defines the possible values for the settings files
     that are available for extension in the edx-platform. Plugin apps use these
@@ -37,7 +41,7 @@ class SettingsType(object):
     TEST = u"test"
 
 
-class PluginSettings(object):
+class PluginSettings():
     """
     The PluginSettings enum defines dictionary field names (and defaults)
     that can be specified by a Plugin App in order to configure the settings
@@ -49,7 +53,7 @@ class PluginSettings(object):
     DEFAULT_RELATIVE_PATH = u"settings"
 
 
-class PluginURLs(object):
+class PluginURLs():
     """
     The PluginURLs enum defines dictionary field names (and defaults) that can
     be specified by a Plugin App in order to configure the URLs that are
@@ -64,7 +68,7 @@ class PluginURLs(object):
     DEFAULT_RELATIVE_PATH = u"urls"
 
 
-class PluginSignals(object):
+class PluginSignals():
     """
     The PluginSignals enum defines dictionary field names (and defaults)
     that can be specified by a Plugin App in order to configure the signals
@@ -83,7 +87,7 @@ class PluginSignals(object):
     DEFAULT_RELATIVE_PATH = u"signals"
 
 
-class PluginContexts(object):
+class PluginContexts():
     """
     The PluginContexts enum defines dictionary field names (and defaults)
     that can be specified by a Plugin App in order to configure the
