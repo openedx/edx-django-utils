@@ -1,4 +1,6 @@
-
+"""
+Allows plugins to work with django signals
+"""
 from logging import getLogger
 from . import constants, registry, utils
 
@@ -17,6 +19,9 @@ def connect_receivers(project_type):
 
 
 def _iter_receivers(signals_module, signals_config):
+    """
+    Generator for ___ TODO
+    """
     for receiver_config in signals_config.get(constants.PluginSignals.RECEIVERS, []):
         receiver_func = utils.import_attr_in_module(
             signals_module,
@@ -27,6 +32,9 @@ def _iter_receivers(signals_module, signals_config):
 
 
 def _iter_plugins(project_type):
+    """
+    Generator for ___ TODO
+    """
     for app_config in registry.get_app_configs(project_type):
         signals_config = _get_config(app_config, project_type)
         if signals_config is None:
@@ -54,9 +62,8 @@ def _get_config(app_config, project_type):
 def _get_sender(receiver_config):
     sender_path = receiver_config.get(constants.PluginSignals.SENDER_PATH)
     if sender_path:
-        sender = utils.import_attr(sender_path)
-        return sender
-
+        return utils.import_attr(sender_path)
+    return None
 
 def _get_dispatch_uuid(receiver_config, receiver_func):
     dispatch_uid = receiver_config.get(constants.PluginSignals.DISPATCH_UID)

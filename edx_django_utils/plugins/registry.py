@@ -1,5 +1,7 @@
-
-from openedx.core.lib.plugins import PluginManager
+"""
+Code to create Registry of django app plugins
+"""
+from .plugin_manager import PluginManager
 import six
 
 
