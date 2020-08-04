@@ -9,11 +9,13 @@ from django.apps import AppConfig
 from django.conf import settings
 from . import constants, plugin_signals
 
+
 class PluginsConfig(AppConfig):
     """
     Application Configuration for Plugins.
     """
-    name = u'edx_django_utils.plugins'
+
+    name = u"edx_django_utils.plugins"
 
     plugin_app = {}
 
@@ -21,7 +23,7 @@ class PluginsConfig(AppConfig):
         """
         Connect plugin receivers to their signals.
         """
-        if settings.ROOT_URLCONF == 'lms.urls':
+        if settings.ROOT_URLCONF == "lms.urls":
             project_type = constants.ProjectType.LMS
         else:
             project_type = constants.ProjectType.CMS

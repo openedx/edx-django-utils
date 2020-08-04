@@ -9,6 +9,7 @@ class DjangoAppRegistry(PluginManager):
     """
     DjangoAppRegistry is a registry of django app plugins.
     """
+
     pass
 
 

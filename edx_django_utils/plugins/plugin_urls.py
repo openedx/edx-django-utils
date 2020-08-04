@@ -14,7 +14,7 @@ def get_url(url_module_path, url_config):
     """
     namespace = url_config[constants.PluginURLs.NAMESPACE]
     app_name = url_config.get(constants.PluginURLs.APP_NAME)
-    regex = url_config.get(constants.PluginURLs.REGEX, r'')
+    regex = url_config.get(constants.PluginURLs.REGEX, r"")
 
     if namespace:
         return url(regex, include((url_module_path, app_name), namespace=namespace))
@@ -27,7 +27,10 @@ def get_patterns(project_type):
     Returns a list of all registered Plugin URLs, expected to be added to
     the URL patterns for the given project_type.
     """
-    return [get_url(url_module_path, url_config) for url_module_path, url_config in _iter_plugins(project_type)]
+    return [
+        get_url(url_module_path, url_config)
+        for url_module_path, url_config in _iter_plugins(project_type)
+    ]
 
 
 def _iter_plugins(project_type):
@@ -38,14 +41,22 @@ def _iter_plugins(project_type):
     for app_config in registry.get_app_configs(project_type):
         url_config = _get_config(app_config, project_type)
         if url_config is None:
-            log.debug(u'Plugin Apps [URLs]: Did NOT find %s for %s', app_config.name, project_type)
+            log.debug(
+                u"Plugin Apps [URLs]: Did NOT find %s for %s",
+                app_config.name,
+                project_type,
+            )
             continue
 
-        urls_module_path = utils.get_module_path(app_config, url_config, constants.PluginURLs)
-        url_config[constants.PluginURLs.NAMESPACE] = url_config.get(constants.PluginURLs.NAMESPACE, app_config.name)
+        urls_module_path = utils.get_module_path(
+            app_config, url_config, constants.PluginURLs
+        )
+        url_config[constants.PluginURLs.NAMESPACE] = url_config.get(
+            constants.PluginURLs.NAMESPACE, app_config.name
+        )
         url_config[constants.PluginURLs.APP_NAME] = app_config.name
         log.debug(
-            u'Plugin Apps [URLs]: Found %s with namespace %s for %s',
+            u"Plugin Apps [URLs]: Found %s with namespace %s for %s",
             app_config.name,
             url_config[constants.PluginURLs.NAMESPACE],
             project_type,

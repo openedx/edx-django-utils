@@ -60,28 +60,30 @@ def _get_cached_context_functions_for_view(project_type, view_name):
     """
     context_functions = []
     for app_config in registry.get_app_configs(project_type):
-        context_function_path = _get_context_function_path(app_config, project_type, view_name)
+        context_function_path = _get_context_function_path(
+            app_config, project_type, view_name
+        )
         if context_function_path:
-            module_path, _, name = context_function_path.rpartition('.')
+            module_path, _, name = context_function_path.rpartition(".")
             try:
                 module = import_module(module_path)
             except (ImportError, ModuleNotFoundError):
                 log.exception(
                     "Failed to import %s plugin when creating %s context",
                     module_path,
-                    view_name
+                    view_name,
                 )
                 continue
             context_function = getattr(module, name, None)
             if context_function:
-                plugin_name, _, _ = module_path.partition('.')
+                plugin_name, _, _ = module_path.partition(".")
                 context_functions.append((context_function, plugin_name))
             else:
                 log.warning(
                     "Failed to retrieve %s function from %s plugin when creating %s context",
                     name,
                     module_path,
-                    view_name
+                    view_name,
                 )
     return context_functions
 

@@ -17,10 +17,11 @@ class PluginError(Exception):
     """
 
 
-class PluginManager():
+class PluginManager:
     """
     Base class that manages plugins for the edX platform.
     """
+
     @classmethod
     @functools.lru_cache(maxsize=None)
     def get_available_plugins(cls, namespace=None):
@@ -30,7 +31,9 @@ class PluginManager():
         # Note: we're creating the extension manager lazily to ensure that the Python path
         # has been correctly set up. Trying to create this statically will fail, unfortunately.
         plugins = OrderedDict()
-        extension_manager = ExtensionManager(namespace=namespace or cls.NAMESPACE)  # pylint: disable=no-member
+        extension_manager = ExtensionManager(
+            namespace=namespace or cls.NAMESPACE
+        )  # pylint: disable=no-member
         for plugin_name in extension_manager.names():
             plugins[plugin_name] = extension_manager[plugin_name].plugin
         return plugins
@@ -42,8 +45,10 @@ class PluginManager():
         """
         plugins = cls.get_available_plugins(namespace)
         if name not in plugins:
-            raise PluginError(u"No such plugin {name} for entry point {namespace}".format(
-                name=name,
-                namespace=namespace or cls.NAMESPACE,  # pylint: disable=no-member
-            ))
+            raise PluginError(
+                u"No such plugin {name} for entry point {namespace}".format(
+                    name=name,
+                    namespace=namespace or cls.NAMESPACE,  # pylint: disable=no-member
+                )
+            )
         return plugins[name]
