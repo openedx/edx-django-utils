@@ -9,12 +9,11 @@ from django.apps import AppConfig
 from django.conf import settings
 from . import constants, plugin_signals
 
-
 class PluginsConfig(AppConfig):
     """
     Application Configuration for Plugins.
     """
-    name = u'openedx.core.djangoapps.plugins'
+    name = u'edx_django_utils.plugins'
 
     plugin_app = {}
 

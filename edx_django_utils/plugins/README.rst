@@ -69,10 +69,10 @@ update:
         ...
         entry_points={
             "lms.djangoapp": [
-                "plugins = openedx.core.djangoapps.plugins.apps:PluginsConfig",
+                "plugins = edx_django_utils.plugins.apps:PluginsConfig",
             ],
             "cms.djangoapp": [
-                "plugins = openedx.core.djangoapps.plugins.apps:PluginsConfig",
+                "plugins = edx_django_utils.plugins.apps:PluginsConfig",
             ],
         }
     )
@@ -105,7 +105,7 @@ file::
 class::
 
     from django.apps import AppConfig
-    from openedx.core.djangoapps.plugins.constants import (
+    from edx_django_utils.plugins.constants import (
         ProjectType, SettingsType, PluginURLs, PluginSettings, PluginContexts
     )
     class MyAppConfig(AppConfig):
