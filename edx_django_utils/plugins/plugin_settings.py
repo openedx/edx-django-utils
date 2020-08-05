@@ -2,6 +2,7 @@
 Functions that deal with settings related to plugins
 """
 from logging import getLogger
+
 from . import constants, registry, utils
 
 log = getLogger(__name__)

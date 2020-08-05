@@ -3,11 +3,9 @@ Various functions to get view contexts
 """
 import functools
 from importlib import import_module
-
 from logging import getLogger
 
 from . import constants, registry
-
 
 log = getLogger(__name__)
 

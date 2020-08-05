@@ -6,7 +6,6 @@ import six
 from .plugin_manager import PluginManager
 
 
-
 class DjangoAppRegistry(PluginManager):
     """
     DjangoAppRegistry is a registry of django app plugins.

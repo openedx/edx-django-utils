@@ -2,8 +2,8 @@
 Allows plugins to work with django signals
 """
 from logging import getLogger
-from . import constants, registry, utils
 
+from . import constants, registry, utils
 
 log = getLogger(__name__)
 

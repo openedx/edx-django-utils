@@ -3,14 +3,14 @@ Constants/Enums used during interfacing with plugin system
 """
 
 # Name of the class attribute to put in the AppConfig class of the Plugin App.
-PLUGIN_APP_CLASS_ATTRIBUTE_NAME = u"plugin_app"
+PLUGIN_APP_CLASS_ATTRIBUTE_NAME = "plugin_app"
 
 
 # Name of the function that belongs in the plugin Django app's settings file.
 # The function should be defined as:
 #     def plugin_settings(settings):
 #         # enter code that should be injected into the given settings module.
-PLUGIN_APP_SETTINGS_FUNC_NAME = u"plugin_settings"
+PLUGIN_APP_SETTINGS_FUNC_NAME = "plugin_settings"
 
 
 class ProjectType():
@@ -20,8 +20,8 @@ class ProjectType():
     declare explicitly which projects they are extending.
     """
 
-    LMS = u"lms.djangoapp"
-    CMS = u"cms.djangoapp"
+    LMS = "lms.djangoapp"
+    CMS = "cms.djangoapp"
 
 
 class SettingsType():
@@ -35,10 +35,10 @@ class SettingsType():
     further information on each Settings Type.
     """
 
-    PRODUCTION = u"production"
-    COMMON = u"common"
-    DEVSTACK = u"devstack"
-    TEST = u"test"
+    PRODUCTION = "production"
+    COMMON = "common"
+    DEVSTACK = "devstack"
+    TEST = "test"
 
 
 class PluginSettings():
@@ -48,9 +48,9 @@ class PluginSettings():
     that are injected into the project.
     """
 
-    CONFIG = u"settings_config"
-    RELATIVE_PATH = u"relative_path"
-    DEFAULT_RELATIVE_PATH = u"settings"
+    CONFIG = "settings_config"
+    RELATIVE_PATH = "relative_path"
+    DEFAULT_RELATIVE_PATH = "settings"
 
 
 class PluginURLs():
@@ -60,12 +60,12 @@ class PluginURLs():
     injected into the project.
     """
 
-    CONFIG = u"url_config"
-    APP_NAME = u"app_name"
-    NAMESPACE = u"namespace"
-    REGEX = u"regex"
-    RELATIVE_PATH = u"relative_path"
-    DEFAULT_RELATIVE_PATH = u"urls"
+    CONFIG = "url_config"
+    APP_NAME = "app_name"
+    NAMESPACE = "namespace"
+    REGEX = "regex"
+    RELATIVE_PATH = "relative_path"
+    DEFAULT_RELATIVE_PATH = "urls"
 
 
 class PluginSignals():
@@ -75,16 +75,16 @@ class PluginSignals():
     that it receives.
     """
 
-    CONFIG = u"signals_config"
+    CONFIG = "signals_config"
 
-    RECEIVERS = u"receivers"
-    DISPATCH_UID = u"dispatch_uid"
-    RECEIVER_FUNC_NAME = u"receiver_func_name"
-    SENDER_PATH = u"sender_path"
-    SIGNAL_PATH = u"signal_path"
+    RECEIVERS = "receivers"
+    DISPATCH_UID = "dispatch_uid"
+    RECEIVER_FUNC_NAME = "receiver_func_name"
+    SENDER_PATH = "sender_path"
+    SIGNAL_PATH = "signal_path"
 
-    RELATIVE_PATH = u"relative_path"
-    DEFAULT_RELATIVE_PATH = u"signals"
+    RELATIVE_PATH = "relative_path"
+    DEFAULT_RELATIVE_PATH = "signals"
 
 
 class PluginContexts():
@@ -94,4 +94,4 @@ class PluginContexts():
     additional views it would like to add context into.
     """
 
-    CONFIG = u"view_context_config"
+    CONFIG = "view_context_config"

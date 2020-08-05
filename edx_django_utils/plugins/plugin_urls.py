@@ -2,7 +2,9 @@
 Urls utility functions
 """
 from logging import getLogger
+
 from django.conf.urls import include, url
+
 from . import constants, registry, utils
 
 log = getLogger(__name__)
