@@ -1,5 +1,5 @@
-1. Extract plugins Infrastructure from edx-platform
-===================================================
+Extract plugins Infrastructure from edx-platform
+================================================
 
 Status
 ------

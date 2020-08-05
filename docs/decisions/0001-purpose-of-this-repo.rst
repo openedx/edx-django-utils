@@ -1,10 +1,10 @@
-1. Purpose of this Repo
-=======================
+Purpose of this Repo
+====================
 
 Status
 ------
 
-Draft
+Accepted
 
 Context
 -------
@@ -17,7 +17,7 @@ Decision
 
 This repository was created as a home for django utilities that might be useful to OpenEdx.
 
-Note that some utilities may warrant their own repository. A judgement call needs to be made as to whether code properly belongs here or not. Please review with the Architecture Team if you have any questions.
+.. note:: Some utilities may warrant their own repository. A judgement call needs to be made as to whether code properly belongs here or not. Please review with the Architecture Team if you have any questions.
 
 
 Consequences

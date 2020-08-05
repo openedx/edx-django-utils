@@ -17,12 +17,16 @@ This repository includes shared utilities for:
 
 * `Cache Utilities`_: Includes a RequestCache and a TieredCache.
 
-* `Monitoring Utilities`_: Includes Middleware and utilities for enhancing metrics output.
+* `Monitoring Utilities`_: Includes Middleware and utilities for enhanced monitoring.
   At this time, supports NewRelic monitoring.
+
+* `Plugin Infrastructure`_: Enables enhanced Django Plugin capabilities.
 
 .. _Cache Utilities: edx_django_utils/cache/README.rst
 
 .. _Monitoring Utilities: edx_django_utils/monitoring/README.rst
+
+.. _Plugin Infrastructure: edx_django_utils/plugins/README.rst
 
 Documentation
 -------------

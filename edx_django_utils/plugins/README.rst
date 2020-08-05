@@ -1,6 +1,13 @@
 Django App Plugins
 ==================
 
+.. contents::
+   :local:
+   :depth: 2
+
+Overview
+--------
+
 Provides functionality to enable improved plugin support of Django apps.
 
 Once a Django project is enhanced with this functionality, any participating
@@ -41,10 +48,14 @@ design principles:
 
 See ADR where it was `decided to move this plugin capability`_ from edx-platform to edx-django-utils.
 
-.. _decided to move this plugin capability: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extracts-plugins-infrastructure-from-edx-platform.rst
+.. _decided to move this plugin capability: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extract-plugins-infrastructure-from-edx-platform.rst
 
+Enable Plugins in an IDA
+------------------------
 
-.. _Instructions to Enable plugins in your ida: https://github.com/edx/edx-django-utils/blob/master/docs/how_tos/how_to_enable_plugins_to_your_ida.rst
+`Instructions to enable plugins for an IDA`_
+
+.. _Instructions to Enable plugins in your ida: https://github.com/edx/edx-django-utils/blob/master/docs/how_tos/how_to_enable_plugins_for_an_ida.rst
 
 
 Plugin Apps
