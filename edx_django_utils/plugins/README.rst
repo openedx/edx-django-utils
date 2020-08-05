@@ -44,42 +44,7 @@ See ADR where it was `decided to move this plugin capability`_ from edx-platform
 .. _decided to move this plugin capability: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extracts-plugins-infrastructure-from-edx-platform.rst
 
 
-Django Projects
----------------
-
-In order to enable this functionality in a Django project, the project needs to
-update:
-
-1. its settings to extend its INSTALLED_APPS to include the Plugin Apps
-::
-
-   INSTALLED_APPS.extend(plugin_apps.get_apps(...))
-
-2. its settings to add all Plugin Settings
-::
-
-   plugin_settings.add_plugins(__name__, ...)
-
-3. its urls to add all Plugin URLs
-::
-
-   urlpatterns.extend(plugin_urls.get_patterns(...))
-
-4. its setup to register PluginsConfig (for connecting Plugin Signals)
-::
-
-    from setuptools import setup
-    setup(
-        ...
-        entry_points={
-            "lms.djangoapp": [
-                "plugins = edx_django_utils.plugins.apps:PluginsConfig",
-            ],
-            "cms.djangoapp": [
-                "plugins = edx_django_utils.plugins.apps:PluginsConfig",
-            ],
-        }
-    )
+.. _Instructions to Enable plugins in your ida: https://github.com/edx/edx-django-utils/blob/master/docs/how_tos/how_to_enable_plugins_to_your_ida.rst
 
 
 Plugin Apps
