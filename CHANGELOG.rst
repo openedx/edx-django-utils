@@ -15,10 +15,20 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+
+[3.6.0] - 2020-08-04
+~~~~~~~~~~~~~~~~~~~~
+
 Added
 _____
 
 * Improved documentation for CodeOwnerMetricMiddleware, including a how_tos/add_code_owner_custom_metric_to_an_ida.rst for adding it to a new IDA.
+* Added ignore_transaction monitoring utility to ignore transactions we don't want tracked.
+
+Updated
+_______
+
+* Moved transaction-related monitoring code into it's own file. Still exposed through `__init__.py` so it's a non-breaking change.
 
 [3.5.0] - 2020-07-22
 ~~~~~~~~~~~~~~~~~~~~
