@@ -27,7 +27,6 @@ instructions.
 4. If D happened instead - check failed.
 
 **Reviewers:**
-- [ ] @edx/arch-review (Required)
 - [ ] tag reviewer
 
 **Merge checklist:**
@@ -37,16 +36,15 @@ instructions.
 - [ ] Changelog record added
 - [ ] Documentation updated (not only docstrings)
 - [ ] Commits are squashed
-- [ ] PR author is listed in AUTHORS
 
 **Post merge:**
 - [ ] Create a tag
-- [ ] Check new version is pushed to PyPi after tag-triggered build is 
+- [ ] Check new version is pushed to PyPi after tag-triggered build is
       finished.
 - [ ] Delete working branch (if not needed anymore)
 
 **Author concerns:**
 
 List any concerns about this PR - inelegant
-solutions, hacks, quick-and-dirty implementations, concerns about 
+solutions, hacks, quick-and-dirty implementations, concerns about
 migrations, etc.
