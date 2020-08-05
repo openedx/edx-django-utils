@@ -27,17 +27,21 @@ design principles:
   and knowledge of the details.
 
 * Open Closed Principle, which says "software entities should be open for
-  extension, but closed for modification." The edx-platform is extensible via
+  extension, but closed for modification." IDAs are extensible via
   installation of Django apps. Having automatic Django App Plugin support allows
-  for this extensibility without modification to the edx-platform. Going forward,
-  we expect this capability to be widely used by external repos that depend on and
-  enhance the edx-platform without the need to modify the core platform.
+  for this extensibility without modification to an IDA. Currently, this is only
+  set up in edx platform. Going forward, we expect this capability to be widely
+  used by othe IDAs to enable enchancement without need to modify core IDA code.
 
 * Dependency Inversion Principle, which says "high level modules should not
   depend upon low level modules." The high-level module here is the Django
   project, while the participating Django app is the low-level module. For
   long-term maintenance of a system, dependencies should go from low-level
   modules/details to higher level ones.
+
+See ADR where it was `decided to move this plugin capability`_ from edx-platform to edx-django-utils.
+
+.. _decided to move this plugin capability: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extracts-plugins-infrastructure-from-edx-platform.rst
 
 
 Django Projects
