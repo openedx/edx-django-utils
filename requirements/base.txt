@@ -4,10 +4,12 @@
 #
 #    make upgrade
 #
-django-waffle==0.20.0     # via -r requirements/base.in
-django==2.2.12            # via -c requirements/constraints.txt, -r requirements/base.in
-newrelic==5.12.1.141      # via -r requirements/base.in
+django-waffle==1.0.0      # via -r requirements/base.in
+django==2.2.15            # via -c requirements/constraints.txt, -r requirements/base.in
+newrelic==5.14.1.144      # via -r requirements/base.in
+pbr==5.4.5                # via stevedore
 psutil==1.2.1             # via -r requirements/base.in
 pytz==2020.1              # via django
-six==1.15.0               # via django-waffle
+six==1.15.0               # via stevedore
 sqlparse==0.3.1           # via django
+stevedore==1.32.0         # via -r requirements/base.in
