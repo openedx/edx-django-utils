@@ -46,9 +46,9 @@ design principles:
   long-term maintenance of a system, dependencies should go from low-level
   modules/details to higher level ones.
 
-See ADR where it was `decided to move this plugin capability`_ from edx-platform to edx-django-utils.
+.. note:: This plugin capability originally existed in edx-platform. See the `decision (ADR) for moving this to edx-django-utils`_.
 
-.. _decided to move this plugin capability: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extract-plugins-infrastructure-from-edx-platform.rst
+.. _decision (ADR) for moving this to edx-django-utils: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extract-plugins-infrastructure-from-edx-platform.rst
 
 Enable Plugins in an IDA
 ------------------------

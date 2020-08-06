@@ -30,10 +30,10 @@ update:
         ...
         entry_points={
             "lms.djangoapp": [
-                "plugins = edx_django_utils.plugins.apps:PluginsConfig",
+                "plugins = openedx.core.djangoapps.plugins.apps:PluginsConfig",
             ],
             "cms.djangoapp": [
-                "plugins = edx_django_utils.plugins.apps:PluginsConfig",
+                "plugins = openedx.core.djangoapps.plugins.apps:PluginsConfig",
             ],
         }
     )
