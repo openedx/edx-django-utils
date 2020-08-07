@@ -37,7 +37,7 @@ def _check_middleware_dependencies(concerned_object, required_middleware):
     """
     declared_middleware = getattr(settings, 'MIDDLEWARE', None)
     if declared_middleware is None and django.VERSION[0] < 2:  # pragma: no cover
-            declared_middleware = settings.MIDDLEWARE_CLASSES  # Pre-Django 2 support
+        declared_middleware = settings.MIDDLEWARE_CLASSES  # Pre-Django 2 support
 
     # Filter out all the middleware except the ones we care about for ordering.
     matching_middleware = [mw for mw in declared_middleware if mw in required_middleware]
