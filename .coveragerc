@@ -3,9 +3,9 @@ branch = True
 data_file = .coverage
 source=edx_django_utils
 omit =
-    *plugins*  # TODO: create tests for edx_django_utils: ticket in ARCHBOM-1414
     test_settings
     *migrations*
     *admin.py
     *static*
     *templates*
+    *plugins*
