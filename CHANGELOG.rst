@@ -14,6 +14,9 @@ Change Log
 
 Unreleased
 ~~~~~~~~~~
+* Adding Plugin infrastructure
+    - Allows IDAs to use plugins
+
 
 
 [3.6.0] - 2020-08-04
