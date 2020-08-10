@@ -1,5 +1,7 @@
 """
 Adds support for first class plugins that can be added to an IDA.
+
+Please remember to expose any new public methods in the `__init__.py` file.
 """
 
 import functools

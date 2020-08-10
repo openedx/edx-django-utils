@@ -1,5 +1,7 @@
 """
 Various functions to get view contexts
+
+Please remember to expose any new public methods in the `__init__.py` file.
 """
 import functools
 from importlib import import_module

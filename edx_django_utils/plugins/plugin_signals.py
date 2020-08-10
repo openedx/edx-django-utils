@@ -1,5 +1,7 @@
 """
 Allows plugins to work with django signals
+
+Please remember to expose any new public methods in the `__init__.py` file.
 """
 from logging import getLogger
 

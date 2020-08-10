@@ -16,6 +16,12 @@ Unreleased
 ~~~~~~~~~~
 
 
+[3.7.1] - 2020-08-10
+~~~~~~~~~~~~~~~~~~~~
+
+* Exposing all public functions in edx_django_utils/plugins directory in its __init__.py file.
+    - this was done to keep inline with standard/pattern used in other packages in edx_django_utils
+
 [3.7.0] - 2020-08-10
 ~~~~~~~~~~~~~~~~~~~~
 * Adding Plugin infrastructure

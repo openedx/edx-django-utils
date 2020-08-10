@@ -1,5 +1,7 @@
 """
 Functions that deal with settings related to plugins
+
+Please remember to expose any new public methods in the `__init__.py` file.
 """
 from logging import getLogger
 

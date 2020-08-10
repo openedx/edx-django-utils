@@ -35,6 +35,11 @@ The full documentation is in the docs directory.
 
 TODO: Publish to https://edx-django-utils.readthedocs.org.
 
+Design Pattern followed by packages
+-----------------------------------
+
+All tools in edx_django_utils should expose their public api in their __init__.py files. This entails adding to __init__.py all functions/classes/constants/objects that are intended to be used by users of library.
+
 License
 -------
 

@@ -1,5 +1,7 @@
 """
 Methods to get plugin apps
+
+Please remember to expose any new public methods in the `__init__.py` file.
 """
 from logging import getLogger
 
