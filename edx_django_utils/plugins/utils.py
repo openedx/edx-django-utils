@@ -1,5 +1,7 @@
 """
 utils to help with imports
+
+Please remember to expose any new public methods in the `__init__.py` file.
 """
 from importlib import import_module as system_import_module
 

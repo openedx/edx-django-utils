@@ -1,5 +1,7 @@
 """
 Code to create Registry of django app plugins
+
+Please remember to expose any new public methods in the `__init__.py` file.
 """
 import six
 
