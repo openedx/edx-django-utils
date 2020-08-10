@@ -1,5 +1,5 @@
 """
-Adds support for first class plugins that can be added to the edX platform.
+Adds support for first class plugins that can be added to an IDA.
 """
 
 import functools
@@ -16,14 +16,14 @@ class PluginError(Exception):
 
 class PluginManager:
     """
-    Base class that manages plugins for the edX platform.
+    Base class that manages plugins for an IDA.
     """
 
     @classmethod
     @functools.lru_cache(maxsize=None)
     def get_available_plugins(cls, namespace=None):
         """
-        Returns a dict of all the plugins that have been made available through the platform.
+        Returns a dict of all the plugins that have been made available.
         """
         # Note: we're creating the extension manager lazily to ensure that the Python path
         # has been correctly set up. Trying to create this statically will fail, unfortunately.

@@ -20,7 +20,7 @@ Decision
 
 Move plugin infrastructure to edx-django-utils.
 
-.. note:: Currently, we've decided to this plugin enablement code doesn't warrant its own repository.
+.. note:: Currently, we've decided this plugin enablement code doesn't warrant its own repository.
 
 Consequences
 ------------
