@@ -4,7 +4,7 @@ Plugins infrastructure
 See README.rst for details.
 """
 
-from .constants import PluginSettings, PluginURLs
+from .constants import PluginSettings, PluginURLs, PluginSignals
 from .plugin_apps import get_apps
 from .plugin_contexts import get_plugins_view_context
 from .plugin_manager import PluginManager, PluginError
