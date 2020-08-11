@@ -34,7 +34,7 @@ markupsafe==1.1.1         # via jinja2
 mccabe==0.6.1             # via -r requirements/quality.txt, pylint
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/quality.txt, -r requirements/travis.txt
 more-itertools==8.4.0     # via -r requirements/quality.txt, pytest
-newrelic==5.14.1.144      # via -r requirements/quality.txt
+newrelic==5.16.0.145      # via -r requirements/quality.txt
 packaging==20.4           # via -r requirements/quality.txt, -r requirements/travis.txt, pytest, tox
 path.py==12.5.0           # via edx-i18n-tools
 path==13.1.0              # via path.py
@@ -62,10 +62,10 @@ requests==2.24.0          # via -r requirements/travis.txt, codecov
 six==1.15.0               # via -r requirements/pip-tools.txt, -r requirements/quality.txt, -r requirements/travis.txt, astroid, diff-cover, edx-i18n-tools, edx-lint, mock, packaging, pathlib2, pip-tools, stevedore, tox, virtualenv
 snowballstemmer==2.0.0    # via -r requirements/quality.txt, pydocstyle
 sqlparse==0.3.1           # via -r requirements/quality.txt, django
-stevedore==1.32.0         # via -r requirements/quality.txt
+stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/quality.txt
 toml==0.10.1              # via -r requirements/quality.txt, -r requirements/travis.txt, pytest, tox
 tox-battery==0.6.1        # via -r requirements/travis.txt
-tox==3.18.1               # via -r requirements/travis.txt, tox-battery
+tox==3.19.0               # via -r requirements/travis.txt, tox-battery
 typed-ast==1.4.1          # via -r requirements/quality.txt, astroid
 urllib3==1.25.10          # via -r requirements/travis.txt, requests
 virtualenv==20.0.30       # via -r requirements/travis.txt, tox
