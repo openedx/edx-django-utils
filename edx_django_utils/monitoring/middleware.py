@@ -158,10 +158,10 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
 
         process = psutil.Process()
         process_data = {
-            'memory_info': process.get_memory_info(),
-            'ext_memory_info': process.get_ext_memory_info(),
-            'memory_percent': process.get_memory_percent(),
-            'cpu_percent': process.get_cpu_percent(),
+            'memory_info': process.memory_info(),
+            'ext_memory_info': process.memory_info_ex(),
+            'memory_percent': process.memory_percent(),
+            'cpu_percent': process.cpu_percent(),
         }
 
         log.info(u"%s Machine memory usage: %s; Process memory usage: %s", log_prefix, machine_data, process_data)
