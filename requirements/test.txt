@@ -12,12 +12,12 @@ importlib-metadata==1.7.0  # via pluggy, pytest
 iniconfig==1.0.1          # via pytest
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/test.in
 more-itertools==8.4.0     # via pytest
-newrelic==5.14.1.144      # via -r requirements/base.txt
+newrelic==5.16.0.145      # via -r requirements/base.txt
 packaging==20.4           # via pytest
 pathlib2==2.3.5           # via pytest
 pbr==5.4.5                # via -r requirements/base.txt, stevedore
 pluggy==0.13.1            # via pytest
-psutil==1.2.1             # via -r requirements/base.txt
+psutil==5.7.2             # via -r requirements/base.txt
 py==1.9.0                 # via pytest
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.0        # via -r requirements/test.in
@@ -26,6 +26,6 @@ pytest==6.0.1             # via pytest-cov, pytest-django
 pytz==2020.1              # via -r requirements/base.txt, django
 six==1.15.0               # via -r requirements/base.txt, mock, packaging, pathlib2, stevedore
 sqlparse==0.3.1           # via -r requirements/base.txt, django
-stevedore==1.32.0         # via -r requirements/base.txt
+stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/base.txt
 toml==0.10.1              # via pytest
 zipp==1.2.0               # via -c requirements/constraints.txt, importlib-metadata
