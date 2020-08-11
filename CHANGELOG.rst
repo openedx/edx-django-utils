@@ -19,7 +19,11 @@ Unreleased
 [3.7.2] - 2020-08-10
 ~~~~~~~~~~~~~~~~~~~~
 * plugins.__init__.py was missing some objects used by users, this release adds:
-    - PluginSignals, PluginContexts, PluginError, get_url
+    - PluginSignals, PluginContexts, PluginError
+
+* also changing function names to be more descriptive
+
+.. note:: these changes are backwards incompatible. This is being put out as a bug fix because plugins code release(3.7.0) is not yet in use.
 
 [3.7.1] - 2020-08-10
 ~~~~~~~~~~~~~~~~~~~~
