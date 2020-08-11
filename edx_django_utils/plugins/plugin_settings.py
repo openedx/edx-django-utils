@@ -28,7 +28,7 @@ def _iter_plugins(project_type, settings_type):
     Yields Plugin Settings modules that are registered for the given
     project_type and settings_type.
     """
-    for app_config in registry.get_app_configs(project_type):
+    for app_config in registry.get_plugin_app_configs(project_type):
         settings_config = _get_config(app_config, project_type, settings_type)
         if settings_config is None:
             log.debug(

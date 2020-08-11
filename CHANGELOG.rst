@@ -16,16 +16,33 @@ Unreleased
 ~~~~~~~~~~
 
 
+[3.7.2] - 2020-08-10
+~~~~~~~~~~~~~~~~~~~~
+Updated
+_______
+
+* Added missing classes to plugins public api. See ``plugins.__init__.py`` for latest api.
+* Updated plugin method names to be more descriptive. See ``plugins.__init__.py`` for latest.
+
+.. note:: Although these changes are backwards incompatible, they are being added as a bug fix because plugins code release (3.7.0) is not yet in use.
+
 [3.7.1] - 2020-08-10
 ~~~~~~~~~~~~~~~~~~~~
 
+Updated
+_______
+
 * Exposing all public functions in edx_django_utils/plugins directory in its __init__.py file.
-    - this was done to keep inline with standard/pattern used in other packages in edx_django_utils
+    * this was done to keep inline with standard/pattern used in other packages in edx_django_utils
 
 [3.7.0] - 2020-08-10
 ~~~~~~~~~~~~~~~~~~~~
+
+Added
+_____
+
 * Adding Plugin infrastructure
-    - Allows IDAs to use plugins
+    * Allows IDAs to use plugins
 
 [3.6.0] - 2020-08-04
 ~~~~~~~~~~~~~~~~~~~~

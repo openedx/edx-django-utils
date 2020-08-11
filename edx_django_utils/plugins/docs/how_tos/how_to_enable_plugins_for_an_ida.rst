@@ -10,17 +10,17 @@ update:
 1. its settings to extend its INSTALLED_APPS to include the Plugin Apps
 ::
 
-   INSTALLED_APPS.extend(plugin_apps.get_apps(...))
+   INSTALLED_APPS.extend(get_plugin_apps(...))
 
 2. its settings to add all Plugin Settings
 ::
 
-   plugin_settings.add_plugins(__name__, ...)
+   add_plugins(__name__, ...)
 
 3. its urls to add all Plugin URLs
 ::
 
-   urlpatterns.extend(plugin_urls.get_patterns(...))
+   urlpatterns.extend(get_plugin_url_patterns(...))
 
 4. its setup to register PluginsConfig (for connecting Plugin Signals)
 ::
