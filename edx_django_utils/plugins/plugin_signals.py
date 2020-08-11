@@ -10,7 +10,7 @@ from . import constants, registry, utils
 log = getLogger(__name__)
 
 
-def connect_receivers(project_type):
+def connect_plugin_receivers(project_type):
     """
     connects receivers to right signal
     """
@@ -41,7 +41,7 @@ def _iter_plugins(project_type):
     """
     Generator for ___ TODO
     """
-    for app_config in registry.get_app_configs(project_type):
+    for app_config in registry.get_plugin_app_configs(project_type):
         signals_config = _get_config(app_config, project_type)
         if signals_config is None:
             log.debug(
