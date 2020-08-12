@@ -15,6 +15,10 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.7.2] - 2020-08-11
+~~~~~~~~~~~~~~~~~~~~
+
+* Upgrade psutil to latest version
 
 [3.7.2] - 2020-08-10
 ~~~~~~~~~~~~~~~~~~~~
