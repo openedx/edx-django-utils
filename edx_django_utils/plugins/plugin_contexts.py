@@ -61,7 +61,7 @@ def _get_cached_context_functions_for_view(project_type, view_name):
     increase in memory usage as the entirety of these functions will be held in memory.
     """
     context_functions = []
-    for app_config in registry.get_app_configs(project_type):
+    for app_config in registry.get_plugin_app_configs(project_type):
         context_function_path = _get_context_function_path(
             app_config, project_type, view_name
         )

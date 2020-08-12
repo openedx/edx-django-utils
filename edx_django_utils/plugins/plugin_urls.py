@@ -12,7 +12,7 @@ from . import constants, registry, utils
 log = getLogger(__name__)
 
 
-def get_url(url_module_path, url_config):
+def _get_url(url_module_path, url_config):
     """
     function constructs the appropriate URL
     """
@@ -26,13 +26,13 @@ def get_url(url_module_path, url_config):
         return url(regex, include(url_module_path))
 
 
-def get_patterns(project_type):
+def get_plugin_url_patterns(project_type):
     """
     Returns a list of all registered Plugin URLs, expected to be added to
     the URL patterns for the given project_type.
     """
     return [
-        get_url(url_module_path, url_config)
+        _get_url(url_module_path, url_config)
         for url_module_path, url_config in _iter_plugins(project_type)
     ]
 
@@ -42,7 +42,7 @@ def _iter_plugins(project_type):
     Yields the module path and configuration for Plugin URLs registered for
     the given project_type.
     """
-    for app_config in registry.get_app_configs(project_type):
+    for app_config in registry.get_plugin_app_configs(project_type):
         url_config = _get_config(app_config, project_type)
         if url_config is None:
             log.debug(
