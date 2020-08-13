@@ -45,7 +45,7 @@ def _iter_plugins(project_type):
         signals_config = _get_config(app_config, project_type)
         if signals_config is None:
             log.debug(
-                u"Plugin Apps [Signals]: Did NOT find %s for %s",
+                "Plugin Apps [Signals]: Did NOT find %s for %s",
                 app_config.name,
                 project_type,
             )
@@ -57,7 +57,7 @@ def _iter_plugins(project_type):
         signals_module = utils.import_module(signals_module_path)
 
         log.debug(
-            u"Plugin Apps [Signals]: Found %s with %d receiver(s) for %s",
+            "Plugin Apps [Signals]: Found %s with %d receiver(s) for %s",
             app_config.name,
             len(signals_config.get(constants.PluginSignals.RECEIVERS, [])),
             project_type,
@@ -81,5 +81,5 @@ def _get_sender(receiver_config):
 def _get_dispatch_uuid(receiver_config, receiver_func):
     dispatch_uid = receiver_config.get(constants.PluginSignals.DISPATCH_UID)
     if dispatch_uid is None:
-        dispatch_uid = u"{}.{}".format(receiver_func.__module__, receiver_func.__name__)
+        dispatch_uid = "{}.{}".format(receiver_func.__module__, receiver_func.__name__)
     return dispatch_uid

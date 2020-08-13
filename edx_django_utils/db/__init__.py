@@ -9,5 +9,5 @@ from .read_replica import (
     read_queries_only,
     read_replica_or_default,
     use_read_replica_if_available,
-    write_queries
+    write_queries,
 )

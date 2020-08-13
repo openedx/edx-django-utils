@@ -13,7 +13,7 @@ PLUGIN_APP_CLASS_ATTRIBUTE_NAME = "plugin_app"
 PLUGIN_APP_SETTINGS_FUNC_NAME = "plugin_settings"
 
 
-class PluginSettings():
+class PluginSettings:
     """
     The PluginSettings enum defines dictionary field names (and defaults)
     that can be specified by a Plugin App in order to configure the settings
@@ -25,7 +25,7 @@ class PluginSettings():
     DEFAULT_RELATIVE_PATH = "settings"
 
 
-class PluginURLs():
+class PluginURLs:
     """
     The PluginURLs enum defines dictionary field names (and defaults) that can
     be specified by a Plugin App in order to configure the URLs that are
@@ -40,7 +40,7 @@ class PluginURLs():
     DEFAULT_RELATIVE_PATH = "urls"
 
 
-class PluginSignals():
+class PluginSignals:
     """
     The PluginSignals enum defines dictionary field names (and defaults)
     that can be specified by a Plugin App in order to configure the signals
@@ -59,7 +59,7 @@ class PluginSignals():
     DEFAULT_RELATIVE_PATH = "signals"
 
 
-class PluginContexts():
+class PluginContexts:
     """
     The PluginContexts enum defines dictionary field names (and defaults)
     that can be specified by a Plugin App in order to configure the

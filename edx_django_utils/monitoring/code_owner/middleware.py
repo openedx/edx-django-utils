@@ -30,6 +30,7 @@ class CodeOwnerMetricMiddleware:
         This can be used to find missing mappings.
 
     """
+
     def __init__(self, get_response):
         self.get_response = get_response
 
@@ -50,36 +51,39 @@ class CodeOwnerMetricMiddleware:
         """
         code_owner, path_error = self._set_code_owner_metric_from_path(request)
         if code_owner:
-            set_custom_metric('code_owner', code_owner)
+            set_custom_metric("code_owner", code_owner)
             return
         if not path_error:
             # module found, but mapping wasn't configured
             code_owner = self._set_code_owner_metric_catch_all()
             if code_owner:
-                set_custom_metric('code_owner', code_owner)
+                set_custom_metric("code_owner", code_owner)
             return
 
-        code_owner, transaction_error = self._set_code_owner_metric_from_current_transaction(request)
+        (
+            code_owner,
+            transaction_error,
+        ) = self._set_code_owner_metric_from_current_transaction(request)
         if code_owner:
-            set_custom_metric('code_owner', code_owner)
+            set_custom_metric("code_owner", code_owner)
             return
         if not transaction_error:
             # transaction name found, but mapping wasn't configured
             code_owner = self._set_code_owner_metric_catch_all()
             if code_owner:
-                set_custom_metric('code_owner', code_owner)
+                set_custom_metric("code_owner", code_owner)
             return
 
         code_owner = self._set_code_owner_metric_catch_all()
         if code_owner:
-            set_custom_metric('code_owner', code_owner)
+            set_custom_metric("code_owner", code_owner)
             return
 
         # only report errors if code_owner couldn't be found, including catch-all
         if path_error:
-            set_custom_metric('code_owner_path_error', path_error)
+            set_custom_metric("code_owner_path_error", path_error)
         if transaction_error:
-            set_custom_metric('code_owner_transaction_error', transaction_error)
+            set_custom_metric("code_owner_transaction_error", transaction_error)
 
     def _set_code_owner_metric_from_path(self, request):
         """
@@ -98,7 +102,7 @@ class CodeOwnerMetricMiddleware:
         try:
             view_func, _, _ = resolve(request.path)
             path_module = view_func.__module__
-            set_custom_metric('code_owner_path_module', path_module)
+            set_custom_metric("code_owner_path_module", path_module)
             code_owner = get_code_owner_from_module(path_module)
             return code_owner, None
         except Exception as e:  # pylint: disable=broad-except
@@ -122,9 +126,9 @@ class CodeOwnerMetricMiddleware:
             # Example: openedx.core.djangoapps.contentserver.middleware:StaticContentServer
             transaction_name = get_current_transaction().name
             if not transaction_name:
-                return None, 'No current transaction name found.'
-            set_custom_metric('code_owner_transaction_name', transaction_name)
-            module_name = transaction_name.split(':')[0]
+                return None, "No current transaction name found."
+            set_custom_metric("code_owner_transaction_name", transaction_name)
+            module_name = transaction_name.split(":")[0]
             code_owner = get_code_owner_from_module(module_name)
             return code_owner, None
         except Exception as e:  # pylint: disable=broad-except
@@ -142,7 +146,7 @@ class CodeOwnerMetricMiddleware:
             return None
 
         try:
-            code_owner = get_code_owner_from_module('*')
+            code_owner = get_code_owner_from_module("*")
             return code_owner
         except Exception:  # pylint: disable=broad-except; #pragma: no cover
             return None

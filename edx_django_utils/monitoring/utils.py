@@ -67,8 +67,8 @@ def set_custom_metrics_for_course_key(course_key):
 
     """
     if newrelic:  # pragma: no cover
-        newrelic.agent.add_custom_parameter('course_id', str(course_key))
-        newrelic.agent.add_custom_parameter('org', str(course_key.org))
+        newrelic.agent.add_custom_parameter("course_id", str(course_key))
+        newrelic.agent.add_custom_parameter("org", str(course_key.org))
 
 
 def set_custom_metric(key, value):

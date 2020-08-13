@@ -22,13 +22,14 @@ def get_code_owner_from_module(module):
     https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_metric_to_an_ida.rst
 
     """
-    assert _PATH_TO_CODE_OWNER_MAPPINGS != _INVALID_CODE_OWNER_MAPPING,\
-        'CODE_OWNER_MAPPINGS django setting set with invalid configuration. See logs for details.'
+    assert (
+        _PATH_TO_CODE_OWNER_MAPPINGS != _INVALID_CODE_OWNER_MAPPING
+    ), "CODE_OWNER_MAPPINGS django setting set with invalid configuration. See logs for details."
 
-    module_parts = module.split('.')
+    module_parts = module.split(".")
     # To make the most specific match, start with the max number of parts
     for number_of_parts in range(len(module_parts), 0, -1):
-        partial_path = '.'.join(module_parts[0:number_of_parts])
+        partial_path = ".".join(module_parts[0:number_of_parts])
         if partial_path in _PATH_TO_CODE_OWNER_MAPPINGS:
             code_owner = _PATH_TO_CODE_OWNER_MAPPINGS[partial_path]
             return code_owner
@@ -61,7 +62,7 @@ def _process_code_owner_mappings():
         }
 
     """
-    _CODE_OWNER_MAPPINGS = getattr(settings, 'CODE_OWNER_MAPPINGS', None)
+    _CODE_OWNER_MAPPINGS = getattr(settings, "CODE_OWNER_MAPPINGS", None)
     if not _CODE_OWNER_MAPPINGS:
         return None
 
@@ -71,15 +72,17 @@ def _process_code_owner_mappings():
             path_list = _CODE_OWNER_MAPPINGS[code_owner]
             for path in path_list:
                 path_to_code_owner_mappings[path] = code_owner
-                optional_module_prefix_match = _OPTIONAL_MODULE_PREFIX_PATTERN.match(path)
+                optional_module_prefix_match = _OPTIONAL_MODULE_PREFIX_PATTERN.match(
+                    path
+                )
                 # if path has an optional prefix, also add the module name without the prefix
                 if optional_module_prefix_match:
-                    path_without_prefix = path[optional_module_prefix_match.end():]
+                    path_without_prefix = path[optional_module_prefix_match.end() :]
                     path_to_code_owner_mappings[path_without_prefix] = code_owner
 
         return path_to_code_owner_mappings
     except Exception as e:  # pylint: disable=broad-except
-        log.exception('Error processing code_owner_mappings. {}'.format(e))
+        log.exception("Error processing code_owner_mappings. {}".format(e))
         # errors should be unlikely due do scripting the setting values.
         # this will also trigger an error custom metric that can be alerted on.
         return _INVALID_CODE_OWNER_MAPPING
@@ -102,7 +105,9 @@ _CODE_OWNER_MAPPINGS = None
 
 # TODO: Remove this LMS spcific configuration by replacing with a Django Setting named
 #    CODE_OWNER_OPTIONAL_MODULE_PREFIXES that takes a list of module prefixes (without the final period).
-_OPTIONAL_MODULE_PREFIX_PATTERN = re.compile(r'^(lms|common|openedx\.core)\.djangoapps\.')
-_INVALID_CODE_OWNER_MAPPING = 'invalid-code-owner-mapping'
+_OPTIONAL_MODULE_PREFIX_PATTERN = re.compile(
+    r"^(lms|common|openedx\.core)\.djangoapps\."
+)
+_INVALID_CODE_OWNER_MAPPING = "invalid-code-owner-mapping"
 # lookup table for code owner given a module path
 _PATH_TO_CODE_OWNER_MAPPINGS = _process_code_owner_mappings()

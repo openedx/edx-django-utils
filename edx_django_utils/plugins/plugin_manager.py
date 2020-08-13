@@ -31,9 +31,7 @@ class PluginManager:
         # has been correctly set up. Trying to create this statically will fail, unfortunately.
         plugins = OrderedDict()
         # pylint: disable=no-member
-        extension_manager = ExtensionManager(
-            namespace=namespace or cls.NAMESPACE
-        )
+        extension_manager = ExtensionManager(namespace=namespace or cls.NAMESPACE)
         for plugin_name in extension_manager.names():
             plugins[plugin_name] = extension_manager[plugin_name].plugin
         return plugins
@@ -46,7 +44,7 @@ class PluginManager:
         plugins = cls.get_available_plugins(namespace)
         if name not in plugins:
             raise PluginError(
-                u"No such plugin {name} for entry point {namespace}".format(
+                "No such plugin {name} for entry point {namespace}".format(
                     name=name,
                     namespace=namespace or cls.NAMESPACE,  # pylint: disable=no-member
                 )

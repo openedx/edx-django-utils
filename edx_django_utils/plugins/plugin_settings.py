@@ -32,7 +32,7 @@ def _iter_plugins(project_type, settings_type):
         settings_config = _get_config(app_config, project_type, settings_type)
         if settings_config is None:
             log.debug(
-                u"Plugin Apps [Settings]: Did NOT find %s for %s and %s",
+                "Plugin Apps [Settings]: Did NOT find %s for %s and %s",
                 app_config.name,
                 project_type,
                 settings_type,
@@ -44,7 +44,7 @@ def _iter_plugins(project_type, settings_type):
         )
 
         log.debug(
-            u"Plugin Apps [Settings]: Found %s for %s and %s",
+            "Plugin Apps [Settings]: Found %s for %s and %s",
             app_config.name,
             project_type,
             settings_type,

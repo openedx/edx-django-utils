@@ -8,10 +8,10 @@ from django.core.cache import cache as django_cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.utils.encoding import force_str
 
-FORCE_CACHE_MISS_PARAM = 'force_cache_miss'
-DEFAULT_NAMESPACE = 'edx_django_utils.cache'
-DEFAULT_REQUEST_CACHE_NAMESPACE = '{}.default'.format(DEFAULT_NAMESPACE)
-SHOULD_FORCE_CACHE_MISS_KEY = 'edx_django_utils.cache.should_force_cache_miss'
+FORCE_CACHE_MISS_PARAM = "force_cache_miss"
+DEFAULT_NAMESPACE = "edx_django_utils.cache"
+DEFAULT_REQUEST_CACHE_NAMESPACE = "{}.default".format(DEFAULT_NAMESPACE)
+SHOULD_FORCE_CACHE_MISS_KEY = "edx_django_utils.cache.should_force_cache_miss"
 
 _CACHE_MISS = object()
 
@@ -35,9 +35,11 @@ def get_cache_key(**kwargs):
     Returns:
          An MD5 encoded key uniquely identified by the key word arguments.
     """
-    key = '__'.join([u'{}:{}'.format(k, force_str(v)) for k, v in sorted(kwargs.items())])
+    key = "__".join(
+        ["{}:{}".format(k, force_str(v)) for k, v in sorted(kwargs.items())]
+    )
 
-    return hashlib.md5(key.encode('utf-8')).hexdigest()
+    return hashlib.md5(key.encode("utf-8")).hexdigest()
 
 
 class _RequestCache(threading.local):
@@ -46,6 +48,7 @@ class _RequestCache(threading.local):
 
     The data is a dict of dicts, keyed by namespace.
     """
+
     def __init__(self):
         super(_RequestCache, self).__init__()
         self._data = {}
@@ -93,8 +96,9 @@ class RequestCache:
         Args:
             namespace (string): (optional) uses 'default' if not provided.
         """
-        assert namespace != DEFAULT_REQUEST_CACHE_NAMESPACE,\
-            'Optional namespace can not be {}.'.format(DEFAULT_REQUEST_CACHE_NAMESPACE)
+        assert (
+            namespace != DEFAULT_REQUEST_CACHE_NAMESPACE
+        ), "Optional namespace can not be {}.".format(DEFAULT_REQUEST_CACHE_NAMESPACE)
         self.namespace = namespace or DEFAULT_REQUEST_CACHE_NAMESPACE
 
     @classmethod
@@ -290,7 +294,9 @@ class TieredCache:
         if not (request.user and request.user.is_active and request.user.is_staff):
             force_cache_miss = False
         else:
-            force_cache_miss = request.GET.get(FORCE_CACHE_MISS_PARAM, 'false').lower() == 'true'
+            force_cache_miss = (
+                request.GET.get(FORCE_CACHE_MISS_PARAM, "false").lower() == "true"
+            )
         DEFAULT_REQUEST_CACHE.set(SHOULD_FORCE_CACHE_MISS_KEY, force_cache_miss)
 
     @classmethod
@@ -300,7 +306,9 @@ class TieredCache:
         django cache, and False otherwise.
 
         """
-        cached_response = DEFAULT_REQUEST_CACHE.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY)
+        cached_response = DEFAULT_REQUEST_CACHE.get_cached_response(
+            SHOULD_FORCE_CACHE_MISS_KEY
+        )
         return False if not cached_response.is_found else cached_response.value
 
 
@@ -308,9 +316,14 @@ class CachedResponseError(Exception):
     """
     Error used when CachedResponse is misused.
     """
-    USAGE_MESSAGE = 'CachedResponse was misused. Try the attributes is_found, value or key.'
 
-    def __init__(self, message=USAGE_MESSAGE):  # pylint: disable=useless-super-delegation
+    USAGE_MESSAGE = (
+        "CachedResponse was misused. Try the attributes is_found, value or key."
+    )
+
+    def __init__(
+        self, message=USAGE_MESSAGE
+    ):  # pylint: disable=useless-super-delegation
         super(CachedResponseError, self).__init__(message)
 
 
@@ -318,6 +331,7 @@ class CachedResponse:
     """
     Represents a cache response including is_found status and value.
     """
+
     def __init__(self, is_found, key, value):
         """
         Creates a cached response object.
@@ -336,7 +350,9 @@ class CachedResponse:
     def __repr__(self):
         # Important: Do not include the cached value to help avoid any security
         # leaks that could happen if these are logged.
-        return u'''CachedResponse(is_found={}, key={}, value='*****')'''.format(self.is_found, self.key)
+        return """CachedResponse(is_found={}, key={}, value='*****')""".format(
+            self.is_found, self.key
+        )
 
     def get_value_or_default(self, default):
         """

@@ -63,10 +63,11 @@ def function_trace(function_name):
         yield
 
 
-class MonitoringTransaction():
+class MonitoringTransaction:
     """
     Represents a monitoring transaction (likely the current transaction).
     """
+
     def __init__(self, transaction):
         self.transaction = transaction
 
@@ -79,7 +80,7 @@ class MonitoringTransaction():
             openedx.core.djangoapps.contentserver.middleware:StaticContentServer
 
         """
-        if self.transaction and hasattr(self.transaction, 'name'):
+        if self.transaction and hasattr(self.transaction, "name"):
             return self.transaction.name
         return None
 
