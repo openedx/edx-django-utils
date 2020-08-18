@@ -6,7 +6,7 @@
 #
 django-waffle==1.0.0      # via -r requirements/base.in
 django==2.2.15            # via -c requirements/constraints.txt, -r requirements/base.in
-newrelic==5.16.0.145      # via -r requirements/base.in
+newrelic==5.16.1.146      # via -r requirements/base.in
 pbr==5.4.5                # via stevedore
 psutil==5.7.2             # via -r requirements/base.in
 pytz==2020.1              # via django
