@@ -48,7 +48,7 @@ class TestMonitoringCustomMetrics(TestCase):
 
         # Assert call args to newrelic.agent.add_custom_parameter().  Due to
         # the nature of python dicts, call order is undefined.
-        mock_newrelic_agent.add_custom_parameter.has_calls(nr_agent_calls_expected, any_order=True)
+        mock_newrelic_agent.add_custom_parameter.assert_has_calls(nr_agent_calls_expected, any_order=True)
 
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',

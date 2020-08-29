@@ -60,8 +60,12 @@ class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
         Accumulate a custom metric (name and value) in the metrics cache.
         """
         metrics_cache = cls._get_metrics_cache()
-        metrics_cache.setdefault(name, 0)
-        metrics_cache.set(name, value)
+        cached_response = metrics_cache.get_cached_response(name)
+        if cached_response.is_found:
+            accumulated_value = value + cached_response.value
+        else:
+            accumulated_value = value
+        metrics_cache.set(name, accumulated_value)
 
     @classmethod
     def _batch_report(cls):

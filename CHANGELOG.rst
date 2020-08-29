@@ -15,6 +15,11 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.7.4] - 2020-08-29
+~~~~~~~~~~~~~~~~~~~~
+
+* Fix to custom monitoring accumulate to actually accumulate rather than overwrite.
+
 [3.7.3] - 2020-08-12
 ~~~~~~~~~~~~~~~~~~~~
 
