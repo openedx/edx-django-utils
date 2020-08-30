@@ -62,7 +62,14 @@ class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
         metrics_cache = cls._get_metrics_cache()
         cached_response = metrics_cache.get_cached_response(name)
         if cached_response.is_found:
-            accumulated_value = value + cached_response.value
+            try:
+                accumulated_value = value + cached_response.value
+            except TypeError:
+                _set_custom_attribute(
+                    'error_adding_accumulated_metric',
+                    'new_value={}, cached_value={}'.format(value, cached_response.value)
+                )
+                return
         else:
             accumulated_value = value
         metrics_cache.set(name, accumulated_value)
@@ -76,7 +83,7 @@ class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
             return
         metrics_cache = cls._get_metrics_cache()
         for key, value in metrics_cache.data.items():
-            newrelic.agent.add_custom_parameter(key, value)
+            _set_custom_attribute(key, value)
 
     # Whether or not there was an exception, report any custom NR metrics that
     # may have been collected.
@@ -93,6 +100,16 @@ class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
         Django middleware handler to process an exception
         """
         self._batch_report()
+
+
+def _set_custom_attribute(key, value):
+    """
+    Sets monitoring custom attribute.
+
+    Note: Can't use public method in ``utils.py`` due to circular reference.
+    """
+    if newrelic:  # pragma: no cover
+        newrelic.agent.add_custom_parameter(key, value)
 
 
 class MonitoringMemoryMiddleware(MiddlewareMixin):
