@@ -1,15 +1,19 @@
 """
-Tests for monitoring custom metrics.
+Tests for custom monitoring.
 """
 from django.test import TestCase, override_settings
 from mock import call, patch
 
 from edx_django_utils import monitoring
 from edx_django_utils.cache import RequestCache
-from edx_django_utils.monitoring.middleware import MonitoringCustomMetricsMiddleware, MonitoringMemoryMiddleware
+from edx_django_utils.monitoring.middleware import (
+    CachedCustomMonitoringMiddleware,
+    MonitoringCustomMetricsMiddleware,
+    MonitoringMemoryMiddleware
+)
 
 
-class TestMonitoringCustomMetrics(TestCase):
+class TestCustomMonitoringMiddleware(TestCase):
     """
     Test the monitoring_utils middleware and helpers
     """
@@ -20,11 +24,11 @@ class TestMonitoringCustomMetrics(TestCase):
     @patch('newrelic.agent')
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
-        'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
+        'edx_django_utils.monitoring.middleware.CachedCustomMonitoringMiddleware',
     ])
     def test_accumulate_and_increment(self, mock_newrelic_agent):
         """
-        Test normal usage of collecting custom metrics and reporting to New Relic
+        Test normal usage of collecting custom attributes and reporting to New Relic
         """
         monitoring.accumulate('hello', 10)
         monitoring.accumulate('world', 10)
@@ -32,15 +36,15 @@ class TestMonitoringCustomMetrics(TestCase):
         monitoring.increment('foo')
         monitoring.increment('foo')
 
-        # based on the metric data above, we expect the following calls to newrelic:
+        # based on the attribute data above, we expect the following calls to newrelic:
         nr_agent_calls_expected = [
             call('hello', 10),
             call('world', 20),
             call('foo', 2),
         ]
 
-        # fake a response to trigger metrics reporting
-        MonitoringCustomMetricsMiddleware().process_response(
+        # fake a response to trigger attributes reporting
+        CachedCustomMonitoringMiddleware().process_response(
             'fake request',
             'fake response',
         )
@@ -88,15 +92,22 @@ class TestMonitoringCustomMetrics(TestCase):
 
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'edx_django_utils.monitoring.middleware.CachedCustomMonitoringMiddleware',
+    ])
+    def test_cached_custom_monitoring_middleware_dependencies_success(self):
+        CachedCustomMonitoringMiddleware()
+
+    @override_settings(MIDDLEWARE=[
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
         'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
     ])
     def test_custom_metrics_middleware_dependencies_success(self):
         MonitoringCustomMetricsMiddleware()
 
     @override_settings(MIDDLEWARE=['some.Middleware'])
-    def test_custom_metrics_middleware_dependencies_failure(self):
+    def test_cached_custom_monitoring_middleware_dependencies_failure(self):
         with self.assertRaises(AssertionError):
-            MonitoringCustomMetricsMiddleware()
+            CachedCustomMonitoringMiddleware()
 
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
