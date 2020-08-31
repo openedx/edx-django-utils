@@ -69,7 +69,7 @@ class TestMonitoringCustomMetrics(TestCase):
         # based on the metric data above, we expect the following calls to newrelic:
         nr_agent_calls_expected = [
             call('hello', None),
-            call('error_adding_accumulated_metric', 'new_value=10, cached_value=None'),
+            call('error_adding_accumulated_metric', 'name=hello, new_value=10, cached_value=None'),
         ]
 
         # fake a response to trigger metrics reporting

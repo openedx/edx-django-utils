@@ -67,7 +67,9 @@ class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
             except TypeError:
                 _set_custom_attribute(
                     'error_adding_accumulated_metric',
-                    'new_value={}, cached_value={}'.format(repr(value), repr(cached_response.value))
+                    'name={}, new_value={}, cached_value={}'.format(
+                        name, repr(value), repr(cached_response.value)
+                    )
                 )
                 return
         else:
