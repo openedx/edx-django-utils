@@ -64,8 +64,8 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
         """
         Accumulate a custom attribute (name and value) in the attributes cache.
         """
-        metrics_cache = cls._get_metrics_cache()
-        cached_response = metrics_cache.get_cached_response(name)
+        attributes_cache = cls._get_attributes_cache()
+        cached_response = attributes_cache.get_cached_response(name)
         if cached_response.is_found:
             try:
                 accumulated_value = value + cached_response.value
@@ -79,7 +79,7 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
                 return
         else:
             accumulated_value = value
-        metrics_cache.set(name, accumulated_value)
+        attributes_cache.set(name, accumulated_value)
 
     @classmethod
     def accumulate_metric(cls, name, value):  # pragma: no cover
