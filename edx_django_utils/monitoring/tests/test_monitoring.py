@@ -1,26 +1,34 @@
 """
-Tests for monitoring custom metrics.
+Tests for custom monitoring.
 """
 from django.test import TestCase, override_settings
 from mock import call, patch
 
 from edx_django_utils import monitoring
-from edx_django_utils.monitoring.middleware import MonitoringCustomMetricsMiddleware, MonitoringMemoryMiddleware
+from edx_django_utils.cache import RequestCache
+from edx_django_utils.monitoring.middleware import (
+    CachedCustomMonitoringMiddleware,
+    MonitoringCustomMetricsMiddleware,
+    MonitoringMemoryMiddleware
+)
 
 
-class TestMonitoringCustomMetrics(TestCase):
+class TestCustomMonitoringMiddleware(TestCase):
     """
     Test the monitoring_utils middleware and helpers
     """
+    def setUp(self):
+        super(TestCustomMonitoringMiddleware, self).setUp()
+        RequestCache.clear_all_namespaces()
 
     @patch('newrelic.agent')
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
-        'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
+        'edx_django_utils.monitoring.middleware.CachedCustomMonitoringMiddleware',
     ])
-    def test_custom_metrics_with_new_relic(self, mock_newrelic_agent):
+    def test_accumulate_and_increment(self, mock_newrelic_agent):
         """
-        Test normal usage of collecting custom metrics and reporting to New Relic
+        Test normal usage of collecting custom attributes and reporting to New Relic
         """
         monitoring.accumulate('hello', 10)
         monitoring.accumulate('world', 10)
@@ -28,11 +36,44 @@ class TestMonitoringCustomMetrics(TestCase):
         monitoring.increment('foo')
         monitoring.increment('foo')
 
-        # based on the metric data above, we expect the following calls to newrelic:
+        # based on the attribute data above, we expect the following calls to newrelic:
         nr_agent_calls_expected = [
             call('hello', 10),
             call('world', 20),
             call('foo', 2),
+        ]
+
+        # fake a response to trigger attributes reporting
+        CachedCustomMonitoringMiddleware().process_response(
+            'fake request',
+            'fake response',
+        )
+
+        # Assert call counts to newrelic.agent.add_custom_parameter()
+        expected_call_count = len(nr_agent_calls_expected)
+        measured_call_count = mock_newrelic_agent.add_custom_parameter.call_count
+        self.assertEqual(expected_call_count, measured_call_count)
+
+        # Assert call args to newrelic.agent.add_custom_parameter().  Due to
+        # the nature of python dicts, call order is undefined.
+        mock_newrelic_agent.add_custom_parameter.assert_has_calls(nr_agent_calls_expected, any_order=True)
+
+    @patch('newrelic.agent')
+    @override_settings(MIDDLEWARE=[
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
+    ])
+    def test_accumulate_with_illegal_value(self, mock_newrelic_agent):
+        """
+        Test monitoring accumulate with illegal value that can't be added.
+        """
+        monitoring.accumulate('hello', None)
+        monitoring.accumulate('hello', 10)
+
+        # based on the metric data above, we expect the following calls to newrelic:
+        nr_agent_calls_expected = [
+            call('hello', None),
+            call('error_adding_accumulated_metric', 'name=hello, new_value=10, cached_value=None'),
         ]
 
         # fake a response to trigger metrics reporting
@@ -46,9 +87,15 @@ class TestMonitoringCustomMetrics(TestCase):
         measured_call_count = mock_newrelic_agent.add_custom_parameter.call_count
         self.assertEqual(expected_call_count, measured_call_count)
 
-        # Assert call args to newrelic.agent.add_custom_parameter().  Due to
-        # the nature of python dicts, call order is undefined.
-        mock_newrelic_agent.add_custom_parameter.has_calls(nr_agent_calls_expected, any_order=True)
+        # Assert call args to newrelic.agent.add_custom_parameter().
+        mock_newrelic_agent.add_custom_parameter.assert_has_calls(nr_agent_calls_expected, any_order=True)
+
+    @override_settings(MIDDLEWARE=[
+        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+        'edx_django_utils.monitoring.middleware.CachedCustomMonitoringMiddleware',
+    ])
+    def test_cached_custom_monitoring_middleware_dependencies_success(self):
+        CachedCustomMonitoringMiddleware()
 
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
@@ -58,9 +105,9 @@ class TestMonitoringCustomMetrics(TestCase):
         MonitoringCustomMetricsMiddleware()
 
     @override_settings(MIDDLEWARE=['some.Middleware'])
-    def test_custom_metrics_middleware_dependencies_failure(self):
+    def test_cached_custom_monitoring_middleware_dependencies_failure(self):
         with self.assertRaises(AssertionError):
-            MonitoringCustomMetricsMiddleware()
+            CachedCustomMonitoringMiddleware()
 
     @override_settings(MIDDLEWARE=[
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
