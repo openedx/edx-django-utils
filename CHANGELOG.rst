@@ -15,6 +15,23 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.8.0] - 2020-08-31
+~~~~~~~~~~~~~~~~~~~~
+
+Updated
+_______
+
+* Renamed "custom metric" to "custom attribute" throughout the monitoring library. This decision can be read about in the ADR 0002-custom-monitoring-language.rst.  The following have been deprecated:
+
+  * set_custom_metric (use set_custom_attribute)
+  * set_custom_metrics_for_course_key (use set_custom_attributes_for_course_key)
+  * MonitoringCustomMetricsMiddleware (use CachedCustomMonitoringMiddleware)
+  * CachedCustomMonitoringMiddleware.accumulate_metric (use CachedCustomMonitoringMiddleware.accumulate_attribute)
+
+    * This wasn't meant to be used publicly, but was deprecated just in case.
+
+  * CodeOwnerMetricMiddleware (use CodeOwnerMonitoringMiddleware)
+
 [3.7.4] - 2020-08-29
 ~~~~~~~~~~~~~~~~~~~~
 
@@ -23,10 +40,14 @@ Unreleased
 [3.7.3] - 2020-08-12
 ~~~~~~~~~~~~~~~~~~~~
 
+Updated
+_______
+
 * Upgrade psutil to latest version
 
 [3.7.2] - 2020-08-10
 ~~~~~~~~~~~~~~~~~~~~
+
 Updated
 _______
 
