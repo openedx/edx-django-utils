@@ -5,7 +5,7 @@
 #    make upgrade
 #
 alabaster==0.7.12         # via sphinx
-attrs==19.3.0             # via -r requirements/test.txt, pytest
+attrs==20.1.0             # via -r requirements/test.txt, pytest
 babel==2.8.0              # via sphinx
 bleach==3.1.5             # via readme-renderer
 certifi==2020.6.20        # via requests
@@ -25,7 +25,7 @@ jinja2==2.11.2            # via sphinx
 markupsafe==1.1.1         # via jinja2
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/test.txt
 more-itertools==8.4.0     # via -r requirements/test.txt, pytest
-newrelic==5.16.1.146      # via -r requirements/test.txt
+newrelic==5.16.2.147      # via -r requirements/test.txt
 packaging==20.4           # via -r requirements/test.txt, bleach, pytest, sphinx
 pathlib2==2.3.5           # via -r requirements/test.txt, pytest
 pbr==5.4.5                # via -r requirements/test.txt, stevedore
