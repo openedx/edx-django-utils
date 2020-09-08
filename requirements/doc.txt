@@ -5,15 +5,15 @@
 #    make upgrade
 #
 alabaster==0.7.12         # via sphinx
-attrs==20.1.0             # via -r requirements/test.txt, pytest
+attrs==20.2.0             # via -r requirements/test.txt, pytest
 babel==2.8.0              # via sphinx
 bleach==3.1.5             # via readme-renderer
 certifi==2020.6.20        # via requests
 chardet==3.0.4            # via doc8, requests
 coverage==5.2.1           # via -r requirements/test.txt, pytest-cov
 ddt==1.4.1                # via -r requirements/test.txt
-django-waffle==1.0.0      # via -r requirements/test.txt
-django==2.2.15            # via -c requirements/constraints.txt, -r requirements/test.txt
+django-waffle==2.0.0      # via -r requirements/test.txt
+django==2.2.16            # via -c requirements/constraints.txt, -r requirements/test.txt
 doc8==0.8.1               # via -r requirements/doc.in
 docutils==0.16            # via doc8, readme-renderer, restructuredtext-lint, sphinx
 edx-sphinx-theme==1.5.0   # via -r requirements/doc.in
@@ -24,11 +24,11 @@ iniconfig==1.0.1          # via -r requirements/test.txt, pytest
 jinja2==2.11.2            # via sphinx
 markupsafe==1.1.1         # via jinja2
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/test.txt
-more-itertools==8.4.0     # via -r requirements/test.txt, pytest
-newrelic==5.16.2.147      # via -r requirements/test.txt
+more-itertools==8.5.0     # via -r requirements/test.txt, pytest
+newrelic==5.18.0.148      # via -r requirements/test.txt
 packaging==20.4           # via -r requirements/test.txt, bleach, pytest, sphinx
 pathlib2==2.3.5           # via -r requirements/test.txt, pytest
-pbr==5.4.5                # via -r requirements/test.txt, stevedore
+pbr==5.5.0                # via -r requirements/test.txt, stevedore
 pkginfo==1.5.0.1          # via twine
 pluggy==0.13.1            # via -r requirements/test.txt, pytest
 psutil==5.7.2             # via -r requirements/test.txt
