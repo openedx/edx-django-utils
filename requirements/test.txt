@@ -5,7 +5,7 @@
 #    make upgrade
 #
 attrs==20.2.0             # via pytest
-coverage==5.2.1           # via pytest-cov
+coverage==5.3             # via pytest-cov
 ddt==1.4.1                # via -r requirements/test.in
 django-waffle==2.0.0      # via -r requirements/base.txt
 importlib-metadata==1.7.0  # via pluggy, pytest
@@ -21,8 +21,8 @@ psutil==5.7.2             # via -r requirements/base.txt
 py==1.9.0                 # via pytest
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.1        # via -r requirements/test.in
-pytest-django==3.9.0      # via -r requirements/test.in
-pytest==6.0.1             # via pytest-cov, pytest-django
+pytest-django==3.10.0     # via -r requirements/test.in
+pytest==6.0.2             # via pytest-cov, pytest-django
 pytz==2020.1              # via -r requirements/base.txt, django
 six==1.15.0               # via -r requirements/base.txt, mock, packaging, pathlib2, stevedore
 sqlparse==0.3.1           # via -r requirements/base.txt, django
