@@ -1,27 +1,27 @@
-Enhanced Monitoring and Custom Attributes
-=========================================
+Enhanced Monitoring and Custom Metrics
+======================================
 
 .. contents::
    :local:
    :depth: 2
 
-What is a Custom Attribute?
----------------------------
+What is a Custom Metric?
+-------------------------
 
-A custom attribute is a name/value pair that you define, which will be associated with a request and available in various places in your monitoring software. For example, in Open edX, there is a ``request_user_id`` made available to all requests using the `RequestMetricsMiddleware`_. Note: ``RequestMetricsMiddleware`` should be renamed to ``RequestCustomAttributesMiddleware``.
+A custom metric is a name/value pair that you define, which will be associated with a request and available in various places in your monitoring software. For example, in Open edX, there is a ``request_user_id`` made available to all requests using the `RequestMetricsMiddleware`_.
 
 If you are using NewRelic, you can search for PageViews, Transactions, TransactionErrors, etc. using NewRelic Insights, either with custom queries using the Data Explorer (searching "Events", not Metrics). They will also appear in other places, like when viewing an error in NewRelic APM.
 
-.. RequestMetricsMiddleware: https://github.com/edx/edx-drf-extensions/blob/master/edx_rest_framework_extensions/middleware.py#L12-L39
+.. _RequestMetricsMiddleware: https://github.com/edx/edx-drf-extensions/blob/master/edx_rest_framework_extensions/middleware.py#L12-L39
 
-Coding New Custom Attributes
-----------------------------
+Coding New Custom Metrics
+-------------------------
 
-After setting up Middleware as detailed in README.rst, adding a new custom attribute is as simple as::
+After setting up Middleware as detailed in README.rst, adding a new custom metric is as simple as::
 
     from openedx.core.djangoapps import monitoring_utils
 
-    monitoring_utils.set_custom_attribute(name, value)
+    monitoring_utils.set_custom_metric(name, value)
 
 * Supported values are strings, bools and numbers.
 * Earlier values will be overwritten if the same name is set multiple times during a request.
@@ -35,8 +35,8 @@ For a complete list of the public methods available, see the ``__init__.py`` fil
 
 If you require functionality from ``newrelic.agent`` that hasn't yet been abstracted, please add any additional functionality to keep it encapsulated.
 
-Tips for Using Custom Attributes
---------------------------------
+Tips for Using Custom Metrics
+-----------------------------
 
 * A single name with an enum-like string value is often better than a set of related names with boolean values. For example:
 
@@ -50,53 +50,53 @@ Tips for Using Custom Attributes
     * is_request_auth_jwt_cookie: True/False,
     * is_request_auth_session: True/False.
 
-* When possible, set the custom attribute for both the positive and negative case. This helps avoid misinterpreting an incorrect query that doesn't turn up an attribute.
-* Avoid dynamic attribute names. More than 2000 attributes (for NewRelic) may cause issues.
+* When possible, set the custom metric for both the positive and negative case. This helps avoid misinterpreting an incorrect query that doesn't turn up a metric.
+* Avoid dynamic metric names. More than 2000 metrics (for NewRelic) may cause issues.
 
-Common Use Cases for Custom Attributes
---------------------------------------
+Common Use Cases for Custom Metrics
+-----------------------------------
 
-Although logging could also be used, with custom attributes, you don't need to worry about blowing out the logs if it is called many times, and you can query it along with all the pre-existing custom attributes.
+Although logging could also be used, with custom metrics, you don't need to worry about blowing out the logs if it is called many times, and you can query it along with all the pre-existing custom metrics.
 
-Consider using ``temp_`` as a prefix to any attribute name you plan to remove soon after it is added.
+Consider using ``temp_`` as a prefix to any metric name you plan to remove soon after it is added.
 
 Deprecating/Removing Code
 ~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Ever wonder if some code is actually used or not in Production? Add a temporary custom attribute and query it in Production.
+Ever wonder if some code is actually used or not in Production? Add a temporary custom metric and query it in Production.
 
-In addition to `Tips for Using Custom Attributes`_, remember to:
+In addition to `Tips for Using Custom Metrics`_, remember to:
 
 * Check the ``appName`` to see where code might only be used in a Stage environment.
 * Check Transaction ``response.status`` to see if code is being used on successful transactions.
-* Use ``<attribute-name> is not null`` to find all rows with a value.
-* Look at the attribute values in addition to getting non-null counts.  A value of 'None' is not null, but would be counted.
-* If the attribute is added to a library, ensure all applications have the upgraded library before deciding whether or not the code is in use.
-* Check across multiple environments (``appName`` in NewRelic).  For example, for edx.org, you can ensure that the attribute is also not in use in Edge, which is sometimes different than Production.
+* Use ``metric-name is not null`` to find all rows with a value.
+* Look at the metric values in addition to getting non-null counts.  A value of 'None' is not null, but would be counted.
+* If the metric is added to a library, ensure all applications have the upgraded library before deciding whether or not the code is in use.
+* Check across multiple environments (``appName`` in NewRelic).  For example, for edx.org, you can ensure that the metric is also not in use in Edge, which is sometimes different than Production.
 
 Debugging Production Issues
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-Add a temporary custom attribute to gain visibility into code running in Production. If using NewRelic, the custom attribute will also be associated with the error in the case of debugging errors.
+Add a temporary custom metric to gain visibility into code running in Production. If using NewRelic, the custom metric will also be associated with the error in the case of debugging errors.
 
 If you are seeing unexpected failures in Insights, review Transaction ``request.method`` and ``request_user_agent`` to see if bots are making unexpected calls that are failing.
 
 Refactoring Code
 ~~~~~~~~~~~~~~~~
 
-Want to dark launch some refactored code and ensure it works before switching to it? Add temporary attributes for the old value, new value, and whether they differ. This will provide quick insight into whether or not there is an issue, and if so, potentially why.
+Want to dark launch some refactored code and ensure it works before switching to it? Add temporary metrics for the old value, new value, and whether they differ. This will provide quick insight into whether or not there is an issue, and if so, potentially why.
 
 Advanced Cases with Caching
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to track something like an ordered list built up at different points in a request, you could add the list to a RequestCache, and update both the cached version and the attribute with every change. This enables you to look-up the old value and append to it as needed.
+If you want to track something like an ordered list built up at different points in a request, you could add the list to a RequestCache, and update both the cached version and the metric with every change. This enables you to look-up the old value and append to it as needed.
 
 For example, this could be used to track Authentication classes or Permission classes used.
 
 NewRelic Query Language Examples
 --------------------------------
 
-If you are using NewRelic Insights, here are some NewRelic Query Language (NRQL) examples using existing custom attributes.
+If you are using NewRelic Insights, here are some NewRelic Query Language (NRQL) examples using existing custom metrics.
 
 Simpler NRQL examples
 ~~~~~~~~~~~~~~~~~~~~~

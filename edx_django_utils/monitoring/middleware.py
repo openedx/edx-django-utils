@@ -1,11 +1,15 @@
 """
-Middleware for monitoring.
+Middleware for handling the storage, aggregation, and reporting of custom
+metrics for monitoring.
 
-At this time, monitoring details can only be reported to New Relic.
+At this time, the custom metrics can only be reported to New Relic.
+
+This middleware will only call on the newrelic agent if there are any metrics
+to report for this request, so it will not incur any processing overhead for
+request handlers which do not record custom metrics.
 
 """
 import logging
-import warnings
 from uuid import uuid4
 
 import psutil
@@ -24,48 +28,39 @@ except ImportError:
 
 
 _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
-_REQUEST_CACHE_NAMESPACE = '{}.custom_attributes'.format(_DEFAULT_NAMESPACE)
+_REQUEST_CACHE_NAMESPACE = '{}.custom_metrics'.format(_DEFAULT_NAMESPACE)
 
 
-class CachedCustomMonitoringMiddleware(MiddlewareMixin):
+class MonitoringCustomMetricsMiddleware(MiddlewareMixin):
     """
-    The middleware class for handling cached custom attributes, batch reported
-    at the end of a request.
+    The middleware class for adding custom metrics.
 
     Make sure to add below the request cache in MIDDLEWARE.
-
-    This middleware will only call on the newrelic agent if there are any attributes
-    to report for this request, so it will not incur any processing overhead for
-    request handlers which do not record custom attributes.
-
-    Note: New Relic adds custom attributes to events, which is what is being used here.
-
     """
-    REQUIRED_MIDDLEWARE = [
-        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
-        'edx_django_utils.monitoring.middleware.CachedCustomMonitoringMiddleware',
-    ]
 
     def __init__(self, *args, **kwargs):
-        super(CachedCustomMonitoringMiddleware, self).__init__(*args, **kwargs)
+        super(MonitoringCustomMetricsMiddleware, self).__init__(*args, **kwargs)
         # checks proper dependency order as well.
-        _check_middleware_dependencies(self, required_middleware=self.REQUIRED_MIDDLEWARE)
+        _check_middleware_dependencies(self, required_middleware=[
+            'edx_django_utils.cache.middleware.RequestCacheMiddleware',
+            'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
+        ])
 
     @classmethod
-    def _get_attributes_cache(cls):
+    def _get_metrics_cache(cls):
         """
         Get a reference to the part of the request cache wherein we store New
-        Relic custom attributes related to the current request.
+        Relic custom metrics related to the current request.
         """
         return RequestCache(namespace=_REQUEST_CACHE_NAMESPACE)
 
     @classmethod
-    def accumulate_attribute(cls, name, value):
+    def accumulate_metric(cls, name, value):
         """
-        Accumulate a custom attribute (name and value) in the attributes cache.
+        Accumulate a custom metric (name and value) in the metrics cache.
         """
-        attributes_cache = cls._get_attributes_cache()
-        cached_response = attributes_cache.get_cached_response(name)
+        metrics_cache = cls._get_metrics_cache()
+        cached_response = metrics_cache.get_cached_response(name)
         if cached_response.is_found:
             try:
                 accumulated_value = value + cached_response.value
@@ -79,29 +74,20 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
                 return
         else:
             accumulated_value = value
-        attributes_cache.set(name, accumulated_value)
-
-    @classmethod
-    def accumulate_metric(cls, name, value):  # pragma: no cover
-        """
-        Deprecated method replaced by accumulate_attribute.
-        """
-        msg = "Use 'accumulate_attribute' in place of 'accumulate_metric'."
-        warnings.warn(msg, DeprecationWarning)
-        cls.accumulate_attribute(name, value)
+        metrics_cache.set(name, accumulated_value)
 
     @classmethod
     def _batch_report(cls):
         """
-        Report the collected custom attributes to New Relic.
+        Report the collected custom metrics to New Relic.
         """
-        if not newrelic:  # pragma: no cover
+        if not newrelic:
             return
-        attributes_cache = cls._get_attributes_cache()
-        for key, value in attributes_cache.data.items():
+        metrics_cache = cls._get_metrics_cache()
+        for key, value in metrics_cache.data.items():
             _set_custom_attribute(key, value)
 
-    # Whether or not there was an exception, report any custom NR attributes that
+    # Whether or not there was an exception, report any custom NR metrics that
     # may have been collected.
 
     def process_response(self, request, response):
@@ -126,21 +112,6 @@ def _set_custom_attribute(key, value):
     """
     if newrelic:  # pragma: no cover
         newrelic.agent.add_custom_parameter(key, value)
-
-
-class MonitoringCustomMetricsMiddleware(CachedCustomMonitoringMiddleware):
-    """
-    Deprecated class for handling middleware. Class has been renamed to CachedCustomMonitoringMiddleware.
-    """
-    REQUIRED_MIDDLEWARE = [
-        'edx_django_utils.cache.middleware.RequestCacheMiddleware',
-        'edx_django_utils.monitoring.middleware.MonitoringCustomMetricsMiddleware',
-    ]
-
-    def __init__(self, *args, **kwargs):
-        super(MonitoringCustomMetricsMiddleware, self).__init__(*args, **kwargs)
-        msg = "Use 'CachedCustomMonitoringMiddleware' in place of 'MonitoringCustomMetricsMiddleware'."
-        warnings.warn(msg, DeprecationWarning)
 
 
 class MonitoringMemoryMiddleware(MiddlewareMixin):

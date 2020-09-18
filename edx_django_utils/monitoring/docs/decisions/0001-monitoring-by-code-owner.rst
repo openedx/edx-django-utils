@@ -9,7 +9,7 @@ Accepted
 Context
 =======
 
-We originally implemented the "code_owner" custom attribute in edx-platform for split-ownership of the LMS.  See the original `ADR in edx-platform for monitoring by code owner`_.
+We originally implemented the "code_owner" custom metric in edx-platform for split-ownership of the LMS.  See the original `ADR in edx-platform for monitoring by code owner`_.
 
 Owners wanted to be able to see transactions that they owned, in any IDA.
 
@@ -18,13 +18,13 @@ Owners wanted to be able to see transactions that they owned, in any IDA.
 Decision
 ========
 
-We will move the "code_owner" custom attribute code to these shared monitoring utilities so it is available for all IDAs.
+We will move the "code_owner" custom metric code to these shared monitoring utilities so it is available for all IDAs.
 
 The ability to add a catch-all configuration if there are no other matches will also be added in follow-up work.
 
 Consequences
 ============
 
-IDA owners will be able to add middleware and a Django Setting to have the same "code_owner" attribute available across all IDAs that are owned.
+IDA owners will be able to add middleware and a Django Setting to have the same "code_owner" metric available across all IDAs that are owned.
 
 At this time, in the case of an IDA with split-ownership, maintenance of the Django Setting is still manual. In other words, new paths with new owners will needed to be added to the setting.  Otherwise, the catch-all (if configured) will be marked as the code owner.
