@@ -13,14 +13,13 @@ ddt==1.4.1                # via -r requirements/test.txt
 django-waffle==2.0.0      # via -r requirements/test.txt
 django==2.2.16            # via -c requirements/constraints.txt, -r requirements/test.txt
 edx-lint==1.5.2           # via -r requirements/quality.in
-importlib-metadata==1.7.0  # via -r requirements/test.txt, pluggy, pytest
+importlib-metadata==2.0.0  # via -r requirements/test.txt, pluggy, pytest
 iniconfig==1.0.1          # via -r requirements/test.txt, pytest
 isort==4.3.21             # via -r requirements/quality.in, pylint
 lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/test.txt
-more-itertools==8.5.0     # via -r requirements/test.txt, pytest
-newrelic==5.18.0.148      # via -r requirements/test.txt
+newrelic==5.20.1.150      # via -r requirements/test.txt
 packaging==20.4           # via -r requirements/test.txt, pytest
 pathlib2==2.3.5           # via -r requirements/test.txt, pytest
 pbr==5.5.0                # via -r requirements/test.txt, stevedore
@@ -36,11 +35,11 @@ pylint==2.4.4             # via edx-lint, pylint-celery, pylint-django, pylint-p
 pyparsing==2.4.7          # via -r requirements/test.txt, packaging
 pytest-cov==2.10.1        # via -r requirements/test.txt
 pytest-django==3.10.0     # via -r requirements/test.txt
-pytest==6.0.2             # via -r requirements/test.txt, pytest-cov, pytest-django
+pytest==6.1.1             # via -r requirements/test.txt, pytest-cov, pytest-django
 pytz==2020.1              # via -r requirements/test.txt, django
 six==1.15.0               # via -r requirements/test.txt, astroid, edx-lint, mock, packaging, pathlib2, stevedore
 snowballstemmer==2.0.0    # via pydocstyle
-sqlparse==0.3.1           # via -r requirements/test.txt, django
+sqlparse==0.4.1           # via -r requirements/test.txt, django
 stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/test.txt
 toml==0.10.1              # via -r requirements/test.txt, pytest
 typed-ast==1.4.1          # via astroid
