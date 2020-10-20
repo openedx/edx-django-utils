@@ -25,7 +25,6 @@ class UserIdFilter(Filter):
 
 class RemoteIpFilter(Filter):
     def filter(self, record):
-        # get IP from context
         request = get_current_request()
         if request and 'REMOTE_ADDR' in request.META:
             record.remoteip = request.META['REMOTE_ADDR']

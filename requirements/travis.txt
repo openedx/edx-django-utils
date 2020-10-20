@@ -12,8 +12,6 @@ coverage==5.3             # via codecov
 distlib==0.3.1            # via virtualenv
 filelock==3.0.12          # via tox, virtualenv
 idna==2.10                # via requests
-importlib-metadata==1.7.0  # via pluggy, tox, virtualenv
-importlib-resources==3.0.0  # via virtualenv
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/travis.in
 packaging==20.4           # via tox
 pluggy==0.13.1            # via tox
@@ -25,5 +23,4 @@ toml==0.10.1              # via tox
 tox-battery==0.6.1        # via -r requirements/travis.in
 tox==3.20.0               # via -r requirements/travis.in, tox-battery
 urllib3==1.25.10          # via requests
-virtualenv==20.0.31       # via tox
-zipp==1.2.0               # via -c requirements/constraints.txt, importlib-metadata, importlib-resources
+virtualenv==20.0.33       # via tox
