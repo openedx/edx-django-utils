@@ -15,6 +15,17 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.9.0] - 2020-10-21
+~~~~~~~~~~~~~~~~~~~~
+
+Updated
+_______
+
+* Exposed existing get_code_owner_from_module via the public api.
+* Fixed get_code_owner_from_module to not require a call to is_code_owner_mappings_configured beforehand.
+* Set the existing code_owner_path_module custom attribute, even for cases where the transaction name was used, rather than the view module.
+* Refactor code owner setting processing.
+
 [3.8.0] - 2020-08-31
 ~~~~~~~~~~~~~~~~~~~~
 

@@ -12,7 +12,7 @@ from mock import Mock, call, patch
 
 from edx_django_utils.monitoring.code_owner.middleware import CodeOwnerMonitoringMiddleware
 from edx_django_utils.monitoring.code_owner.tests.mock_views import MockViewTest
-from edx_django_utils.monitoring.code_owner.utils import _process_code_owner_mappings
+from edx_django_utils.monitoring.code_owner.utils import clear_cached_mappings
 
 
 class MockMiddlewareViewTest(View):
@@ -34,6 +34,7 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
 
     def setUp(self):
         super().setUp()
+        clear_cached_mappings()
         self.mock_get_response = Mock()
         self.middleware = CodeOwnerMonitoringMiddleware(self.mock_get_response)
 
@@ -63,22 +64,18 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     def test_code_owner_path_mapping_hits_and_misses(
         self, request_path, expected_owner, mock_set_custom_attribute
     ):
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get(request_path)
-            self.middleware(request)
-            expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH[request_path]
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=expected_path_module
-            )
+        request = RequestFactory().get(request_path)
+        self.middleware(request)
+        expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH[request_path]
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=expected_path_module
+        )
 
-            mock_set_custom_attribute.reset_mock()
-            self.middleware.process_exception(request, None)
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=expected_path_module
-            )
+        mock_set_custom_attribute.reset_mock()
+        self.middleware.process_exception(request, None)
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=expected_path_module
+        )
 
     @override_settings(
         CODE_OWNER_MAPPINGS={
@@ -96,16 +93,12 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     def test_code_owner_path_mapping_with_catch_all(
         self, request_path, expected_owner, mock_set_custom_attribute
     ):
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get(request_path)
-            self.middleware(request)
-            expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH[request_path]
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=expected_path_module
-            )
+        request = RequestFactory().get(request_path)
+        self.middleware(request)
+        expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH[request_path]
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=expected_path_module
+        )
 
     @override_settings(
         CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views']},
@@ -114,29 +107,35 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_attribute')
     @patch('newrelic.agent')
     @ddt.data(
-        ('edx_django_utils.monitoring.code_owner.tests.test_middleware:MockMiddlewareViewTest', None),
-        ('edx_django_utils.monitoring.code_owner.tests.mock_views:MockViewTest', 'team-red'),
+        (
+            'edx_django_utils.monitoring.code_owner.tests.test_middleware',
+            'edx_django_utils.monitoring.code_owner.tests.test_middleware:MockMiddlewareViewTest',
+            None
+        ),
+        (
+            'edx_django_utils.monitoring.code_owner.tests.mock_views',
+            'edx_django_utils.monitoring.code_owner.tests.mock_views:MockViewTest',
+            'team-red'
+        ),
     )
     @ddt.unpack
     def test_code_owner_transaction_mapping_hits_and_misses(
-        self, transaction_name, expected_owner, mock_newrelic_agent, mock_set_custom_attribute
+        self, path_module, transaction_name, expected_owner, mock_newrelic_agent, mock_set_custom_attribute
     ):
         mock_newrelic_agent.current_transaction().name = transaction_name
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get('/bad/path/')
-            self.middleware(request)
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, expected_code_owner=expected_owner, transaction_name=transaction_name
-            )
+        request = RequestFactory().get('/bad/path/')
+        self.middleware(request)
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=path_module,
+            transaction_name=transaction_name
+        )
 
-            mock_set_custom_attribute.reset_mock()
-            self.middleware.process_exception(request, None)
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, expected_code_owner=expected_owner, transaction_name=transaction_name
-            )
+        mock_set_custom_attribute.reset_mock()
+        self.middleware.process_exception(request, None)
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=path_module,
+            transaction_name=transaction_name
+        )
 
     @override_settings(
         CODE_OWNER_MAPPINGS={
@@ -148,23 +147,28 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_attribute')
     @patch('newrelic.agent')
     @ddt.data(
-        ('edx_django_utils.monitoring.code_owner.tests.test_middleware:MockMiddlewareViewTest', 'team-blue'),
-        ('edx_django_utils.monitoring.code_owner.tests.mock_views:MockViewTest', 'team-red'),
+        (
+            'edx_django_utils.monitoring.code_owner.tests.test_middleware',
+            'edx_django_utils.monitoring.code_owner.tests.test_middleware:MockMiddlewareViewTest',
+            'team-blue'
+        ),
+        (
+            'edx_django_utils.monitoring.code_owner.tests.mock_views',
+            'edx_django_utils.monitoring.code_owner.tests.mock_views:MockViewTest',
+            'team-red'
+        ),
     )
     @ddt.unpack
-    def test_code_owner_transaction_mapping__with_catch_all(
-        self, transaction_name, expected_owner, mock_newrelic_agent, mock_set_custom_attribute
+    def test_code_owner_transaction_mapping_with_catch_all(
+        self, path_module, transaction_name, expected_owner, mock_newrelic_agent, mock_set_custom_attribute
     ):
         mock_newrelic_agent.current_transaction().name = transaction_name
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get('/bad/path/')
-            self.middleware(request)
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, expected_code_owner=expected_owner, transaction_name=transaction_name
-            )
+        request = RequestFactory().get('/bad/path/')
+        self.middleware(request)
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, expected_code_owner=expected_owner, path_module=path_module,
+            transaction_name=transaction_name
+        )
 
     @override_settings(
         CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.code_owner.tests.mock_views']},
@@ -174,19 +178,21 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     @patch('newrelic.agent')
     def test_code_owner_transaction_mapping_error(self, mock_newrelic_agent, mock_set_custom_attribute):
         mock_newrelic_agent.current_transaction = Mock(side_effect=Exception('forced exception'))
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get('/bad/path/')
-            self.middleware(request)
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, has_path_error=True, has_transaction_error=True
-            )
+        request = RequestFactory().get('/bad/path/')
+        self.middleware(request)
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, has_path_error=True, has_transaction_error=True
+        )
 
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_attribute')
     def test_code_owner_no_mappings(self, mock_set_custom_attribute):
         request = RequestFactory().get('/test/')
+        self.middleware(request)
+        mock_set_custom_attribute.assert_not_called()
+
+    @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_attribute')
+    def test_code_owner_transaction_no_mappings(self, mock_set_custom_attribute):
+        request = RequestFactory().get('/bad/path/')
         self.middleware(request)
         mock_set_custom_attribute.assert_not_called()
 
@@ -195,28 +201,20 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     )
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_attribute')
     def test_no_resolver_for_path_and_no_transaction(self, mock_set_custom_attribute):
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get('/bad/path/')
-            self.middleware(request)
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, has_path_error=True, has_transaction_error=True
-            )
+        request = RequestFactory().get('/bad/path/')
+        self.middleware(request)
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, has_path_error=True, has_transaction_error=True
+        )
 
     @override_settings(
         CODE_OWNER_MAPPINGS={'team-red': ['*']},
     )
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_attribute')
     def test_catch_all_instead_of_errors(self, mock_set_custom_attribute):
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get('/bad/path/')
-            self.middleware(request)
-            self._assert_code_owner_custom_attributes(mock_set_custom_attribute, expected_code_owner='team-red')
+        request = RequestFactory().get('/bad/path/')
+        self.middleware(request)
+        self._assert_code_owner_custom_attributes(mock_set_custom_attribute, expected_code_owner='team-red')
 
     @override_settings(
         CODE_OWNER_MAPPINGS=['invalid_setting_as_list'],
@@ -224,17 +222,12 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     )
     @patch('edx_django_utils.monitoring.code_owner.middleware.set_custom_attribute')
     def test_load_config_with_invalid_dict(self, mock_set_custom_attribute):
-        with patch(
-                'edx_django_utils.monitoring.code_owner.utils._PATH_TO_CODE_OWNER_MAPPINGS',
-                _process_code_owner_mappings()
-        ):
-            request = RequestFactory().get('/test/')
-            self.middleware(request)
-            expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH['/test/']
-            self._assert_code_owner_custom_attributes(
-                mock_set_custom_attribute, path_module=expected_path_module,
-                has_path_error=True, has_transaction_error=True
-            )
+        request = RequestFactory().get('/test/')
+        self.middleware(request)
+        expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH['/test/']
+        self._assert_code_owner_custom_attributes(
+            mock_set_custom_attribute, path_module=expected_path_module,
+        )
 
     def _assert_code_owner_custom_attributes(self, mock_set_custom_attribute, expected_code_owner=None,
                                              path_module=None, has_path_error=False,
