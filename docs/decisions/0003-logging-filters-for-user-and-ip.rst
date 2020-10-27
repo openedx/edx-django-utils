@@ -4,7 +4,7 @@ Logging filters for user and IP
 Status
 ------
 
-Proposed
+Accepted
 
 Context
 -------
