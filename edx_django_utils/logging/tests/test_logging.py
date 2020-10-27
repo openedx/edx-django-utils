@@ -3,7 +3,7 @@ Tests for logging.
 """
 
 from django.test import TestCase
-from mock import call, patch, MagicMock
+from mock import patch, MagicMock
 
 from edx_django_utils.logging.filters import (
     UserIdFilter,
@@ -12,6 +12,9 @@ from edx_django_utils.logging.filters import (
 
 
 class TestRecord:
+    """
+    Mocks a logging construct to receive data to be interpolated.
+    """
     def __init__(self):
         self.userid = None
         self.remoteip = None
@@ -21,8 +24,6 @@ class TestLoggingFilters(TestCase):
     """
     Test the logging filters for users and IP addresses
     """
-    def setUp(self):
-        super(TestLoggingFilters, self).setUp()
 
     """
     Test the UserIdFilter when the current request has user info.
@@ -35,7 +36,7 @@ class TestLoggingFilters(TestCase):
 
         user_filter = UserIdFilter()
         test_record = TestRecord()
-        user_filter.filter(test_record)
+        user_filter.filter(test_record)  # pylint: disable=pointless-statement
 
         self.assertEqual(test_record.userid, '1234')
 
@@ -45,7 +46,7 @@ class TestLoggingFilters(TestCase):
     def test_userid_filter_no_user(self):
         user_filter = UserIdFilter()
         test_record = TestRecord()
-        user_filter.filter(test_record)
+        user_filter.filter(test_record)  # pylint: disable=pointless-statement
 
         self.assertEqual(test_record.userid, None)
 
@@ -60,7 +61,7 @@ class TestLoggingFilters(TestCase):
 
         ip_filter = RemoteIpFilter()
         test_record = TestRecord()
-        ip_filter.filter(test_record)
+        ip_filter.filter(test_record)  # pylint: disable=pointless-statement
 
         self.assertEqual(test_record.remoteip, '192.168.1.1')
 
@@ -70,6 +71,6 @@ class TestLoggingFilters(TestCase):
     def test_remoteip_filter_no_request(self):
         ip_filter = RemoteIpFilter()
         test_record = TestRecord()
-        ip_filter.filter(test_record)
+        ip_filter.filter(test_record)  # pylint: disable=pointless-statement
 
         self.assertEqual(test_record.remoteip, None)
