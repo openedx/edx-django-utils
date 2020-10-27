@@ -14,6 +14,10 @@ from crum import get_current_user
 
 
 class UserIdFilter(Filter):
+    """
+    Applies a filter to a record to extract the user id from the
+    request context.
+    """
     def filter(self, record):
         user = get_current_user()
         if user and user.pk:
@@ -24,6 +28,10 @@ class UserIdFilter(Filter):
 
 
 class RemoteIpFilter(Filter):
+    """
+    Applies a filter to a record to extract the remote ip from the
+    request context.
+    """
     def filter(self, record):
         request = get_current_request()
         if request and 'REMOTE_ADDR' in request.META:

@@ -25,9 +25,6 @@ class TestLoggingFilters(TestCase):
     Test the logging filters for users and IP addresses
     """
 
-    """
-    Test the UserIdFilter when the current request has user info.
-    """
     @patch('edx_django_utils.logging.filters.get_current_user')
     def test_userid_filter(self, mock_get_user):
         mock_user = MagicMock()
@@ -36,23 +33,17 @@ class TestLoggingFilters(TestCase):
 
         user_filter = UserIdFilter()
         test_record = TestRecord()
-        user_filter.filter(test_record)  # pylint: disable=pointless-statement
+        user_filter.filter(test_record)
 
         self.assertEqual(test_record.userid, '1234')
 
-    """
-    Test the UserIdFilter when the current request has no user info.
-    """
     def test_userid_filter_no_user(self):
         user_filter = UserIdFilter()
         test_record = TestRecord()
-        user_filter.filter(test_record)  # pylint: disable=pointless-statement
+        user_filter.filter(test_record)
 
         self.assertEqual(test_record.userid, None)
 
-    """
-    Test the RemoteIpFilter when the current request has remote ip info.
-    """
     @patch('edx_django_utils.logging.filters.get_current_request')
     def test_remoteip_filter(self, mock_get_request):
         mock_request = MagicMock()
@@ -61,16 +52,13 @@ class TestLoggingFilters(TestCase):
 
         ip_filter = RemoteIpFilter()
         test_record = TestRecord()
-        ip_filter.filter(test_record)  # pylint: disable=pointless-statement
+        ip_filter.filter(test_record)
 
         self.assertEqual(test_record.remoteip, '192.168.1.1')
 
-    """
-    Test the RemoteIpFilter when the current request has no remote IP info.
-    """
     def test_remoteip_filter_no_request(self):
         ip_filter = RemoteIpFilter()
         test_record = TestRecord()
-        ip_filter.filter(test_record)  # pylint: disable=pointless-statement
+        ip_filter.filter(test_record)
 
         self.assertEqual(test_record.remoteip, None)
