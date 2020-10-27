@@ -5,7 +5,7 @@ Tests for logging.
 from django.test import TestCase
 from mock import MagicMock, patch
 
-from edx_django_utils.logging.internal.filters import RemoteIpFilter, UserIdFilter
+from edx_django_utils.logging import RemoteIpFilter, UserIdFilter
 
 
 class TestRecord:
@@ -22,7 +22,7 @@ class TestLoggingFilters(TestCase):
     Test the logging filters for users and IP addresses
     """
 
-    @patch('edx_django_utils.logging.filters.get_current_user')
+    @patch('edx_django_utils.logging.internal.filters.get_current_user')
     def test_userid_filter(self, mock_get_user):
         mock_user = MagicMock()
         mock_user.pk = '1234'
@@ -41,7 +41,7 @@ class TestLoggingFilters(TestCase):
 
         self.assertEqual(test_record.userid, None)
 
-    @patch('edx_django_utils.logging.filters.get_current_request')
+    @patch('edx_django_utils.logging.internal.filters.get_current_request')
     def test_remoteip_filter(self, mock_get_request):
         mock_request = MagicMock()
         mock_request.META = {'REMOTE_ADDR': '192.168.1.1'}
