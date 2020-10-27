@@ -15,6 +15,14 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.9.1] - 2020-10-28
+~~~~~~~~~~~~~~~~~~~~
+
+Updated
+_______
+
+* Moved logging filter classes for users and remote IP addresses from edx-platform to be used by all IDAs.
+
 [3.9.0] - 2020-10-21
 ~~~~~~~~~~~~~~~~~~~~
 
