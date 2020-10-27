@@ -8,11 +8,11 @@ Enhanced Monitoring and Custom Attributes
 What is a Custom Attribute?
 ---------------------------
 
-A custom attribute is a name/value pair that you define, which will be associated with a request and available in various places in your monitoring software. For example, in Open edX, there is a ``request_user_id`` made available to all requests using the `RequestMetricsMiddleware`_. Note: ``RequestMetricsMiddleware`` should be renamed to ``RequestCustomAttributesMiddleware``.
+A custom attribute is a name/value pair that you define, which will be associated with a request and available in various places in your monitoring software. For example, in Open edX, there is a ``request_user_id`` made available to all requests using the `RequestCustomAttributesMiddleware`_.
 
 If you are using NewRelic, you can search for PageViews, Transactions, TransactionErrors, etc. using NewRelic Insights, either with custom queries using the Data Explorer (searching "Events", not Metrics). They will also appear in other places, like when viewing an error in NewRelic APM.
 
-.. RequestMetricsMiddleware: https://github.com/edx/edx-drf-extensions/blob/master/edx_rest_framework_extensions/middleware.py#L12-L39
+.. RequestCustomAttributesMiddleware: https://github.com/edx/edx-drf-extensions/blob/e3186555ab234a1a95453eb5ead2420013ddb2f2/edx_rest_framework_extensions/middleware.py#L14-L41
 
 Coding New Custom Attributes
 ----------------------------

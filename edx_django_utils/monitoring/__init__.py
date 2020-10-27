@@ -3,6 +3,7 @@ Metrics utilities public api
 
 See README.rst for details.
 """
+from .code_owner.utils import get_code_owner_from_module
 from .transactions import function_trace, get_current_transaction, ignore_transaction, set_monitoring_transaction_name
 # "set_custom_metric*" methods are deprecated
 from .utils import (

@@ -117,15 +117,17 @@ class CodeOwnerMonitoringMiddleware:
 
         """
         if not is_code_owner_mappings_configured():
-            return None, None
+            # ensure we don't set code ownership custom attributes if not configured to do so
+            return None, None  # pragma: no cover
 
         try:
             # Example: openedx.core.djangoapps.contentserver.middleware:StaticContentServer
             transaction_name = get_current_transaction().name
             if not transaction_name:
                 return None, 'No current transaction name found.'
-            set_custom_attribute('code_owner_transaction_name', transaction_name)
             module_name = transaction_name.split(':')[0]
+            set_custom_attribute('code_owner_transaction_name', transaction_name)
+            set_custom_attribute('code_owner_path_module', module_name)
             code_owner = get_code_owner_from_module(module_name)
             return code_owner, None
         except Exception as e:  # pylint: disable=broad-except
@@ -139,9 +141,6 @@ class CodeOwnerMonitoringMiddleware:
             (str): code_owner or None if no catch-all configured.
 
         """
-        if not is_code_owner_mappings_configured():
-            return None
-
         try:
             code_owner = get_code_owner_from_module('*')
             return code_owner
