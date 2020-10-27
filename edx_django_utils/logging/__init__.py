@@ -1,3 +1,6 @@
 """
-EdX utilities for Django Application logging..
+Logging utilities public api
+
+See README.rst for details.
 """
+from .internal.filters import RemoteIpFilter, UserIdFilter

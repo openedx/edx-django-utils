@@ -5,7 +5,7 @@ Tests for logging.
 from django.test import TestCase
 from mock import MagicMock, patch
 
-from edx_django_utils.logging.filters import RemoteIpFilter, UserIdFilter
+from edx_django_utils.logging.internal.filters import RemoteIpFilter, UserIdFilter
 
 
 class TestRecord:
