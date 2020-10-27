@@ -3,12 +3,9 @@ Tests for logging.
 """
 
 from django.test import TestCase
-from mock import patch, MagicMock
+from mock import MagicMock, patch
 
-from edx_django_utils.logging.filters import (
-    UserIdFilter,
-    RemoteIpFilter
-)
+from edx_django_utils.logging.filters import RemoteIpFilter, UserIdFilter
 
 
 class TestRecord:
