@@ -1,9 +1,5 @@
 """
 Django-based logging filters
-
-UserIdFilter: A logging.Filter that adds userid to the logging context
-
-RemoteIpFilter: A logging filter that adds the remote IP to the logging context
 """
 
 from logging import Filter
@@ -13,8 +9,7 @@ from crum import get_current_request, get_current_user
 
 class RemoteIpFilter(Filter):
     """
-    Applies a filter to a record to extract the remote ip from the
-    request context.
+    A logging filter that adds the remote IP to the logging context
     """
     def filter(self, record):
         request = get_current_request()
@@ -27,8 +22,7 @@ class RemoteIpFilter(Filter):
 
 class UserIdFilter(Filter):
     """
-    Applies a filter to a record to extract the user id from the
-    request context.
+    A logging.Filter that adds userid to the logging context
     """
     def filter(self, record):
         user = get_current_user()
