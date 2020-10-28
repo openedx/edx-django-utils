@@ -22,7 +22,7 @@ class RemoteIpFilter(Filter):
 
 class UserIdFilter(Filter):
     """
-    A logging.Filter that adds userid to the logging context
+    A logging filter that adds userid to the logging context
     """
     def filter(self, record):
         user = get_current_user()
