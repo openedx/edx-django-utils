@@ -8,7 +8,7 @@ from mock import MagicMock, patch
 from edx_django_utils.logging import RemoteIpFilter, UserIdFilter
 
 
-class TestRecord:
+class MockRecord:
     """
     Mocks a logging construct to receive data to be interpolated.
     """
@@ -29,14 +29,14 @@ class TestLoggingFilters(TestCase):
         mock_get_user.return_value = mock_user
 
         user_filter = UserIdFilter()
-        test_record = TestRecord()
+        test_record = MockRecord()
         user_filter.filter(test_record)
 
         self.assertEqual(test_record.userid, '1234')
 
     def test_userid_filter_no_user(self):
         user_filter = UserIdFilter()
-        test_record = TestRecord()
+        test_record = MockRecord()
         user_filter.filter(test_record)
 
         self.assertEqual(test_record.userid, None)
@@ -48,14 +48,14 @@ class TestLoggingFilters(TestCase):
         mock_get_request.return_value = mock_request
 
         ip_filter = RemoteIpFilter()
-        test_record = TestRecord()
+        test_record = MockRecord()
         ip_filter.filter(test_record)
 
         self.assertEqual(test_record.remoteip, '192.168.1.1')
 
     def test_remoteip_filter_no_request(self):
         ip_filter = RemoteIpFilter()
-        test_record = TestRecord()
+        test_record = MockRecord()
         ip_filter.filter(test_record)
 
         self.assertEqual(test_record.remoteip, None)
