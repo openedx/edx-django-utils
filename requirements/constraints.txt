@@ -16,4 +16,5 @@ zipp<2.0   # newer versions require python>3.5
 
 # stevedore 2.0.0 requires python >= 3.6
 stevedore<2.0.0
-
+keyring==20.0.1 # latest support by python 3.5
+twine==1.15.0 # latest support by python 3.5

@@ -4,8 +4,9 @@
 #
 #    make upgrade
 #
+django-crum==0.7.7        # via -r requirements/base.in
 django-waffle==2.0.0      # via -r requirements/base.in
-django==2.2.16            # via -c requirements/constraints.txt, -r requirements/base.in
+django==2.2.16            # via -c requirements/constraints.txt, -r requirements/base.in, django-crum
 newrelic==5.22.0.151      # via -r requirements/base.in
 pbr==5.5.1                # via stevedore
 psutil==5.7.3             # via -r requirements/base.in
