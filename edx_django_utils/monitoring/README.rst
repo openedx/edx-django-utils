@@ -22,9 +22,9 @@ Here is how you add the middleware:
         # Generate code ownership attributes. Keep this immediately after RequestCacheMiddleware.
         ...
         # Monitoring middleware must come after RequestCacheMiddleware
-        'edx_django_utils.monitoring.code_owner.middleware.CodeOwnerMonitoringMiddleware',
-        'edx_django_utils.monitoring.middleware.CachedCustomMonitoringMiddleware',
-        'edx_django_utils.monitoring.middleware.MonitoringMemoryMiddleware',
+        'edx_django_utils.monitoring.CodeOwnerMonitoringMiddleware',
+        'edx_django_utils.monitoring.CachedCustomMonitoringMiddleware',
+        'edx_django_utils.monitoring.MonitoringMemoryMiddleware',
     )
 
 Monitoring Memory Usage

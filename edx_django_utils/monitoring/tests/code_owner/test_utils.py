@@ -8,11 +8,8 @@ import ddt
 from django.test import override_settings
 from mock import patch
 
-from edx_django_utils.monitoring.code_owner.utils import (
-    clear_cached_mappings,
-    get_code_owner_from_module,
-    is_code_owner_mappings_configured
-)
+from edx_django_utils.monitoring import get_code_owner_from_module
+from edx_django_utils.monitoring.internal.code_owner.utils import clear_cached_mappings
 
 
 @ddt.ddt
@@ -23,18 +20,6 @@ class MonitoringUtilsTests(TestCase):
     def setUp(self):
         super().setUp()
         clear_cached_mappings()
-
-    @override_settings(CODE_OWNER_MAPPINGS=None)
-    def test_is_config_loaded_with_no_config(self):
-        self.assertFalse(is_code_owner_mappings_configured(), "Mappings should not be configured.")
-
-    @override_settings(CODE_OWNER_MAPPINGS={'team-red': ['openedx.core.djangoapps.xblock']})
-    def test_is_config_loaded_with_valid_dict(self):
-        self.assertTrue(is_code_owner_mappings_configured(), "Mappings should be configured.")
-
-    @override_settings(CODE_OWNER_MAPPINGS=['invalid_setting_as_list'])
-    def test_is_config_loaded_with_invalid_dict(self):
-        self.assertTrue(is_code_owner_mappings_configured(), "Although invalid, mappings should be configured.")
 
     @override_settings(CODE_OWNER_MAPPINGS={
         'team-red': [
@@ -63,9 +48,8 @@ class MonitoringUtilsTests(TestCase):
         self.assertEqual(expected_owner, actual_owner)
 
     @override_settings(CODE_OWNER_MAPPINGS=['invalid_setting_as_list'])
-    @patch('edx_django_utils.monitoring.code_owner.utils.log')
+    @patch('edx_django_utils.monitoring.internal.code_owner.utils.log')
     def test_code_owner_mapping_with_invalid_dict(self, mock_logger):
-        self.assertTrue(is_code_owner_mappings_configured(), "Although invalid, mappings should be configured.")
         with self.assertRaises(AssertionError):
             get_code_owner_from_module('xblock')
             mock_logger.exception.assert_called_with(

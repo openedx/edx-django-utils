@@ -19,17 +19,19 @@ Coding New Custom Attributes
 
 After setting up Middleware as detailed in README.rst, adding a new custom attribute is as simple as::
 
-    from openedx.core.djangoapps import monitoring_utils
+    from edx_django_utils.monitoring import set_custom_attribute
 
-    monitoring_utils.set_custom_attribute(name, value)
+    set_custom_attribute(name, value)
 
 * Supported values are strings, bools and numbers.
 * Earlier values will be overwritten if the same name is set multiple times during a request.
 
 The following methods only work with number values, and do *not* overwrite earlier values, but instead make use of earlier values within a request::
 
-    monitoring_utils.accumulate(name, value)
-    monitoring_utils.increment(name, value)
+    from edx_django_utils.monitoring import accumulate, increment
+
+    accumulate(name, value)
+    increment(name, value)
 
 For a complete list of the public methods available, see the ``__init__.py`` file and the docstrings for details.
 
