@@ -15,6 +15,42 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.11.0] - 2020-10-31
+~~~~~~~~~~~~~~~~~~~~~
+
+Added
+_____
+
+* Added ADR 0004-public-api-and-app-organization.rst to explain a new app organization, which makes use of the public API more consistent.
+
+Updated
+_______
+
+* Applied the new app organization described in th ADR to the monitoring Django app.
+* Moved CachedCustomMonitoringMiddleware, CodeOwnerMonitoringMiddleware, and MonitoringMemoryMiddleware to the public API.
+
+Deprecated
+__________
+
+* Deprecated the old locations of CachedCustomMonitoringMiddleware, CodeOwnerMonitoringMiddleware, and MonitoringMemoryMiddleware.
+* Deprecated various methods from modules that were always meant to be used from the public API.
+
+  * accumulate
+  * increment
+  * set_custom_attribute
+  * set_custom_attributes_for_course_key
+
+* Added additional custom attributes for deprecated classes and methods to make them safer to retire.
+
+.. note::
+
+  Some method implementations that were available in the public API were moved without adding a deprecated equivalent. These were not found when searching, so hopefully they are only used via the public API, which did not change. This includes functions in ``transactions.py`` and ``code_owner/utils.py``.
+
+Removed
+_______
+
+* Removed the middleware ordering checks. This is not a typical Django feature and it is painful when refactoring.
+
 [3.10.0] - 2020-10-28
 ~~~~~~~~~~~~~~~~~~~~~
 

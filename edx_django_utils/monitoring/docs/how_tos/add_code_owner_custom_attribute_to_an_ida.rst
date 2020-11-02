@@ -19,7 +19,7 @@ If you want to know about custom attributes in general, see: using_custom_attrib
 Setting up the Middleware
 -------------------------
 
-You simply need to add ``edx_django_utils.monitoring.code_owner.middleware.CodeOwnerMonitoringMiddleware`` as described in the README to make this functionality available. Then it is ready to be configured.
+You simply need to add ``edx_django_utils.monitoring.CodeOwnerMonitoringMiddleware`` as described in the README to make this functionality available. Then it is ready to be configured.
 
 Configuring your app settings
 -----------------------------
