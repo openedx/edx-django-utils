@@ -5,14 +5,14 @@
 #    make upgrade
 #
 alabaster==0.7.12         # via sphinx
-attrs==20.2.0             # via -r requirements/test.txt, pytest
+attrs==20.3.0             # via -r requirements/test.txt, pytest
 babel==2.8.0              # via sphinx
 bleach==3.2.1             # via readme-renderer
-certifi==2020.6.20        # via requests
+certifi==2020.11.8        # via requests
 chardet==3.0.4            # via doc8, requests
 coverage==5.3             # via -r requirements/test.txt, pytest-cov
 ddt==1.4.1                # via -r requirements/test.txt
-django-crum==0.7.7        # via -r requirements/test.txt
+django-crum==0.7.8        # via -r requirements/test.txt
 django-waffle==2.0.0      # via -r requirements/test.txt
 django==2.2.17            # via -c requirements/constraints.txt, -r requirements/test.txt, django-crum
 doc8==0.8.1               # via -r requirements/doc.in
