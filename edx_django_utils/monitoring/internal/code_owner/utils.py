@@ -3,8 +3,11 @@ Utilities for monitoring code_owner
 """
 import logging
 import re
+from functools import wraps
 
 from django.conf import settings
+
+from ..utils import set_custom_attribute
 
 log = logging.getLogger(__name__)
 
@@ -22,6 +25,9 @@ def get_code_owner_from_module(module):
     https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida.rst
 
     """
+    if not module:
+        return None
+
     code_owner_mappings = get_code_owner_mappings()
     if code_owner_mappings is None:
         return None
@@ -97,10 +103,78 @@ def get_code_owner_mappings():
                     path_without_prefix = path[optional_module_prefix_match.end():]
                     path_to_code_owner_mapping[path_without_prefix] = code_owner
     except Exception as e:  # pylint: disable=broad-except
+        # will remove broad exceptions after ensuring all proper cases are covered
+        set_custom_attribute('deprecated_broad_except_get_code_owner_mappings', e.__class__)
         log.exception('Error processing code_owner_mappings. {}'.format(e))
 
     _PATH_TO_CODE_OWNER_MAPPINGS = path_to_code_owner_mapping
     return _PATH_TO_CODE_OWNER_MAPPINGS
+
+
+def _get_catch_all_code_owner():
+    """
+    If the catch-all module "*" is configured, return the code_owner.
+
+    Returns:
+        (str): code_owner or None if no catch-all configured.
+
+    """
+    try:
+        code_owner = get_code_owner_from_module('*')
+        return code_owner
+    except Exception as e:  # pylint: disable=broad-except; #pragma: no cover
+        # will remove broad exceptions after ensuring all proper cases are covered
+        set_custom_attribute('deprecated_broad_except___get_module_from_current_transaction', e.__class__)
+        return None
+
+
+def set_code_owner_attribute_from_module(module):
+    """
+    Updates the code_owner and code_owner_module custom attributes.
+
+    Celery tasks or other non-web functions do not use middleware, so we need
+        an alternative way to set the code_owner custom attribute.
+
+    Note: These settings will be overridden by the CodeOwnerMonitoringMiddleware.
+        This method can't be used to override web functions at this time.
+
+    Usage::
+
+        set_code_owner_attribute_from_module(__name__)
+
+    """
+    set_custom_attribute('code_owner_module', module)
+    code_owner = get_code_owner_from_module(module)
+    if not code_owner:
+        code_owner = _get_catch_all_code_owner()
+
+    if code_owner:
+        set_custom_attribute('code_owner', code_owner)
+
+
+def set_code_owner_attribute(wrapped_function):
+    """
+    Decorator to set the code_owner and code_owner_module custom attributes.
+
+    Celery tasks or other non-web functions do not use middleware, so we need
+        an alternative way to set the code_owner custom attribute.
+
+    Usage::
+
+        @task()
+        @set_code_owner_attribute
+        def example_task():
+            ...
+
+    Note: If the decorator can't be used for some reason, just call
+        ``set_code_owner_attribute_from_module`` directly.
+
+    """
+    @wraps(wrapped_function)
+    def new_function(*args, **kwargs):
+        set_code_owner_attribute_from_module(wrapped_function.__module__)
+        return wrapped_function(*args, **kwargs)
+    return new_function
 
 
 def clear_cached_mappings():
@@ -111,6 +185,6 @@ def clear_cached_mappings():
     _PATH_TO_CODE_OWNER_MAPPINGS = None
 
 
-# TODO: Remove this LMS specific configuration by replacing with a Django Setting named
-#    CODE_OWNER_OPTIONAL_MODULE_PREFIXES that takes a list of module prefixes (without the final period).
+# TODO: Retire this once edx-platform import_shims is no longer used.
+#   See https://github.com/edx/edx-platform/tree/854502b560bda74ef898501bb2a95ce238cf794c/import_shims
 _OPTIONAL_MODULE_PREFIX_PATTERN = re.compile(r'^(lms|common|openedx\.core)\.djangoapps\.')

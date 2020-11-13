@@ -6,10 +6,22 @@ from unittest import TestCase
 
 import ddt
 from django.test import override_settings
-from mock import patch
+from mock import call, patch
 
-from edx_django_utils.monitoring import get_code_owner_from_module
+from edx_django_utils.monitoring import (
+    get_code_owner_from_module,
+    set_code_owner_attribute,
+    set_code_owner_attribute_from_module
+)
 from edx_django_utils.monitoring.internal.code_owner.utils import clear_cached_mappings
+
+
+@set_code_owner_attribute
+def decorated_function(pass_through):
+    """
+    For testing the set_code_owner_attribute decorator.
+    """
+    return pass_through
 
 
 @ddt.ddt
@@ -59,6 +71,9 @@ class MonitoringUtilsTests(TestCase):
     def test_code_owner_mapping_with_no_settings(self):
         self.assertIsNone(get_code_owner_from_module('xblock'))
 
+    def test_code_owner_mapping_with_no_module(self):
+        self.assertIsNone(get_code_owner_from_module(None))
+
     def test_mapping_performance(self):
         code_owner_mappings = {
             'team-red': []
@@ -75,3 +90,43 @@ class MonitoringUtilsTests(TestCase):
             )
             average_time = time / call_iterations
             self.assertLess(average_time, 0.0005, 'Mapping takes {}s which is too slow.'.format(average_time))
+
+    @override_settings(CODE_OWNER_MAPPINGS={
+        'team-red': ['edx_django_utils.monitoring.tests.code_owner.test_utils']
+    })
+    @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
+    def test_set_code_owner_attribute_success(self, mock_set_custom_attribute):
+        self.assertEqual(decorated_function('test'), 'test')
+        self._assert_set_custom_attribute(mock_set_custom_attribute, code_owner='team-red', module=__name__)
+
+    @override_settings(CODE_OWNER_MAPPINGS={
+        'team-red': ['*']
+    })
+    @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
+    def test_set_code_owner_attribute_catch_all(self, mock_set_custom_attribute):
+        self.assertEqual(decorated_function('test'), 'test')
+        self._assert_set_custom_attribute(mock_set_custom_attribute, code_owner='team-red', module=__name__)
+
+    @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
+    def test_set_code_owner_attribute_no_mappings(self, mock_set_custom_attribute):
+        self.assertEqual(decorated_function('test'), 'test')
+        self._assert_set_custom_attribute(mock_set_custom_attribute, code_owner=None, module=__name__)
+
+    @override_settings(CODE_OWNER_MAPPINGS={
+        'team-red': ['edx_django_utils.monitoring.tests.code_owner.test_utils']
+    })
+    @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
+    def test_set_code_owner_attribute_from_module_success(self, mock_set_custom_attribute):
+        set_code_owner_attribute_from_module(__name__)
+        self._assert_set_custom_attribute(mock_set_custom_attribute, code_owner='team-red', module=__name__)
+
+    def _assert_set_custom_attribute(self, mock_set_custom_attribute, code_owner, module):
+        """
+        Helper to assert that the proper set_custom_metric calls were made.
+        """
+        call_list = []
+        if code_owner:
+            call_list.append(call('code_owner', code_owner))
+        if module:
+            call_list.append(call('code_owner_module', module))
+        mock_set_custom_attribute.assert_has_calls(call_list, any_order=True)

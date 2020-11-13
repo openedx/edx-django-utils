@@ -4,7 +4,11 @@ Metrics utilities public api
 See README.rst for details.
 """
 from .internal.code_owner.middleware import CodeOwnerMonitoringMiddleware
-from .internal.code_owner.utils import get_code_owner_from_module
+from .internal.code_owner.utils import (
+    get_code_owner_from_module,
+    set_code_owner_attribute,
+    set_code_owner_attribute_from_module
+)
 from .internal.middleware import CachedCustomMonitoringMiddleware, MonitoringMemoryMiddleware
 from .internal.transactions import (
     function_trace,
