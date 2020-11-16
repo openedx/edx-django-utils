@@ -82,8 +82,8 @@ refer to this `list of resources`_ if you need any assistance.
     :target: https://pypi.python.org/pypi/edx-django-utils/
     :alt: PyPI
 
-.. |travis-badge| image:: https://travis-ci.org/edx/edx-django-utils.svg?branch=master
-    :target: https://travis-ci.org/edx/edx-django-utils
+.. |travis-badge| image:: https://travis-ci.com/edx/edx-django-utils.svg?branch=master
+    :target: https://travis-ci.com/edx/edx-django-utils
     :alt: Travis
 
 .. |codecov-badge| image:: http://codecov.io/github/edx/edx-django-utils/coverage.svg?branch=master
