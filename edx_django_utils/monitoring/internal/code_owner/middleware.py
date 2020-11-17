@@ -4,10 +4,11 @@ Middleware for code_owner custom attribute
 import logging
 
 from django.urls import resolve
+from django.urls.exceptions import Resolver404
 
 from ..transactions import get_current_transaction
 from ..utils import set_custom_attribute
-from .utils import get_code_owner_from_module, is_code_owner_mappings_configured
+from .utils import _get_catch_all_code_owner, get_code_owner_from_module, is_code_owner_mappings_configured
 
 log = logging.getLogger(__name__)
 
@@ -21,10 +22,8 @@ class CodeOwnerMonitoringMiddleware:
 
     Custom attributes set:
     - code_owner: The owning team mapped to the current view.
-    - code_owner_mapping_error: If there are any errors when trying to perform the mapping.
+    - code_owner_module: The module found from the request or current transaction.
     - code_owner_path_error: The error mapping by path, if code_owner isn't found in other ways.
-    - code_owner_path_module: The __module__ of the view_func which was used to try to map to code_owner.
-        This can be used to find missing mappings.
     - code_owner_transaction_error: The error mapping by transaction, if code_owner isn't found in other ways.
     - code_owner_transaction_name: The current transaction name used to try to map to code_owner.
         This can be used to find missing mappings.
@@ -43,105 +42,91 @@ class CodeOwnerMonitoringMiddleware:
 
     def _set_code_owner_attribute(self, request):
         """
-        Sets the code_owner custom attribute, as well as several supporting custom attributes.
+        Sets the code_owner custom attribute for the request.
+        """
+        code_owner = None
+        module = self._get_module_from_request(request)
+        if module:
+            code_owner = get_code_owner_from_module(module)
+        if not code_owner:
+            code_owner = _get_catch_all_code_owner()
 
-        See CodeOwnerMonitoringMiddleware docstring for a complete list of attributes.
+        if code_owner:
+            set_custom_attribute('code_owner', code_owner)
+
+    def _get_module_from_request(self, request):
+        """
+        Get the module from the request path or the current transaction.
+
+        Side-effects:
+            Sets code_owner_module custom attribute, used to determine code_owner.
+            If module was not found, may set code_owner_path_error and/or
+                code_owner_transaction_error custom attributes if applicable.
+
+        Returns:
+            str: module name or None if not found
 
         """
-        code_owner, path_error = self._set_code_owner_attribute_from_path(request)
-        if code_owner:
-            set_custom_attribute('code_owner', code_owner)
-            return
-        if not path_error:
-            # module found, but mapping wasn't configured
-            code_owner = self._set_code_owner_attribute_catch_all()
-            if code_owner:
-                set_custom_attribute('code_owner', code_owner)
-            return
+        if not is_code_owner_mappings_configured():
+            return None
 
-        code_owner, transaction_error = self._set_code_owner_attribute_from_current_transaction(request)
-        if code_owner:
-            set_custom_attribute('code_owner', code_owner)
-            return
-        if not transaction_error:
-            # transaction name found, but mapping wasn't configured
-            code_owner = self._set_code_owner_attribute_catch_all()
-            if code_owner:
-                set_custom_attribute('code_owner', code_owner)
-            return
+        module, path_error = self._get_module_from_request_path(request)
+        if module:
+            set_custom_attribute('code_owner_module', module)
+            return module
 
-        code_owner = self._set_code_owner_attribute_catch_all()
-        if code_owner:
-            set_custom_attribute('code_owner', code_owner)
-            return
+        module, transaction_error = self._get_module_from_current_transaction()
+        if module:
+            set_custom_attribute('code_owner_module', module)
+            return module
 
-        # only report errors if code_owner couldn't be found, including catch-all
+        # monitor errors if module was not found
         if path_error:
             set_custom_attribute('code_owner_path_error', path_error)
         if transaction_error:
             set_custom_attribute('code_owner_transaction_error', transaction_error)
+        return None
 
-    def _set_code_owner_attribute_from_path(self, request):
+    def _get_module_from_request_path(self, request):
         """
-        Uses the request path to find the view_func and then sets code owner attributes based on the view.
-
-        Side-effects:
-            Sets code_owner_path_module custom attribute, used to determine code_owner
+        Uses the request path to get the view_func module.
 
         Returns:
-            (str, str): (code_owner, error_message), where at least one of these should be None
+            (str, str): (module, error_message), where at least one of these should be None
 
         """
-        if not is_code_owner_mappings_configured():
-            return None, None
-
         try:
             view_func, _, _ = resolve(request.path)
-            path_module = view_func.__module__
-            set_custom_attribute('code_owner_path_module', path_module)
-            code_owner = get_code_owner_from_module(path_module)
-            return code_owner, None
-        except Exception as e:  # pylint: disable=broad-except
+            module = view_func.__module__
+            return module, None
+        # TODO: Replace ImportError with ModuleNotFoundError when Python 3.5 support is dropped.
+        except (ImportError, Resolver404) as e:
+            return None, str(e)
+        except Exception as e:  # pylint: disable=broad-except; #pragma: no cover
+            # will remove broad exceptions after ensuring all proper cases are covered
+            set_custom_attribute('deprecated_broad_except__get_module_from_request_path', e.__class__)
             return None, str(e)
 
-    def _set_code_owner_attribute_from_current_transaction(self, request):
+    def _get_module_from_current_transaction(self):
         """
-        Uses the current transaction name to set the code owner attribute.
+        Uses the current transaction to get the module.
 
         Side-effects:
             Sets code_owner_transaction_name custom attribute, used to determine code_owner
 
         Returns:
-            (str, str): (code_owner, error_message), where at least one of these should be None
+            (str, str): (module, error_message), where at least one of these should be None
 
         """
-        if not is_code_owner_mappings_configured():
-            # ensure we don't set code ownership custom attributes if not configured to do so
-            return None, None  # pragma: no cover
-
         try:
             # Example: openedx.core.djangoapps.contentserver.middleware:StaticContentServer
             transaction_name = get_current_transaction().name
             if not transaction_name:
                 return None, 'No current transaction name found.'
-            module_name = transaction_name.split(':')[0]
+            module = transaction_name.split(':')[0]
             set_custom_attribute('code_owner_transaction_name', transaction_name)
-            set_custom_attribute('code_owner_path_module', module_name)
-            code_owner = get_code_owner_from_module(module_name)
-            return code_owner, None
+            return module, None
         except Exception as e:  # pylint: disable=broad-except
+            # will remove broad exceptions after ensuring all proper cases are covered
+            set_custom_attribute('deprecated_broad_except___get_module_from_current_transaction', e.__class__)
             return None, str(e)
-
-    def _set_code_owner_attribute_catch_all(self):
-        """
-        If the catch-all module "*" is configured, return the code_owner.
-
-        Returns:
-            (str): code_owner or None if no catch-all configured.
-
-        """
-        try:
-            code_owner = get_code_owner_from_module('*')
-            return code_owner
-        except Exception:  # pylint: disable=broad-except; #pragma: no cover
-            return None
