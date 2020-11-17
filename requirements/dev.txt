@@ -16,7 +16,7 @@ coverage==5.3             # via -r requirements/quality.txt, -r requirements/tra
 ddt==1.4.1                # via -r requirements/quality.txt
 diff-cover==4.0.1         # via -r requirements/dev.in
 distlib==0.3.1            # via -r requirements/travis.txt, virtualenv
-django-crum==0.7.8        # via -r requirements/quality.txt
+django-crum==0.7.9        # via -r requirements/quality.txt
 django-waffle==2.0.0      # via -r requirements/quality.txt
 django==2.2.17            # via -c requirements/constraints.txt, -r requirements/quality.txt, django-crum, edx-i18n-tools
 edx-i18n-tools==0.5.3     # via -r requirements/dev.in
@@ -58,7 +58,7 @@ pytest-django==4.1.0      # via -r requirements/quality.txt
 pytest==6.1.2             # via -r requirements/quality.txt, pytest-cov, pytest-django
 pytz==2020.4              # via -r requirements/quality.txt, django
 pyyaml==5.3.1             # via edx-i18n-tools
-requests==2.24.0          # via -r requirements/travis.txt, codecov
+requests==2.25.0          # via -r requirements/travis.txt, codecov
 six==1.15.0               # via -r requirements/pip-tools.txt, -r requirements/quality.txt, -r requirements/travis.txt, astroid, edx-i18n-tools, edx-lint, mock, packaging, pathlib2, pip-tools, stevedore, tox, virtualenv
 snowballstemmer==2.0.0    # via -r requirements/quality.txt, pydocstyle
 sqlparse==0.4.1           # via -r requirements/quality.txt, django
@@ -67,7 +67,7 @@ toml==0.10.2              # via -r requirements/quality.txt, -r requirements/tra
 tox-battery==0.6.1        # via -r requirements/travis.txt
 tox==3.20.1               # via -r requirements/travis.txt, tox-battery
 typed-ast==1.4.1          # via -r requirements/quality.txt, astroid
-urllib3==1.25.11          # via -r requirements/travis.txt, requests
+urllib3==1.26.2           # via -r requirements/travis.txt, requests
 virtualenv==20.1.0        # via -r requirements/travis.txt, tox
 wrapt==1.11.2             # via -r requirements/quality.txt, astroid
 zipp==1.2.0               # via -c requirements/constraints.txt, -r requirements/quality.txt, -r requirements/travis.txt, importlib-metadata, importlib-resources

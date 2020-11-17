@@ -19,11 +19,11 @@ packaging==20.4           # via tox
 pluggy==0.13.1            # via tox
 py==1.9.0                 # via tox
 pyparsing==2.4.7          # via packaging
-requests==2.24.0          # via codecov
+requests==2.25.0          # via codecov
 six==1.15.0               # via mock, packaging, tox, virtualenv
 toml==0.10.2              # via tox
 tox-battery==0.6.1        # via -r requirements/travis.in
 tox==3.20.1               # via -r requirements/travis.in, tox-battery
-urllib3==1.25.11          # via requests
+urllib3==1.26.2           # via requests
 virtualenv==20.1.0        # via tox
 zipp==1.2.0               # via -c requirements/constraints.txt, importlib-metadata, importlib-resources
