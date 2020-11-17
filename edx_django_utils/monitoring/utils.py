@@ -19,7 +19,7 @@ def accumulate(name, value):
     """
     msg = "Use 'monitoring.accumulate' in place of 'monitoring.utils.accumulate'."
     warnings.warn(msg, DeprecationWarning)
-    internal_set_custom_attribute('deprecated_monitoring_utils', 'accumulate')
+    internal_set_custom_attribute('deprecated_monitoring_utils', 'accumulate[{}]'.format(name))
     internal_accumulate(name, value)
 
 
@@ -29,7 +29,7 @@ def increment(name):
     """
     msg = "Use 'monitoring.increment' in place of 'monitoring.utils.increment'."
     warnings.warn(msg, DeprecationWarning)
-    internal_set_custom_attribute('deprecated_monitoring_utils', 'increment')
+    internal_set_custom_attribute('deprecated_monitoring_utils', 'increment[{}]'.format(name))
     internal_increment(name)
 
 
@@ -39,7 +39,7 @@ def set_custom_attribute(key, value):
     """
     msg = "Use 'monitoring.set_custom_attribute' in place of 'monitoring.utils.set_custom_attribute'."
     warnings.warn(msg, DeprecationWarning)
-    internal_set_custom_attribute('deprecated_monitoring_utils', 'set_custom_attribute')
+    internal_set_custom_attribute('deprecated_monitoring_utils', 'set_custom_attribute[{}]'.format(key))
     internal_set_custom_attribute(key, value)
 
 
@@ -50,7 +50,10 @@ def set_custom_attributes_for_course_key(course_key):
     msg = "Use 'monitoring.set_custom_attributes_for_course_key' in place of " \
           "'monitoring.utils.set_custom_attributes_for_course_key'."
     warnings.warn(msg, DeprecationWarning)
-    internal_set_custom_attribute('deprecated_monitoring_utils', 'set_custom_attributes_for_course_key')
+    internal_set_custom_attribute(
+        'deprecated_monitoring_utils',
+        'set_custom_attributes_for_course_key[{}]'.format(str(course_key))
+    )
     internal_set_custom_attributes_for_course_key(course_key)
 
 
@@ -60,7 +63,7 @@ def set_custom_metric(key, value):  # pragma: no cover
     """
     msg = "Use 'set_custom_attribute' in place of 'set_custom_metric'."
     warnings.warn(msg, DeprecationWarning)
-    internal_set_custom_attribute('deprecated_monitoring_utils', 'set_custom_metric')
+    internal_set_custom_attribute('deprecated_monitoring_utils', 'set_custom_metric[{}]'.format(key))
     internal_set_custom_attribute(key, value)
 
 
@@ -70,5 +73,8 @@ def set_custom_metrics_for_course_key(course_key):  # pragma: no cover
     """
     msg = "Use 'set_custom_attributes_for_course_key' in place of 'set_custom_metrics_for_course_key'."
     warnings.warn(msg, DeprecationWarning)
-    internal_set_custom_attribute('deprecated_monitoring_utils', 'set_custom_metrics_for_course_key')
+    internal_set_custom_attribute(
+        'deprecated_monitoring_utils',
+        'set_custom_metrics_for_course_key[{}]'.format(str(course_key))
+    )
     internal_set_custom_attributes_for_course_key(course_key)

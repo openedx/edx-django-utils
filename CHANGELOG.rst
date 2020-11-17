@@ -15,6 +15,14 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
+[3.12.1] - 2020-11-18
+~~~~~~~~~~~~~~~~~~~~~
+
+Updated
+_______
+
+* Added additional details to the `deprecated_monitoring_utils` custom attribute values to make it simpler to track down usage.
+
 [3.12.0] - 2020-11-17
 ~~~~~~~~~~~~~~~~~~~~~
 
