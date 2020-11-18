@@ -15,8 +15,13 @@ Change Log
 Unreleased
 ~~~~~~~~~~
 
-[3.12.1] - 2020-11-18
+[3.13.0] - 2020-11-18
 ~~~~~~~~~~~~~~~~~~~~~
+
+Added
+_____
+
+* Added record_exception to monitor caught exceptions.
 
 Updated
 _______

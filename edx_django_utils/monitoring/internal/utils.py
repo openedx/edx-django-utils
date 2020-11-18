@@ -21,7 +21,7 @@ from .middleware import CachedCustomMonitoringMiddleware
 
 try:
     import newrelic.agent
-except ImportError:
+except ImportError:  # pragma: no cover
     newrelic = None  # pylint: disable=invalid-name
 
 
@@ -80,3 +80,19 @@ def set_custom_attribute(key, value):
     if newrelic:  # pragma: no cover
         # note: parameter is new relic's older name for attributes
         newrelic.agent.add_custom_parameter(key, value)
+
+
+def record_exception():
+    """
+    Records a caught exception to the monitoring system.
+
+    Note: By default, only unhandled exceptions are monitored. This function
+    can be called to record exceptions as monitored errors, even if you handle
+    the exception gracefully from a user perspective.
+
+    For more details, see:
+    https://docs.newrelic.com/docs/agents/python-agent/python-agent-api/recordexception-python-agent-api
+
+    """
+    if newrelic:  # pragma: no cover
+        newrelic.agent.record_exception()
