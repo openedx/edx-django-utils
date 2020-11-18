@@ -3,6 +3,8 @@ Monitoring Utils
 
 This is our primary abstraction from 3rd party monitoring libraries such as newrelic.agent. It includes middleware and utility methods for adding custom attributes and for better monitoring memory consumption.
 
+See ``__init__.py`` for a list of everything included in the public API.
+
 If, for some reason, you need low level access to the newrelic agent, please extend this library to implement the feature that you want. Applications should never include ``import newrelic.agent`` directly.
 
 Using Custom Attributes
