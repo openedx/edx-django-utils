@@ -9,7 +9,7 @@ coverage==5.3             # via pytest-cov
 ddt==1.4.1                # via -r requirements/test.in
 django-crum==0.7.9        # via -r requirements/base.txt
 django-waffle==2.0.0      # via -r requirements/base.txt
-importlib-metadata==2.0.0  # via pluggy, pytest
+importlib-metadata==2.1.0  # via pluggy, pytest
 iniconfig==1.1.1          # via pytest
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/test.in
 newrelic==5.22.1.152      # via -r requirements/base.txt

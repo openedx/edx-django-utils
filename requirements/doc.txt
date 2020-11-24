@@ -20,7 +20,7 @@ docutils==0.16            # via doc8, readme-renderer, restructuredtext-lint, sp
 edx-sphinx-theme==1.5.0   # via -r requirements/doc.in
 idna==2.10                # via requests
 imagesize==1.2.0          # via sphinx
-importlib-metadata==2.0.0  # via -r requirements/test.txt, pluggy, pytest
+importlib-metadata==2.1.0  # via -r requirements/test.txt, pluggy, pytest
 iniconfig==1.1.1          # via -r requirements/test.txt, pytest
 jinja2==2.11.2            # via sphinx
 markupsafe==1.1.1         # via jinja2
@@ -55,7 +55,7 @@ sphinxcontrib-serializinghtml==1.1.4  # via sphinx
 sqlparse==0.4.1           # via -r requirements/test.txt, django
 stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/test.txt, doc8
 toml==0.10.2              # via -r requirements/test.txt, pytest
-tqdm==4.52.0              # via twine
+tqdm==4.53.0              # via twine
 twine==1.15.0             # via -c requirements/constraints.txt, -r requirements/doc.in
 urllib3==1.26.2           # via requests
 webencodings==0.5.1       # via bleach
