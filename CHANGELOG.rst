@@ -1,4 +1,3 @@
-==========
 Change Log
 ==========
 
@@ -13,10 +12,10 @@ Change Log
 .. There should always be an "Unreleased" section for changes pending release.
 
 Unreleased
-~~~~~~~~~~
+----------
 
 [3.13.0] - 2020-11-18
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Added
 _____
@@ -29,7 +28,7 @@ _______
 * Added additional details to the `deprecated_monitoring_utils` custom attribute values to make it simpler to track down usage.
 
 [3.12.0] - 2020-11-17
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Added
 _____
@@ -44,7 +43,7 @@ _______
 
 
 [3.11.0] - 2020-10-31
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Added
 _____
@@ -80,7 +79,7 @@ _______
 * Removed the middleware ordering checks. This is not a typical Django feature and it is painful when refactoring.
 
 [3.10.0] - 2020-10-28
-~~~~~~~~~~~~~~~~~~~~~
+---------------------
 
 Added
 _______
@@ -88,7 +87,7 @@ _______
 * Added logging filter classes for users and remote IP addresses to be used by all IDAs. These were moved here from edx-platform.
 
 [3.9.0] - 2020-10-21
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Updated
 _______
@@ -99,7 +98,7 @@ _______
 * Refactor code owner setting processing.
 
 [3.8.0] - 2020-08-31
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Updated
 _______
@@ -116,12 +115,12 @@ _______
   * CodeOwnerMetricMiddleware (use CodeOwnerMonitoringMiddleware)
 
 [3.7.4] - 2020-08-29
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 * Fix to custom monitoring accumulate to actually accumulate rather than overwrite.
 
 [3.7.3] - 2020-08-12
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Updated
 _______
@@ -129,7 +128,7 @@ _______
 * Upgrade psutil to latest version
 
 [3.7.2] - 2020-08-10
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Updated
 _______
@@ -140,7 +139,7 @@ _______
 .. note:: Although these changes are backwards incompatible, they are being added as a bug fix because plugins code release (3.7.0) is not yet in use.
 
 [3.7.1] - 2020-08-10
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Updated
 _______
@@ -149,7 +148,7 @@ _______
     * this was done to keep inline with standard/pattern used in other packages in edx_django_utils
 
 [3.7.0] - 2020-08-10
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Added
 _____
@@ -158,7 +157,7 @@ _____
     * Allows IDAs to use plugins
 
 [3.6.0] - 2020-08-04
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Added
 _____
@@ -172,7 +171,7 @@ _______
 * Moved transaction-related monitoring code into it's own file. Still exposed through `__init__.py` so it's a non-breaking change.
 
 [3.5.0] - 2020-07-22
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Updated
 _______
@@ -180,7 +179,7 @@ _______
 * Added a catch-all capability to CodeOwnerMetricMiddleware when CODE_OWNER_MAPPINGS includes a '*' as a team's module. The catch-all is used only if there is no other match.
 
 [3.4.0] - 2020-07-20
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Added
 _____
@@ -193,7 +192,7 @@ _______
 * Updated CodeOwnerMetricMiddleware to use NewRelic's current transaction for cases where resolve() doesn't work to determine the code_owner, like for Middleware.
 
 [3.3.0] - 2020-07-16
-~~~~~~~~~~~~~~~~~~~~
+--------------------
 
 Added
 _____
@@ -203,15 +202,15 @@ _____
 .. _ADR for monitoring code owner: https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
 [3.2.3] - 2020-05-30
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 * Removed ceninusepy3 usage.
 
 [3.2.2] - 2020-05-04
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 * Added support for python 3.8 and dropped support for Django versions older than 2.2
 
 [3.2.1] - 2020-04-17
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -219,7 +218,7 @@ _______
 * imported get_cache_key in cache/__init__.py.
 
 [3.2.0] - 2020-04-09
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Added
 _______
@@ -227,7 +226,7 @@ _______
 * Added get_cache_key utility.
 
 [2.0.1] - 2019-10-09
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -235,7 +234,7 @@ _______
 * Fixed: Updated function tracing to accomodate changes in New Relic's 5.x Agent.
 
 [2.0.0] - 2019-07-07
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -244,7 +243,7 @@ _______
 * Removed support for Django versions < 1.11
 
 [1.0.1] - 2018-09-07
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -253,7 +252,7 @@ _______
 * Fixed: CachedResponse.__repr__ now handles unicode.
 
 [1.0.0] - 2018-08-28
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Added
 _______
@@ -266,7 +265,7 @@ _______
 * Change is_hit/is_miss to is_found.
 
 [0.5.1] - 2018-08-17
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -274,7 +273,7 @@ _______
 * Fixed bug in TieredCacheMiddleware dependency declaration.
 
 [0.5.0] - 2018-08-16
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -284,7 +283,7 @@ _______
 * Docs updates and other cookiecutter updates.
 
 [0.4.1] - 2018-08-10
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -292,7 +291,7 @@ _______
 * Split out TieredCacheMiddleware from RequestCacheMiddleware.
 
 [0.4.0] - 2018-08-10
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Changed
 _______
@@ -300,7 +299,7 @@ _______
 * Rename CacheUtilsMiddleware to RequestCacheMiddleware.
 
 [0.3.0] - 2018-08-02
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Removed
 _______
@@ -308,7 +307,7 @@ _______
 * Temporarily dropped Python 3 support to land this.
 
 [0.2.0] - 2018-08-01
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Added
 _____
@@ -317,7 +316,7 @@ _____
 
 
 [0.1.0] - 2018-07-23
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+------------------------------------------------
 
 Added
 _____

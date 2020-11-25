@@ -39,7 +39,7 @@ Development Workflow
 --------------------
 
 One Time Setup
-~~~~~~~~~~~~~~
+______________
 .. code-block::
 
   # clone the repo
@@ -52,7 +52,7 @@ One Time Setup
 
 
 Every time you develop something in this repo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+_____________________________________________
 .. code-block::
 
   # Activate the virtualenv.
