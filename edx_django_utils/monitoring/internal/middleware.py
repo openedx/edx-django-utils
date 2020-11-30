@@ -177,7 +177,7 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
         process = psutil.Process()
         process_data = {
             'memory_info': process.memory_info(),
-            'ext_memory_info': process.memory_info_ex(),
+            'ext_memory_info': process.memory_info(),
             'memory_percent': process.memory_percent(),
             'cpu_percent': process.cpu_percent(),
         }
