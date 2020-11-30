@@ -1,7 +1,7 @@
 edx-django-utils
 ================
 
-|pypi-badge| |travis-badge| |codecov-badge| |doc-badge| |pyversions-badge|
+|pypi-badge| |ci-badge| |codecov-badge| |doc-badge| |pyversions-badge|
 |license-badge|
 
 EdX utilities for Django Application development.
@@ -133,9 +133,9 @@ refer to this `list of resources`_ if you need any assistance.
     :target: https://pypi.python.org/pypi/edx-django-utils/
     :alt: PyPI
 
-.. |travis-badge| image:: https://travis-ci.org/edx/edx-django-utils.svg?branch=master
-    :target: https://travis-ci.org/edx/edx-django-utils
-    :alt: Travis
+.. |ci-badge| image:: https://github.com/edx/edx-django-utils/workflows/Python%20CI/badge.svg?branch=master
+    :target: https://github.com/edx/edx-django-utils/actions
+    :alt: CI
 
 .. |codecov-badge| image:: http://codecov.io/github/edx/edx-django-utils/coverage.svg?branch=master
     :target: http://codecov.io/github/edx/edx-django-utils?branch=master
