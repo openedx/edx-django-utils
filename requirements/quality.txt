@@ -21,7 +21,7 @@ lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
 mock==3.0.5               # via -c requirements/constraints.txt, -r requirements/test.txt
 newrelic==5.22.1.152      # via -r requirements/test.txt
-packaging==20.4           # via -r requirements/test.txt, pytest
+packaging==20.7           # via -r requirements/test.txt, pytest
 pathlib2==2.3.5           # via -r requirements/test.txt, pytest
 pbr==5.5.1                # via -r requirements/test.txt, stevedore
 pluggy==0.13.1            # via -r requirements/test.txt, pytest
@@ -38,7 +38,7 @@ pytest-cov==2.10.1        # via -r requirements/test.txt
 pytest-django==4.1.0      # via -r requirements/test.txt
 pytest==6.1.2             # via -r requirements/test.txt, pytest-cov, pytest-django
 pytz==2020.4              # via -r requirements/test.txt, django
-six==1.15.0               # via -r requirements/test.txt, astroid, edx-lint, mock, packaging, pathlib2, stevedore
+six==1.15.0               # via -r requirements/test.txt, astroid, edx-lint, mock, pathlib2, stevedore
 snowballstemmer==2.0.0    # via pydocstyle
 sqlparse==0.4.1           # via -r requirements/test.txt, django
 stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/test.txt
