@@ -40,6 +40,10 @@ If the task is not compatible with additional decorators, you can use the follow
       set_code_owner_attribute_from_module(__name__)
       ...
 
+An untested potential alternative to the ``@set_code_owner_attribute`` decorator is to try celery's `task_prerun signal`_ in an IDA, which would also ensure all future celery tasks are automatically handled.
+
+.. _task_prerun signal: https://docs.celeryproject.org/en/stable/userguide/signals.html#task-prerun
+
 Configuring your app settings
 -----------------------------
 
