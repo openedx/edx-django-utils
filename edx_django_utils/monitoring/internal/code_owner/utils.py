@@ -166,8 +166,11 @@ def set_code_owner_attribute(wrapped_function):
         def example_task():
             ...
 
-    Note: If the decorator can't be used for some reason, just call
+    Note: If the decorator can't be used for some reason, call
         ``set_code_owner_attribute_from_module`` directly.
+
+    An untested potential alternative is documented in the ADR covering this decision:
+        docs/decisions/0003-code-owner-for-celery-tasks.rst
 
     """
     @wraps(wrapped_function)
