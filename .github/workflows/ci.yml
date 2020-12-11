@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         python-version: ['3.5','3.8']
-        toxenv: ["django22","django30","docs","quality"]
+        toxenv: ["django22", "django30", "docs", "quality"]
         exclude:
           - python-version: "3.5"
             toxenv: "django30"
@@ -26,7 +26,7 @@ jobs:
             toxenv: "quality"
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v1
       - name: setup python
         uses: actions/setup-python@v2
         with:
@@ -42,3 +42,10 @@ jobs:
         env:
           TOXENV: ${{ matrix.toxenv }}
         run: tox
+
+      - name: Run coverage
+        if: matrix.python-version == '3.8' && matrix.toxenv == 'django22'
+        uses: codecov/codecov-action@v1
+        with:
+          flags: unittests
+          fail_ci_if_error: true
