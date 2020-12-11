@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[3.14.0] - 2020-12-15
+_____________________
+
+Removed
+_______
+* Dropped support for python 3.5
+
+
 [3.13.0] - 2020-11-18
 ---------------------
 
@@ -40,7 +48,6 @@ Updated
 _______
 
 * Cleaned up some of the code owner middleware code. In doing so, renamed custom attribute code_owner_path_module to code_owner_module. This may affect monitoring dashboards. Also slightly changed when error custom attributes are set.
-
 
 [3.11.0] - 2020-10-31
 ---------------------
