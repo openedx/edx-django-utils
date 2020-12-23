@@ -37,7 +37,7 @@ class CodeOwnerMonitoringMiddleware:
         self._set_code_owner_attribute(request)
         return response
 
-    def process_exception(self, request, exception):
+    def process_exception(self, request, exception):    # pylint: disable=W0613
         self._set_code_owner_attribute(request)
 
     def _set_code_owner_attribute(self, request):

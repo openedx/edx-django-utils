@@ -47,7 +47,7 @@ class _RequestCache(threading.local):
     The data is a dict of dicts, keyed by namespace.
     """
     def __init__(self):
-        super(_RequestCache, self).__init__()
+        super().__init__()
         self._data = {}
 
     def clear(self):
@@ -311,7 +311,7 @@ class CachedResponseError(Exception):
     USAGE_MESSAGE = 'CachedResponse was misused. Try the attributes is_found, value or key.'
 
     def __init__(self, message=USAGE_MESSAGE):  # pylint: disable=useless-super-delegation
-        super(CachedResponseError, self).__init__(message)
+        super().__init__(message)
 
 
 class CachedResponse:

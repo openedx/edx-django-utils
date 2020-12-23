@@ -16,7 +16,7 @@ TEST_NAMESPACE = "test_namespace"
 class TestRequestCacheMiddleware(TestCase):  # pylint: disable=missing-class-docstring
 
     def setUp(self):
-        super(TestRequestCacheMiddleware, self).setUp()
+        super().setUp()
         self.middleware = middleware.RequestCacheMiddleware()
         self.request = RequestFactory().get('/')
 
@@ -56,7 +56,7 @@ class TestRequestCacheMiddleware(TestCase):  # pylint: disable=missing-class-doc
 class TestTieredCacheMiddleware(TestCase):  # pylint: disable=missing-class-docstring
 
     def setUp(self):
-        super(TestTieredCacheMiddleware, self).setUp()
+        super().setUp()
         self.middleware = middleware.TieredCacheMiddleware()
         self.request = RequestFactory().get('/')
         self.request.user = self._mock_user(is_staff=True)

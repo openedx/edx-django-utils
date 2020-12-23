@@ -28,7 +28,7 @@ class TestCustomMonitoringMiddleware(TestCase):
     Test the monitoring_utils middleware and helpers
     """
     def setUp(self):
-        super(TestCustomMonitoringMiddleware, self).setUp()
+        super().setUp()
         RequestCache.clear_all_namespaces()
 
     @patch('newrelic.agent')

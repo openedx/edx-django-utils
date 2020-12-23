@@ -23,7 +23,7 @@ class RequestCacheMiddleware(MiddlewareMixin):
         RequestCache.clear_all_namespaces()
         return response
 
-    def process_exception(self, request, exception):
+    def process_exception(self, request, exception):    # pylint: disable=W0613
         """
         Clear the request cache after a failed request.
         """
