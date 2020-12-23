@@ -23,9 +23,10 @@ update:
    urlpatterns.extend(get_plugin_url_patterns(...))
 
 4. its setup to register PluginsConfig (for connecting Plugin Signals)
-::
 
 .. note:: For a plugin that will appear in a single IDA, you could create constants like `ProjectType found in edx-platform`_. If the plugin is for many IDAs, we need to add a capability to this library with a global constant.
+
+::
 
     from setuptools import setup
     setup(
