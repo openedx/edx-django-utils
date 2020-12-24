@@ -37,3 +37,7 @@ update:
             ],
         }
     )
+
+.. note:: For a plugin that will appear in a single IDA, you could create constants like `ProjectType found in edx-platform`_. If the plugin is for many IDAs, we need to add a capability to this library with a global constant.
+
+.. _ProjectType found in edx-platform: https://github.com/edx/edx-platform/blob/dbe40dae1a8b50fea0954e85f76ebf244129186e/openedx/core/djangoapps/plugins/constants.py#L14-L22

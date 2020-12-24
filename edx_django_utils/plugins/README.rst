@@ -46,9 +46,16 @@ design principles:
   long-term maintenance of a system, dependencies should go from low-level
   modules/details to higher level ones.
 
+.. note:: In the case of adding non-optional apps, clarity can come from explicitly using ``INSTALLED_APPS`` rather than this plugin framework.
+
 .. note:: This plugin capability originally existed in edx-platform. See the `decision (ADR) for moving this to edx-django-utils`_.
 
 .. _decision (ADR) for moving this to edx-django-utils: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extract-plugins-infrastructure-from-edx-platform.rst
+
+Next Steps
+----------
+
+* Add unit test coverage. There was no test coverage in the original code from edx-platform.
 
 Enable Plugins in an IDA
 ------------------------

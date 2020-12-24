@@ -30,7 +30,7 @@ TEST_DJANGO_TIMEOUT_CACHE = 1
 
 class TestRequestCache(TestCase):  # pylint: disable=missing-class-docstring
     def setUp(self):
-        super(TestRequestCache, self).setUp()
+        super().setUp()
         RequestCache.clear_all_namespaces()
         self.request_cache = RequestCache()
         self.other_request_cache = RequestCache(TEST_NAMESPACE)
@@ -146,7 +146,7 @@ class TestRequestCache(TestCase):  # pylint: disable=missing-class-docstring
 
 class TestTieredCache(TestCase):  # pylint: disable=missing-class-docstring
     def setUp(self):
-        super(TestTieredCache, self).setUp()
+        super().setUp()
         self.request_cache = RequestCache()
         TieredCache.dangerous_clear_all_tiers()
 

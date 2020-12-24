@@ -5,7 +5,7 @@ Tests of edx_django_utils.db.read_replica.
 from importlib import reload
 
 from django.conf import settings
-from django.contrib.auth.models import User
+from django.contrib import auth
 from django.test import TestCase, override_settings
 
 from .. import read_replica
@@ -17,6 +17,7 @@ READ_REPLICA_DATABASES = settings.DATABASES
 DATABASE_ROUTERS = settings.DATABASE_ROUTERS + [
     "edx_django_utils.db.read_replica.ReadReplicaRouter"
 ]
+User = auth.get_user_model()
 
 
 class TestReadReplica(TestCase):
@@ -27,7 +28,7 @@ class TestReadReplica(TestCase):
     databases = ["default", "read_replica"]
 
     def setUp(self):
-        super(TestReadReplica, self).setUp()
+        super().setUp()
         self.addCleanup(reload, read_replica)
 
     def test_read_inside_write_error(self):

@@ -106,7 +106,7 @@ def write_queries():
 
 class _ReadReplicaRouterStorage(threading.local):
     def __init__(self):
-        super(_ReadReplicaRouterStorage, self).__init__()
+        super().__init__()
         self.db_name = None
 
 

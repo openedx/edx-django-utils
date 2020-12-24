@@ -99,7 +99,7 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
         self._batch_report()
         return response
 
-    def process_exception(self, request, exception):
+    def process_exception(self, request, exception):    # pylint: disable=W0613
         """
         Django middleware handler to process an exception
         """
