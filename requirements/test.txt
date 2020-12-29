@@ -9,10 +9,12 @@ coverage==5.3.1           # via pytest-cov
 ddt==1.4.1                # via -r requirements/test.in
 django-crum==0.7.9        # via -r requirements/base.txt
 django-waffle==2.0.0      # via -r requirements/base.txt
+importlib-metadata==2.1.1  # via pluggy, pytest
 iniconfig==1.1.1          # via pytest
-mock==4.0.3               # via -r requirements/test.in
-newrelic==5.22.1.152      # via -r requirements/base.txt
+mock==3.0.5               # via -r requirements/test.in
+newrelic==5.24.0.153      # via -r requirements/base.txt
 packaging==20.8           # via pytest
+pathlib2==2.3.5           # via pytest
 pbr==5.5.1                # via -r requirements/base.txt, stevedore
 pluggy==0.13.1            # via pytest
 psutil==5.8.0             # via -r requirements/base.txt
@@ -20,9 +22,10 @@ py==1.10.0                # via pytest
 pyparsing==2.4.7          # via packaging
 pytest-cov==2.10.1        # via -r requirements/test.in
 pytest-django==4.1.0      # via -r requirements/test.in
-pytest==6.2.0             # via pytest-cov, pytest-django
-pytz==2020.4              # via -r requirements/base.txt, django
-six==1.15.0               # via -r requirements/base.txt, stevedore
+pytest==6.1.2             # via pytest-cov, pytest-django
+pytz==2020.5              # via -r requirements/base.txt, django
+six==1.15.0               # via -r requirements/base.txt, mock, pathlib2, stevedore
 sqlparse==0.4.1           # via -r requirements/base.txt, django
-stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/base.txt
+stevedore==1.32.0         # via -r requirements/base.txt
 toml==0.10.2              # via pytest
+zipp==1.2.0               # via importlib-metadata

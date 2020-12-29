@@ -12,7 +12,9 @@ coverage==5.3.1           # via codecov
 distlib==0.3.1            # via virtualenv
 filelock==3.0.12          # via tox, virtualenv
 idna==2.10                # via requests
-mock==4.0.3               # via -r requirements/ci.in
+importlib-metadata==2.1.1  # via pluggy, tox, virtualenv
+importlib-resources==3.2.1  # via virtualenv
+mock==3.0.5               # via -r requirements/ci.in
 packaging==20.8           # via tox
 pluggy==0.13.1            # via tox
 py==1.10.0                # via tox
@@ -24,3 +26,4 @@ tox-battery==0.6.1        # via -r requirements/ci.in
 tox==3.20.1               # via -r requirements/ci.in, tox-battery
 urllib3==1.26.2           # via requests
 virtualenv==20.2.2        # via tox
+zipp==1.2.0               # via importlib-metadata, importlib-resources
