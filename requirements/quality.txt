@@ -14,13 +14,15 @@ django-crum==0.7.9        # via -r requirements/test.txt
 django-waffle==2.0.0      # via -r requirements/test.txt
 django==2.2.17            # via -c requirements/constraints.txt, -r requirements/test.txt, django-crum
 edx-lint==1.6             # via -r requirements/quality.in
+importlib-metadata==2.1.1  # via -r requirements/test.txt, pluggy, pytest
 iniconfig==1.1.1          # via -r requirements/test.txt, pytest
 isort==4.3.21             # via -r requirements/quality.in, pylint
 lazy-object-proxy==1.4.3  # via astroid
 mccabe==0.6.1             # via pylint
-mock==4.0.3               # via -r requirements/test.txt
-newrelic==5.22.1.152      # via -r requirements/test.txt
+mock==3.0.5               # via -r requirements/test.txt
+newrelic==5.24.0.153      # via -r requirements/test.txt
 packaging==20.8           # via -r requirements/test.txt, pytest
+pathlib2==2.3.5           # via -r requirements/test.txt, pytest
 pbr==5.5.1                # via -r requirements/test.txt, stevedore
 pluggy==0.13.1            # via -r requirements/test.txt, pytest
 psutil==5.8.0             # via -r requirements/test.txt
@@ -34,12 +36,13 @@ pylint==2.6.0             # via edx-lint, pylint-celery, pylint-django, pylint-p
 pyparsing==2.4.7          # via -r requirements/test.txt, packaging
 pytest-cov==2.10.1        # via -r requirements/test.txt
 pytest-django==4.1.0      # via -r requirements/test.txt
-pytest==6.2.0             # via -r requirements/test.txt, pytest-cov, pytest-django
-pytz==2020.4              # via -r requirements/test.txt, django
-six==1.15.0               # via -r requirements/test.txt, astroid, edx-lint, stevedore
+pytest==6.1.2             # via -r requirements/test.txt, pytest-cov, pytest-django
+pytz==2020.5              # via -r requirements/test.txt, django
+six==1.15.0               # via -r requirements/test.txt, astroid, edx-lint, mock, pathlib2, stevedore
 snowballstemmer==2.0.0    # via pydocstyle
 sqlparse==0.4.1           # via -r requirements/test.txt, django
-stevedore==1.32.0         # via -c requirements/constraints.txt, -r requirements/test.txt
-toml==0.10.2              # via -r requirements/test.txt, pytest
+stevedore==1.32.0         # via -r requirements/test.txt
+toml==0.10.2              # via -r requirements/test.txt, pylint, pytest
 typed-ast==1.4.1          # via astroid
 wrapt==1.12.1             # via astroid
+zipp==1.2.0               # via -r requirements/test.txt, importlib-metadata
