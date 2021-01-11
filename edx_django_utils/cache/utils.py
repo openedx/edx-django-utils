@@ -10,7 +10,7 @@ from django.utils.encoding import force_str
 
 FORCE_CACHE_MISS_PARAM = 'force_cache_miss'
 DEFAULT_NAMESPACE = 'edx_django_utils.cache'
-DEFAULT_REQUEST_CACHE_NAMESPACE = '{}.default'.format(DEFAULT_NAMESPACE)
+DEFAULT_REQUEST_CACHE_NAMESPACE = f'{DEFAULT_NAMESPACE}.default'
 SHOULD_FORCE_CACHE_MISS_KEY = 'edx_django_utils.cache.should_force_cache_miss'
 
 _CACHE_MISS = object()
@@ -35,7 +35,7 @@ def get_cache_key(**kwargs):
     Returns:
          An MD5 encoded key uniquely identified by the key word arguments.
     """
-    key = '__'.join([u'{}:{}'.format(k, force_str(v)) for k, v in sorted(kwargs.items())])
+    key = '__'.join(['{}:{}'.format(k, force_str(v)) for k, v in sorted(kwargs.items())])
 
     return hashlib.md5(key.encode('utf-8')).hexdigest()
 
@@ -94,7 +94,7 @@ class RequestCache:
             namespace (string): (optional) uses 'default' if not provided.
         """
         assert namespace != DEFAULT_REQUEST_CACHE_NAMESPACE,\
-            'Optional namespace can not be {}.'.format(DEFAULT_REQUEST_CACHE_NAMESPACE)
+            f'Optional namespace can not be {DEFAULT_REQUEST_CACHE_NAMESPACE}.'
         self.namespace = namespace or DEFAULT_REQUEST_CACHE_NAMESPACE
 
     @classmethod
@@ -336,7 +336,7 @@ class CachedResponse:
     def __repr__(self):
         # Important: Do not include the cached value to help avoid any security
         # leaks that could happen if these are logged.
-        return u'''CachedResponse(is_found={}, key={}, value='*****')'''.format(self.is_found, self.key)
+        return f'''CachedResponse(is_found={self.is_found}, key={self.key}, value='*****')'''
 
     def get_value_or_default(self, default):
         """

@@ -46,7 +46,7 @@ class PluginManager:
         plugins = cls.get_available_plugins(namespace)
         if name not in plugins:
             raise PluginError(
-                u"No such plugin {name} for entry point {namespace}".format(
+                "No such plugin {name} for entry point {namespace}".format(
                     name=name,
                     namespace=namespace or cls.NAMESPACE,  # pylint: disable=no-member
                 )

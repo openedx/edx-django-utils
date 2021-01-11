@@ -105,7 +105,7 @@ def get_code_owner_mappings():
     except Exception as e:  # pylint: disable=broad-except
         # will remove broad exceptions after ensuring all proper cases are covered
         set_custom_attribute('deprecated_broad_except_get_code_owner_mappings', e.__class__)
-        log.exception('Error processing code_owner_mappings. {}'.format(e))
+        log.exception(f'Error processing code_owner_mappings. {e}')
 
     _PATH_TO_CODE_OWNER_MAPPINGS = path_to_code_owner_mapping
     return _PATH_TO_CODE_OWNER_MAPPINGS

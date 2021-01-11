@@ -5,7 +5,7 @@ Note: CachedCustomMonitoringMiddleware is tested in ``test_monitoring.py``.
 """
 from django.test import TestCase
 from django.test.client import RequestFactory
-from mock import patch
+from unittest.mock import patch
 from waffle.testutils import override_switch
 
 from edx_django_utils.monitoring import MonitoringMemoryMiddleware
