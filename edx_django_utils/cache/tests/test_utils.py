@@ -1,13 +1,11 @@
-# -*- coding: utf-8 -*-
 """
 Tests for the request cache.
 """
 
 from threading import Thread
-from unittest import TestCase
+from unittest import TestCase, mock
 
 import ddt
-import mock
 
 from edx_django_utils.cache.utils import (
     DEFAULT_REQUEST_CACHE_NAMESPACE,
@@ -19,12 +17,12 @@ from edx_django_utils.cache.utils import (
     get_cache_key
 )
 
-TEST_KEY = u"clöbert"
-TEST_KEY_2 = u"clöbert2"
-TEST_KEY_UNICODE = u"clöbert"
-EXPECTED_VALUE = u"bertclöb"
-EXPECTED_VALUE_2 = u"bertclöb2"
-TEST_NAMESPACE = u"test_namespåce"
+TEST_KEY = "clöbert"
+TEST_KEY_2 = "clöbert2"
+TEST_KEY_UNICODE = "clöbert"
+EXPECTED_VALUE = "bertclöb"
+EXPECTED_VALUE_2 = "bertclöb2"
+TEST_NAMESPACE = "test_namespåce"
 TEST_DJANGO_TIMEOUT_CACHE = 1
 
 
@@ -213,7 +211,7 @@ class CacheResponseTests(TestCase):  # pylint: disable=missing-class-docstring
         with self.assertRaises(AttributeError):
             cached_response.value  # pylint: disable=pointless-statement
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE_2)
-        self.assertIn(u'CachedResponse(is_found={}, key={}'.format(False, TEST_KEY), cached_response.__repr__())
+        self.assertIn('CachedResponse(is_found={}, key={}'.format(False, TEST_KEY), cached_response.__repr__())
 
     def test_is_hit(self):
         is_found = True
@@ -222,7 +220,7 @@ class CacheResponseTests(TestCase):  # pylint: disable=missing-class-docstring
         self.assertEqual(cached_response.key, TEST_KEY)
         self.assertEqual(cached_response.value, EXPECTED_VALUE)
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE)
-        self.assertIn(u'CachedResponse(is_found={}, key={}'.format(True, TEST_KEY), cached_response.__repr__())
+        self.assertIn('CachedResponse(is_found={}, key={}'.format(True, TEST_KEY), cached_response.__repr__())
 
     def test_cached_response_equals(self):
         self.assertEqual(

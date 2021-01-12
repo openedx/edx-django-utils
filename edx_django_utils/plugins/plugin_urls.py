@@ -46,7 +46,7 @@ def _iter_plugins(project_type):
         url_config = _get_config(app_config, project_type)
         if url_config is None:
             log.debug(
-                u"Plugin Apps [URLs]: Did NOT find %s for %s",
+                "Plugin Apps [URLs]: Did NOT find %s for %s",
                 app_config.name,
                 project_type,
             )
@@ -60,7 +60,7 @@ def _iter_plugins(project_type):
         )
         url_config[constants.PluginURLs.APP_NAME] = app_config.name
         log.debug(
-            u"Plugin Apps [URLs]: Found %s with namespace %s for %s",
+            "Plugin Apps [URLs]: Found %s with namespace %s for %s",
             app_config.name,
             url_config[constants.PluginURLs.NAMESPACE],
             project_type,

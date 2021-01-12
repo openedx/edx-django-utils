@@ -1,9 +1,10 @@
 """
 Tests for custom monitoring.
 """
+from unittest.mock import call, patch
+
 import ddt
 from django.test import TestCase
-from mock import call, patch
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (

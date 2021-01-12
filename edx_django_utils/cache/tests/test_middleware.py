@@ -1,9 +1,9 @@
-# -*- coding: utf-8 -*-
 """
 Tests for the RequestCacheMiddleware.
 """
+from unittest.mock import MagicMock
+
 from django.test import RequestFactory, TestCase
-from mock import MagicMock
 
 from edx_django_utils.cache import middleware
 from edx_django_utils.cache.utils import FORCE_CACHE_MISS_PARAM, SHOULD_FORCE_CACHE_MISS_KEY, RequestCache
@@ -70,7 +70,7 @@ class TestTieredCacheMiddleware(TestCase):  # pylint: disable=missing-class-docs
         self.assertFalse(self.request_cache.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY).value)
 
     def test_process_request_force_cache_miss(self):
-        request = RequestFactory().get('/?{}=tRuE'.format(FORCE_CACHE_MISS_PARAM))
+        request = RequestFactory().get(f'/?{FORCE_CACHE_MISS_PARAM}=tRuE')
         request.user = self._mock_user(is_staff=True)
 
         self.middleware.process_request(request)
@@ -78,7 +78,7 @@ class TestTieredCacheMiddleware(TestCase):  # pylint: disable=missing-class-docs
         self.assertTrue(self.request_cache.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY).value)
 
     def test_process_request_force_cache_miss_non_staff(self):
-        request = RequestFactory().get('/?{}=tRuE'.format(FORCE_CACHE_MISS_PARAM))
+        request = RequestFactory().get(f'/?{FORCE_CACHE_MISS_PARAM}=tRuE')
         request.user = self._mock_user(is_staff=False)
 
         self.middleware.process_request(request)

@@ -23,7 +23,7 @@ except ImportError:  # pragma: no cover
 
 
 _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
-_REQUEST_CACHE_NAMESPACE = '{}.custom_attributes'.format(_DEFAULT_NAMESPACE)
+_REQUEST_CACHE_NAMESPACE = f'{_DEFAULT_NAMESPACE}.custom_attributes'
 
 
 class CachedCustomMonitoringMiddleware(MiddlewareMixin):
@@ -131,7 +131,7 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
         """
         if self._is_enabled():
             self._cache.set(self.guid_key, str(uuid4()))
-            log_prefix = self._log_prefix(u"Before", request)
+            log_prefix = self._log_prefix("Before", request)
             self._cache.set(self.memory_data_key, self._memory_data(log_prefix))
 
     def process_response(self, request, response):
@@ -139,10 +139,10 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
         Logs memory data after processing response.
         """
         if self._is_enabled():
-            log_prefix = self._log_prefix(u"After", request)
+            log_prefix = self._log_prefix("After", request)
             new_memory_data = self._memory_data(log_prefix)
 
-            log_prefix = self._log_prefix(u"Diff", request)
+            log_prefix = self._log_prefix("Diff", request)
             cached_memory_data_response = self._cache.get_cached_response(self.memory_data_key)
             old_memory_data = cached_memory_data_response.get_value_or_default(None)
             self._log_diff_memory_data(log_prefix, new_memory_data, old_memory_data)
@@ -164,8 +164,8 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
         #   "guid_key" will no longer be in the request cache when
         #   process_response executes.
         cached_guid_response = self._cache.get_cached_response(self.guid_key)
-        cached_guid = cached_guid_response.get_value_or_default(u"without_guid")
-        return u"{} request '{} {} {}'".format(prefix, request.method, request.path, cached_guid)
+        cached_guid = cached_guid_response.get_value_or_default("without_guid")
+        return f"{prefix} request '{request.method} {request.path} {cached_guid}'"
 
     def _memory_data(self, log_prefix):
         """
@@ -182,7 +182,7 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
             'cpu_percent': process.cpu_percent(),
         }
 
-        log.info(u"%s Machine memory usage: %s; Process memory usage: %s", log_prefix, machine_data, process_data)
+        log.info("%s Machine memory usage: %s; Process memory usage: %s", log_prefix, machine_data, process_data)
         return {
             'machine_data': machine_data,
             'process_data': process_data,
@@ -207,7 +207,7 @@ class MonitoringMemoryMiddleware(MiddlewareMixin):
 
         if new_memory_data and old_memory_data:
             log.info(
-                u"%s Diff Vmem used: %s, Diff percent memory: %s, Diff rss: %s, Diff vms: %s",
+                "%s Diff Vmem used: %s, Diff percent memory: %s, Diff rss: %s, Diff vms: %s",
                 prefix,
                 _vmem_used(new_memory_data) - _vmem_used(old_memory_data),
                 _process_mem_percent(new_memory_data) - _process_mem_percent(old_memory_data),

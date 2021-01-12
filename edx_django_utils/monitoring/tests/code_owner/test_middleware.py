@@ -2,13 +2,12 @@
 Tests for the code_owner monitoring middleware
 """
 from unittest import TestCase
-from unittest.mock import ANY
+from unittest.mock import ANY, Mock, call, patch
 
 import ddt
 from django.conf.urls import url
 from django.test import RequestFactory, override_settings
 from django.views.generic import View
-from mock import Mock, call, patch
 
 from edx_django_utils.monitoring import CodeOwnerMonitoringMiddleware
 from edx_django_utils.monitoring.internal.code_owner.utils import clear_cached_mappings
@@ -256,5 +255,5 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
         mock_set_custom_attribute.assert_has_calls(call_list, any_order=True)
         self.assertEqual(
             len(actual_filtered_call_list), len(call_list),
-            'Expected calls {} vs actual calls {}'.format(call_list, actual_filtered_call_list)
+            f'Expected calls {call_list} vs actual calls {actual_filtered_call_list}'
         )

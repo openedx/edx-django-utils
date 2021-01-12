@@ -3,10 +3,10 @@ Tests for the code_owner monitoring middleware
 """
 import timeit
 from unittest import TestCase
+from unittest.mock import call, patch
 
 import ddt
 from django.test import override_settings
-from mock import call, patch
 
 from edx_django_utils.monitoring import (
     get_code_owner_from_module,
@@ -80,7 +80,7 @@ class MonitoringUtilsTests(TestCase):
         }
         # create a long list of mappings that are nearly identical
         for n in range(1, 200):
-            path = 'openedx.core.djangoapps.{}'.format(n)
+            path = f'openedx.core.djangoapps.{n}'
             code_owner_mappings['team-red'].append(path)
         with override_settings(CODE_OWNER_MAPPINGS=code_owner_mappings):
             call_iterations = 100
@@ -89,7 +89,7 @@ class MonitoringUtilsTests(TestCase):
                 lambda: get_code_owner_from_module('openedx.core.djangoapps.XXX.views'), number=call_iterations
             )
             average_time = time / call_iterations
-            self.assertLess(average_time, 0.0005, 'Mapping takes {}s which is too slow.'.format(average_time))
+            self.assertLess(average_time, 0.0005, f'Mapping takes {average_time}s which is too slow.')
 
     @override_settings(CODE_OWNER_MAPPINGS={
         'team-red': ['edx_django_utils.monitoring.tests.code_owner.test_utils']

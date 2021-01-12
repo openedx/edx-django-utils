@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # pylint: disable=invalid-name
 """
 edx-django-utils documentation build configuration file.
@@ -19,10 +18,9 @@ import re
 import sys
 from subprocess import check_call
 
+import edx_theme
 from django import setup as django_setup
 from django.conf import settings
-
-import edx_theme
 
 
 def get_version(*file_paths):
@@ -30,7 +28,7 @@ def get_version(*file_paths):
     Extract the version string from the file at the given relative path fragments.
     """
     filename = os.path.join(os.path.dirname(__file__), *file_paths)
-    version_file = io.open(filename).read()
+    version_file = open(filename).read()
     version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", version_file, re.M)
     if version_match:
         return version_match.group(1)
@@ -98,7 +96,7 @@ project = 'edx-django-utils'
 copyright = edx_theme.COPYRIGHT  # pylint: disable=redefined-builtin
 author = edx_theme.AUTHOR
 project_title = 'EdX Django App Utilities'
-documentation_title = "{project_title}".format(project_title=project_title)
+documentation_title = f"{project_title}"
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -281,7 +279,7 @@ html_static_path = ['_static']
 # html_search_scorer = 'scorer.js'
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = '{project_name}doc'.format(project_name=project)
+htmlhelp_basename = f'{project}doc'
 
 # -- Options for LaTeX output ---------------------------------------------
 
@@ -306,7 +304,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
-latex_target = '{project}.tex'.format(project=project)
+latex_target = f'{project}.tex'
 latex_documents = [
     (master_doc, latex_target, documentation_title,
      author, 'manual'),
