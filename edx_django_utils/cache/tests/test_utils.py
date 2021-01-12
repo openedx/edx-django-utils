@@ -3,10 +3,9 @@ Tests for the request cache.
 """
 
 from threading import Thread
-from unittest import TestCase
+from unittest import TestCase, mock
 
 import ddt
-from unittest import mock
 
 from edx_django_utils.cache.utils import (
     DEFAULT_REQUEST_CACHE_NAMESPACE,

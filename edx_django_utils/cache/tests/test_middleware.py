@@ -1,8 +1,9 @@
 """
 Tests for the RequestCacheMiddleware.
 """
-from django.test import RequestFactory, TestCase
 from unittest.mock import MagicMock
+
+from django.test import RequestFactory, TestCase
 
 from edx_django_utils.cache import middleware
 from edx_django_utils.cache.utils import FORCE_CACHE_MISS_PARAM, SHOULD_FORCE_CACHE_MISS_KEY, RequestCache

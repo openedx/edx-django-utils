@@ -2,8 +2,9 @@
 Tests for logging.
 """
 
-from django.test import TestCase
 from unittest.mock import MagicMock, patch
+
+from django.test import TestCase
 
 from edx_django_utils.logging import RemoteIpFilter, UserIdFilter
 

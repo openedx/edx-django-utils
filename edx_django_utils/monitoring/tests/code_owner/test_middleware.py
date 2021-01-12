@@ -2,13 +2,12 @@
 Tests for the code_owner monitoring middleware
 """
 from unittest import TestCase
-from unittest.mock import ANY
+from unittest.mock import ANY, Mock, call, patch
 
 import ddt
 from django.conf.urls import url
 from django.test import RequestFactory, override_settings
 from django.views.generic import View
-from unittest.mock import Mock, call, patch
 
 from edx_django_utils.monitoring import CodeOwnerMonitoringMiddleware
 from edx_django_utils.monitoring.internal.code_owner.utils import clear_cached_mappings

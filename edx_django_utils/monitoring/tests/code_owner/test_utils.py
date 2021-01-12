@@ -3,10 +3,10 @@ Tests for the code_owner monitoring middleware
 """
 import timeit
 from unittest import TestCase
+from unittest.mock import call, patch
 
 import ddt
 from django.test import override_settings
-from unittest.mock import call, patch
 
 from edx_django_utils.monitoring import (
     get_code_owner_from_module,
