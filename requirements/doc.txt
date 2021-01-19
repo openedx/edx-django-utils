@@ -83,7 +83,7 @@ pbr==5.5.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.6.1
+pkginfo==1.7.0
     # via twine
 pluggy==0.13.1
     # via
@@ -97,7 +97,7 @@ py==1.10.0
     #   pytest
 pycparser==2.20
     # via cffi
-pygments==2.7.3
+pygments==2.7.4
     # via
     #   doc8
     #   readme-renderer
@@ -106,7 +106,7 @@ pyparsing==2.4.7
     # via
     #   -r requirements/test.txt
     #   packaging
-pytest-cov==2.10.1
+pytest-cov==2.11.0
     # via -r requirements/test.txt
 pytest-django==4.1.0
     # via -r requirements/test.txt
