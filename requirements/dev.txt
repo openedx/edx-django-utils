@@ -144,7 +144,7 @@ pycodestyle==2.6.0
     # via -r requirements/quality.txt
 pydocstyle==5.1.1
     # via -r requirements/quality.txt
-pygments==2.7.3
+pygments==2.7.4
     # via diff-cover
 pylint-celery==0.3
     # via
@@ -171,7 +171,7 @@ pyparsing==2.4.7
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   packaging
-pytest-cov==2.10.1
+pytest-cov==2.11.0
     # via -r requirements/quality.txt
 pytest-django==4.1.0
     # via -r requirements/quality.txt
@@ -218,7 +218,7 @@ toml==0.10.2
     #   tox
 tox-battery==0.6.1
     # via -r requirements/ci.txt
-tox==3.21.0
+tox==3.21.1
     # via
     #   -r requirements/ci.txt
     #   tox-battery
@@ -226,7 +226,7 @@ urllib3==1.26.2
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.3.0
+virtualenv==20.3.1
     # via
     #   -r requirements/ci.txt
     #   tox
