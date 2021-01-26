@@ -12,7 +12,7 @@ ddt==1.4.1
     # via -r requirements/test.in
 django-crum==0.7.9
     # via -r requirements/base.txt
-django-waffle==2.0.0
+django-waffle==2.1.0
     # via -r requirements/base.txt
     # via
     #   -c requirements/constraints.txt
@@ -22,7 +22,7 @@ iniconfig==1.1.1
     # via pytest
 mock==4.0.3
     # via -r requirements/test.in
-newrelic==5.24.0.153
+newrelic==6.0.1.155
     # via -r requirements/base.txt
 packaging==20.8
     # via pytest
@@ -38,11 +38,11 @@ py==1.10.0
     # via pytest
 pyparsing==2.4.7
     # via packaging
-pytest-cov==2.11.0
+pytest-cov==2.11.1
     # via -r requirements/test.in
 pytest-django==4.1.0
     # via -r requirements/test.in
-pytest==6.2.1
+pytest==6.2.2
     # via
     #   pytest-cov
     #   pytest-django

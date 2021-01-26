@@ -6,14 +6,14 @@
 #
 django-crum==0.7.9
     # via -r requirements/base.in
-django-waffle==2.0.0
+django-waffle==2.1.0
     # via -r requirements/base.in
 django==2.2.17
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/base.in
     #   django-crum
-newrelic==5.24.0.153
+newrelic==6.0.1.155
     # via -r requirements/base.in
 pbr==5.5.1
     # via stevedore

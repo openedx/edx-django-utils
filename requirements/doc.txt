@@ -12,7 +12,7 @@ attrs==20.3.0
     #   pytest
 babel==2.9.0
     # via sphinx
-bleach==3.2.1
+bleach==3.2.2
     # via readme-renderer
 certifi==2020.12.5
     # via requests
@@ -34,7 +34,7 @@ ddt==1.4.1
     # via -r requirements/test.txt
 django-crum==0.7.9
     # via -r requirements/test.txt
-django-waffle==2.0.0
+django-waffle==2.1.0
     # via -r requirements/test.txt
 django==2.2.17
     # via
@@ -49,7 +49,7 @@ docutils==0.16
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-edx-sphinx-theme==1.6.0
+edx-sphinx-theme==1.6.1
     # via -r requirements/doc.in
 idna==2.10
     # via requests
@@ -65,13 +65,13 @@ jeepney==0.6.0
     #   secretstorage
 jinja2==2.11.2
     # via sphinx
-keyring==21.8.0
+keyring==22.0.0
     # via twine
 markupsafe==1.1.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==5.24.0.153
+newrelic==6.0.1.155
     # via -r requirements/test.txt
 packaging==20.8
     # via
@@ -106,11 +106,11 @@ pyparsing==2.4.7
     # via
     #   -r requirements/test.txt
     #   packaging
-pytest-cov==2.11.0
+pytest-cov==2.11.1
     # via -r requirements/test.txt
 pytest-django==4.1.0
     # via -r requirements/test.txt
-pytest==6.2.1
+pytest==6.2.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -144,7 +144,7 @@ six==1.15.0
     #   doc8
     #   edx-sphinx-theme
     #   readme-renderer
-snowballstemmer==2.0.0
+snowballstemmer==2.1.0
     # via sphinx
 sphinx==3.4.3
     # via
