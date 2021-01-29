@@ -134,7 +134,7 @@ refer to this `list of resources`_ if you need any assistance.
     :alt: PyPI
 
 .. |ci-badge| image:: https://github.com/edx/edx-django-utils/workflows/Python%20CI/badge.svg?branch=master
-    :target: https://github.com/edx/edx-django-utils/actions
+    :target: https://github.com/edx/edx-django-utils/actions?query=workflow%3A%22Python+CI%22
     :alt: CI
 
 .. |codecov-badge| image:: http://codecov.io/github/edx/edx-django-utils/coverage.svg?branch=master
