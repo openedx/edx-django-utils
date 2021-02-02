@@ -12,7 +12,7 @@ attrs==20.3.0
     #   pytest
 babel==2.9.0
     # via sphinx
-bleach==3.2.2
+bleach==3.3.0
     # via readme-renderer
 certifi==2020.12.5
     # via requests
@@ -24,7 +24,7 @@ chardet==4.0.0
     #   requests
 colorama==0.4.4
     # via twine
-coverage==5.3.1
+coverage==5.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -36,7 +36,7 @@ django-crum==0.7.9
     # via -r requirements/test.txt
 django-waffle==2.1.0
     # via -r requirements/test.txt
-django==2.2.17
+django==2.2.18
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
@@ -63,9 +63,9 @@ jeepney==0.6.0
     # via
     #   keyring
     #   secretstorage
-jinja2==2.11.2
+jinja2==2.11.3
     # via sphinx
-keyring==22.0.0
+keyring==22.0.1
     # via twine
 markupsafe==1.1.1
     # via jinja2
@@ -73,7 +73,7 @@ mock==4.0.3
     # via -r requirements/test.txt
 newrelic==6.0.1.155
     # via -r requirements/test.txt
-packaging==20.8
+packaging==20.9
     # via
     #   -r requirements/test.txt
     #   bleach
@@ -115,7 +115,7 @@ pytest==6.2.2
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytz==2020.5
+pytz==2021.1
     # via
     #   -r requirements/test.txt
     #   babel
@@ -178,7 +178,7 @@ tqdm==4.56.0
     # via twine
 twine==3.3.0
     # via -r requirements/doc.in
-urllib3==1.26.2
+urllib3==1.26.3
     # via requests
 webencodings==0.5.1
     # via bleach
