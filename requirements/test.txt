@@ -6,7 +6,7 @@
 #
 attrs==20.3.0
     # via pytest
-coverage==5.3.1
+coverage==5.4
     # via pytest-cov
 ddt==1.4.1
     # via -r requirements/test.in
@@ -24,7 +24,7 @@ mock==4.0.3
     # via -r requirements/test.in
 newrelic==6.0.1.155
     # via -r requirements/base.txt
-packaging==20.8
+packaging==20.9
     # via pytest
 pbr==5.5.1
     # via
@@ -46,7 +46,7 @@ pytest==6.2.2
     # via
     #   pytest-cov
     #   pytest-django
-pytz==2020.5
+pytz==2021.1
     # via
     #   -r requirements/base.txt
     #   django
