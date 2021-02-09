@@ -38,7 +38,7 @@ django==2.2.18
     #   code-annotations
     #   django-crum
     #   edx-lint
-edx-lint==3.0.2
+edx-lint==4.0.1
     # via -r requirements/quality.in
 iniconfig==1.1.1
     # via
