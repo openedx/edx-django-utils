@@ -38,7 +38,7 @@ django-waffle==2.1.0
     # via -r requirements/test.txt
 django==2.2.18
     # via
-    #   -c requirements/constraints.txt
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-crum
 doc8==0.8.1
