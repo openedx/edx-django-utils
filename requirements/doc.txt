@@ -28,7 +28,7 @@ coverage==5.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==3.3.1
+cryptography==3.4.3
     # via secretstorage
 ddt==1.4.1
     # via -r requirements/test.txt
@@ -49,7 +49,7 @@ docutils==0.16
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-edx-sphinx-theme==1.6.1
+edx-sphinx-theme==2.0.0
     # via -r requirements/doc.in
 idna==2.10
     # via requests
@@ -140,7 +140,6 @@ secretstorage==3.3.0
 six==1.15.0
     # via
     #   bleach
-    #   cryptography
     #   doc8
     #   edx-sphinx-theme
     #   readme-renderer
