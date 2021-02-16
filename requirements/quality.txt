@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.4.2
+astroid==2.5
     # via
     #   pylint
     #   pylint-celery
@@ -50,7 +50,7 @@ isort==5.7.0
     #   pylint
 jinja2==2.11.3
     # via code-annotations
-lazy-object-proxy==1.4.3
+lazy-object-proxy==1.5.2
     # via astroid
 markupsafe==1.1.1
     # via jinja2
@@ -118,9 +118,7 @@ pytz==2021.1
 pyyaml==5.4.1
     # via code-annotations
 six==1.15.0
-    # via
-    #   astroid
-    #   edx-lint
+    # via edx-lint
 snowballstemmer==2.1.0
     # via pydocstyle
 sqlparse==0.4.1

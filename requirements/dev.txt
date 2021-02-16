@@ -8,7 +8,7 @@ appdirs==1.4.4
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-astroid==2.4.2
+astroid==2.5
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -101,7 +101,7 @@ jinja2==2.11.3
     #   code-annotations
     #   diff-cover
     #   jinja2-pluralize
-lazy-object-proxy==1.4.3
+lazy-object-proxy==1.5.2
     # via
     #   -r requirements/quality.txt
     #   astroid
@@ -156,7 +156,7 @@ pycodestyle==2.6.0
     # via -r requirements/quality.txt
 pydocstyle==5.1.1
     # via -r requirements/quality.txt
-pygments==2.7.4
+pygments==2.8.0
     # via diff-cover
 pylint-celery==0.3
     # via
@@ -213,7 +213,6 @@ six==1.15.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-    #   astroid
     #   edx-i18n-tools
     #   edx-lint
     #   tox
