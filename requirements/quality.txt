@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.4.2
+astroid==2.5.1
     # via
     #   pylint
     #   pylint-celery
@@ -21,7 +21,7 @@ click==7.1.2
     #   edx-lint
 code-annotations==1.1.0
     # via edx-lint
-coverage==5.4
+coverage==5.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -31,14 +31,14 @@ django-crum==0.7.9
     # via -r requirements/test.txt
 django-waffle==2.1.0
     # via -r requirements/test.txt
-django==2.2.18
+django==2.2.19
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   code-annotations
     #   django-crum
     #   edx-lint
-edx-lint==4.0.1
+edx-lint==4.1.0
     # via -r requirements/quality.in
 iniconfig==1.1.1
     # via
@@ -50,7 +50,7 @@ isort==5.7.0
     #   pylint
 jinja2==2.11.3
     # via code-annotations
-lazy-object-proxy==1.4.3
+lazy-object-proxy==1.5.2
     # via astroid
 markupsafe==1.1.1
     # via jinja2
@@ -58,7 +58,7 @@ mccabe==0.6.1
     # via pylint
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==6.0.1.155
+newrelic==6.2.0.156
     # via -r requirements/test.txt
 packaging==20.9
     # via
@@ -90,7 +90,7 @@ pylint-plugin-utils==0.6
     # via
     #   pylint-celery
     #   pylint-django
-pylint==2.6.0
+pylint==2.7.2
     # via
     #   edx-lint
     #   pylint-celery
@@ -118,9 +118,7 @@ pytz==2021.1
 pyyaml==5.4.1
     # via code-annotations
 six==1.15.0
-    # via
-    #   astroid
-    #   edx-lint
+    # via edx-lint
 snowballstemmer==2.1.0
     # via pydocstyle
 sqlparse==0.4.1
