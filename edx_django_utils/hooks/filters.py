@@ -11,7 +11,7 @@ from .utils import get_cached_functions_for_hook
 log = getLogger(__name__)
 
 
-def do_filter(trigger_name, returned_key, *args, **kwargs):
+def do_filter(trigger_name, *args, **kwargs):
     """
     Will check in the django setting HOOKS_EXTENSIONS the trigger_name key and call their configured
     functions.
@@ -39,4 +39,4 @@ def do_filter(trigger_name, returned_key, *args, **kwargs):
             )
             continue
 
-    return out.get(returned_key)
+    return out
