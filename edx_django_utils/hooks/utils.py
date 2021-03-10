@@ -4,7 +4,6 @@ from importlib import import_module
 from django.conf import settings
 
 
-@functools.lru_cache(maxsize=None)
 def get_cached_functions_for_hook(trigger_name):
     """
     Returns a tuple where the first item is the functions associated with the trigger and the second
@@ -19,7 +18,7 @@ def get_cached_functions_for_hook(trigger_name):
     hook_is_async = hook_config.get("async", True)
 
     hook_functions = []
-    for action_function_path in getattr(hook_config, "pipeline", []):
+    for action_function_path in hook_config.get("pipeline", []):
         module_path, _, name = action_function_path.rpartition(".")
         try:
             module = import_module(module_path)
