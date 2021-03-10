@@ -1,6 +1,7 @@
 """ Utilities for the hooks module. """
 import functools
 from importlib import import_module
+from django.conf import settings
 
 
 @functools.lru_cache(maxsize=None)
