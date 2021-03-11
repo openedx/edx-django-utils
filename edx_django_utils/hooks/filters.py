@@ -7,6 +7,7 @@ from logging import getLogger
 
 from django.conf import settings
 from .utils import get_cached_functions_for_hook
+from .exceptions import HookException
 
 log = getLogger(__name__)
 
@@ -28,6 +29,8 @@ def do_filter(trigger_name, *args, **kwargs):
             if not isinstance(result, dict):
                 return result
             out.update(result)
+        except HookException as exc:
+            raise exc
         except Exception as exc:  # pylint: disable=broad-except
             # We're catching this because we don't want the core to blow up when a
             # hook is broken. This exception will probably need some sort of
