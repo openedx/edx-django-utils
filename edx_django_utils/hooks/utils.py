@@ -2,6 +2,9 @@
 import functools
 from importlib import import_module
 from django.conf import settings
+from logging import getLogger
+
+log = getLogger(__name__)
 
 
 def get_cached_functions_for_hook(trigger_name):
