@@ -35,7 +35,7 @@ def pluggable_override(override):
         >>> OVERRIDE_TRANSFORM = 'transform_plugin.decrement'
 
         You can also chain overrides:
-        >>> DO_SOMETHING_IMPL = [
+        >>> OVERRIDE_TRANSFORM = [
         ...     'transform_plugin.decrement',
         ...     'transform_plugin.increment',
         ... ]
@@ -54,16 +54,14 @@ def pluggable_override(override):
       ... def dashboard(prev_fn, request):
       ...     return login_required(prev_fn)(request)
       ...
-      ... DASHBOARD_OVERRIDE = 'lms.envs.private.dashboard'
+      ... OVERRIDE_DASHBOARD = 'lms.envs.private.dashboard'
     """
     def decorator(f):
         @functools.wraps(f)
         def wrapper(*args, **kwargs):
-            prev_fn = functools.partial(f)  # The base function in `edx-platform`.
+            prev_fn = f
 
-            override_functions = getattr(settings, override, None)
-            if not override_functions:  # Override not specified, call the original implementation.
-                return prev_fn(*args, **kwargs)
+            override_functions = getattr(settings, override, ())
 
             if isinstance(override_functions, str):
                 override_functions = [override_functions]

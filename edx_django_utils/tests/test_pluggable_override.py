@@ -57,5 +57,5 @@ def test_multiple_overrides_fallback_to_previous_function():
 
 @override_settings(OVERRIDE_TRANSFORM="{0}.decrement,{0}.double".format(__name__).split(','))
 def test_multiple_overrides_fallback_to_base_function():
-    """That that the overriding functions can eventually call the base one."""
+    """Test that the overriding functions can eventually call the base one."""
     assert transform(9) == 36
