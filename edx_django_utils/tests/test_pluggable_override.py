@@ -4,7 +4,7 @@ Tests for utilities.
 
 from django.test import override_settings
 
-from ..plugins import pluggable_override
+from edx_django_utils.plugins import pluggable_override
 
 
 @pluggable_override('OVERRIDE_TRANSFORM')
