@@ -8,7 +8,7 @@ attrs==20.3.0
     # via pytest
 coverage==5.5
     # via pytest-cov
-ddt==1.4.1
+ddt==1.4.2
     # via -r requirements/test.in
 django-crum==0.7.9
     # via -r requirements/base.txt

@@ -30,7 +30,7 @@ coverage==5.5
     #   pytest-cov
 cryptography==3.4.6
     # via secretstorage
-ddt==1.4.1
+ddt==1.4.2
     # via -r requirements/test.txt
 django-crum==0.7.9
     # via -r requirements/test.txt
@@ -55,8 +55,10 @@ idna==2.10
     # via requests
 imagesize==1.2.0
     # via sphinx
-importlib-metadata==3.7.2
-    # via keyring
+importlib-metadata==3.7.3
+    # via
+    #   keyring
+    #   twine
 iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
@@ -81,6 +83,7 @@ packaging==20.9
     #   bleach
     #   pytest
     #   sphinx
+    #   twine
 pbr==5.5.1
     # via
     #   -r requirements/test.txt
@@ -177,9 +180,9 @@ toml==0.10.2
     #   pytest
 tqdm==4.59.0
     # via twine
-twine==3.3.0
+twine==3.4.0
     # via -r requirements/doc.in
-urllib3==1.26.3
+urllib3==1.26.4
     # via requests
 webencodings==0.5.1
     # via bleach

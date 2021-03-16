@@ -25,7 +25,7 @@ coverage==5.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-ddt==1.4.1
+ddt==1.4.2
     # via -r requirements/test.txt
 django-crum==0.7.9
     # via -r requirements/test.txt
@@ -78,7 +78,7 @@ py==1.10.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pycodestyle==2.6.0
+pycodestyle==2.7.0
     # via -r requirements/quality.in
 pydocstyle==5.1.1
     # via -r requirements/quality.in
