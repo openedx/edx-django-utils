@@ -38,19 +38,19 @@ django==2.2.19
     #   code-annotations
     #   django-crum
     #   edx-lint
-edx-lint==4.1.0
+edx-lint==5.0.0
     # via -r requirements/quality.in
 iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==5.7.0
+isort==5.8.0
     # via
     #   -r requirements/quality.in
     #   pylint
 jinja2==2.11.3
     # via code-annotations
-lazy-object-proxy==1.5.2
+lazy-object-proxy==1.6.0
     # via astroid
 markupsafe==1.1.1
     # via jinja2
@@ -80,7 +80,7 @@ py==1.10.0
     #   pytest
 pycodestyle==2.7.0
     # via -r requirements/quality.in
-pydocstyle==5.1.1
+pydocstyle==6.0.0
     # via -r requirements/quality.in
 pylint-celery==0.3
     # via edx-lint

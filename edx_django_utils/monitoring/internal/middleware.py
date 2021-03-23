@@ -9,7 +9,7 @@ import warnings
 from uuid import uuid4
 
 import psutil
-import waffle
+import waffle  # pylint: disable=invalid-django-waffle-import
 from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
