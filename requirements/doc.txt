@@ -83,7 +83,6 @@ packaging==20.9
     #   bleach
     #   pytest
     #   sphinx
-    #   twine
 pbr==5.5.1
     # via
     #   -r requirements/test.txt
@@ -150,7 +149,7 @@ six==1.15.0
     #   readme-renderer
 snowballstemmer==2.1.0
     # via sphinx
-sphinx==3.5.2
+sphinx==3.5.3
     # via
     #   -r requirements/doc.in
     #   edx-sphinx-theme
@@ -180,7 +179,7 @@ toml==0.10.2
     #   pytest
 tqdm==4.59.0
     # via twine
-twine==3.4.0
+twine==3.4.1
     # via -r requirements/doc.in
 urllib3==1.26.4
     # via requests
