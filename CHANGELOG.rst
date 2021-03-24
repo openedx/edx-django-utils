@@ -14,6 +14,15 @@ Change Log
 Unreleased
 ----------
 
+[3.16.0] - 2021-03-24
+---------------------
+
+Added
+_____
+
+* Added ``pluggable_override`` decorator.
+
+
 [3.15.0] - 2021-03-02
 ---------------------
 
