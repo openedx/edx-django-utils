@@ -15,16 +15,17 @@ Unreleased
 ----------
 
 [3.15.0] - 2021-03-02
-_____________________
+---------------------
 
 * Added chunked_queryset utility.
 
 [3.14.0] - 2020-12-15
-_____________________
+---------------------
 
 Removed
 _______
-* Dropped support for python 3.5
+
+* Dropped support for Python 3.5.
 
 
 [3.13.0] - 2020-11-18
