@@ -6,7 +6,7 @@ from unittest.mock import Mock, patch
 from django.test import TestCase
 
 from ..exceptions import HookException
-from ..pipeline import run_pipeline
+from ..tasks import run_pipeline
 
 
 class TestRunningPipeline(TestCase):
@@ -24,7 +24,7 @@ class TestRunningPipeline(TestCase):
         }
         self.pipeline = Mock()
 
-    @patch("edx_django_utils.hooks.pipeline.get_functions_for_pipeline")
+    @patch("edx_django_utils.hooks.tasks.get_functions_for_pipeline")
     def test_run_empty_pipeline(self, get_functions_mock):
         """
         This method runs an empty pipeline, i.e, a pipeline without defined functions.
@@ -39,7 +39,7 @@ class TestRunningPipeline(TestCase):
         get_functions_mock.assert_called_once_with([])
         self.assertEqual(result, self.kwargs)
 
-    @patch("edx_django_utils.hooks.pipeline.get_functions_for_pipeline")
+    @patch("edx_django_utils.hooks.tasks.get_functions_for_pipeline")
     def test_raise_hook_exception(self, get_functions_mock):
         """
         This method runs a pipeline with a function that raises HookException.
@@ -61,7 +61,7 @@ class TestRunningPipeline(TestCase):
             captured.records[0].getMessage(), log_message,
         )
 
-    @patch("edx_django_utils.hooks.pipeline.get_functions_for_pipeline")
+    @patch("edx_django_utils.hooks.tasks.get_functions_for_pipeline")
     def test_not_raise_hook_exception(self, get_functions_mock):
         """
         This method runs a pipeline with a function that raises HookException but
@@ -85,7 +85,7 @@ class TestRunningPipeline(TestCase):
         self.assertEqual(result, return_value)
         function_without_exception.assert_called_once_with(**self.kwargs)
 
-    @patch("edx_django_utils.hooks.pipeline.get_functions_for_pipeline")
+    @patch("edx_django_utils.hooks.tasks.get_functions_for_pipeline")
     def test_not_raise_common_exception(self, get_functions_mock):
         """
         This method runs a pipeline with a function that raises a common Exception.
@@ -117,7 +117,7 @@ class TestRunningPipeline(TestCase):
         self.assertEqual(result, return_value)
         function_without_exception.assert_called_once_with(**self.kwargs)
 
-    @patch("edx_django_utils.hooks.pipeline.get_functions_for_pipeline")
+    @patch("edx_django_utils.hooks.tasks.get_functions_for_pipeline")
     def test_getting_pipeline_result(self, get_functions_mock):
         """
         This method runs a pipeline with functions defined via configuration.
@@ -145,7 +145,7 @@ class TestRunningPipeline(TestCase):
         second_function.assert_called_once_with(**return_value_1st)
         self.assertDictEqual(result, return_overall_value)
 
-    @patch("edx_django_utils.hooks.pipeline.get_functions_for_pipeline")
+    @patch("edx_django_utils.hooks.tasks.get_functions_for_pipeline")
     def test_partial_pipeline(self, get_functions_mock):
         """
         This method runs a pipeline with functions defined via configuration.

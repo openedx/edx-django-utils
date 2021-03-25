@@ -99,7 +99,6 @@ class TestTriggerFilter(TestCase):
 
         Expected behavior:
             A task is started using the pipeline function.
-        TODO: add mock to async call when the feature is added.
         """
         pipeline = Mock()
         is_async = True
@@ -110,7 +109,7 @@ class TestTriggerFilter(TestCase):
 
         trigger_filter("trigger_name", **self.kwargs)
 
-        run_pipeline_mock.assert_called_once_with(
+        run_pipeline_mock.delay.assert_called_once_with(
             pipeline, raise_exception=True, **self.kwargs
         )
 
@@ -197,7 +196,6 @@ class TestTriggerAction(TestCase):
 
         Expected behavior:
             A task is started using the pipeline function.
-        TODO: add mock to async call when the feature is added.
         """
         pipeline, is_async = Mock(), True
         get_configuration_mock.return_value = (
@@ -207,4 +205,4 @@ class TestTriggerAction(TestCase):
 
         trigger_action("trigger_name", **self.kwargs)
 
-        run_pipeline_mock.assert_called_once_with(pipeline, **self.kwargs)
+        run_pipeline_mock.delay.assert_called_once_with(pipeline, **self.kwargs)

@@ -1,7 +1,7 @@
 """
 Triggers for actions and filters.
 """
-from .pipeline import run_pipeline
+from .tasks import run_pipeline
 from .utils import get_pipeline_configuration
 
 
@@ -70,6 +70,6 @@ def trigger_action(trigger_name, *args, **kwargs):
         return
 
     if is_async:
-        run_pipeline(pipeline, *args, **kwargs)  # TODO: change to async call.
+        run_pipeline.delay(pipeline, *args, **kwargs)
     else:
         run_pipeline(pipeline, *args, **kwargs)

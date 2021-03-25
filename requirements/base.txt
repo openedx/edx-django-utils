@@ -4,6 +4,14 @@
 #
 #    make upgrade
 #
+amqp==2.6.1
+    # via kombu
+billiard==3.6.3.0
+    # via celery
+celery==4.4.7
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/base.in
 django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==2.1.0
@@ -13,6 +21,8 @@ django==2.2.19
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
     #   django-crum
+kombu==4.6.11
+    # via celery
 newrelic==6.2.0.156
     # via -r requirements/base.in
 pbr==5.5.1
@@ -20,8 +30,14 @@ pbr==5.5.1
 psutil==5.8.0
     # via -r requirements/base.in
 pytz==2021.1
-    # via django
+    # via
+    #   celery
+    #   django
 sqlparse==0.4.1
     # via django
 stevedore==3.3.0
     # via -r requirements/base.in
+vine==1.3.0
+    # via
+    #   amqp
+    #   celery
