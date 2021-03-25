@@ -36,9 +36,9 @@ def trigger_filter(trigger_name, *args, **kwargs):
         return kwargs
 
     if is_async:
-        result = run_pipeline(
+        result = run_pipeline.delay(
             pipeline, *args, raise_exception=True, **kwargs
-        )  # TODO: change to async call.
+        )
     else:
         result = run_pipeline(pipeline, *args, raise_exception=True, **kwargs)
 
