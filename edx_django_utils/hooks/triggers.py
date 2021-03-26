@@ -48,7 +48,8 @@ def trigger_filter(trigger_name, *args, **kwargs):
             result = run_pipeline.delay(pipeline, *args, raise_exception=True, **kwargs)
         except (TypeError, EncodeError):
             log.exception(
-                "An error ocurred in trigger_filter while executing `run pipeline` with arguments: %s, %s.",
+                "A serialization error ocurred in trigger_filter while calling async `run pipeline` with arguments: "
+                "%s, %s.",
                 str(args),
                 str(kwargs),
             )
@@ -87,7 +88,8 @@ def trigger_action(trigger_name, *args, **kwargs):
             run_pipeline.delay(pipeline, *args, **kwargs)
         except (TypeError, EncodeError):
             log.exception(
-                "An error ocurred in trigger_action while executing `run_pipeline` with arguments: %s, %s.",
+                "A serialization error ocurred in trigger_action while calling async `run pipeline` with arguments: "
+                "%s, %s.",
                 str(args),
                 str(kwargs),
             )
