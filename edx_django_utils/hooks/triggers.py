@@ -1,8 +1,14 @@
 """
 Triggers for actions and filters.
 """
+from logging import getLogger
+
+from kombu.exceptions import EncodeError
+
 from .tasks import run_pipeline
 from .utils import get_pipeline_configuration
+
+log = getLogger(__name__)
 
 
 def trigger_filter(trigger_name, *args, **kwargs):
@@ -35,10 +41,17 @@ def trigger_filter(trigger_name, *args, **kwargs):
     if not pipeline:
         return kwargs
 
+    result = kwargs
+
     if is_async:
-        result = run_pipeline.delay(
-            pipeline, *args, raise_exception=True, **kwargs
-        )
+        try:
+            result = run_pipeline.delay(pipeline, *args, raise_exception=True, **kwargs)
+        except (TypeError, EncodeError):
+            log.exception(
+                "An error ocurred in trigger_filter while executing `run pipeline` with arguments: %s, %s.",
+                str(args),
+                str(kwargs),
+            )
     else:
         result = run_pipeline(pipeline, *args, raise_exception=True, **kwargs)
 
@@ -70,6 +83,13 @@ def trigger_action(trigger_name, *args, **kwargs):
         return
 
     if is_async:
-        run_pipeline.delay(pipeline, *args, **kwargs)
+        try:
+            run_pipeline.delay(pipeline, *args, **kwargs)
+        except (TypeError, EncodeError):
+            log.exception(
+                "An error ocurred in trigger_action while executing `run_pipeline` with arguments: %s, %s.",
+                str(args),
+                str(kwargs),
+            )
     else:
         run_pipeline(pipeline, *args, **kwargs)
