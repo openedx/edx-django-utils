@@ -203,8 +203,8 @@ OR use string constants when they cannot import from djangoapps.plugins::
             },
             u'settings_config': {
                 u'lms.djangoapp': {
-                    u'production': { relative_path: u'settings.production' },
-                    u'common': { relative_path: u'settings.common'},
+                    u'production': { u'relative_path': u'settings.production' },
+                    u'common': { u'relative_path': u'settings.common'},
                 }
             },
             u'signals_config': {
