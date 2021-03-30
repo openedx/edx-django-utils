@@ -8,7 +8,7 @@ appdirs==1.4.4
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-astroid==2.5.1
+astroid==2.5.2
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -146,7 +146,7 @@ pluggy==0.13.1
     #   diff-cover
     #   pytest
     #   tox
-polib==1.1.0
+polib==1.1.1
     # via edx-i18n-tools
 psutil==5.8.0
     # via -r requirements/quality.txt
@@ -175,7 +175,7 @@ pylint-plugin-utils==0.6
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pylint==2.7.2
+pylint==2.7.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
