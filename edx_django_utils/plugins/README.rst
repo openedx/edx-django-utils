@@ -96,7 +96,7 @@ class::
         ProjectType, SettingsType, PluginURLs, PluginSettings, PluginContexts
     )
     class MyAppConfig(AppConfig):
-        name = u'full_python_path.my_app'
+        name = 'full_python_path.my_app'
 
         # Class attribute that configures and enables this app as a Plugin App.
         plugin_app = {
@@ -108,19 +108,19 @@ class::
                 ProjectType.LMS: {
 
                     # The namespace to provide to django's urls.include.
-                    PluginURLs.NAMESPACE: u'my_app',
+                    PluginURLs.NAMESPACE: 'my_app',
 
                     # The application namespace to provide to django's urls.include.
                     # Optional; Defaults to None.
-                    PluginURLs.APP_NAME: u'my_app',
+                    PluginURLs.APP_NAME: 'my_app',
 
                     # The regex to provide to django's urls.url.
                     # Optional; Defaults to r''.
                     PluginURLs.REGEX: r'^api/my_app/',
 
                     # The python path (relative to this app) to the URLs module to be plugged into the project.
-                    # Optional; Defaults to u'urls'.
-                    PluginURLs.RELATIVE_PATH: u'api.urls',
+                    # Optional; Defaults to 'urls'.
+                    PluginURLs.RELATIVE_PATH: 'api.urls',
                 }
             },
 
@@ -134,11 +134,11 @@ class::
                     SettingsType.PRODUCTION: {
 
                         # The python path (relative to this app) to the settings module for the relevant Project Type and Settings Type.
-                        # Optional; Defaults to u'settings'.
-                        PluginSettings.RELATIVE_PATH: u'settings.production',
+                        # Optional; Defaults to 'settings'.
+                        PluginSettings.RELATIVE_PATH: 'settings.production',
                     },
                     SettingsType.COMMON: {
-                        PluginSettings.RELATIVE_PATH: u'settings.common',
+                        PluginSettings.RELATIVE_PATH: 'settings.common',
                     },
                 }
             },
@@ -150,25 +150,25 @@ class::
                 ProjectType.LMS: {
 
                     # The python path (relative to this app) to the Signals module containing this app's Signal receivers.
-                    # Optional; Defaults to u'signals'.
-                    PluginSignals.RELATIVE_PATH: u'my_signals',
+                    # Optional; Defaults to 'signals'.
+                    PluginSignals.RELATIVE_PATH: 'my_signals',
 
                     # List of all plugin Signal receivers for this app and project type.
                     PluginSignals.RECEIVERS: [{
 
                         # The name of the app's signal receiver function.
-                        PluginSignals.RECEIVER_FUNC_NAME: u'on_signal_x',
+                        PluginSignals.RECEIVER_FUNC_NAME: 'on_signal_x',
 
                         # The full path to the module where the signal is defined.
-                        PluginSignals.SIGNAL_PATH: u'full_path_to_signal_x_module.SignalX',
+                        PluginSignals.SIGNAL_PATH: 'full_path_to_signal_x_module.SignalX',
 
                         # The value for dispatch_uid to pass to Signal.connect to prevent duplicate signals.
                         # Optional; Defaults to full path to the signal's receiver function.
-                        PluginSignals.DISPATCH_UID: u'my_app.my_signals.on_signal_x',
+                        PluginSignals.DISPATCH_UID: 'my_app.my_signals.on_signal_x',
 
                         # The full path to a sender (if connecting to a specific sender) to be passed to Signal.connect.
                         # Optional; Defaults to None.
-                        PluginSignals.SENDER_PATH: u'full_path_to_sender_app.ModelZ',
+                        PluginSignals.SENDER_PATH: 'full_path_to_sender_app.ModelZ',
                     }],
                 }
             },
@@ -182,7 +182,7 @@ class::
                     # Key is the view that the app wishes to add context to and the value
                     # is the function within the app that will return additional context
                     # when called with the original context
-                    u'course_dashboard': u'my_app.context_api.get_dashboard_context'
+                    'course_dashboard': 'my_app.context_api.get_dashboard_context'
                 }
             }
         }
@@ -191,36 +191,36 @@ OR use string constants when they cannot import from djangoapps.plugins::
 
     from django.apps import AppConfig
     class MyAppConfig(AppConfig):
-        name = u'full_python_path.my_app'
+        name = 'full_python_path.my_app'
 
         plugin_app = {
-            u'url_config': {
-                u'lms.djangoapp': {
-                    u'namespace': u'my_app',
-                    u'regex': u'^api/my_app/',
-                    u'relative_path': u'api.urls',
+            'url_config': {
+                'lms.djangoapp': {
+                    'namespace': 'my_app',
+                    'regex': '^api/my_app/',
+                    'relative_path': 'api.urls',
                 }
             },
-            u'settings_config': {
-                u'lms.djangoapp': {
-                    u'production': { relative_path: u'settings.production' },
-                    u'common': { relative_path: u'settings.common'},
+            'settings_config': {
+                'lms.djangoapp': {
+                    'production': { 'relative_path': 'settings.production' },
+                    'common': { 'relative_path': 'settings.common' },
                 }
             },
-            u'signals_config': {
-                u'lms.djangoapp': {
-                    u'relative_path': u'my_signals',
-                    u'receivers': [{
-                        u'receiver_func_name': u'on_signal_x',
-                        u'signal_path': u'full_path_to_signal_x_module.SignalX',
-                        u'dispatch_uid': u'my_app.my_signals.on_signal_x',
-                        u'sender_path': u'full_path_to_sender_app.ModelZ',
+            'signals_config': {
+                'lms.djangoapp': {
+                    'relative_path': 'my_signals',
+                    'receivers': [{
+                        'receiver_func_name': 'on_signal_x',
+                        'signal_path': 'full_path_to_signal_x_module.SignalX',
+                        'dispatch_uid': 'my_app.my_signals.on_signal_x',
+                        'sender_path': 'full_path_to_sender_app.ModelZ',
                     }],
                 }
             },
-            u'view_context_config': {
-                u'lms.djangoapp': {
-                    'course_dashboard': u'my_app.context_api.get_dashboard_context'
+            'view_context_config': {
+                'lms.djangoapp': {
+                    'course_dashboard': 'my_app.context_api.get_dashboard_context'
                 }
             }
         }
