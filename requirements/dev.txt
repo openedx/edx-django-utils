@@ -38,7 +38,7 @@ click==7.1.2
     #   code-annotations
     #   edx-lint
     #   pip-tools
-code-annotations==1.1.0
+code-annotations==1.1.1
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -175,7 +175,7 @@ pylint-plugin-utils==0.6
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pylint==2.7.3
+pylint==2.7.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -191,7 +191,7 @@ pytest-cov==2.11.1
     # via -r requirements/quality.txt
 pytest-django==4.1.0
     # via -r requirements/quality.txt
-pytest==6.2.2
+pytest==6.2.3
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
