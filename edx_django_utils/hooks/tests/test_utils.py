@@ -1,7 +1,7 @@
 """
 Tests for the `edx-django-utils` hooks utilities.
 """
-from unittest.mock import Mock, patch
+from unittest.mock import patch
 
 import ddt
 from django.test import TestCase, override_settings
@@ -47,8 +47,8 @@ class TestUtilityFunctions(TestCase):
             "edx_django_utils.hooks.tests.test_utils.test_function",
             "edx_django_utils.hooks.tests.test_utils.non_existent",
         ]
-        log_message = (
-            "Failed to import '{}'.".format("edx_django_utils.hooks.tests.test_utils.non_existent")
+        log_message = "Failed to import '{}'.".format(
+            "edx_django_utils.hooks.tests.test_utils.non_existent"
         )
 
         with self.assertLogs() as captured:
@@ -71,8 +71,8 @@ class TestUtilityFunctions(TestCase):
             "edx_django_utils.hooks.tests.test_utils.test_function",
             "edx_django_utils.hooks.non_existent.test_utils.test_function",
         ]
-        log_message = (
-            "Failed to import '{}'.".format("edx_django_utils.hooks.non_existent.test_utils.test_function")
+        log_message = "Failed to import '{}'.".format(
+            "edx_django_utils.hooks.non_existent.test_utils.test_function"
         )
 
         with self.assertLogs() as captured:
@@ -143,7 +143,8 @@ class TestUtilityFunctions(TestCase):
 
     @patch("edx_django_utils.hooks.utils.get_hook_configurations")
     @ddt.data(
-        ({"async": False, }, ([], False,)),
+        (("edx_django_utils.hooks.tests.test_utils.test_function",), []),
+        ({}, []),
         (
             {
                 "pipeline": [
@@ -151,86 +152,24 @@ class TestUtilityFunctions(TestCase):
                     "edx_django_utils.hooks.tests.test_utils.test_function",
                 ],
             },
-            (
-                [
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                ],
-                False,
-            ),
-        ),
-    )
-    @ddt.unpack
-    def test_get_partial_pipeline_config(
-        self, config, expected_result, get_config_mock
-    ):
-        """
-        This method is used to verify the behavior of get_pipeline_configuration
-        when the configuration HOOKS_EXTENSION_CONFIG for trigger name does not have the
-        entire configuration. This test is useful when using the strict configuration.
-
-        Expected behavior:
-            Returns a tuple with the configuration completed with the default.
-        """
-        get_config_mock.return_value = config
-
-        result = get_pipeline_configuration("trigger_name")
-
-        self.assertEqual(result, expected_result)
-
-    @patch("edx_django_utils.hooks.utils.get_hook_configurations")
-    @ddt.data(
-        (
-            True,
-            (
-                [],
-                False
-            )
-        ),
-        (
-            {},
-            (
-                [],
-                False
-            )
-        ),
-        (
-            {
-                "pipeline": [
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                ],
-                "async": True,
-            },
-            (
-                [
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                ],
-                True,
-            ),
+            [
+                "edx_django_utils.hooks.tests.test_utils.test_function",
+                "edx_django_utils.hooks.tests.test_utils.test_function",
+            ],
         ),
         (
             [
                 "edx_django_utils.hooks.tests.test_utils.test_function",
                 "edx_django_utils.hooks.tests.test_utils.test_function",
             ],
-            (
-                [
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                ],
-                False,
-            ),
+            [
+                "edx_django_utils.hooks.tests.test_utils.test_function",
+                "edx_django_utils.hooks.tests.test_utils.test_function",
+            ],
         ),
         (
             "edx_django_utils.hooks.tests.test_utils.test_function",
-            (
-                [
-                    "edx_django_utils.hooks.tests.test_utils.test_function",
-                ],
-                False,
-            ),
+            ["edx_django_utils.hooks.tests.test_utils.test_function", ],
         ),
     )
     @ddt.unpack
@@ -246,19 +185,4 @@ class TestUtilityFunctions(TestCase):
 
         result = get_pipeline_configuration("trigger_name")
 
-        self.assertTupleEqual(result, expected_result)
-
-    @patch("edx_django_utils.hooks.utils.get_hook_configurations")
-    def test_get_pipe_with_default_mode(self, get_config_mock):
-        """
-        This method is used to verify the behavior of get_pipeline_configuration with
-        async default defined.
-
-        Expected behavior:
-            Returns a tuple containing the default.
-        """
-        get_config_mock.return_value = Mock()
-
-        result = get_pipeline_configuration("trigger_name", async_default=True)
-
-        self.assertTupleEqual(result, ([], True))
+        self.assertListEqual(result, expected_result)

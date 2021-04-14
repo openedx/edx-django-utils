@@ -30,7 +30,7 @@ def trigger_filter(trigger_name, *args, **kwargs):
         result (dict): result of the pipeline execution, i.e the accumulated output of the filters defined in
         the hooks configuration.
     """
-    pipeline, is_async = get_pipeline_configuration(trigger_name)
+    pipeline = get_pipeline_configuration(trigger_name)
 
     if not pipeline:
         return kwargs

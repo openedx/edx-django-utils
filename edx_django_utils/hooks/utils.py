@@ -40,7 +40,7 @@ def get_functions_for_pipeline(pipeline):
     return function_list
 
 
-def get_pipeline_configuration(trigger_name, async_default=False):
+def get_pipeline_configuration(trigger_name):
     """
     Helper function used to get the configuration needed to execute the Pipeline Runner.
     It will take from the hooks configuration the ist of functions to execute and how to execute them.
@@ -53,31 +53,23 @@ def get_pipeline_configuration(trigger_name, async_default=False):
                     'my_plugin.hooks.filters.test_function',
                     'my_plugin.hooks.filters.test_function_2nd',
                 ],
-                False,
             )
 
     Arguments:
         trigger_name (str): determines which is the trigger of this pipeline.
 
-    Keyword arguments:
-        async_default (bool): default used when getting execution mode for pipeline. Default is set to
-        False meaning is_async is equals to False.
-
     Returns:
         pipeline (list): paths where functions for the pipeline are defined.
-        is_async (bool): indicating how the pipeline is going to be executed. True for
-        asynchronous and False for synchronous.
     """
     hook_config = get_hook_configurations(trigger_name)
 
     if not hook_config:
-        return [], async_default
+        return []
 
-    pipeline, is_async = [], async_default
+    pipeline = []
 
     if isinstance(hook_config, dict):
         pipeline = hook_config.get("pipeline", [])
-        is_async = hook_config.get("async", async_default)
 
     elif isinstance(hook_config, list):
         pipeline = hook_config
@@ -85,7 +77,7 @@ def get_pipeline_configuration(trigger_name, async_default=False):
     elif isinstance(hook_config, str):
         pipeline.append(hook_config)
 
-    return pipeline, is_async
+    return pipeline
 
 
 def get_hook_configurations(trigger_name):
@@ -101,7 +93,6 @@ def get_hook_configurations(trigger_name):
                         'my_plugin.hooks.filters.test_function',
                         'my_plugin.hooks.filters.test_function_2nd',
                     ],
-                'async': False,
             }
 
     Arguments:

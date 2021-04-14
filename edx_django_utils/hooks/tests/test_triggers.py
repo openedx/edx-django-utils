@@ -31,11 +31,7 @@ class TestTriggerFilter(TestCase):
         Expected behavior:
             Returns keyword arguments without calling the pipeline runner.
         """
-        pipeline, is_async = [], False
-        get_configuration_mock.return_value = (
-            pipeline,
-            is_async,
-        )
+        get_configuration_mock.return_value = []
 
         result = trigger_filter("trigger_name", **self.kwargs)
 
@@ -53,11 +49,8 @@ class TestTriggerFilter(TestCase):
             Also, given that by default filters are synchronous, then get_pipeline_configuration is
             called with async_default equals to False.
         """
-        pipeline, is_async = Mock(), False
-        get_configuration_mock.return_value = (
-            pipeline,
-            is_async,
-        )
+        pipeline = Mock()
+        get_configuration_mock.return_value = pipeline
 
         trigger_filter("trigger_name", **self.kwargs)
 
