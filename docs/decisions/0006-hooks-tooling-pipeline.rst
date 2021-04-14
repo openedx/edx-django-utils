@@ -1,5 +1,5 @@
-Hooks tooling: pipeline
-=======================
+Hooks tooling: pipeline for filters
+===================================
 
 Status
 ------
@@ -12,9 +12,9 @@ Context
 Taking into account the design considerations outlined in OEP-50 Hooks extension framework about
 
 1. The order of execution for multiple actions must be respected
-2. The result of a previous action must be available to the current one
+2. The result of a previous function must be available to the current one
 
-We must implement a pattern that follows this considerations: a Pipeline for the set of functions, i.e actions or filters,
+We must implement a pattern that follows this considerations: a Pipeline for the set of functions, i.e filters,
 listening on a trigger.
 
 Checkout https://github.com/edx/open-edx-proposals/pull/184 for more information.
@@ -33,12 +33,11 @@ It is important to emphasize that the main objectives with this implementation a
 Decision
 --------
 
-We decided to use the accumulative approach as the only pipeline for both actions and filters.
+We decided to use the accumulative approach as the only pipeline for filters.
 
 Consequences
 ------------
 
-1. Actions listening on a trigger must return None. Either way their result will be ignored.
-2. Given that we are using just one pipeline with actions and filters listening on triggers, the behavior when executing them will be the same.
-3. Given that actions and filters will expect the same input arguments, i.e accumulated output plus initial arguments, their signature will stay the same. And for this reason, these functions are interchangeable.
-4. For the above reasons, actions and filters must have \*args and \*\*kwargs in their signature.
+1. The order of execution is maintained.
+2. Given that all pipeline functions will expect the same input arguments, i.e accumulated output plus initial arguments, their signature will stay the same. And for this reason, these functions are interchangeable.
+3. For the above reason, filters must have \*args and \*\*kwargs in their signature.
