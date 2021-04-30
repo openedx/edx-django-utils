@@ -149,7 +149,22 @@ def set_code_owner_attribute_from_module(module):
         code_owner = _get_catch_all_code_owner()
 
     if code_owner:
-        set_custom_attribute('code_owner', code_owner)
+        set_code_owner_custom_attributes(code_owner)
+
+
+def set_code_owner_custom_attributes(code_owner):
+    """
+    Sets custom metrics for code_owner, code_owner_theme, and code_owner_squad
+    """
+    if not code_owner:  # pragma: no cover
+        return
+    set_custom_attribute('code_owner', code_owner)
+    theme = _get_theme_from_code_owner(code_owner)
+    if theme:
+        set_custom_attribute('code_owner_theme', theme)
+    squad = _get_squad_from_code_owner(code_owner)
+    if squad:
+        set_custom_attribute('code_owner_squad', squad)
 
 
 def set_code_owner_attribute(wrapped_function):
@@ -182,12 +197,108 @@ def set_code_owner_attribute(wrapped_function):
 
 def clear_cached_mappings():
     """
-    Clears the cached path to code owner mappings. Useful for testing.
+    Clears the cached code owner mappings. Useful for testing.
     """
     global _PATH_TO_CODE_OWNER_MAPPINGS
     _PATH_TO_CODE_OWNER_MAPPINGS = None
+    global _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS
+    _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS = None
 
 
 # TODO: Retire this once edx-platform import_shims is no longer used.
+#   Note: This should be ready for removal because import_shims has been removed.
 #   See https://github.com/edx/edx-platform/tree/854502b560bda74ef898501bb2a95ce238cf794c/import_shims
 _OPTIONAL_MODULE_PREFIX_PATTERN = re.compile(r'^(lms|common|openedx\.core)\.djangoapps\.')
+
+
+# Cached lookup table for code owner theme and squad given a code owner.
+# - Although code owner is "theme-squad", a hyphen may also be in the theme or squad name, so this ensures we get both
+#   correctly from config.
+# Do not access this directly, but instead use get_code_owner_theme_squad_mappings.
+_CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS = None
+
+
+def get_code_owner_theme_squad_mappings():
+    """
+    Returns the contents of the CODE_OWNER_THEMES Django Setting, processed
+    for efficient lookup by path.
+
+    Returns:
+         (dict): dict mapping code owners to a dict containing the squad and theme, or
+            an empty dict if there are no configured mappings.
+
+    Example return value::
+
+        {
+            'theme-x-team-red': {
+                'theme': 'theme-x',
+                'squad': 'team-red',
+            },
+            'theme-x-team-blue': {
+                'theme': 'theme-x',
+                'squad': 'team-blue',
+            },
+        }
+
+    """
+    global _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS
+
+    # Return cached processed mappings if already processed
+    if _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS is not None:
+        return _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS
+
+    # Uses temporary variable to build mappings to avoid multi-threading issue with a partially
+    # processed map.  Worst case, it is processed more than once at start-up.
+    code_owner_to_theme_and_squad_mapping = {}
+
+    # .. setting_name: CODE_OWNER_THEMES
+    # .. setting_default: None
+    # .. setting_description: Used for monitoring and reporting of ownership. Use a
+    #      dict with keys of code owner themes and values as a list of code owner names
+    #      including theme and squad, separated with a hyphen.
+    code_owner_themes = getattr(settings, 'CODE_OWNER_THEMES', {})
+
+    try:
+        for theme in code_owner_themes:
+            code_owner_list = code_owner_themes[theme]
+            for code_owner in code_owner_list:
+                squad = code_owner.split(theme + '-', 1)[1]
+                code_owner_details = {
+                    'theme': theme,
+                    'squad': squad,
+                }
+                code_owner_to_theme_and_squad_mapping[code_owner] = code_owner_details
+    except TypeError as e:
+        log.exception('Error processing CODE_OWNER_THEMES setting. {}'.format(e))
+        raise e
+
+    _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS = code_owner_to_theme_and_squad_mapping
+    return _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS
+
+
+def _get_theme_from_code_owner(code_owner):
+    """
+    Returns theme for a code_owner (e.g. 'theme-my-squad' => 'theme')
+    """
+    mappings = get_code_owner_theme_squad_mappings()
+    if mappings is None:  # pragma: no cover
+        return None
+
+    if code_owner in mappings:
+        return mappings[code_owner]['theme']
+
+    return None
+
+
+def _get_squad_from_code_owner(code_owner):
+    """
+    Returns squad for a code_owner (e.g. 'theme-my-squad' => 'my-squad')
+    """
+    mappings = get_code_owner_theme_squad_mappings()
+    if mappings is None:  # pragma: no cover
+        return None
+
+    if code_owner in mappings:
+        return mappings[code_owner]['squad']
+
+    return None

@@ -91,13 +91,24 @@ class MonitoringUtilsTests(TestCase):
             average_time = time / call_iterations
             self.assertLess(average_time, 0.0005, f'Mapping takes {average_time}s which is too slow.')
 
-    @override_settings(CODE_OWNER_MAPPINGS={
-        'team-red': ['edx_django_utils.monitoring.tests.code_owner.test_utils']
-    })
+    @override_settings(
+        CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.tests.code_owner.test_utils']},
+        CODE_OWNER_THEMES={'team': ['team-red']},
+    )
     @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
     def test_set_code_owner_attribute_success(self, mock_set_custom_attribute):
         self.assertEqual(decorated_function('test'), 'test')
-        self._assert_set_custom_attribute(mock_set_custom_attribute, code_owner='team-red', module=__name__)
+        self._assert_set_custom_attribute(
+            mock_set_custom_attribute, code_owner='team-red', module=__name__, check_theme_and_squad=True
+        )
+
+    @override_settings(
+        CODE_OWNER_MAPPINGS={'team-red': ['edx_django_utils.monitoring.tests.code_owner.test_utils']},
+        CODE_OWNER_THEMES='invalid-setting',
+    )
+    def test_set_code_owner_attribute_with_invalid_setting(self):
+        with self.assertRaises(TypeError):
+            decorated_function('test')
 
     @override_settings(CODE_OWNER_MAPPINGS={
         'team-red': ['*']
@@ -120,13 +131,15 @@ class MonitoringUtilsTests(TestCase):
         set_code_owner_attribute_from_module(__name__)
         self._assert_set_custom_attribute(mock_set_custom_attribute, code_owner='team-red', module=__name__)
 
-    def _assert_set_custom_attribute(self, mock_set_custom_attribute, code_owner, module):
+    def _assert_set_custom_attribute(self, mock_set_custom_attribute, code_owner, module, check_theme_and_squad=False):
         """
         Helper to assert that the proper set_custom_metric calls were made.
         """
         call_list = []
         if code_owner:
             call_list.append(call('code_owner', code_owner))
-        if module:
-            call_list.append(call('code_owner_module', module))
+            if check_theme_and_squad:
+                call_list.append(call('code_owner_theme', code_owner.split('-')[0]))
+                call_list.append(call('code_owner_squad', code_owner.split('-')[1]))
+        call_list.append(call('code_owner_module', module))
         mock_set_custom_attribute.assert_has_calls(call_list, any_order=True)

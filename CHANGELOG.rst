@@ -21,6 +21,11 @@ Removed
 
 * Removed the old location of ``CodeOwnerMonitoringMiddleware``. It had moved in a past commit. Although technically a breaking change, all references in the Open edX platform have already been updated to point to the new location.
 
+Added
+-----
+
+* Added new ``code_owner_theme`` and ``code_owner_squad`` custom attributes. This is useful in cases where the ``code_owner`` combines a theme and squad name, because monitoring can instead reference ``code_owner_squad`` to be resilient to theme name updates. For the decision doc, see edx_django_utils/monitoring/docs/decisions/0004-code-owner-theme-and-squad.rst.
+
 [3.16.0] - 2021-03-24
 ---------------------
 

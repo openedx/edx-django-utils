@@ -5,14 +5,20 @@ Add Code_Owner Custom Attribute to an IDA
    :local:
    :depth: 2
 
-What is the code_owner custom attribute?
-----------------------------------------
+What are the code owner custom attributes?
+------------------------------------------
 
-The code_owner custom attribute can be used to create custom dashboards and alerts for monitoring the things that you own. It was originally introduced for the LMS, as is described in this `ADR on monitoring by code owner`_.
+The code owner custom attributes can be used to create custom dashboards and alerts for monitoring the things that you own. It was originally introduced for the LMS, as is described in this `ADR on monitoring by code owner`_.
+
+The code owner custom attributes consist of:
+
+* code_owner: The owner name. When themes and squads are used, this will be the theme and squad names joined by a hyphen.
+* code_owner_theme: The theme name of the owner.
+* code_owner_squad: The squad name of the owner. Use this to avoid issues when theme name changes.
 
 You can now easily add this same attribute to any IDA so that your dashboards and alerts can work across multiple IDAs at once.
 
-If you want to know about custom attributes in general, see: using_custom_attributes.rst.
+If you want to know about custom attributes in general, see :doc:`using_custom_attributes`.
 
 .. _ADR on monitoring by code owner: https://github.com/edx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
@@ -24,7 +30,7 @@ You simply need to add ``edx_django_utils.monitoring.CodeOwnerMonitoringMiddlewa
 Handling celery tasks
 ---------------------
 
-Celery tasks require use of a special decorator to set the ``code_owner`` custom attribute because no middleware will be run.
+Celery tasks require use of a special decorator to set the ``code_owner`` custom attributes because no middleware will be run.
 
 Here is an example::
 
@@ -47,7 +53,7 @@ An untested potential alternative to the decorator is documented in the `Code Ow
 Configuring your app settings
 -----------------------------
 
-Once the Middleware is made available, simply set the Django Setting ``CODE_OWNER_MAPPINGS`` appropriately.
+Once the Middleware is made available, simply set the Django Settings ``CODE_OWNER_MAPPINGS`` and ``CODE_OWNER_THEMES`` appropriately.
 
 The following example shows how you can include an optional config for a catch-all using ``'*'``. Although you might expect this example to use Python, it is intentionally illustrated in YAML because the catch-all requires special care in YAML.
 
@@ -55,15 +61,21 @@ The following example shows how you can include an optional config for a catch-a
 
     # YAML format of example CODE_OWNER_MAPPINGS
     CODE_OWNER_MAPPINGS:
-      team-red:
+      theme-x-team-red:
         - xblock_django
         - openedx.core.djangoapps.xblock
-      team-blue:
+      theme-x-team-blue:
       - '*'  # IMPORTANT: you must surround * with quotes in yml
+
+    # YAML format of example CODE_OWNER_THEMES
+    CODE_OWNER_THEMES:
+      theme-x:
+      - theme-x-team-red
+      - theme-x-team-blue
 
 How to find and fix code_owner mappings
 ---------------------------------------
 
-If you are missing the `code_owner` custom attribute on a particular Transaction or Error, or if `code_owner` is matching the catch-all, but you want to add a more specific mapping, you can use the other `code_owner supporting attributes`_ to determine what the appropriate mappings should be.
+If you are missing the `code_owner` custom attributes on a particular Transaction or Error, or if `code_owner` is matching the catch-all, but you want to add a more specific mapping, you can use the other `code_owner supporting attributes`_ to determine what the appropriate mappings should be.
 
 .. _code_owner supporting attributes: https://github.com/edx/edx-django-utils/blob/7db8301af21760f8bca188b3c6c95a8ae873baf7/edx_django_utils/monitoring/code_owner/middleware.py#L28-L34
