@@ -14,6 +14,13 @@ Change Log
 Unreleased
 ----------
 
+[4.0.0] = 2021-04-30
+
+Removed
+-------
+
+* Removed the old location of ``CodeOwnerMonitoringMiddleware``. It had moved in a past commit. Although technically a breaking change, all references in the Open edX platform have already been updated to point to the new location.
+
 [3.16.0] - 2021-03-24
 ---------------------
 
