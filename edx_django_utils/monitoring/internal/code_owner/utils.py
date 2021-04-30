@@ -29,7 +29,7 @@ def get_code_owner_from_module(module):
         return None
 
     code_owner_mappings = get_code_owner_mappings()
-    if code_owner_mappings is None:
+    if not code_owner_mappings:
         return None
 
     module_parts = module.split('.')
@@ -88,9 +88,7 @@ def get_code_owner_mappings():
     # .. setting_description: Used for monitoring and reporting of ownership. Use a
     #      dict with keys of code owner name and value as a list of dotted path
     #      module names owned by the code owner.
-    code_owner_mappings = getattr(settings, 'CODE_OWNER_MAPPINGS', None)
-    if code_owner_mappings is None:
-        return None
+    code_owner_mappings = getattr(settings, 'CODE_OWNER_MAPPINGS', {})
 
     try:
         for code_owner in code_owner_mappings:
@@ -102,10 +100,9 @@ def get_code_owner_mappings():
                 if optional_module_prefix_match:
                     path_without_prefix = path[optional_module_prefix_match.end():]
                     path_to_code_owner_mapping[path_without_prefix] = code_owner
-    except Exception as e:  # pylint: disable=broad-except
-        # will remove broad exceptions after ensuring all proper cases are covered
-        set_custom_attribute('deprecated_broad_except_get_code_owner_mappings', e.__class__)
-        log.exception('Error processing code_owner_mappings. {}'.format(e))
+    except TypeError as e:
+        log.exception('Error processing CODE_OWNER_MAPPINGS. {}'.format(e))
+        raise e
 
     _PATH_TO_CODE_OWNER_MAPPINGS = path_to_code_owner_mapping
     return _PATH_TO_CODE_OWNER_MAPPINGS

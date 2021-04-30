@@ -285,11 +285,8 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
     )
     def test_load_config_with_invalid_dict(self):
         request = RequestFactory().get('/test/')
-        self.middleware(request)
-        expected_path_module = self._REQUEST_PATH_TO_MODULE_PATH['/test/']
-        self._assert_code_owner_custom_attributes(
-            mock_set_custom_attribute, path_module=expected_path_module,
-        )
+        with self.assertRaises(TypeError):
+            self.middleware(request)
 
     def _assert_code_owner_custom_attributes(self, mock_set_custom_attribute, expected_code_owner=None,
                                              path_module=None, has_path_error=False,

@@ -62,11 +62,12 @@ class MonitoringUtilsTests(TestCase):
     @override_settings(CODE_OWNER_MAPPINGS=['invalid_setting_as_list'])
     @patch('edx_django_utils.monitoring.internal.code_owner.utils.log')
     def test_code_owner_mapping_with_invalid_dict(self, mock_logger):
-        with self.assertRaises(AssertionError):
+        with self.assertRaises(TypeError):
             get_code_owner_from_module('xblock')
-            mock_logger.exception.assert_called_with(
-                'Error processing code_owner_mappings.',
-            )
+
+        mock_logger.exception.assert_called_with(
+            'Error processing CODE_OWNER_MAPPINGS. list indices must be integers or slices, not str',
+        )
 
     def test_code_owner_mapping_with_no_settings(self):
         self.assertIsNone(get_code_owner_from_module('xblock'))
