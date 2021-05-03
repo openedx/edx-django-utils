@@ -8,7 +8,12 @@ from django.urls.exceptions import Resolver404
 
 from ..transactions import get_current_transaction
 from ..utils import set_custom_attribute
-from .utils import _get_catch_all_code_owner, get_code_owner_from_module, is_code_owner_mappings_configured
+from .utils import (
+    _get_catch_all_code_owner,
+    get_code_owner_from_module,
+    is_code_owner_mappings_configured,
+    set_code_owner_custom_attributes
+)
 
 log = logging.getLogger(__name__)
 
@@ -52,7 +57,7 @@ class CodeOwnerMonitoringMiddleware:
             code_owner = _get_catch_all_code_owner()
 
         if code_owner:
-            set_custom_attribute('code_owner', code_owner)
+            set_code_owner_custom_attributes(code_owner)
 
     def _get_module_from_request(self, request):
         """
