@@ -1,5 +1,5 @@
-Add Code_Owner Custom Attribute to an IDA
-=========================================
+Add Code_Owner Custom Attributes to an IDA
+==========================================
 
 .. contents::
    :local:
