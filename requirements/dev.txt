@@ -160,7 +160,7 @@ pycodestyle==2.7.0
     # via -r requirements/quality.txt
 pydocstyle==6.0.0
     # via -r requirements/quality.txt
-pygments==2.8.1
+pygments==2.9.0
     # via diff-cover
 pylint-celery==0.3
     # via
@@ -175,9 +175,8 @@ pylint-plugin-utils==0.6
     #   -r requirements/quality.txt
     #   pylint-celery
     #   pylint-django
-pylint==2.7.4
+pylint==2.8.2
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
     #   edx-lint
     #   pylint-celery
@@ -197,7 +196,7 @@ pytest==6.2.3
     #   -r requirements/quality.txt
     #   pytest-cov
     #   pytest-django
-python-slugify==4.0.1
+python-slugify==5.0.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
