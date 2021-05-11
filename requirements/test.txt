@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-attrs==20.3.0
+attrs==21.2.0
     # via pytest
 coverage==5.5
     # via pytest-cov
@@ -42,7 +42,7 @@ pytest-cov==2.11.1
     # via -r requirements/test.in
 pytest-django==4.2.0
     # via -r requirements/test.in
-pytest==6.2.3
+pytest==6.2.4
     # via
     #   pytest-cov
     #   pytest-django
