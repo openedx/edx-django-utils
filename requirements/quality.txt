@@ -8,7 +8,7 @@ astroid==2.5.6
     # via
     #   pylint
     #   pylint-celery
-attrs==20.3.0
+attrs==21.2.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -104,12 +104,12 @@ pytest-cov==2.11.1
     # via -r requirements/test.txt
 pytest-django==4.2.0
     # via -r requirements/test.txt
-pytest==6.2.3
+pytest==6.2.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-python-slugify==5.0.0
+python-slugify==5.0.2
     # via code-annotations
 pytz==2021.1
     # via
@@ -117,7 +117,7 @@ pytz==2021.1
     #   django
 pyyaml==5.4.1
     # via code-annotations
-six==1.15.0
+six==1.16.0
     # via edx-lint
 snowballstemmer==2.1.0
     # via pydocstyle

@@ -13,7 +13,7 @@ astroid==2.5.6
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
-attrs==20.3.0
+attrs==21.2.0
     # via
     #   -r requirements/quality.txt
     #   pytest
@@ -52,7 +52,7 @@ coverage==5.5
     #   pytest-cov
 ddt==1.4.2
     # via -r requirements/quality.txt
-diff-cover==5.0.1
+diff-cover==5.1.0
     # via -r requirements/dev.in
 distlib==0.3.1
     # via
@@ -191,12 +191,12 @@ pytest-cov==2.11.1
     # via -r requirements/quality.txt
 pytest-django==4.2.0
     # via -r requirements/quality.txt
-pytest==6.2.3
+pytest==6.2.4
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
     #   pytest-django
-python-slugify==5.0.0
+python-slugify==5.0.2
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -213,7 +213,7 @@ requests==2.25.1
     # via
     #   -r requirements/ci.txt
     #   codecov
-six==1.15.0
+six==1.16.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -248,7 +248,7 @@ toml==0.10.2
     #   tox
 tox-battery==0.6.1
     # via -r requirements/ci.txt
-tox==3.23.0
+tox==3.23.1
     # via
     #   -r requirements/ci.txt
     #   tox-battery
@@ -256,7 +256,7 @@ urllib3==1.26.4
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.4.4
+virtualenv==20.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
