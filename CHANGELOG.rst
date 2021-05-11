@@ -14,6 +14,11 @@ Change Log
 Unreleased
 ----------
 
+Added
+_______
+
+* Script new_relic_code_owner_audit.py to aid the transition from the 'code_owner' to the 'code_owner_squad' custom attribute. This script searches New Relic alert policies and dashboards.
+
 [4.0.0] - 2021-05-03
 --------------------
 
