@@ -76,6 +76,37 @@ The following example shows how you can include an optional config for a catch-a
 How to find and fix code_owner mappings
 ---------------------------------------
 
-If you are missing the `code_owner` custom attributes on a particular Transaction or Error, or if `code_owner` is matching the catch-all, but you want to add a more specific mapping, you can use the other `code_owner supporting attributes`_ to determine what the appropriate mappings should be.
+If you are missing the ``code_owner`` custom attributes on a particular Transaction or Error, or if ``code_owner`` is matching the catch-all, but you want to add a more specific mapping, you can use the other `code_owner supporting attributes`_ to determine what the appropriate mappings should be.
 
-.. _code_owner supporting attributes: https://github.com/edx/edx-django-utils/blob/7db8301af21760f8bca188b3c6c95a8ae873baf7/edx_django_utils/monitoring/code_owner/middleware.py#L28-L34
+.. _code_owner supporting attributes: https://github.com/edx/edx-django-utils/blob/c022565/edx_django_utils/monitoring/internal/code_owner/middleware.py#L30-L34
+
+Updating New Relic monitoring
+-----------------------------
+
+NRQL (New Relic Query Language) that uses the ``code_owner`` custom attributes (e.g. ``code_owner_squad``, ``code_owner_theme``, or ``code_owner``) may be found in alert conditions or dashboards.
+
+To change a squad or theme name, you should *expand* the NRQL before the change, and *contract* the NRQL after the change.
+
+Note: For edx.org, it is useful to wait a month before contracting the monitoring.
+
+Example expand phase NRQL::
+
+    code_owner_squad IN ('old-squad-name', 'new-squad-name')
+    code_owner_theme IN ('old-theme-name', 'new-theme-name')
+
+Example contract phase NRQL::
+
+    code_owner_squad = 'new-squad-name'
+    code_owner_theme = 'new-theme-name'
+
+To find the relevant NRQL to update, see `Searching New Relic NRQL`_.
+
+Searching New Relic NRQL
+------------------------
+
+The search script new_relic_nrql_search.py is generally useful for searching NRQL (New Relic Query Language) in New Relic. It searches the NRQL in New Relic alert policies (static alert conditions only), and in New Relic dashboards. Use ``--help`` for more details.
+
+The script can be especially useful for helping with the expand/contract phase when changing squad or theme names. For example, you could use the following::
+
+    new_relic_nrql_search.py --regex old-squad-name
+    new_relic_nrql_search.py --regex new-squad-name
