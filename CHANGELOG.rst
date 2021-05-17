@@ -17,7 +17,7 @@ Unreleased
 Added
 _______
 
-* Script new_relic_code_owner_audit.py to aid the transition from the 'code_owner' to the 'code_owner_squad' custom attribute. This script searches New Relic alert policies and dashboards.
+* Script new_relic_nrql_search.py to search the NRQL in New Relic alert policies and dashboards using a supplied regex.
 
 [4.0.0] - 2021-05-03
 --------------------
