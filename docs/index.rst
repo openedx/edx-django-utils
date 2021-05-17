@@ -7,17 +7,42 @@ edx-django-utils
 ===============================
 EdX utilities for Django Application development.
 
-Contents:
-
 .. toctree::
-   :maxdepth: 2
+   :maxdepth: 1
+   :caption: General Contents
 
-   readme
+   README <readme>
    getting_started
    testing
-   modules
+   Package Reference <modules>
    changelog
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Decisions
+
+   decisions/0001-purpose-of-this-repo
+   decisions/0002-extract-plugins-infrastructure-from-edx-platform
+   decisions/0003-logging-filters-for-user-and-ip
+   decisions/0004-public-api-and-app-organization
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Monitoring Decisions
+
+   monitoring/decisions/0001-monitoring-by-code-owner
+   monitoring/decisions/0002-custom-monitoring-language
+   monitoring/decisions/0003-code-owner-for-celery-tasks
+   monitoring/decisions/0004-code-owner-theme-and-squad
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Monitoring How-Tos
+
+   monitoring/how_tos/add_code_owner_custom_attribute_to_an_ida
+   monitoring/how_tos/using_custom_attributes
+   monitoring/how_tos/search_new_relic_nrql
+   monitoring/how_tos/update_monitoring_for_squad_or_theme_changes
 
 Indices and tables
 ==================
@@ -25,4 +50,3 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
-
