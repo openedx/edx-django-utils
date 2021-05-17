@@ -3,7 +3,7 @@ Enhanced Monitoring and Custom Attributes
 
 .. contents::
    :local:
-   :depth: 1
+   :depth: 2
 
 What is a Custom Attribute?
 ---------------------------
