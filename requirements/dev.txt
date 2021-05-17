@@ -32,6 +32,7 @@ click-log==0.3.2
     #   edx-lint
 click==7.1.2
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
     #   click-log
@@ -44,7 +45,7 @@ code-annotations==1.1.1
     #   edx-lint
 codecov==2.1.11
     # via -r requirements/ci.txt
-coverage==5.5
+coverage[toml]==5.5
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -52,7 +53,7 @@ coverage==5.5
     #   pytest-cov
 ddt==1.4.2
     # via -r requirements/quality.txt
-diff-cover==5.1.0
+diff-cover==5.1.1
     # via -r requirements/dev.in
 distlib==0.3.1
     # via
@@ -62,7 +63,7 @@ django-crum==0.7.9
     # via -r requirements/quality.txt
 django-waffle==2.1.0
     # via -r requirements/quality.txt
-django==2.2.20
+django==2.2.23
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -95,7 +96,7 @@ isort==5.8.0
     #   pylint
 jinja2-pluralize==0.3.0
     # via diff-cover
-jinja2==2.11.3
+jinja2==3.0.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -105,7 +106,7 @@ lazy-object-proxy==1.6.0
     # via
     #   -r requirements/quality.txt
     #   astroid
-markupsafe==1.1.1
+markupsafe==2.0.0
     # via
     #   -r requirements/quality.txt
     #   jinja2
@@ -187,9 +188,9 @@ pyparsing==2.4.7
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   packaging
-pytest-cov==2.11.1
+pytest-cov==2.12.0
     # via -r requirements/quality.txt
-pytest-django==4.2.0
+pytest-django==4.3.0
     # via -r requirements/quality.txt
 pytest==6.2.4
     # via
@@ -242,6 +243,7 @@ toml==0.10.2
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
+    #   coverage
     #   pep517
     #   pylint
     #   pytest
