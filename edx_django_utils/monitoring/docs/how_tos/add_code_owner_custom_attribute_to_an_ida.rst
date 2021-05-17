@@ -83,4 +83,30 @@ If you are missing the ``code_owner`` custom attributes on a particular Transact
 Updating New Relic monitoring
 -----------------------------
 
-To update monitoring in the event of a squad or theme name change, see :doc:`update_monitoring_for_squad_or_theme_changes`.
+NRQL (New Relic Query Language) that uses the ``code_owner`` custom attributes (e.g. ``code_owner_squad``, ``code_owner_theme``, or ``code_owner``) may be found in alert conditions or dashboards.
+
+To change a squad or theme name, you should *expand* the NRQL before the change, and *contract* the NRQL after the change.
+
+Note: For edx.org, it is useful to wait a month before contracting the monitoring.
+
+Example expand phase NRQL::
+
+    code_owner_squad IN ('old-squad-name', 'new-squad-name')
+    code_owner_theme IN ('old-theme-name', 'new-theme-name')
+
+Example contract phase NRQL::
+
+    code_owner_squad = 'new-squad-name'
+    code_owner_theme = 'new-theme-name'
+
+To find the relevant NRQL to update, see `Searching New Relic NRQL`_.
+
+Searching New Relic NRQL
+------------------------
+
+The search script new_relic_nrql_search.py is generally useful for searching NRQL (New Relic Query Language) in New Relic. It searches the NRQL in New Relic alert policies (static alert conditions only), and in New Relic dashboards. Use ``--help`` for more details.
+
+The script can be especially useful for helping with the expand/contract phase when changing squad or theme names. For example, you could use the following::
+
+    new_relic_nrql_search.py --regex old-squad-name
+    new_relic_nrql_search.py --regex new-squad-name
