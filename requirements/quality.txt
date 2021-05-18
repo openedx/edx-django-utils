@@ -49,12 +49,16 @@ isort==5.8.0
     # via
     #   -r requirements/quality.in
     #   pylint
-jinja2==3.0.0
-    # via code-annotations
+jinja2==2.11.3
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   code-annotations
 lazy-object-proxy==1.6.0
     # via astroid
-markupsafe==2.0.0
-    # via jinja2
+markupsafe==1.1.1
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   jinja2
 mccabe==0.6.1
     # via pylint
 mock==4.0.3
@@ -81,7 +85,7 @@ py==1.10.0
     #   pytest
 pycodestyle==2.7.0
     # via -r requirements/quality.in
-pydocstyle==6.0.0
+pydocstyle==6.1.1
     # via -r requirements/quality.in
 pylint-celery==0.3
     # via edx-lint
