@@ -69,11 +69,14 @@ jeepney==0.6.0
     #   keyring
     #   secretstorage
 jinja2==2.11.3
-    # via sphinx
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   sphinx
 keyring==23.0.1
     # via twine
 markupsafe==1.1.1
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   jinja2
     #   sphinx
 mock==4.0.3
