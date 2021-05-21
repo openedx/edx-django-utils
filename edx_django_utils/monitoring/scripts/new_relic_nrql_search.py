@@ -210,6 +210,7 @@ def search_alert_policies(regex, account_id, headers, policy_id):
         print("\n\nNo alert policies matched.")
 
 
+# Retrieves list of dashboard and dashboard page entities
 # Template with variable cursor; can be null or cursor string
 DASHBOARD_LIST_QUERY_TEMPLATE = Template("""
     {
@@ -221,6 +222,7 @@ DASHBOARD_LIST_QUERY_TEMPLATE = Template("""
                 guid
                 name
                 accountId
+                dashboardParentGuid
               }
             }
             nextCursor
@@ -231,6 +233,7 @@ DASHBOARD_LIST_QUERY_TEMPLATE = Template("""
     }
 """)
 
+# Retrieves dashboard entities. Does not work for dashboard pages.
 DASHBOARD_ENTITY_QUERY = """
     query ($guids: EntityGuid!) {
       actor {
@@ -276,6 +279,9 @@ def search_dashboards(regex, headers, dashboard_guid):
         if not query_results['nextCursor']:
             break
         cursor = f"\"{query_results['nextCursor']}\""
+    # Filter out dashboard pages, which the dashboard entity query will not be able to find.
+    # - Note: This could probably be handled in the original query, but not sure how.
+    dashboards = [dashboard for dashboard in dashboards if dashboard['dashboardParentGuid'] is None]
     # Note: dashboard_guid is an optional tuple of dashboard guids supplied from the command-line.
     if dashboard_guid:
         dashboards = [dashboard for dashboard in dashboards if dashboard['guid'] in dashboard_guid]
@@ -295,12 +301,6 @@ def search_dashboards(regex, headers, dashboard_guid):
         )
         response.raise_for_status()  # could be an error response
         response_data = response.json()
-
-        if 'errors' in response_data:
-            # compensates for a bug where some (soft-deleted?) dashboards can't be found
-            if 'No dashboard entity found' in response_data['errors'][0]['message']:
-                continue
-            print(f"Unexpected errors: {response_data['errors']}")
 
         for page in response_data['data']['actor']['entities'][0]['pages']:
             for widget in page['widgets']:
