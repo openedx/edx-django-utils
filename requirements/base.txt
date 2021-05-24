@@ -6,7 +6,7 @@
 #
 django-crum==0.7.9
     # via -r requirements/base.in
-django-waffle==2.1.0
+django-waffle==2.2.0
     # via -r requirements/base.in
 django==2.2.23
     # via
