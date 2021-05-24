@@ -195,7 +195,12 @@ def search_alert_policies(regex, account_id, headers, policy_id):
                 if policy['id'] not in policy_ids_printed:
                     policy_ids_printed[policy['id']] = True
                     print('\n')
-                    print(f"Found in \"{policy['name']}\" (policy_id={policy['id']}):")
+                    print(
+                        f"Found in \"{policy['name']}\" "
+                        # NOTE: The API doesn't provide a link to the policy, so this is a static link to
+                        #   the alert policies home page.
+                        f"(policy_id={policy['id']}, search_link=https://one.nr/0X8woZOZvQx):"
+                    )
                     print('')
 
                 # Print the alert condition that matched
@@ -223,6 +228,7 @@ DASHBOARD_LIST_QUERY_TEMPLATE = Template("""
                 name
                 accountId
                 dashboardParentGuid
+                permalink
               }
             }
             nextCursor
@@ -315,7 +321,10 @@ def search_dashboards(regex, headers, dashboard_guid):
                         if dashboard['guid'] not in dashboard_guids_printed:
                             dashboard_guids_printed[dashboard['guid']] = True
                             print('\n')
-                            print(f"Found in \"{dashboard['name']}\" (guid={dashboard['guid']}):")
+                            print(
+                                f"Found in \"{dashboard['name']}\" "
+                                f"(guid={dashboard['guid']}, link={dashboard['permalink']}):"
+                            )
                             print('')
 
                         # Print the widget NRQL that matches
