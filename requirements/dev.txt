@@ -256,7 +256,7 @@ urllib3==1.26.4
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.4.6
+virtualenv==20.4.7
     # via
     #   -r requirements/ci.txt
     #   tox
