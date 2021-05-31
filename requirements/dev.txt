@@ -8,7 +8,7 @@ appdirs==1.4.4
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-astroid==2.5.6
+astroid==2.5.7
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -17,7 +17,7 @@ attrs==21.2.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-certifi==2020.12.5
+certifi==2021.5.30
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -52,9 +52,9 @@ coverage[toml]==5.5
     #   pytest-cov
 ddt==1.4.2
     # via -r requirements/quality.txt
-diff-cover==5.1.1
+diff-cover==5.1.2
     # via -r requirements/dev.in
-distlib==0.3.1
+distlib==0.3.2
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -116,7 +116,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==6.2.0.156
+newrelic==6.4.0.157
     # via -r requirements/quality.txt
 packaging==20.9
     # via
@@ -252,7 +252,7 @@ tox==3.23.1
     # via
     #   -r requirements/ci.txt
     #   tox-battery
-urllib3==1.26.4
+urllib3==1.26.5
     # via
     #   -r requirements/ci.txt
     #   requests
