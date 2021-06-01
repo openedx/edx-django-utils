@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[4.1.0] - 2021-06-01
+--------------------
+
+Added
+_______
+
+* Added mixin for a custom Django admin class which disables CRUD operation on the admin's model.
+
 Added
 _______
 
