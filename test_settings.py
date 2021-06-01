@@ -39,6 +39,7 @@ INSTALLED_APPS = (
     "django.contrib.contenttypes",
     "waffle",
     "edx_django_utils",
+    "edx_django_utils.admin.tests",
 )
 
 LOCALE_PATHS = [root("edx_django_utils", "conf", "locale")]
