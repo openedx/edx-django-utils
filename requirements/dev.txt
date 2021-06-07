@@ -44,7 +44,7 @@ code-annotations==1.1.2
     #   edx-lint
 codecov==2.1.11
     # via -r requirements/ci.txt
-coverage[toml]==5.5
+coverage==5.5
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -62,7 +62,7 @@ django-crum==0.7.9
     # via -r requirements/quality.txt
 django-waffle==2.2.0
     # via -r requirements/quality.txt
-django==2.2.23
+django==2.2.24
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -186,9 +186,9 @@ pyparsing==2.4.7
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   packaging
-pytest-cov==2.12.0
+pytest-cov==2.12.1
     # via -r requirements/quality.txt
-pytest-django==4.3.0
+pytest-django==4.4.0
     # via -r requirements/quality.txt
 pytest==6.2.4
     # via
@@ -241,10 +241,10 @@ toml==0.10.2
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
-    #   coverage
     #   pep517
     #   pylint
     #   pytest
+    #   pytest-cov
     #   tox
 tox-battery==0.6.1
     # via -r requirements/ci.txt
