@@ -116,7 +116,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==6.4.0.157
+newrelic==6.4.1.158
     # via -r requirements/quality.txt
 packaging==20.9
     # via
