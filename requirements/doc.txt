@@ -56,7 +56,7 @@ idna==2.10
     # via requests
 imagesize==1.2.0
     # via sphinx
-importlib-metadata==4.5.0
+importlib-metadata==4.6.0
     # via
     #   keyring
     #   twine
@@ -76,7 +76,7 @@ markupsafe==2.0.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==6.4.1.158
+newrelic==6.4.3.160
     # via -r requirements/test.txt
 packaging==20.9
     # via
@@ -183,7 +183,7 @@ tqdm==4.61.1
     # via twine
 twine==3.4.1
     # via -r requirements/doc.in
-urllib3==1.26.5
+urllib3==1.26.6
     # via requests
 webencodings==0.5.1
     # via bleach
