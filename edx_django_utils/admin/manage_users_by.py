@@ -36,7 +36,7 @@ def is_valid_django_hash(encoded):
 class manage_users:  # lint-amnesty, pylint: disable=missing-class-docstring
 
     def __init__(self, name, email, password):
-        manage_users.Model.__init__(self)
+        super().__init__(*args, **kwargs)
         self.name = name
         self.email = email
         self.email = password
@@ -83,7 +83,7 @@ class manage_users:  # lint-amnesty, pylint: disable=missing-class-docstring
         user.delete()
 
     @transaction.atomic
-    def handle(self, username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
+    def update_user(self, username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
                unusable_password, initial_password_hash, *args, **options):
 
         if not UserProfile:
