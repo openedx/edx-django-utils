@@ -101,7 +101,9 @@ def get_code_owner_mappings():
                     path_without_prefix = path[optional_module_prefix_match.end():]
                     path_to_code_owner_mapping[path_without_prefix] = code_owner
     except TypeError as e:
-        log.exception('Error processing CODE_OWNER_MAPPINGS. {}'.format(e))
+        log.exception(
+            'Error processing CODE_OWNER_MAPPINGS. {}'.format(e)  # pylint: disable=logging-format-interpolation
+        )
         raise e
 
     _PATH_TO_CODE_OWNER_MAPPINGS = path_to_code_owner_mapping
@@ -266,7 +268,9 @@ def get_code_owner_theme_squad_mappings():
                 }
                 code_owner_to_theme_and_squad_mapping[code_owner] = code_owner_details
     except TypeError as e:
-        log.exception('Error processing CODE_OWNER_THEMES setting. {}'.format(e))
+        log.exception(
+            'Error processing CODE_OWNER_THEMES setting. {}'.format(e)  # pylint: disable=logging-format-interpolation
+        )
         raise e
 
     _CODE_OWNER_TO_THEME_AND_SQUAD_MAPPINGS = code_owner_to_theme_and_squad_mapping
