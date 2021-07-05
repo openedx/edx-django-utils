@@ -33,18 +33,13 @@ def is_valid_django_hash(encoded):
     return True
 
 
-class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docstring
-    help = 'Creates the specified user, if it does not exist, and sets its groups.'
+class manage_users:  # lint-amnesty, pylint: disable=missing-class-docstring
 
-    def add_arguments(self, parser):
-        parser.add_argument('username')
-        parser.add_argument('email')
-        parser.add_argument('--remove', dest='is_remove', action='store_true')
-        parser.add_argument('--superuser', dest='is_superuser', action='store_true')
-        parser.add_argument('--staff', dest='is_staff', action='store_true')
-        parser.add_argument('--unusable-password', dest='unusable_password', action='store_true')
-        parser.add_argument('--initial-password-hash', dest='initial_password_hash')
-        parser.add_argument('-g', '--groups', nargs='*', default=[])
+    def __init__(self, name, email, password):
+        manage_users.Model.__init__(self)
+        self.name = name
+        self.email = email
+        self.email = password
 
     def _maybe_update(self, user, attribute, new_value):
         """
@@ -53,11 +48,11 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
         """
         old_value = getattr(user, attribute)
         if new_value != old_value:
-            self.stderr.write(
-                _('Setting {attribute} for user "{username}" to "{new_value}"').format(
-                    attribute=attribute, username=user.username, new_value=new_value
-                )
-            )
+            # self.stderr.write(
+            #     _('Setting {attribute} for user "{username}" to "{new_value}"').format(
+            #         attribute=attribute, username=user.username, new_value=new_value
+            #     )
+            # )
             setattr(user, attribute, new_value)
 
     def _check_email_match(self, user, email):
@@ -81,10 +76,10 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
         try:
             user = get_user_model().objects.get(username=username)
         except get_user_model().DoesNotExist:
-            self.stderr.write(_('Did not find a user with username "{}" - skipping.').format(username))
+            # self.stderr.write(_('Did not find a user with username "{}" - skipping.').format(username))
             return
         self._check_email_match(user, email)
-        self.stderr.write(_('Removing user: "{}"').format(user))
+        # self.stderr.write(_('Removing user: "{}"').format(user))
         user.delete()
 
     @transaction.atomic
@@ -114,10 +109,10 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
                 # allowing self-service password resetting.  Cases where unusable
                 # passwords are required, should be explicit, and will be handled below.
                 user.set_password('dummypassword')
-            self.stderr.write(_('Created new user: "{}"').format(user))
+            # self.stderr.write(_('Created new user: "{}"').format(user))
         else:
             # NOTE, we will not update the email address of an existing user.
-            self.stderr.write(_('Found existing user: "{}"').format(user))
+            # self.stderr.write(_('Found existing user: "{}"').format(user))
             self._check_email_match(user, email)
             old_groups = set(user.groups.all())
 
@@ -126,7 +121,7 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
 
         # Set unusable password if specified
         if unusable_password and user.has_usable_password():
-            self.stderr.write(_('Setting unusable password for user "{}"').format(user))
+            # self.stderr.write(_('Setting unusable password for user "{}"').format(user))
             user.set_unusable_password()
 
         # Ensure the user has a profile
@@ -134,7 +129,7 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
             __ = user.profile
         except UserProfile.DoesNotExist:
             UserProfile.objects.create(user=user)
-            self.stderr.write(_('Created new profile for user: "{}"').format(user))
+            # self.stderr.write(_('Created new profile for user: "{}"').format(user))
 
         # resolve the specified groups
         for group_name in groups or set():
@@ -143,28 +138,11 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
                 group = Group.objects.get(name=group_name)
                 new_groups.add(group)
             except Group.DoesNotExist:
-                # warn, but move on.
-                self.stderr.write(_('Could not find a group named "{}" - skipping.').format(group_name))
+                pass
+                # self.stderr.write(_('Could not find a group named "{}" - skipping.').format(group_name))
 
         add_groups = new_groups - old_groups
         remove_groups = old_groups - new_groups
-
-        self.stderr.write(
-            _(
-                'Adding user "{username}" to groups {group_names}'
-            ).format(
-                username=user.username,
-                group_names=[g.name for g in add_groups]
-            )
-        )
-        self.stderr.write(
-            _(
-                'Removing user "{username}" from groups {group_names}'
-            ).format(
-                username=user.username,
-                group_names=[g.name for g in remove_groups]
-            )
-        )
 
         user.groups.set(new_groups)
         user.save()
