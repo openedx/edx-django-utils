@@ -35,12 +35,6 @@ def is_valid_django_hash(encoded):
 
 class manage_users:  # lint-amnesty, pylint: disable=missing-class-docstring
 
-    def __init__(self, name, email, password):
-        super().__init__(name, email, password)
-        self.name = name
-        self.email = email
-        self.email = password
-
     def _maybe_update(self, user, attribute, new_value):
         """
         DRY helper.  If the specified attribute of the user differs from the
