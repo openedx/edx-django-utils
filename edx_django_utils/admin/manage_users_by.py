@@ -11,6 +11,8 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils.translation import gettext as _
+import sys
+
 
 logger = getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -33,110 +35,101 @@ def is_valid_django_hash(encoded):
     return True
 
 
-class manage_users:  # lint-amnesty, pylint: disable=missing-class-docstring
+def _maybe_update(user, attribute, new_value):
+    """
+    DRY helper.  If the specified attribute of the user differs from the
+    specified value, it will be updated.
+    """
+    old_value = getattr(user, attribute)
+    if new_value != old_value:
+        setattr(user, attribute, new_value)
 
-    def _maybe_update(self, user, attribute, new_value):
-        """
-        DRY helper.  If the specified attribute of the user differs from the
-        specified value, it will be updated.
-        """
-        old_value = getattr(user, attribute)
-        if new_value != old_value:
-            # self.stderr.write(
-            #     _('Setting {attribute} for user "{username}" to "{new_value}"').format(
-            #         attribute=attribute, username=user.username, new_value=new_value
-            #     )
-            # )
-            setattr(user, attribute, new_value)
-
-    def _check_email_match(self, user, email):
-        """
-        DRY helper.
-        Requiring the user to specify both username and email will help catch
-        certain issues, for example if the expected username has already been
-        taken by someone else.
-        """
-        if user.email.lower() != email.lower():
-            # The passed email address doesn't match this username's email address.
-            # Assume a problem and fail.
-            raise CommandError(
-                _(
-                    'Skipping user "{}" because the specified and existing email '
-                    'addresses do not match.'
-                ).format(user.username)
-            )
-
-    def _handle_remove(self, username, email):  # lint-amnesty, pylint: disable=missing-function-docstring
-        try:
-            user = get_user_model().objects.get(username=username)
-        except get_user_model().DoesNotExist:
-            # self.stderr.write(_('Did not find a user with username "{}" - skipping.').format(username))
-            return
-        self._check_email_match(user, email)
-        # self.stderr.write(_('Removing user: "{}"').format(user))
-        user.delete()
-
-    @transaction.atomic
-    def update_user(self, username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
-               unusable_password, initial_password_hash, *args, **options):
-
-        if not UserProfile:
-            logger.error('UserProfile module does not exist.')
-            return
-
-        if is_remove:
-            return self._handle_remove(username, email)
-
-        old_groups, new_groups = set(), set()
-        user, created = get_user_model().objects.get_or_create(
-            username=username,
-            defaults={'email': email}
+def _check_email_match(user, email):
+    """
+    DRY helper.
+    Requiring the user to specify both username and email will help catch
+    certain issues, for example if the expected username has already been
+    taken by someone else.
+    """
+    if user.email.lower() != email.lower():
+        # The passed email address doesn't match this username's email address.
+        # Assume a problem and fail.
+        raise CommandError(
+            _(
+                'Skipping user "{}" because the specified and existing email '
+                'addresses do not match.'
+            ).format(user.username)
         )
 
-        if created:
-            if initial_password_hash:
-                if not (is_password_usable(initial_password_hash) and is_valid_django_hash(initial_password_hash)):
-                    raise CommandError(f'The password hash provided for user {username} is invalid.')
-                user.password = initial_password_hash
-            else:
-                # Set the password to a random, unknown, but usable password
-                # allowing self-service password resetting.  Cases where unusable
-                # passwords are required, should be explicit, and will be handled below.
-                user.set_password('dummypassword')
-            # self.stderr.write(_('Created new user: "{}"').format(user))
+def _handle_remove(username, email):  # lint-amnesty, pylint: disable=missing-function-docstring
+    print(username)
+    try:
+        user = get_user_model().objects.get(username=username)
+    except get_user_model().DoesNotExist:
+        return
+    _check_email_match(user, email)
+    user.delete()
+
+@transaction.atomic
+def update_user(username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
+           unusable_password, initial_password_hash, *args, **options):
+
+    sys.stderr.write(_('Entering into method for : "{}"').format(username))
+
+    if not UserProfile:
+        logger.error('UserProfile module does not exist.')
+        return
+
+    if is_remove:
+        return _handle_remove(username, email)
+
+    old_groups, new_groups = set(), set()
+    user, created = get_user_model().objects.get_or_create(
+        username=username,
+        defaults={'email': email}
+    )
+
+
+    if created:
+        if initial_password_hash:
+            if not (is_password_usable(initial_password_hash) and is_valid_django_hash(initial_password_hash)):
+                raise CommandError(f'The password hash provided for user {username} is invalid.')
+            user.password = initial_password_hash
         else:
-            # NOTE, we will not update the email address of an existing user.
-            # self.stderr.write(_('Found existing user: "{}"').format(user))
-            self._check_email_match(user, email)
-            old_groups = set(user.groups.all())
+            # Set the password to a random, unknown, but usable password
+            # allowing self-service password resetting.  Cases where unusable
+            # passwords are required, should be explicit, and will be handled below.
+            user.set_password('dummypassword')
+    else:
+        # NOTE, we will not update the email address of an existing user.
+        _check_email_match(user, email)
+        old_groups = set(user.groups.all())
 
-        self._maybe_update(user, 'is_staff', is_staff)
-        self._maybe_update(user, 'is_superuser', is_superuser)
+    _maybe_update(user, 'is_staff', is_staff)
+    _maybe_update(user, 'is_superuser', is_superuser)
 
-        # Set unusable password if specified
-        if unusable_password and user.has_usable_password():
-            # self.stderr.write(_('Setting unusable password for user "{}"').format(user))
-            user.set_unusable_password()
+    # Set unusable password if specified
+    if unusable_password and user.has_usable_password():
+        user.set_unusable_password()
 
-        # Ensure the user has a profile
+    # Ensure the user has a profile
+    try:
+        __ = user.profile
+    except UserProfile.DoesNotExist:
+        UserProfile.objects.create(user=user)
+
+    # resolve the specified groups
+    for group_name in groups or set():
+
         try:
-            __ = user.profile
-        except UserProfile.DoesNotExist:
-            UserProfile.objects.create(user=user)
-            # self.stderr.write(_('Created new profile for user: "{}"').format(user))
+            group = Group.objects.get(name=group_name)
+            new_groups.add(group)
+        except Group.DoesNotExist:
+            pass
 
-        # resolve the specified groups
-        for group_name in groups or set():
+    add_groups = new_groups - old_groups
+    remove_groups = old_groups - new_groups
 
-            try:
-                group = Group.objects.get(name=group_name)
-                new_groups.add(group)
-            except Group.DoesNotExist:
-                pass
-                # self.stderr.write(_('Could not find a group named "{}" - skipping.').format(group_name))
-
-        add_groups = new_groups - old_groups
-        remove_groups = old_groups - new_groups
-
-        user.groups.set(new_groups)
-        user.save()
+    user.groups.set(new_groups)
+    user.save()
+    sys.stderr.write(_('Created new user: "{}"').format(user))
