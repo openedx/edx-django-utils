@@ -82,7 +82,7 @@ def _handle_remove(self, username, email):  # lint-amnesty, pylint: disable=miss
     user.delete()
 
 @transaction.atomic
-def handle(self, username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
+def manage_user(self, username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
             unusable_password, initial_password_hash, *args, **options):
 
     if is_remove:
