@@ -39,21 +39,21 @@ def is_valid_django_hash(encoded):
     return True
 
 
-def _maybe_update(self, user, attribute, new_value):
+def _maybe_update(user, attribute, new_value):
     """
     DRY helper.  If the specified attribute of the user differs from the
     specified value, it will be updated.
     """
     old_value = getattr(user, attribute)
     if new_value != old_value:
-        self.stderr.write(
+        stderr.write(
             _('Setting {attribute} for user "{username}" to "{new_value}"').format(
                 attribute=attribute, username=user.username, new_value=new_value
             )
         )
         setattr(user, attribute, new_value)
 
-def _check_email_match(self, user, email):
+def _check_email_match(user, email):
     """
     DRY helper.
 
@@ -71,22 +71,22 @@ def _check_email_match(self, user, email):
             ).format(user.username)
         )
 
-def _handle_remove(self, username, email):  # lint-amnesty, pylint: disable=missing-function-docstring
+def _handle_remove(username, email):  # lint-amnesty, pylint: disable=missing-function-docstring
     try:
         user = get_user_model().objects.get(username=username)
     except get_user_model().DoesNotExist:
-        self.stderr.write(_('Did not find a user with username "{}" - skipping.').format(username))
+        stderr.write(_('Did not find a user with username "{}" - skipping.').format(username))
         return
-    self._check_email_match(user, email)
-    self.stderr.write(_('Removing user: "{}"').format(user))
+    _check_email_match(user, email)
+    stderr.write(_('Removing user: "{}"').format(user))
     user.delete()
 
 @transaction.atomic
-def manage_user(self, username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
+def manage_user(username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
             unusable_password, initial_password_hash, *args, **options):
 
     if is_remove:
-        return self._handle_remove(username, email)
+        return _handle_remove(username, email)
 
     old_groups, new_groups = set(), set()
     user, created = get_user_model().objects.get_or_create(
@@ -104,19 +104,19 @@ def manage_user(self, username, email, is_remove, is_staff, is_superuser, groups
             # allowing self-service password resetting.  Cases where unusable
             # passwords are required, should be explicit, and will be handled below.
             user.set_password(generate_password(length=25))
-        self.stderr.write(_('Created new user: "{}"').format(user))
+        stderr.write(_('Created new user: "{}"').format(user))
     else:
         # NOTE, we will not update the email address of an existing user.
-        self.stderr.write(_('Found existing user: "{}"').format(user))
-        self._check_email_match(user, email)
+        stderr.write(_('Found existing user: "{}"').format(user))
+        _check_email_match(user, email)
         old_groups = set(user.groups.all())
 
-    self._maybe_update(user, 'is_staff', is_staff)
-    self._maybe_update(user, 'is_superuser', is_superuser)
+    _maybe_update(user, 'is_staff', is_staff)
+    _maybe_update(user, 'is_superuser', is_superuser)
 
     # Set unusable password if specified
     if unusable_password and user.has_usable_password():
-        self.stderr.write(_('Setting unusable password for user "{}"').format(user))
+        stderr.write(_('Setting unusable password for user "{}"').format(user))
         user.set_unusable_password()
 
     # Ensure the user has a profile
@@ -124,7 +124,7 @@ def manage_user(self, username, email, is_remove, is_staff, is_superuser, groups
         __ = user.profile
     except UserProfile.DoesNotExist:
         UserProfile.objects.create(user=user)
-        self.stderr.write(_('Created new profile for user: "{}"').format(user))
+        stderr.write(_('Created new profile for user: "{}"').format(user))
 
     # resolve the specified groups
     for group_name in groups or set():
@@ -134,12 +134,12 @@ def manage_user(self, username, email, is_remove, is_staff, is_superuser, groups
             new_groups.add(group)
         except Group.DoesNotExist:
             # warn, but move on.
-            self.stderr.write(_('Could not find a group named "{}" - skipping.').format(group_name))
+            stderr.write(_('Could not find a group named "{}" - skipping.').format(group_name))
 
     add_groups = new_groups - old_groups
     remove_groups = old_groups - new_groups
 
-    self.stderr.write(
+    stderr.write(
         _(
             'Adding user "{username}" to groups {group_names}'
         ).format(
@@ -147,7 +147,7 @@ def manage_user(self, username, email, is_remove, is_staff, is_superuser, groups
             group_names=[g.name for g in add_groups]
         )
     )
-    self.stderr.write(
+    stderr.write(
         _(
             'Removing user "{username}" from groups {group_names}'
         ).format(
