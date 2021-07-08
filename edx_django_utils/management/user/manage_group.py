@@ -5,6 +5,7 @@ and set their permissions by name.
 
 
 import sys
+
 from django.apps import apps
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -22,8 +23,11 @@ def _handle_remove(group_name):  # lint-amnesty, pylint: disable=missing-functio
     except Group.DoesNotExist:
         sys.stderr.write(_('Did not find a group with name "{}" - skipping.').format(group_name))
 
+
 @transaction.atomic
-def manage_group(group_name, is_remove, permissions=None, *args, **options):  # lint-amnesty, pylint: disable=arguments-differ, keyword-arg-before-vararg
+def manage_group(
+    group_name, is_remove, permissions=None, *args, **options
+        ):  # lint-amnesty, pylint: disable=arguments-differ, keyword-arg-before-vararg
 
     if is_remove:
         _handle_remove(group_name)
@@ -78,6 +82,7 @@ def manage_group(group_name, is_remove, permissions=None, *args, **options):  # 
     group.permissions.set(new_permissions)
 
     group.save()
+
 
 def _resolve_permissions(permissions):  # lint-amnesty, pylint: disable=missing-function-docstring
     new_permissions = set()

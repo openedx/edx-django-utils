@@ -5,20 +5,19 @@ Django users, set/unset permission bits, and associate groups by name.
 
 
 import sys
+
 from django.contrib.auth import get_user_model
+
 from django.contrib.auth.hashers import is_password_usable, identify_hasher
 from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils.translation import gettext as _
-
-from openedx.core.djangoapps.user_authn.utils import generate_password
-
-
 try:
     from common.djangoapps.student.models import UserProfile
 except ImportError:
     UserProfile = None
+
 
 try:
     from openedx.core.djangoapps.user_authn.utils import generate_password
@@ -54,6 +53,7 @@ def _maybe_update(user, attribute, new_value):
         )
         setattr(user, attribute, new_value)
 
+
 def _check_email_match(user, email):
     """
     DRY helper.
@@ -72,6 +72,7 @@ def _check_email_match(user, email):
             ).format(user.username)
         )
 
+
 def _handle_remove(username, email):  # lint-amnesty, pylint: disable=missing-function-docstring
     try:
         user = get_user_model().objects.get(username=username)
@@ -82,9 +83,11 @@ def _handle_remove(username, email):  # lint-amnesty, pylint: disable=missing-fu
     sys.stderr.write(_('Removing user: "{}"').format(user))
     user.delete()
 
+
 @transaction.atomic
-def manage_user(username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
-            unusable_password, initial_password_hash, *args, **options):
+def manage_user(
+    username, email, is_remove, is_staff, is_superuser, groups,  # lint-amnesty, pylint: disable=arguments-differ
+        unusable_password, initial_password_hash, *args, **options):
 
     if is_remove:
         return _handle_remove(username, email)
