@@ -4,6 +4,7 @@ Django users, set/unset permission bits, and associate groups by name.
 """
 
 
+import sys
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import is_password_usable, identify_hasher
 from django.contrib.auth.models import Group
@@ -46,7 +47,7 @@ def _maybe_update(user, attribute, new_value):
     """
     old_value = getattr(user, attribute)
     if new_value != old_value:
-        stderr.write(
+        sys.stderr.write(
             _('Setting {attribute} for user "{username}" to "{new_value}"').format(
                 attribute=attribute, username=user.username, new_value=new_value
             )
@@ -75,10 +76,10 @@ def _handle_remove(username, email):  # lint-amnesty, pylint: disable=missing-fu
     try:
         user = get_user_model().objects.get(username=username)
     except get_user_model().DoesNotExist:
-        stderr.write(_('Did not find a user with username "{}" - skipping.').format(username))
+        sys.stderr.write(_('Did not find a user with username "{}" - skipping.').format(username))
         return
     _check_email_match(user, email)
-    stderr.write(_('Removing user: "{}"').format(user))
+    sys.stderr.write(_('Removing user: "{}"').format(user))
     user.delete()
 
 @transaction.atomic
@@ -104,10 +105,10 @@ def manage_user(username, email, is_remove, is_staff, is_superuser, groups,  # l
             # allowing self-service password resetting.  Cases where unusable
             # passwords are required, should be explicit, and will be handled below.
             user.set_password(generate_password(length=25))
-        stderr.write(_('Created new user: "{}"').format(user))
+        sys.stderr.write(_('Created new user: "{}"').format(user))
     else:
         # NOTE, we will not update the email address of an existing user.
-        stderr.write(_('Found existing user: "{}"').format(user))
+        sys.stderr.write(_('Found existing user: "{}"').format(user))
         _check_email_match(user, email)
         old_groups = set(user.groups.all())
 
@@ -116,7 +117,7 @@ def manage_user(username, email, is_remove, is_staff, is_superuser, groups,  # l
 
     # Set unusable password if specified
     if unusable_password and user.has_usable_password():
-        stderr.write(_('Setting unusable password for user "{}"').format(user))
+        sys.stderr.write(_('Setting unusable password for user "{}"').format(user))
         user.set_unusable_password()
 
     # Ensure the user has a profile
@@ -124,7 +125,7 @@ def manage_user(username, email, is_remove, is_staff, is_superuser, groups,  # l
         __ = user.profile
     except UserProfile.DoesNotExist:
         UserProfile.objects.create(user=user)
-        stderr.write(_('Created new profile for user: "{}"').format(user))
+        sys.stderr.write(_('Created new profile for user: "{}"').format(user))
 
     # resolve the specified groups
     for group_name in groups or set():
@@ -134,12 +135,12 @@ def manage_user(username, email, is_remove, is_staff, is_superuser, groups,  # l
             new_groups.add(group)
         except Group.DoesNotExist:
             # warn, but move on.
-            stderr.write(_('Could not find a group named "{}" - skipping.').format(group_name))
+            sys.stderr.write(_('Could not find a group named "{}" - skipping.').format(group_name))
 
     add_groups = new_groups - old_groups
     remove_groups = old_groups - new_groups
 
-    stderr.write(
+    sys.stderr.write(
         _(
             'Adding user "{username}" to groups {group_names}'
         ).format(
@@ -147,7 +148,7 @@ def manage_user(username, email, is_remove, is_staff, is_superuser, groups,  # l
             group_names=[g.name for g in add_groups]
         )
     )
-    stderr.write(
+    sys.stderr.write(
         _(
             'Removing user "{username}" from groups {group_names}'
         ).format(

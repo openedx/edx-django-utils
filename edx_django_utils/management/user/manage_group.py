@@ -4,6 +4,7 @@ and set their permissions by name.
 """
 
 
+import sys
 from django.apps import apps
 from django.contrib.auth.models import Group, Permission
 from django.contrib.contenttypes.models import ContentType
@@ -17,9 +18,9 @@ def _handle_remove(group_name):  # lint-amnesty, pylint: disable=missing-functio
 
     try:
         Group.objects.get(name=group_name).delete()
-        stderr.write(_('Removed group: "{}"').format(group_name))
+        sys.stderr.write(_('Removed group: "{}"').format(group_name))
     except Group.DoesNotExist:
-        stderr.write(_('Did not find a group with name "{}" - skipping.').format(group_name))
+        sys.stderr.write(_('Did not find a group with name "{}" - skipping.').format(group_name))
 
 @transaction.atomic
 def manage_group(group_name, is_remove, permissions=None, *args, **options):  # lint-amnesty, pylint: disable=arguments-differ, keyword-arg-before-vararg
@@ -47,9 +48,9 @@ def manage_group(group_name, is_remove, permissions=None, *args, **options):  # 
                     messages=exc.messages[0]
                 )
             )
-        stderr.write(_('Created new group: "{}"').format(group_name))
+        sys.stderr.write(_('Created new group: "{}"').format(group_name))
     else:
-        stderr.write(_('Found existing group: "{}"').format(group_name))
+        sys.stderr.write(_('Found existing group: "{}"').format(group_name))
         old_permissions = set(group.permissions.all())
 
     new_permissions = _resolve_permissions(permissions or set())
@@ -57,7 +58,7 @@ def manage_group(group_name, is_remove, permissions=None, *args, **options):  # 
     add_permissions = new_permissions - old_permissions
     remove_permissions = old_permissions - new_permissions
 
-    stderr.write(
+    sys.stderr.write(
         _(
             'Adding {codenames} permissions to group "{group}"'
         ).format(
@@ -65,7 +66,7 @@ def manage_group(group_name, is_remove, permissions=None, *args, **options):  # 
             group=group.name
         )
     )
-    stderr.write(
+    sys.stderr.write(
         _(
             'Removing {codenames} permissions from group "{group}"'
         ).format(
