@@ -43,7 +43,7 @@ iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==5.9.1
+isort==5.9.2
     # via
     #   -r requirements/quality.in
     #   pylint
@@ -57,7 +57,7 @@ mccabe==0.6.1
     # via pylint
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==6.4.3.160
+newrelic==6.4.4.161
     # via -r requirements/test.txt
 packaging==21.0
     # via
