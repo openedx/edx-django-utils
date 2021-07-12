@@ -16,7 +16,7 @@ bleach==3.3.0
     # via readme-renderer
 certifi==2021.5.30
     # via requests
-cffi==1.14.5
+cffi==1.14.6
     # via cryptography
 chardet==4.0.0
     # via
@@ -63,7 +63,7 @@ iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
-jeepney==0.6.0
+jeepney==0.7.0
     # via
     #   keyring
     #   secretstorage
@@ -75,7 +75,7 @@ markupsafe==2.0.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==6.4.3.160
+newrelic==6.4.4.161
     # via -r requirements/test.txt
 packaging==21.0
     # via
@@ -87,7 +87,7 @@ pbr==5.6.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.7.0
+pkginfo==1.7.1
     # via twine
 pluggy==0.13.1
     # via
@@ -149,7 +149,7 @@ six==1.16.0
     #   readme-renderer
 snowballstemmer==2.1.0
     # via sphinx
-sphinx==4.0.2
+sphinx==4.1.0
     # via
     #   -r requirements/doc.in
     #   edx-sphinx-theme
@@ -178,7 +178,7 @@ toml==0.10.2
     #   -r requirements/test.txt
     #   pytest
     #   pytest-cov
-tqdm==4.61.1
+tqdm==4.61.2
     # via twine
 twine==3.4.1
     # via -r requirements/doc.in
