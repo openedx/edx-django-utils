@@ -30,7 +30,9 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
             self.stderr.write(_('Did not find a group with name "{}" - skipping.').format(group_name))
 
     @transaction.atomic
-    def handle(self, group_name, is_remove, permissions=None, *args, **options):  # lint-amnesty, pylint: disable=arguments-differ, keyword-arg-before-vararg
+    def handle(  # lint-amnesty, pylint: disable=arguments-differ, keyword-arg-before-vararg
+        self, group_name, is_remove, permissions=None, *args, **options
+        ):
 
         if is_remove:
             self._handle_remove(group_name)
