@@ -4,6 +4,8 @@ Django users, set/unset permission bits, and associate groups by name.
 """
 
 
+import string
+import random
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import is_password_usable, identify_hasher
 from django.contrib.auth.models import Group
