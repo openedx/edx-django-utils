@@ -13,12 +13,6 @@ from django.utils.translation import gettext as _
 import django.dispatch
 
 
-try:
-    from openedx.core.djangoapps.user_authn.utils import generate_password
-except ImportError:
-    generate_password = None
-
-
 manage_user_cmd = django.dispatch.Signal(providing_args=["user"])
 
 
@@ -34,6 +28,20 @@ def is_valid_django_hash(encoded):
     except ValueError:
         return False
     return True
+
+
+def generate_password(length=12, chars=string.ascii_letters + string.digits):
+    """Generate a valid random password"""
+    if length < 8:
+        raise ValueError("password must be at least 8 characters")
+
+    choice = random.SystemRandom().choice
+
+    password = ''
+    password += choice(string.digits)
+    password += choice(string.ascii_letters)
+    password += ''.join([choice(chars) for _i in range(length - 2)])
+    return password
 
 
 class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docstring
