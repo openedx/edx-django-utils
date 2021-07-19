@@ -35,7 +35,7 @@ django==2.2.24
     #   edx-lint
 django-crum==0.7.9
     # via -r requirements/test.txt
-django-waffle==2.2.0
+django-waffle==2.2.1
     # via -r requirements/test.txt
 edx-lint==5.0.0
     # via -r requirements/quality.in
