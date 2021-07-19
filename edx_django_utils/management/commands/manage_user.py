@@ -94,7 +94,8 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
     @transaction.atomic
     def handle(  # lint-amnesty, pylint: disable=arguments-differ, inconsistent-return-statements
         self, username, email, is_remove, is_staff, is_superuser, groups,
-        unusable_password, initial_password_hash, *args, **options):
+        unusable_password, initial_password_hash, *args, **options
+    ):
 
         if is_remove:
             return self._handle_remove(username, email)
