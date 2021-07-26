@@ -18,8 +18,6 @@ certifi==2021.5.30
     # via requests
 cffi==1.14.6
     # via cryptography
-chardet==4.0.0
-    # via doc8
 charset-normalizer==2.0.3
     # via requests
 colorama==0.4.4
@@ -41,7 +39,7 @@ django-crum==0.7.9
     # via -r requirements/test.txt
 django-waffle==2.2.1
     # via -r requirements/test.txt
-doc8==0.8.1
+doc8==0.9.0
     # via -r requirements/doc.in
 docutils==0.17.1
     # via
@@ -144,7 +142,6 @@ secretstorage==3.3.1
 six==1.16.0
     # via
     #   bleach
-    #   doc8
     #   edx-sphinx-theme
     #   readme-renderer
 snowballstemmer==2.1.0
@@ -180,7 +177,7 @@ toml==0.10.2
     #   pytest-cov
 tqdm==4.61.2
     # via twine
-twine==3.4.1
+twine==3.4.2
     # via -r requirements/doc.in
 urllib3==1.26.6
     # via requests
