@@ -28,6 +28,8 @@ This repository includes shared utilities for:
 
 .. _Plugin Infrastructure: edx_django_utils/plugins/README.rst
 
+.. _Management Commands: edx_django_utils/management/README.md
+
 Documentation
 -------------
 
