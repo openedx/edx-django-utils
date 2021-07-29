@@ -6,7 +6,7 @@ Context
 
 Open edX administrators ocassionally need to grant permissions to users for certain django services (e.g. ecommerce, registrar). Right now, this is done manually via django admin of the django app. This method of granting permissions is not endorsed.
 
-The user and group management commands in edx-platform, are supposedly generic enough to be used via a common library/app so that users and groups can be managed without much (repeated) modificaiton to IDAs.
+The user and group management commands in edx-platform, are supposedly generic enough to be used via a common library/app so that users and groups can be managed without much (repeated) modification to IDAs.
 
 Decision
 --------
@@ -17,4 +17,3 @@ Kyle's notes can be found `here https://github.com/edx/app-permissions/pull/1454
 
 Consequences
 ------------
-
