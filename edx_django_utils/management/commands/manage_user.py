@@ -11,8 +11,8 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils.translation import gettext as _
-from edx_django_utils.common import generate_password
 
+from edx_django_utils.common import generate_password
 
 manage_user_cmd = django.dispatch.Signal(providing_args=["user"])
 
