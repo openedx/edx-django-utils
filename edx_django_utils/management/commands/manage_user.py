@@ -4,9 +4,6 @@ Django users, set/unset permission bits, and associate groups by name.
 """
 
 
-import random
-import string
-
 import django.dispatch
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import identify_hasher, is_password_usable
@@ -14,6 +11,8 @@ from django.contrib.auth.models import Group
 from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils.translation import gettext as _
+from edx_django_utils.common import generate_password
+
 
 manage_user_cmd = django.dispatch.Signal(providing_args=["user"])
 
@@ -30,20 +29,6 @@ def is_valid_django_hash(encoded):
     except ValueError:
         return False
     return True
-
-
-def generate_password(length=12, chars=string.ascii_letters + string.digits):
-    """Generate a valid random password"""
-    if length < 8:
-        raise ValueError("password must be at least 8 characters")
-
-    choice = random.SystemRandom().choice
-
-    password = ''
-    password += choice(string.digits)
-    password += choice(string.ascii_letters)
-    password += ''.join([choice(chars) for _i in range(length - 2)])
-    return password
 
 
 class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docstring
