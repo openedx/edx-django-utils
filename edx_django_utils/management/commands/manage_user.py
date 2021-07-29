@@ -4,7 +4,6 @@ Django users, set/unset permission bits, and associate groups by name.
 """
 
 
-import django.dispatch
 from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import identify_hasher, is_password_usable
 from django.contrib.auth.models import Group
@@ -13,8 +12,6 @@ from django.db import transaction
 from django.utils.translation import gettext as _
 
 from edx_django_utils.common import generate_password
-
-manage_user_cmd = django.dispatch.Signal(providing_args=["user"])
 
 
 def is_valid_django_hash(encoded):
@@ -125,14 +122,6 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
         if unusable_password and user.has_usable_password():
             self.stderr.write(_('Setting unusable password for user "{}"').format(user))
             user.set_unusable_password()
-
-        # Ensure the user has a profile
-        # try:
-        #     __ = user.profile
-        # except UserProfile.DoesNotExist:
-        #     UserProfile.objects.create(user=user)
-        #     self.stderr.write(_('Created new profile for user: "{}"').format(user))
-        manage_user_cmd.send(sender=get_user_model(), user=user)
 
         # resolve the specified groups
         for group_name in groups or set():
