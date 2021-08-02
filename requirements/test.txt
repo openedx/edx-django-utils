@@ -22,7 +22,7 @@ iniconfig==1.1.1
     # via pytest
 mock==4.0.3
     # via -r requirements/test.in
-newrelic==6.4.4.161
+newrelic==6.6.0.162
     # via -r requirements/base.txt
 packaging==21.0
     # via pytest
