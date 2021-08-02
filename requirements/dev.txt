@@ -23,7 +23,7 @@ certifi==2021.5.30
     #   requests
 chardet==4.0.0
     # via diff-cover
-charset-normalizer==2.0.3
+charset-normalizer==2.0.4
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -39,7 +39,7 @@ click-log==0.3.2
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-code-annotations==1.1.2
+code-annotations==1.2.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -53,7 +53,7 @@ coverage==5.5
     #   pytest-cov
 ddt==1.4.2
     # via -r requirements/quality.txt
-diff-cover==6.2.0
+diff-cover==6.2.1
     # via -r requirements/dev.in
 distlib==0.3.2
     # via
@@ -89,7 +89,7 @@ iniconfig==1.1.1
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==5.9.2
+isort==5.9.3
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -117,7 +117,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==6.4.4.161
+newrelic==6.6.0.162
     # via -r requirements/quality.txt
 packaging==21.0
     # via
@@ -125,7 +125,7 @@ packaging==21.0
     #   -r requirements/quality.txt
     #   pytest
     #   tox
-path==16.1.0
+path==16.2.0
     # via edx-i18n-tools
 pbr==5.6.0
     # via
@@ -137,7 +137,7 @@ pep517==0.11.0
     #   pip-tools
 pip-tools==6.2.0
     # via -r requirements/pip-tools.txt
-platformdirs==2.1.0
+platformdirs==2.2.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -164,7 +164,7 @@ pydocstyle==6.1.1
     # via -r requirements/quality.txt
 pygments==2.9.0
     # via diff-cover
-pylint==2.9.5
+pylint==2.9.6
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -247,11 +247,11 @@ toml==0.10.2
     #   pytest
     #   pytest-cov
     #   tox
-tomli==1.1.0
+tomli==1.2.0
     # via
     #   -r requirements/pip-tools.txt
     #   pep517
-tox==3.24.0
+tox==3.24.1
     # via
     #   -r requirements/ci.txt
     #   tox-battery
@@ -261,7 +261,7 @@ urllib3==1.26.6
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.6.0
+virtualenv==20.7.0
     # via
     #   -r requirements/ci.txt
     #   tox
