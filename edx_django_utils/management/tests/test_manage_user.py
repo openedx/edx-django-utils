@@ -12,7 +12,7 @@ from django.contrib.auth.models import Group, User  # lint-amnesty, pylint: disa
 from django.core.management import CommandError, call_command
 from django.test import TestCase
 
-from edx_django_utils.common import generate_password
+from edx_django_utils.user import generate_password
 
 TEST_EMAIL = 'test@example.com'
 TEST_USERNAME = 'test-user'

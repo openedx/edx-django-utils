@@ -1,1 +1,1 @@
-"""Tests for Student Management Commands."""
+"""Tests for Management Commands."""

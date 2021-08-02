@@ -1,9 +1,9 @@
-"""Test common"""
+"""Test user functions"""
 
 import pytest
 from django.test import TestCase
 
-from edx_django_utils.common import generate_password
+from edx_django_utils.user import generate_password
 
 
 class GeneratePasswordTest(TestCase):

@@ -1,5 +1,5 @@
 """
-The intent of this file is that all importable public code will live here.
+All user relevant code will live here.
 """
 
 import random

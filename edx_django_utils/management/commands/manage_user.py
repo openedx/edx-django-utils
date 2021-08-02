@@ -11,7 +11,7 @@ from django.core.management.base import BaseCommand, CommandError
 from django.db import transaction
 from django.utils.translation import gettext as _
 
-from edx_django_utils.common import generate_password
+from edx_django_utils.user import generate_password
 
 
 def is_valid_django_hash(encoded):
