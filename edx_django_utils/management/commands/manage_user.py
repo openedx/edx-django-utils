@@ -154,4 +154,5 @@ class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docst
         )
 
         user.groups.set(new_groups)
+        user._called_by_management_command = True  # pylint: disable=protected-access
         user.save()
