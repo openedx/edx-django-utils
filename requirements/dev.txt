@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.6.5
+astroid==2.6.6
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -43,7 +43,7 @@ code-annotations==1.2.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-codecov==2.1.11
+codecov==2.1.12
     # via -r requirements/ci.txt
 coverage==5.5
     # via
@@ -53,7 +53,7 @@ coverage==5.5
     #   pytest-cov
 ddt==1.4.2
     # via -r requirements/quality.txt
-diff-cover==6.2.1
+diff-cover==6.2.2
     # via -r requirements/dev.in
 distlib==0.3.2
     # via
@@ -117,7 +117,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==6.6.0.162
+newrelic==6.8.0.163
     # via -r requirements/quality.txt
 packaging==21.0
     # via
@@ -247,9 +247,10 @@ toml==0.10.2
     #   pytest
     #   pytest-cov
     #   tox
-tomli==1.2.0
+tomli==1.2.1
     # via
     #   -r requirements/pip-tools.txt
+    #   diff-cover
     #   pep517
 tox==3.24.1
     # via
