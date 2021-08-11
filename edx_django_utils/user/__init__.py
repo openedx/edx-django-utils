@@ -1,5 +1,5 @@
 """
-All user relevant code will live here.
+User and group utilities useful to multiple django services will live here.
 """
 
 import random

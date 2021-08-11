@@ -11,7 +11,7 @@ edx-platform, however, defines ``manage_user`` and ``manage_group`` management c
 Decision
 --------
 
-User and group management commands should be moved to edx-django-utils from edx-platform and ``edx_django_utils`` should be added to ``INSTALLED_APPS`` section of all django services so that the user and group management commands are available to the services.
+User and group management commands should be moved to edx-django-utils from edx-platform so that the commands are available to other services.
 
 The original idea for this decision came from an `edx.org private discussion on app permissions`_.
 
