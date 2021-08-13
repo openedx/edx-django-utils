@@ -4,7 +4,11 @@ import os
 
 
 def run_nrql_query(query, api_key, account_id):
-    """More details on this can be found at: https://developer.newrelic.com/collect-data/get-started-nerdgraph-api-explorer/"""
+    """
+    Use to run nrql query on new relic data.
+
+    The function uses new_relic's graphql api.
+    More details on this can be found at: https://developer.newrelic.com/collect-data/get-started-nerdgraph-api-explorer/"""
     graphql_url = 'https://api.newrelic.com/graphql'
     headers = {'Content-Type': 'application/json', 'API-Key': api_key}
     graphql_query = f"""{{
