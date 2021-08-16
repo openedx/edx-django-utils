@@ -1,7 +1,7 @@
 Django User and Group Management Code for Multiple Services
 ===============================
 
-User and group management code useful to multiple django services will live here.
+User and group code useful to multiple django services will live here.
 
 To use the user and group management commands, add ``edx_django_utils.user`` to ``INSTALLED_APPS`` of the django service.
 
