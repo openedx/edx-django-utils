@@ -74,7 +74,10 @@ class Command(BaseCommand):
                 ).format(user.username)
             )
 
-    def _handle_remove(self, username, email):  # lint-amnesty, pylint: disable=missing-function-docstring
+    def _handle_remove(self, username, email):
+        """
+        If a user with the given username and email exists, delete them.
+        """
         try:
             user = get_user_model().objects.get(username=username)
         except get_user_model().DoesNotExist:
