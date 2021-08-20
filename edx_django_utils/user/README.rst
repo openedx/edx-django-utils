@@ -1,4 +1,4 @@
-Django User and Group Management Code for Multiple Services
+Django User and Group Utilities
 ===============================
 
 User and group code useful to multiple django services will live here.
