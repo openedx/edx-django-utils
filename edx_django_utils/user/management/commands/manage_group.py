@@ -57,8 +57,8 @@ class Command(BaseCommand):
                     ).format(
                         group_name=group_name,
                         messages=exc.messages[0]
-                    ) from None
-                )
+                    )
+                ) from None
             self.stderr.write(_('Created new group: "{}"').format(group_name))
         else:
             self.stderr.write(_('Found existing group: "{}"').format(group_name))
