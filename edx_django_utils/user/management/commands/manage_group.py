@@ -90,7 +90,11 @@ class Command(BaseCommand):
 
         group.save()
 
-    def _resolve_permissions(self, permissions):  # lint-amnesty, pylint: disable=missing-function-docstring
+    def _resolve_permissions(self, permissions):
+        """
+        Given a list of permission strings in the format 'app_label:model:codename', return a list
+        of Permission model instances.
+        """
         new_permissions = set()
         for permission in permissions:
             try:
