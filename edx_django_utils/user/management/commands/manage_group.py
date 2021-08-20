@@ -13,8 +13,9 @@ from django.db import transaction
 from django.utils.translation import gettext as _
 
 
-class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docstring
-    help = 'Creates the specified group, if it does not exist, and sets its permissions.'
+class Command(BaseCommand):
+    """Creates the specified group, if it does not exist, and sets its permissions."""
+    help = __doc__
 
     def add_arguments(self, parser):
         parser.add_argument('group_name')
