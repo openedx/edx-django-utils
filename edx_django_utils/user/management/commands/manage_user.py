@@ -28,8 +28,9 @@ def is_valid_django_hash(encoded):
     return True
 
 
-class Command(BaseCommand):  # lint-amnesty, pylint: disable=missing-class-docstring
-    help = 'Creates the specified user, if it does not exist, and sets its groups.'
+class Command(BaseCommand):
+    """Creates the specified user, if it does not exist, and sets its groups."""
+    help = __doc__
 
     def add_arguments(self, parser):
         parser.add_argument('username')
