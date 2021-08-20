@@ -102,7 +102,7 @@ class Command(BaseCommand):
             try:
                 model_class = apps.get_model(app_label, model_name)
             except LookupError as exc:
-                raise CommandError(str(exc))  # lint-amnesty, pylint: disable=raise-missing-from
+                raise CommandError(str(exc)) from None
 
             # Fetch content type for model, including proxy models.
             content_type = ContentType.objects.get_for_model(model_class, for_concrete_model=False)
