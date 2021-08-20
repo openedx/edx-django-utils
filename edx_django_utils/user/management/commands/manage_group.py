@@ -94,10 +94,10 @@ class Command(BaseCommand):
                 app_label, model_name, codename = permission.split(':')
             except ValueError:
                 # give a more helpful error
-                raise CommandError(_(  # lint-amnesty, pylint: disable=raise-missing-from
+                raise CommandError(_(
                     'Invalid permission option: "{}". Please specify permissions '
                     'using the format: app_label:model_name:permission_codename.'
-                ).format(permission))
+                ).format(permission)) from None
             # this will raise a LookupError if it fails.
             try:
                 model_class = apps.get_model(app_label, model_name)
