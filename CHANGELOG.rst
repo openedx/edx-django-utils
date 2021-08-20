@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[4.3.0] - 2021-07-20
+--------------------
+
+Added
+_______
+
+* Added user and group management utilities.
+
 [4.2.0] - 2021-07-14
 --------------------
 
