@@ -22,7 +22,10 @@ class Command(BaseCommand):
         parser.add_argument('--remove', dest='is_remove', action='store_true')
         parser.add_argument('-p', '--permissions', nargs='*', default=[])
 
-    def _handle_remove(self, group_name):  # lint-amnesty, pylint: disable=missing-function-docstring
+    def _handle_remove(self, group_name):
+        """
+        Remove the group named by the string group_name, if it exists.
+        """
 
         try:
             Group.objects.get(name=group_name).delete()
