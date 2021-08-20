@@ -113,7 +113,7 @@ class Command(BaseCommand):
                 )
             except Permission.DoesNotExist:
                 # give a more helpful error
-                raise CommandError(  # lint-amnesty, pylint: disable=raise-missing-from
+                raise CommandError(
                     _(
                         'Invalid permission codename: "{codename}".  No such permission exists '
                         'for the model {module}.{model_name}.'
@@ -122,6 +122,6 @@ class Command(BaseCommand):
                         module=model_class.__module__,
                         model_name=model_class.__name__,
                     )
-                )
+                ) from None
             new_permissions.add(new_permission)
         return new_permissions
