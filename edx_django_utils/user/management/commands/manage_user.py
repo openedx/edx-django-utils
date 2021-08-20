@@ -94,7 +94,8 @@ class Command(BaseCommand):
     ):
 
         if is_remove:
-            return self._handle_remove(username, email)
+            self._handle_remove(username, email)
+            return
 
         old_groups, new_groups = set(), set()
         user, created = get_user_model().objects.get_or_create(
