@@ -88,7 +88,7 @@ class Command(BaseCommand):
         user.delete()
 
     @transaction.atomic
-    def handle(  # lint-amnesty, pylint: disable=arguments-differ, inconsistent-return-statements
+    def handle(  # pylint: disable=arguments-differ
         self, username, email, is_remove, is_staff, is_superuser, groups,
         unusable_password, initial_password_hash, *args, **options
     ):
