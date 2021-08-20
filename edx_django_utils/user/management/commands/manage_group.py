@@ -48,13 +48,13 @@ class Command(BaseCommand):
                 group.full_clean()
             except ValidationError as exc:
                 # give a more helpful error
-                raise CommandError(  # lint-amnesty, pylint: disable=raise-missing-from
+                raise CommandError(
                     _(
                         'Invalid group name: "{group_name}". {messages}'
                     ).format(
                         group_name=group_name,
                         messages=exc.messages[0]
-                    )
+                    ) from None
                 )
             self.stderr.write(_('Created new group: "{}"').format(group_name))
         else:
