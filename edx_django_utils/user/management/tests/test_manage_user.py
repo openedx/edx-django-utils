@@ -7,8 +7,9 @@ import itertools
 
 import ddt
 import pytest
+from django.contrib.auth import get_user_model
 from django.contrib.auth.hashers import make_password
-from django.contrib.auth.models import Group, User  # lint-amnesty, pylint: disable=imported-auth-user
+from django.contrib.auth.models import Group
 from django.core.management import CommandError, call_command
 from django.test import TestCase
 
@@ -16,6 +17,7 @@ from edx_django_utils.user import generate_password
 
 TEST_EMAIL = 'test@example.com'
 TEST_USERNAME = 'test-user'
+User = get_user_model()
 
 
 @ddt.ddt
