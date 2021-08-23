@@ -25,6 +25,7 @@ EdX utilities for Django Application development.
    decisions/0002-extract-plugins-infrastructure-from-edx-platform
    decisions/0003-logging-filters-for-user-and-ip
    decisions/0004-public-api-and-app-organization
+   decisions/0005-user-and-group-management-commands
 
 .. toctree::
    :maxdepth: 1

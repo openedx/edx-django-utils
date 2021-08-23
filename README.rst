@@ -22,11 +22,15 @@ This repository includes shared utilities for:
 
 * `Plugin Infrastructure`_: Enables enhanced Django Plugin capabilities.
 
+* `Django User and Group Utilities`_: Includes user and group utilities.
+
 .. _Cache Utilities: edx_django_utils/cache/README.rst
 
 .. _Monitoring Utilities: edx_django_utils/monitoring/README.rst
 
 .. _Plugin Infrastructure: edx_django_utils/plugins/README.rst
+
+.. _Django User and Group Utilities: edx_django_utils/user/README.rst
 
 Documentation
 -------------
