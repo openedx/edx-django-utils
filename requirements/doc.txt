@@ -166,7 +166,7 @@ sqlparse==0.4.1
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==3.3.0
+stevedore==3.4.0
     # via
     #   -r requirements/test.txt
     #   doc8
