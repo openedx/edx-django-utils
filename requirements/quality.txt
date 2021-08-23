@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.6.6
+astroid==2.7.2
     # via
     #   pylint
     #   pylint-celery
@@ -67,6 +67,8 @@ pbr==5.6.0
     # via
     #   -r requirements/test.txt
     #   stevedore
+platformdirs==2.2.0
+    # via pylint
 pluggy==0.13.1
     # via
     #   -r requirements/test.txt
@@ -81,7 +83,7 @@ pycodestyle==2.7.0
     # via -r requirements/quality.in
 pydocstyle==6.1.1
     # via -r requirements/quality.in
-pylint==2.9.6
+pylint==2.10.2
     # via
     #   edx-lint
     #   pylint-celery
@@ -124,7 +126,7 @@ sqlparse==0.4.1
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==3.3.0
+stevedore==3.4.0
     # via
     #   -r requirements/test.txt
     #   code-annotations

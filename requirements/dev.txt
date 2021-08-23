@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.6.6
+astroid==2.7.2
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -53,7 +53,7 @@ coverage==5.5
     #   pytest-cov
 ddt==1.4.2
     # via -r requirements/quality.txt
-diff-cover==6.3.1
+diff-cover==6.3.3
     # via -r requirements/dev.in
 distlib==0.3.2
     # via
@@ -140,6 +140,8 @@ pip-tools==6.2.0
 platformdirs==2.2.0
     # via
     #   -r requirements/ci.txt
+    #   -r requirements/quality.txt
+    #   pylint
     #   virtualenv
 pluggy==0.13.1
     # via
@@ -164,7 +166,7 @@ pydocstyle==6.1.1
     # via -r requirements/quality.txt
 pygments==2.10.0
     # via diff-cover
-pylint==2.9.6
+pylint==2.10.2
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -231,7 +233,7 @@ sqlparse==0.4.1
     # via
     #   -r requirements/quality.txt
     #   django
-stevedore==3.3.0
+stevedore==3.4.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -251,7 +253,7 @@ tomli==1.2.1
     # via
     #   -r requirements/pip-tools.txt
     #   pep517
-tox==3.24.1
+tox==3.24.3
     # via
     #   -r requirements/ci.txt
     #   tox-battery
