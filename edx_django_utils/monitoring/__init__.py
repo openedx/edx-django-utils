@@ -9,7 +9,11 @@ from .internal.code_owner.utils import (
     set_code_owner_attribute,
     set_code_owner_attribute_from_module
 )
-from .internal.middleware import CachedCustomMonitoringMiddleware, MonitoringMemoryMiddleware
+from .internal.middleware import (
+    CachedCustomMonitoringMiddleware,
+    DeploymentMonitoringMiddleware,
+    MonitoringMemoryMiddleware
+)
 from .internal.transactions import (
     function_trace,
     get_current_transaction,

@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[4.4.0] - 2021-09-02
+--------------------
+
+Added
+_______
+
+* Added ``DeploymentMonitoringMiddleware`` to record ``Python`` and ``Django`` versions in NewRelic with each transaction.
+
 [4.3.0] - 2021-07-20
 --------------------
 
