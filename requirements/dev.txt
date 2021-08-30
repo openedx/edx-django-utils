@@ -53,7 +53,7 @@ coverage==5.5
     #   pytest-cov
 ddt==1.4.2
     # via -r requirements/quality.txt
-diff-cover==6.3.3
+diff-cover==6.3.4
     # via -r requirements/dev.in
 distlib==0.3.2
     # via
@@ -117,7 +117,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==6.8.0.163
+newrelic==6.8.1.164
     # via -r requirements/quality.txt
 packaging==21.0
     # via
@@ -145,6 +145,7 @@ platformdirs==2.2.0
     #   virtualenv
 pluggy==0.13.1
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   diff-cover

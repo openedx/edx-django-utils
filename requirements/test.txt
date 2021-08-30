@@ -22,7 +22,7 @@ iniconfig==1.1.1
     # via pytest
 mock==4.0.3
     # via -r requirements/test.in
-newrelic==6.8.0.163
+newrelic==6.8.1.164
     # via -r requirements/base.txt
 packaging==21.0
     # via pytest
@@ -31,7 +31,9 @@ pbr==5.6.0
     #   -r requirements/base.txt
     #   stevedore
 pluggy==0.13.1
-    # via pytest
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   pytest
 psutil==5.8.0
     # via -r requirements/base.txt
 py==1.10.0

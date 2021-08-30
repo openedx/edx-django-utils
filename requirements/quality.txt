@@ -57,7 +57,7 @@ mccabe==0.6.1
     # via pylint
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==6.8.0.163
+newrelic==6.8.1.164
     # via -r requirements/test.txt
 packaging==21.0
     # via
@@ -71,6 +71,7 @@ platformdirs==2.2.0
     # via pylint
 pluggy==0.13.1
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   pytest
 psutil==5.8.0
