@@ -5,9 +5,11 @@ At this time, monitoring details can only be reported to New Relic.
 
 """
 import logging
+import platform
 import warnings
 from uuid import uuid4
 
+import django
 import psutil
 import waffle  # pylint: disable=invalid-django-waffle-import
 from django.utils.deprecation import MiddlewareMixin
@@ -24,6 +26,46 @@ except ImportError:  # pragma: no cover
 
 _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
 _REQUEST_CACHE_NAMESPACE = f'{_DEFAULT_NAMESPACE}.custom_attributes'
+
+
+class DeploymentMonitoringMiddleware:
+    """
+    Middleware to record environment values at the time of deployment for each service.
+    """
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        self.record_python_version()
+        self.record_django_version()
+        response = self.get_response(request)
+        return response
+
+    @staticmethod
+    def record_django_version():
+        """
+        Record the installed Django version as custom attribute
+
+        .. custom_attribute_name: django_version
+        .. custom_attribute_description: The django version in use (e.g. '2.2.24').
+           Set by DeploymentMonitoringMiddleware.
+        """
+        if not newrelic:  # pragma: no cover
+            return
+        _set_custom_attribute('django_version', django.__version__)
+
+    @staticmethod
+    def record_python_version():
+        """
+        Record the Python version as custom attribute
+
+        .. custom_attribute_name: python_version
+        .. custom_attribute_description: The Python version in use (e.g. '3.8.10').
+           Set by DeploymentMonitoringMiddleware.
+        """
+        if not newrelic:  # pragma: no cover
+            return
+        _set_custom_attribute('python_version', platform.python_version())
 
 
 class CachedCustomMonitoringMiddleware(MiddlewareMixin):

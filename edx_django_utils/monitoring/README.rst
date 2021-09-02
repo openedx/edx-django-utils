@@ -20,6 +20,7 @@ Here is how you add the middleware:
 .. code-block::
 
     MIDDLEWARE = (
+        'edx_django_utils.monitoring.DeploymentMonitoringMiddleware',
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
         # Generate code ownership attributes. Keep this immediately after RequestCacheMiddleware.
         ...
