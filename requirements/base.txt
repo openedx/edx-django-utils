@@ -21,7 +21,7 @@ psutil==5.8.0
     # via -r requirements/base.in
 pytz==2021.1
     # via django
-sqlparse==0.4.1
+sqlparse==0.4.2
     # via django
 stevedore==3.4.0
     # via -r requirements/base.in

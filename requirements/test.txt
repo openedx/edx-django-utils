@@ -30,17 +30,15 @@ pbr==5.6.0
     # via
     #   -r requirements/base.txt
     #   stevedore
-pluggy==0.13.1
-    # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   pytest
+pluggy==1.0.0
+    # via pytest
 psutil==5.8.0
     # via -r requirements/base.txt
 py==1.10.0
     # via pytest
 pyparsing==2.4.7
     # via packaging
-pytest==6.2.4
+pytest==6.2.5
     # via
     #   pytest-cov
     #   pytest-django
@@ -52,7 +50,7 @@ pytz==2021.1
     # via
     #   -r requirements/base.txt
     #   django
-sqlparse==0.4.1
+sqlparse==0.4.2
     # via
     #   -r requirements/base.txt
     #   django
