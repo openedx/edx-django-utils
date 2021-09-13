@@ -26,12 +26,10 @@ mock==4.0.3
     # via -r requirements/ci.in
 packaging==21.0
     # via tox
-platformdirs==2.2.0
+platformdirs==2.3.0
     # via virtualenv
-pluggy==0.13.1
-    # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   tox
+pluggy==1.0.0
+    # via tox
 py==1.10.0
     # via tox
 pyparsing==2.4.7
