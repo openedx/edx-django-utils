@@ -314,7 +314,7 @@ class CachedResponseError(Exception):
         super().__init__(message)
 
 
-class CachedResponse:  # pylint: disable=eq-without-hash
+class CachedResponse:
     """
     Represents a cache response including is_found status and value.
     """
