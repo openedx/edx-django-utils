@@ -13,4 +13,4 @@ class DjangoAppRegistry(PluginManager):
 
 
 def get_plugin_app_configs(project_type):
-    return DjangoAppRegistry.get_available_plugins(project_type).values()  # pylint: disable=dict-values-not-iterating
+    return DjangoAppRegistry.get_available_plugins(project_type).values()
