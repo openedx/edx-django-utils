@@ -73,7 +73,7 @@ markupsafe==2.0.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==6.10.0.165
+newrelic==7.0.0.166
     # via -r requirements/test.txt
 packaging==21.0
     # via
@@ -175,11 +175,11 @@ toml==0.10.2
     #   -r requirements/test.txt
     #   pytest
     #   pytest-cov
-tqdm==4.62.2
+tqdm==4.62.3
     # via twine
 twine==3.4.2
     # via -r requirements/doc.in
-urllib3==1.26.6
+urllib3==1.26.7
     # via requests
 webencodings==0.5.1
     # via bleach
