@@ -21,11 +21,11 @@ click-log==0.3.2
     # via edx-lint
 code-annotations==1.2.0
     # via edx-lint
-coverage==5.5
+coverage[toml]==6.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-ddt==1.4.2
+ddt==1.4.3
     # via -r requirements/test.txt
 django==2.2.24
     # via
@@ -105,13 +105,13 @@ pytest==6.2.5
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==2.12.1
+pytest-cov==3.0.0
     # via -r requirements/test.txt
 pytest-django==4.4.0
     # via -r requirements/test.txt
 python-slugify==5.0.2
     # via code-annotations
-pytz==2021.1
+pytz==2021.3
     # via
     #   -r requirements/test.txt
     #   django
@@ -136,7 +136,10 @@ toml==0.10.2
     #   -r requirements/test.txt
     #   pylint
     #   pytest
-    #   pytest-cov
+tomli==1.2.1
+    # via
+    #   -r requirements/test.txt
+    #   coverage
 typing-extensions==3.10.0.2
     # via
     #   astroid

@@ -6,9 +6,9 @@
 #
 attrs==21.2.0
     # via pytest
-coverage==5.5
+coverage[toml]==6.0
     # via pytest-cov
-ddt==1.4.2
+ddt==1.4.3
     # via -r requirements/test.in
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -42,11 +42,11 @@ pytest==6.2.5
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==2.12.1
+pytest-cov==3.0.0
     # via -r requirements/test.in
 pytest-django==4.4.0
     # via -r requirements/test.in
-pytz==2021.1
+pytz==2021.3
     # via
     #   -r requirements/base.txt
     #   django
@@ -57,6 +57,6 @@ sqlparse==0.4.2
 stevedore==3.4.0
     # via -r requirements/base.txt
 toml==0.10.2
-    # via
-    #   pytest
-    #   pytest-cov
+    # via pytest
+tomli==1.2.1
+    # via coverage
