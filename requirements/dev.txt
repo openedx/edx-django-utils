@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.8.0
+astroid==2.8.2
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -17,7 +17,7 @@ backports.entry-points-selectable==1.1.0
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-certifi==2021.5.30
+certifi==2021.10.8
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -27,7 +27,7 @@ charset-normalizer==2.0.6
     # via
     #   -r requirements/ci.txt
     #   requests
-click==8.0.1
+click==8.0.3
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -45,13 +45,13 @@ code-annotations==1.2.0
     #   edx-lint
 codecov==2.1.12
     # via -r requirements/ci.txt
-coverage[toml]==6.0
+coverage[toml]==6.0.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   codecov
     #   pytest-cov
-ddt==1.4.3
+ddt==1.4.4
     # via -r requirements/quality.txt
 diff-cover==6.2.1
     # via
@@ -71,7 +71,7 @@ django-crum==0.7.9
     # via -r requirements/quality.txt
 django-waffle==2.2.1
     # via -r requirements/quality.txt
-edx-i18n-tools==0.7.0
+edx-i18n-tools==0.8.1
     # via -r requirements/dev.in
 edx-lint==5.2.0
     # via -r requirements/quality.txt
@@ -94,7 +94,7 @@ isort==5.9.3
     # via
     #   -r requirements/quality.txt
     #   pylint
-jinja2==3.0.1
+jinja2==3.0.2
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -136,7 +136,7 @@ pep517==0.11.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-pip-tools==6.3.0
+pip-tools==6.3.1
     # via -r requirements/pip-tools.txt
 platformdirs==2.4.0
     # via
@@ -161,7 +161,7 @@ py==1.10.0
     #   -r requirements/quality.txt
     #   pytest
     #   tox
-pycodestyle==2.7.0
+pycodestyle==2.8.0
     # via -r requirements/quality.txt
 pydocstyle==6.1.1
     # via -r requirements/quality.txt
@@ -222,7 +222,6 @@ six==1.16.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-    #   edx-i18n-tools
     #   edx-lint
     #   tox
     #   virtualenv
