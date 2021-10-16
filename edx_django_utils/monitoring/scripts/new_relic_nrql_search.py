@@ -308,27 +308,28 @@ def search_dashboards(regex, headers, dashboard_guid):
         response.raise_for_status()  # could be an error response
         response_data = response.json()
 
-        for page in response_data['data']['actor']['entities'][0]['pages']:
-            for widget in page['widgets']:
-                if 'nrqlQueries' not in widget['rawConfiguration']:
-                    continue
+        if response_data['data']['actor']['entities'][0]['pages']:
+            for page in response_data['data']['actor']['entities'][0]['pages']:
+                for widget in page['widgets']:
+                    if 'nrqlQueries' not in widget['rawConfiguration']:
+                        continue
 
-                for nrql_query in widget['rawConfiguration']['nrqlQueries']:
-                    query = nrql_query['query']
-                    if regex.search(query, re.IGNORECASE):
+                    for nrql_query in widget['rawConfiguration']['nrqlQueries']:
+                        query = nrql_query['query']
+                        if regex.search(query, re.IGNORECASE):
 
-                        # Print the dashboard header for the first widget nrql that matches
-                        if dashboard['guid'] not in dashboard_guids_printed:
-                            dashboard_guids_printed[dashboard['guid']] = True
-                            print('\n')
-                            print(
-                                f"Found in \"{dashboard['name']}\" "
-                                f"(guid={dashboard['guid']}, link={dashboard['permalink']}):"
-                            )
-                            print('')
+                            # Print the dashboard header for the first widget nrql that matches
+                            if dashboard['guid'] not in dashboard_guids_printed:
+                                dashboard_guids_printed[dashboard['guid']] = True
+                                print('\n')
+                                print(
+                                    f"Found in \"{dashboard['name']}\" "
+                                    f"(guid={dashboard['guid']}, link={dashboard['permalink']}):"
+                                )
+                                print('')
 
-                        # Print the widget NRQL that matches
-                        print(f"- {widget['title']}: {query}")
+                            # Print the widget NRQL that matches
+                            print(f"- {widget['title']}: {query}")
 
     if dashboard_guids_printed:
         command_line = ''
