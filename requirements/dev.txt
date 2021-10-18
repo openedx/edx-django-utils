@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.8.2
+astroid==2.8.3
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -23,7 +23,7 @@ certifi==2021.10.8
     #   requests
 chardet==4.0.0
     # via diff-cover
-charset-normalizer==2.0.6
+charset-normalizer==2.0.7
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -45,7 +45,7 @@ code-annotations==1.2.0
     #   edx-lint
 codecov==2.1.12
     # via -r requirements/ci.txt
-coverage[toml]==6.0.1
+coverage[toml]==6.0.2
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -75,12 +75,12 @@ edx-i18n-tools==0.8.1
     # via -r requirements/dev.in
 edx-lint==5.2.0
     # via -r requirements/quality.txt
-filelock==3.3.0
+filelock==3.3.1
     # via
     #   -r requirements/ci.txt
     #   tox
     #   virtualenv
-idna==3.2
+idna==3.3
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -118,7 +118,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==7.0.0.166
+newrelic==7.2.2.169
     # via -r requirements/quality.txt
 packaging==21.0
     # via
@@ -132,11 +132,11 @@ pbr==5.6.0
     # via
     #   -r requirements/quality.txt
     #   stevedore
-pep517==0.11.0
+pep517==0.11.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-pip-tools==6.3.1
+pip-tools==6.4.0
     # via -r requirements/pip-tools.txt
 platformdirs==2.4.0
     # via
@@ -209,7 +209,7 @@ pytz==2021.3
     # via
     #   -r requirements/quality.txt
     #   django
-pyyaml==5.4.1
+pyyaml==6.0
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -277,7 +277,7 @@ wheel==0.37.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-wrapt==1.12.1
+wrapt==1.13.2
     # via
     #   -r requirements/quality.txt
     #   astroid
