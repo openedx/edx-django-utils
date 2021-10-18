@@ -6,7 +6,7 @@
 #
 attrs==21.2.0
     # via pytest
-coverage[toml]==6.0.1
+coverage[toml]==6.0.2
     # via pytest-cov
 ddt==1.4.4
     # via -r requirements/test.in
@@ -22,7 +22,7 @@ iniconfig==1.1.1
     # via pytest
 mock==4.0.3
     # via -r requirements/test.in
-newrelic==7.0.0.166
+newrelic==7.2.2.169
     # via -r requirements/base.txt
 packaging==21.0
     # via pytest
