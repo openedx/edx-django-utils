@@ -36,7 +36,7 @@ psutil==5.8.0
     # via -r requirements/base.txt
 py==1.10.0
     # via pytest
-pyparsing==2.4.7
+pyparsing==3.0.1
     # via packaging
 pytest==6.2.5
     # via
@@ -54,7 +54,7 @@ sqlparse==0.4.2
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==3.4.0
+stevedore==3.5.0
     # via -r requirements/base.txt
 toml==0.10.2
     # via pytest
