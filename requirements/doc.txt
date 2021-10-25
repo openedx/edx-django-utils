@@ -104,7 +104,7 @@ pygments==2.10.0
     #   doc8
     #   readme-renderer
     #   sphinx
-pyparsing==2.4.7
+pyparsing==3.0.1
     # via
     #   -r requirements/test.txt
     #   packaging
@@ -165,7 +165,7 @@ sqlparse==0.4.2
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==3.4.0
+stevedore==3.5.0
     # via
     #   -r requirements/test.txt
     #   doc8
