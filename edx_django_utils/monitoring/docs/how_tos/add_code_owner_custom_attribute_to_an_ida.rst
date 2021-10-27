@@ -48,8 +48,7 @@ If the task is not compatible with additional decorators, you can use the follow
 
 An untested potential alternative to the decorator is documented in the `Code Owner for Celery Tasks ADR`_, should we run into maintenance issues using the decorator.
 
-.. _Code Owner for Celery Tasks ADR: https://github.com/edx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0003-code-owner-for-celery-tasks.rst
-
+.. _Code Owner for Celery Tasks ADR: https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/decisions/0003-code-owner-for-celery-tasks.rst
 Configuring your app settings
 -----------------------------
 
