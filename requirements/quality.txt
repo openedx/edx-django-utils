@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-astroid==2.8.3
+astroid==2.8.4
     # via
     #   pylint
     #   pylint-celery
@@ -21,7 +21,7 @@ click-log==0.3.2
     # via edx-lint
 code-annotations==1.2.0
     # via edx-lint
-coverage[toml]==6.0.2
+coverage[toml]==6.1.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -36,7 +36,7 @@ django-crum==0.7.9
     # via -r requirements/test.txt
 django-waffle==2.2.1
     # via -r requirements/test.txt
-edx-lint==5.2.0
+edx-lint==5.2.1
     # via -r requirements/quality.in
 iniconfig==1.1.1
     # via
@@ -58,7 +58,7 @@ mock==4.0.3
     # via -r requirements/test.txt
 newrelic==7.2.2.169
     # via -r requirements/test.txt
-packaging==21.0
+packaging==21.2
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -96,7 +96,7 @@ pylint-plugin-utils==0.6
     # via
     #   pylint-celery
     #   pylint-django
-pyparsing==3.0.1
+pyparsing==2.4.7
     # via
     #   -r requirements/test.txt
     #   packaging
@@ -136,7 +136,7 @@ toml==0.10.2
     #   -r requirements/test.txt
     #   pylint
     #   pytest
-tomli==1.2.1
+tomli==1.2.2
     # via
     #   -r requirements/test.txt
     #   coverage
@@ -144,7 +144,7 @@ typing-extensions==3.10.0.2
     # via
     #   astroid
     #   pylint
-wrapt==1.13.2
+wrapt==1.13.3
     # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:
