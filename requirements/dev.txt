@@ -90,7 +90,7 @@ iniconfig==1.1.1
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==5.9.3
+isort==5.10.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -118,7 +118,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==7.2.2.169
+newrelic==7.2.3.170
     # via -r requirements/quality.txt
 packaging==21.2
     # via
@@ -128,7 +128,7 @@ packaging==21.2
     #   tox
 path==16.2.0
     # via edx-i18n-tools
-pbr==5.6.0
+pbr==5.7.0
     # via
     #   -r requirements/quality.txt
     #   stevedore
@@ -155,7 +155,7 @@ polib==1.1.1
     # via edx-i18n-tools
 psutil==5.8.0
     # via -r requirements/quality.txt
-py==1.10.0
+py==1.11.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -269,7 +269,7 @@ urllib3==1.26.7
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.9.0
+virtualenv==20.10.0
     # via
     #   -r requirements/ci.txt
     #   tox
