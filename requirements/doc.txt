@@ -73,7 +73,7 @@ markupsafe==2.0.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==7.2.2.169
+newrelic==7.2.3.170
     # via -r requirements/test.txt
 packaging==21.2
     # via
@@ -81,7 +81,7 @@ packaging==21.2
     #   bleach
     #   pytest
     #   sphinx
-pbr==5.6.0
+pbr==5.7.0
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -93,11 +93,11 @@ pluggy==1.0.0
     #   pytest
 psutil==5.8.0
     # via -r requirements/test.txt
-py==1.10.0
+py==1.11.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pycparser==2.20
+pycparser==2.21
     # via cffi
 pygments==2.10.0
     # via
@@ -179,7 +179,7 @@ tomli==1.2.2
     #   coverage
 tqdm==4.62.3
     # via twine
-twine==3.4.2
+twine==3.5.0
     # via -r requirements/doc.in
 urllib3==1.26.7
     # via requests
