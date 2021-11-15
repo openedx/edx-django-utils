@@ -64,6 +64,7 @@ distlib==0.3.3
 django==2.2.24
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c requirements/constraints.txt
     #   -r requirements/quality.txt
     #   django-crum
     #   edx-i18n-tools

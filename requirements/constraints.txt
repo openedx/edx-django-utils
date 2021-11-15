@@ -15,3 +15,6 @@
 # which conflicts with pytest(pluggy>=0.12,<2.0.0) and tox(pluggy>0.12) both of these fetch pluggy==1.0.0
 diff-cover<6.2.2
 
+
+# greater version failing docs build
+sphinx==4.2.0
