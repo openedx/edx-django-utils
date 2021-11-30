@@ -18,6 +18,7 @@ def connect_plugin_receivers(project_type):
         for signal, receiver_func, receiver_config in _iter_receivers(
             signals_module, signals_config
         ):
+            log.info(f"connecting receiver {receiver_func} to signal {signal}")
             signal.connect(
                 receiver_func,
                 sender=_get_sender(receiver_config),
