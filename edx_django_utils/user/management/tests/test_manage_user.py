@@ -30,7 +30,7 @@ class TestManageUserCommand(TestCase):
         """
         Ensures that users are created if they don't exist and reused if they do.
         """
-        assert [] == list(User.objects.all())
+        assert not list(User.objects.all())
         call_command('manage_user', TEST_USERNAME, TEST_EMAIL)
         user = User.objects.get(username=TEST_USERNAME)
         assert user.username == TEST_USERNAME
@@ -47,11 +47,11 @@ class TestManageUserCommand(TestCase):
         User.objects.create(username=TEST_USERNAME, email=TEST_EMAIL)
         assert [(TEST_USERNAME, TEST_EMAIL)] == [(u.username, u.email) for u in User.objects.all()]
         call_command('manage_user', TEST_USERNAME, TEST_EMAIL, '--remove')
-        assert [] == list(User.objects.all())
+        assert not list(User.objects.all())
 
         # check idempotency
         call_command('manage_user', TEST_USERNAME, TEST_EMAIL, '--remove')
-        assert [] == list(User.objects.all())
+        assert not list(User.objects.all())
 
     def test_unusable_password(self):
         """
