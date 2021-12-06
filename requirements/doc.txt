@@ -22,11 +22,11 @@ certifi==2021.10.8
     # via requests
 cffi==1.15.0
     # via cryptography
-charset-normalizer==2.0.7
+charset-normalizer==2.0.9
     # via requests
 colorama==0.4.4
     # via twine
-coverage[toml]==6.1.2
+coverage[toml]==6.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -71,7 +71,7 @@ jeepney==0.7.1
     #   secretstorage
 jinja2==3.0.3
     # via sphinx
-keyring==23.2.1
+keyring==23.4.0
     # via twine
 markupsafe==2.0.1
     # via jinja2
@@ -89,7 +89,7 @@ pbr==5.8.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.8.1
+pkginfo==1.8.2
     # via twine
 pluggy==1.0.0
     # via
@@ -119,7 +119,7 @@ pytest==6.2.5
     #   pytest-django
 pytest-cov==3.0.0
     # via -r requirements/test.txt
-pytest-django==4.4.0
+pytest-django==4.5.1
     # via -r requirements/test.txt
 pytz==2021.3
     # via
@@ -184,7 +184,7 @@ tomli==1.2.2
     #   coverage
 tqdm==4.62.3
     # via twine
-twine==3.6.0
+twine==3.7.0
     # via -r requirements/doc.in
 urllib3==1.26.7
     # via requests
