@@ -4,10 +4,11 @@
 #
 #    make upgrade
 #
-django==2.2.24
+asgiref==3.4.1
+    # via django
+django==3.2.9
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -c requirements/constraints.txt
     #   -r requirements/base.in
     #   django-crum
 django-crum==0.7.9
@@ -16,7 +17,7 @@ django-waffle==2.2.1
     # via -r requirements/base.in
 newrelic==7.2.4.171
     # via -r requirements/base.in
-pbr==5.7.0
+pbr==5.8.0
     # via stevedore
 psutil==5.8.0
     # via -r requirements/base.in

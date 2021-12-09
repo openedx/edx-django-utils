@@ -8,15 +8,15 @@ backports.entry-points-selectable==1.1.1
     # via virtualenv
 certifi==2021.10.8
     # via requests
-charset-normalizer==2.0.7
+charset-normalizer==2.0.9
     # via requests
 codecov==2.1.12
     # via -r requirements/ci.in
-coverage==6.1.2
+coverage==6.2
     # via codecov
 distlib==0.3.3
     # via virtualenv
-filelock==3.3.2
+filelock==3.4.0
     # via
     #   tox
     #   virtualenv
@@ -24,7 +24,7 @@ idna==3.3
     # via requests
 mock==4.0.3
     # via -r requirements/ci.in
-packaging==21.2
+packaging==21.3
     # via tox
 platformdirs==2.4.0
     # via virtualenv
@@ -32,7 +32,7 @@ pluggy==1.0.0
     # via tox
 py==1.11.0
     # via tox
-pyparsing==2.4.7
+pyparsing==3.0.6
     # via packaging
 requests==2.26.0
     # via codecov
