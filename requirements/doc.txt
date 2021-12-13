@@ -34,7 +34,7 @@ cryptography==36.0.0
     # via secretstorage
 ddt==1.4.4
     # via -r requirements/test.txt
-django==3.2.9
+django==3.2.10
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -119,14 +119,14 @@ pytest==6.2.5
     #   pytest-django
 pytest-cov==3.0.0
     # via -r requirements/test.txt
-pytest-django==4.5.1
+pytest-django==4.5.2
     # via -r requirements/test.txt
 pytz==2021.3
     # via
     #   -r requirements/test.txt
     #   babel
     #   django
-readme-renderer==30.0
+readme-renderer==31.0
     # via
     #   -r requirements/doc.in
     #   twine
@@ -184,7 +184,7 @@ tomli==1.2.2
     #   coverage
 tqdm==4.62.3
     # via twine
-twine==3.7.0
+twine==3.7.1
     # via -r requirements/doc.in
 urllib3==1.26.7
     # via requests
