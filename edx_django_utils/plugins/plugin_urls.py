@@ -5,7 +5,8 @@ Please remember to expose any new public methods in the `__init__.py` file.
 """
 from logging import getLogger
 
-from django.conf.urls import include, url
+from django.conf.urls import include
+from django.urls import re_path
 
 from . import constants, registry, utils
 
@@ -21,9 +22,9 @@ def _get_url(url_module_path, url_config):
     regex = url_config.get(constants.PluginURLs.REGEX, r"")
 
     if namespace:
-        return url(regex, include((url_module_path, app_name), namespace=namespace))
+        return re_path(regex, include((url_module_path, app_name), namespace=namespace))
     else:
-        return url(regex, include(url_module_path))
+        return re_path(regex, include(url_module_path))
 
 
 def get_plugin_url_patterns(project_type):
