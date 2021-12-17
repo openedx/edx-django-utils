@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[4.4.1] - 2021-12-17
+--------------------
+
+Updated
+_______
+
+* Replaced usage of 'django.conf.urls.url()' with 'django.urls.re_path()'
+
 [4.4.0] - 2021-09-02
 --------------------
 

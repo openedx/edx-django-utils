@@ -5,8 +5,8 @@ from unittest import TestCase
 from unittest.mock import ANY, MagicMock, Mock, call, patch
 
 import ddt
-from django.conf.urls import url
 from django.test import RequestFactory, override_settings
+from django.urls import re_path
 from django.views.generic import View
 
 from edx_django_utils.monitoring import CodeOwnerMonitoringMiddleware
@@ -20,8 +20,8 @@ class MockMiddlewareViewTest(View):
 
 
 urlpatterns = [
-    url(r'^middleware-test/$', MockMiddlewareViewTest.as_view()),
-    url(r'^test/$', MockViewTest.as_view()),
+    re_path(r'^middleware-test/$', MockMiddlewareViewTest.as_view()),
+    re_path(r'^test/$', MockViewTest.as_view()),
 ]
 
 SET_CUSTOM_ATTRIBUTE_MOCK = MagicMock()
