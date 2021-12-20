@@ -52,7 +52,7 @@ isort==5.10.1
     #   pylint
 jinja2==3.0.3
     # via code-annotations
-lazy-object-proxy==1.6.0
+lazy-object-proxy==1.7.1
     # via astroid
 markupsafe==2.0.1
     # via jinja2
@@ -140,7 +140,7 @@ toml==0.10.2
     #   -r requirements/test.txt
     #   pylint
     #   pytest
-tomli==1.2.2
+tomli==2.0.0
     # via
     #   -r requirements/test.txt
     #   coverage

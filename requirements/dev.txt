@@ -106,7 +106,7 @@ jinja2==3.0.3
     #   jinja2-pluralize
 jinja2-pluralize==0.3.0
     # via diff-cover
-lazy-object-proxy==1.6.0
+lazy-object-proxy==1.7.1
     # via
     #   -r requirements/quality.txt
     #   astroid
@@ -252,7 +252,7 @@ toml==0.10.2
     #   pylint
     #   pytest
     #   tox
-tomli==1.2.2
+tomli==2.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
