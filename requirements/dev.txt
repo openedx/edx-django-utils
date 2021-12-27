@@ -79,7 +79,7 @@ edx-i18n-tools==0.8.1
     # via -r requirements/dev.in
 edx-lint==5.2.1
     # via -r requirements/quality.txt
-filelock==3.4.0
+filelock==3.4.2
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -106,7 +106,7 @@ jinja2==3.0.3
     #   jinja2-pluralize
 jinja2-pluralize==0.3.0
     # via diff-cover
-lazy-object-proxy==1.6.0
+lazy-object-proxy==1.7.1
     # via
     #   -r requirements/quality.txt
     #   astroid
@@ -142,7 +142,7 @@ pep517==0.12.0
     #   pip-tools
 pip-tools==6.4.0
     # via -r requirements/pip-tools.txt
-platformdirs==2.4.0
+platformdirs==2.4.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -252,7 +252,7 @@ toml==0.10.2
     #   pylint
     #   pytest
     #   tox
-tomli==1.2.2
+tomli==2.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -277,7 +277,7 @@ virtualenv==20.10.0
     # via
     #   -r requirements/ci.txt
     #   tox
-wheel==0.37.0
+wheel==0.37.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
