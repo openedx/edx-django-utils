@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[4.4.2] - 2021-12-23
+--------------------
+
+Updated
+_______
+
+* Replaced usage of 'django.conf.urls' with 'django.urls'
+
 [4.4.1] - 2021-12-17
 --------------------
 

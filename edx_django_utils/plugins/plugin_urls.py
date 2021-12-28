@@ -5,8 +5,7 @@ Please remember to expose any new public methods in the `__init__.py` file.
 """
 from logging import getLogger
 
-from django.conf.urls import include
-from django.urls import re_path
+from django.urls import include, re_path
 
 from . import constants, registry, utils
 
