@@ -8,7 +8,7 @@ asgiref==3.4.1
     # via
     #   -r requirements/base.txt
     #   django
-attrs==21.2.0
+attrs==21.4.0
     # via pytest
 coverage[toml]==6.2
     # via pytest-cov
@@ -36,7 +36,7 @@ pbr==5.8.0
     #   stevedore
 pluggy==1.0.0
     # via pytest
-psutil==5.8.0
+psutil==5.9.0
     # via -r requirements/base.txt
 py==1.11.0
     # via pytest
