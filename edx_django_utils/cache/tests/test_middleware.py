@@ -35,13 +35,6 @@ class TestRequestCacheMiddleware(TestCase):  # pylint: disable=missing-class-doc
         self.assertEqual(response, EXPECTED_VALUE)
         self._check_request_caches_cleared()
 
-    def test_process_exception(self):
-        # pylint: disable=assignment-from-no-return
-        response = self.middleware.process_exception(self.request, EXPECTED_VALUE)
-
-        self.assertEqual(response, None)
-        self._check_request_caches_cleared()
-
     def _check_request_caches_cleared(self):
         """ Checks that all request caches were cleared. """
         self.assertFalse(self.request_cache.get_cached_response(TEST_KEY).is_found)

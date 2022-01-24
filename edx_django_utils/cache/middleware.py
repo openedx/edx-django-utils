@@ -18,16 +18,13 @@ class RequestCacheMiddleware(MiddlewareMixin):
 
     def process_response(self, request, response):
         """
-         Clear the request cache after processing a response.
-         """
+        Clear the request cache after processing a response.
+        """
+        # This is to just to do some basic cleanup, and isn't
+        # necessary for correctness; the next request will have the
+        # cache cleared during process_request anyhow.
         RequestCache.clear_all_namespaces()
         return response
-
-    def process_exception(self, request, exception):    # pylint: disable=W0613
-        """
-        Clear the request cache after a failed request.
-        """
-        RequestCache.clear_all_namespaces()
 
 
 class TieredCacheMiddleware(MiddlewareMixin):
