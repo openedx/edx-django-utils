@@ -3,19 +3,26 @@ Change Log
 
 ..
    All enhancements and patches to edx_django_utils will be documented
-   in this file.  It adheres to the structure of http://keepachangelog.com/ ,
+   in this file.  It adheres to the structure of https://keepachangelog.com/ ,
    but in reStructuredText instead of Markdown (for ease of incorporation into
    Sphinx documentation and the PyPI description).
 
-   This project adheres to Semantic Versioning (http://semver.org/).
+   This project adheres to Semantic Versioning (https://semver.org/).
 
 .. There should always be an "Unreleased" section for changes pending release.
 
 Unreleased
 ----------
 
-[4.4.2] - 2021-12-23
+[4.4.2] - 2022-01-24
 --------------------
+
+Fixed
+_____
+
+* No longer clear the ``RequestCache`` during the exception-handling phase (wait until response phase)
+
+  * It turns out all the ``process_exception`` methods get called until one returns a response, and only *then* do the ``process_response`` methods start getting called. The result was that on exception, some middlewares were unable to use RequestCache'd values in their response phase.
 
 Updated
 _______
@@ -42,7 +49,7 @@ _______
 --------------------
 
 Added
-_______
+_____
 
 * Added user and group management utilities.
 
@@ -50,7 +57,7 @@ _______
 --------------------
 
 Added
-_______
+_____
 
 * Added support for Django 3.1 and 3.2
 
@@ -58,12 +65,12 @@ _______
 --------------------
 
 Added
-_______
+_____
 
 * Added mixin for a custom Django admin class which disables CRUD operation on the admin's model.
 
 Added
-_______
+_____
 
 * Script new_relic_nrql_search.py to search the NRQL in New Relic alert policies and dashboards using a supplied regex.
 
@@ -175,7 +182,7 @@ _______
 ---------------------
 
 Added
-_______
+_____
 
 * Added logging filter classes for users and remote IP addresses to be used by all IDAs. These were moved here from edx-platform.
 
