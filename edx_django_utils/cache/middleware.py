@@ -23,6 +23,10 @@ class RequestCacheMiddleware(MiddlewareMixin):
         # This is to just to do some basic cleanup, and isn't
         # necessary for correctness; the next request will have the
         # cache cleared during process_request anyhow.
+        #
+        # Note that clearing in process_exception would actually cause
+        # problems for other middleware that want to read the cache in
+        # their process_response.
         RequestCache.clear_all_namespaces()
         return response
 
