@@ -16,7 +16,7 @@ jobs:
       matrix:
         os: [ubuntu-20.04]
         python-version: ['3.8']
-        toxenv: [django22, django30, django31, django32, docs, quality]
+        toxenv: [docs, quality, django32]
 
     steps:
     - uses: actions/checkout@v1
@@ -37,7 +37,7 @@ jobs:
       run: tox
 
     - name: Run coverage
-      if: matrix.python-version == '3.8' && matrix.toxenv == 'django22'
+      if: matrix.python-version == '3.8' && matrix.toxenv == 'django32'
       uses: codecov/codecov-action@v1
       with:
         flags: unittests
