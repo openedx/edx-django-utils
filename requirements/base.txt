@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.4.1
+asgiref==3.5.0
     # via django
 django==3.2.11
     # via
@@ -15,7 +15,7 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==2.3.0
     # via -r requirements/base.in
-newrelic==7.2.4.171
+newrelic==7.4.0.172
     # via -r requirements/base.in
 pbr==5.8.0
     # via stevedore
