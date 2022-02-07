@@ -26,7 +26,7 @@ charset-normalizer==2.0.11
     # via requests
 colorama==0.4.4
     # via twine
-coverage[toml]==6.3
+coverage[toml]==6.3.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -34,7 +34,7 @@ cryptography==36.0.1
     # via secretstorage
 ddt==1.4.4
     # via -r requirements/test.txt
-django==3.2.11
+django==3.2.12
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -85,7 +85,7 @@ packaging==21.3
     #   bleach
     #   pytest
     #   sphinx
-pbr==5.8.0
+pbr==5.8.1
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -112,7 +112,7 @@ pyparsing==3.0.7
     # via
     #   -r requirements/test.txt
     #   packaging
-pytest==6.2.5
+pytest==7.0.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -174,20 +174,19 @@ stevedore==3.5.0
     # via
     #   -r requirements/test.txt
     #   doc8
-toml==0.10.2
-    # via
-    #   -r requirements/test.txt
-    #   pytest
 tomli==2.0.0
     # via
     #   -r requirements/test.txt
     #   coverage
+    #   pytest
 tqdm==4.62.3
     # via twine
-twine==3.7.1
+twine==3.8.0
     # via -r requirements/doc.in
 urllib3==1.26.8
-    # via requests
+    # via
+    #   requests
+    #   twine
 webencodings==0.5.1
     # via bleach
 zipp==3.7.0
