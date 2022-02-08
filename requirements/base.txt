@@ -6,7 +6,7 @@
 #
 asgiref==3.5.0
     # via django
-django==3.2.11
+django==3.2.12
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
@@ -17,7 +17,7 @@ django-waffle==2.3.0
     # via -r requirements/base.in
 newrelic==7.4.0.172
     # via -r requirements/base.in
-pbr==5.8.0
+pbr==5.8.1
     # via stevedore
 psutil==5.9.0
     # via -r requirements/base.in
