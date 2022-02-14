@@ -23,7 +23,7 @@ certifi==2021.10.8
     #   requests
 chardet==4.0.0
     # via diff-cover
-charset-normalizer==2.0.11
+charset-normalizer==2.0.12
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -71,7 +71,7 @@ django-crum==0.7.9
     # via -r requirements/quality.txt
 django-waffle==2.3.0
     # via -r requirements/quality.txt
-edx-i18n-tools==0.8.1
+edx-i18n-tools==0.9.1
     # via -r requirements/dev.in
 edx-lint==5.2.1
     # via -r requirements/quality.txt
@@ -136,9 +136,9 @@ pep517==0.12.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-pip-tools==6.5.0
+pip-tools==6.5.1
     # via -r requirements/pip-tools.txt
-platformdirs==2.4.1
+platformdirs==2.5.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -192,7 +192,7 @@ pyparsing==3.0.7
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   packaging
-pytest==7.0.0
+pytest==7.0.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -247,7 +247,7 @@ toml==0.10.2
     #   -r requirements/quality.txt
     #   pylint
     #   tox
-tomli==2.0.0
+tomli==2.0.1
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -260,7 +260,7 @@ tox==3.24.5
     #   tox-battery
 tox-battery==0.6.1
     # via -r requirements/ci.txt
-typing-extensions==4.0.1
+typing-extensions==4.1.0
     # via
     #   -r requirements/quality.txt
     #   astroid
