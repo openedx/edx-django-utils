@@ -22,7 +22,7 @@ certifi==2021.10.8
     # via requests
 cffi==1.15.0
     # via cryptography
-charset-normalizer==2.0.11
+charset-normalizer==2.0.12
     # via requests
 colorama==0.4.4
     # via twine
@@ -57,7 +57,7 @@ idna==3.3
     # via requests
 imagesize==1.3.0
     # via sphinx
-importlib-metadata==4.10.1
+importlib-metadata==4.11.0
     # via
     #   keyring
     #   twine
@@ -112,7 +112,7 @@ pyparsing==3.0.7
     # via
     #   -r requirements/test.txt
     #   packaging
-pytest==7.0.0
+pytest==7.0.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -174,7 +174,7 @@ stevedore==3.5.0
     # via
     #   -r requirements/test.txt
     #   doc8
-tomli==2.0.0
+tomli==2.0.1
     # via
     #   -r requirements/test.txt
     #   coverage

@@ -42,7 +42,7 @@ py==1.11.0
     # via pytest
 pyparsing==3.0.7
     # via packaging
-pytest==7.0.0
+pytest==7.0.1
     # via
     #   pytest-cov
     #   pytest-django
@@ -60,7 +60,7 @@ sqlparse==0.4.2
     #   django
 stevedore==3.5.0
     # via -r requirements/base.txt
-tomli==2.0.0
+tomli==2.0.1
     # via
     #   coverage
     #   pytest
