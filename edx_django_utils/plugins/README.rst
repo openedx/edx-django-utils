@@ -68,7 +68,14 @@ Enable Plugins in an IDA
 Plugin Apps
 -----------
 
-In order to make use of this functionality, plugin apps need to:
+Using edx-cookiecutter
+^^^^^^^^^^^^^^^^^^^^^^
+The simplest way to create a new plugin for edx-platform is to use the edx-cookiecutter tool. After creating a new repository, follow the instructions for cookiecutter-django-app. This will allow you to skip step 1 below, as the cookie cutter will create a skeleton App Config for you.
+
+Manual setup
+^^^^^^^^^^^^
+
+In order to make use of the edx_django_utils/plugin functionality, new plugin apps need to:
 
 1. create an AppConfig class in their apps module, as described in Django's
 `Application Configuration <https://docs.djangoproject.com/en/2.0/ref/applications/#django.apps.AppConfig>`_.
@@ -87,8 +94,10 @@ file::
             ],
         }
     )
+    
+3. (optional, but recommended) Create a top-level settings/ directory with common.py and production.py modules. This will allow you to use the PluginSettings.CONFIG option as written below.
 
-3. configure the Plugin App in their AppConfig
+4. configure the Plugin App in their AppConfig
 class::
 
     from django.apps import AppConfig
@@ -124,7 +133,7 @@ class::
                 }
             },
 
-            # Configuration setting for Plugin Settings for this app.
+            # Configuration setting for Plugin Settings for this app. 
             PluginSettings.CONFIG: {
 
                 # Configure the Plugin Settings for each Project Type, as needed.
@@ -225,11 +234,24 @@ OR use string constants when they cannot import from djangoapps.plugins::
             }
         }
 
-4. For Plugin Settings, insert the following function into each of the Plugin
-Settings modules::
+5. For Plugin Settings, insert the following function into each of the Plugin
+Settings modules that you created in the /settings folder::
 
     def plugin_settings(settings):
         # Update the provided settings module with any app-specific settings.
         # For example:
         #     settings.FEATURES['ENABLE_MY_APP'] = True
         #     settings.MY_APP_POLICY = 'foo'
+        
+Local Testing
+^^^^^^^^^^^^^
+To test your plugin locally with edx-platform, exec into a running lms or cms container and run ``make requirements`` followed by ``pip install git+https://github.com/me/myrepo@mybranch``. 
+
+Then, open a shell using ``./manage.py lms shell`` and run::
+
+>>> from django.apps import apps
+>>> [app.verbose_name for app in app in apps.get_app_configs()]
+
+You should see your app in the printed output.
+
+Another easy way to test if your plugin is installed correctly is to create a simple management command within your plugin. If the plugin is installed correctly into edx-platform, you should be able to run this management command from within the lms or cms container.
