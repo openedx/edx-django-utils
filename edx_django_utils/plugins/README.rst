@@ -250,7 +250,7 @@ To test your plugin locally with edx-platform, exec into a running lms or cms co
 Then, open a shell using ``./manage.py lms shell`` and run::
 
 >>> from django.apps import apps
->>> [app.verbose_name for app in app in apps.get_app_configs()]
+>>> [app.verbose_name for app in apps.get_app_configs()]
 
 You should see your app in the printed output.
 
