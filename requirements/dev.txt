@@ -35,7 +35,7 @@ click==8.0.4
     #   code-annotations
     #   edx-lint
     #   pip-tools
-click-log==0.3.2
+click-log==0.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -192,7 +192,7 @@ pyparsing==3.0.7
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   packaging
-pytest==7.0.1
+pytest==7.1.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -269,7 +269,7 @@ urllib3==1.26.8
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.13.2
+virtualenv==20.13.3
     # via
     #   -r requirements/ci.txt
     #   tox
