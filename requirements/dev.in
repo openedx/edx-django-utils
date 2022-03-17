@@ -7,3 +7,4 @@
 
 diff-cover                # Changeset diff test coverage
 edx-i18n-tools            # For i18n_tool dummy
+python-dateutil           # Date utility for local script
