@@ -57,7 +57,7 @@ Updated
 --------------------
 
 Added
-~~~~~~~
+~~~~~
 
 * Added ``DeploymentMonitoringMiddleware`` to record ``Python`` and ``Django`` versions in NewRelic with each transaction.
 
@@ -337,7 +337,7 @@ Changed
 --------------------
 
 Added
-~~~~~~~
+~~~~~
 
 * Added get_cache_key utility.
 
