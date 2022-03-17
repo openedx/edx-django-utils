@@ -199,6 +199,18 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
         mock_logger.info.assert_not_called()
         mock_logger.exception.assert_not_called()
 
+    @patch('edx_django_utils.monitoring.internal.middleware.log', autospec=True)
+    def test_cookie_monitoring_unknown_exception(self, mock_logger):
+        middleware = CookieMonitoringMiddleware(self.mock_response)
+        cookies_dict = {'a': 'y'}
+        mock_request = self.get_mock_request(cookies_dict)
+        mock_request.META = Mock()
+        mock_request.META.side_effect = Exception("Some exception")
+
+        middleware(mock_request)
+
+        mock_logger.exception.assert_called_once_with("Unexpected error logging and monitoring cookies.")
+
     def get_mock_request(self, cookies_dict):
         """
         Return mock request with the provided cookies in the header.
