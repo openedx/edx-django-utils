@@ -11,6 +11,7 @@ from .internal.code_owner.utils import (
 )
 from .internal.middleware import (
     CachedCustomMonitoringMiddleware,
+    CookieMonitoringMiddleware,
     DeploymentMonitoringMiddleware,
     MonitoringMemoryMiddleware
 )
