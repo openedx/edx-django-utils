@@ -106,7 +106,7 @@ lazy-object-proxy==1.7.1
     # via
     #   -r requirements/quality.txt
     #   astroid
-markupsafe==2.1.0
+markupsafe==2.1.1
     # via
     #   -r requirements/quality.txt
     #   jinja2
@@ -201,6 +201,8 @@ pytest-cov==3.0.0
     # via -r requirements/quality.txt
 pytest-django==4.5.2
     # via -r requirements/quality.txt
+python-dateutil==2.8.2
+    # via -r requirements/dev.in
 python-slugify==6.1.1
     # via
     #   -r requirements/quality.txt
@@ -223,6 +225,7 @@ six==1.16.0
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   edx-lint
+    #   python-dateutil
     #   tox
     #   virtualenv
 snowballstemmer==2.2.0
@@ -265,7 +268,7 @@ typing-extensions==4.1.1
     #   -r requirements/quality.txt
     #   astroid
     #   pylint
-urllib3==1.26.8
+urllib3==1.26.9
     # via
     #   -r requirements/ci.txt
     #   requests
