@@ -21,7 +21,7 @@ pbr==5.8.1
     # via stevedore
 psutil==5.9.0
     # via -r requirements/base.in
-pytz==2021.3
+pytz==2022.1
     # via django
 sqlparse==0.4.2
     # via django
