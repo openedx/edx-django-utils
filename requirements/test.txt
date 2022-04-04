@@ -20,13 +20,13 @@ ddt==1.4.4
     #   django-crum
 django-crum==0.7.9
     # via -r requirements/base.txt
-django-waffle==2.3.0
+django-waffle==2.4.1
     # via -r requirements/base.txt
 iniconfig==1.1.1
     # via pytest
 mock==4.0.3
     # via -r requirements/test.in
-newrelic==7.6.0.173
+newrelic==7.8.0.174
     # via -r requirements/base.txt
 packaging==21.3
     # via pytest

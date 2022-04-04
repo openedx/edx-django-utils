@@ -27,7 +27,7 @@ charset-normalizer==2.0.12
     # via
     #   -r requirements/ci.txt
     #   requests
-click==8.0.4
+click==8.1.2
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -73,7 +73,7 @@ django==3.2.12
     #   edx-i18n-tools
 django-crum==0.7.9
     # via -r requirements/quality.txt
-django-waffle==2.3.0
+django-waffle==2.4.1
     # via -r requirements/quality.txt
 edx-i18n-tools==0.9.1
     # via -r requirements/dev.in
@@ -122,7 +122,7 @@ mock==4.0.3
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
-newrelic==7.6.0.173
+newrelic==7.8.0.174
     # via -r requirements/quality.txt
 packaging==21.3
     # via
@@ -171,7 +171,7 @@ pydocstyle==6.1.1
     # via -r requirements/quality.txt
 pygments==2.11.2
     # via diff-cover
-pylint==2.13.2
+pylint==2.13.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
