@@ -24,13 +24,13 @@ cffi==1.15.0
     # via cryptography
 charset-normalizer==2.0.12
     # via requests
-colorama==0.4.4
-    # via twine
+commonmark==0.9.1
+    # via rich
 coverage[toml]==6.3.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==36.0.1
+cryptography==36.0.2
     # via secretstorage
 ddt==1.4.4
     # via -r requirements/test.txt
@@ -41,9 +41,9 @@ django==3.2.12
     #   django-crum
 django-crum==0.7.9
     # via -r requirements/test.txt
-django-waffle==2.3.0
+django-waffle==2.4.1
     # via -r requirements/test.txt
-doc8==0.10.1
+doc8==0.11.1
     # via -r requirements/doc.in
 docutils==0.17.1
     # via
@@ -65,19 +65,19 @@ iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
-jeepney==0.7.1
+jeepney==0.8.0
     # via
     #   keyring
     #   secretstorage
-jinja2==3.0.3
+jinja2==3.1.1
     # via sphinx
 keyring==23.5.0
     # via twine
-markupsafe==2.1.0
+markupsafe==2.1.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==7.6.0.173
+newrelic==7.8.0.174
     # via -r requirements/test.txt
 packaging==21.3
     # via
@@ -107,12 +107,13 @@ pygments==2.11.2
     # via
     #   doc8
     #   readme-renderer
+    #   rich
     #   sphinx
 pyparsing==3.0.7
     # via
     #   -r requirements/test.txt
     #   packaging
-pytest==7.1.0
+pytest==7.1.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -121,7 +122,7 @@ pytest-cov==3.0.0
     # via -r requirements/test.txt
 pytest-django==4.5.2
     # via -r requirements/test.txt
-pytz==2021.3
+pytz==2022.1
     # via
     #   -r requirements/test.txt
     #   babel
@@ -140,6 +141,8 @@ requests-toolbelt==0.9.1
 restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
+    # via twine
+rich==12.1.0
     # via twine
 secretstorage==3.3.1
     # via keyring
@@ -179,17 +182,17 @@ tomli==2.0.1
     #   -r requirements/test.txt
     #   coverage
     #   pytest
-tqdm==4.63.0
-    # via twine
-twine==3.8.0
+twine==4.0.0
     # via -r requirements/doc.in
-urllib3==1.26.8
+typing-extensions==4.1.1
+    # via rich
+urllib3==1.26.9
     # via
     #   requests
     #   twine
 webencodings==0.5.1
     # via bleach
-zipp==3.7.0
+zipp==3.8.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:

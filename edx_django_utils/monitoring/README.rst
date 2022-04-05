@@ -20,22 +20,39 @@ Here is how you add the middleware:
 .. code-block::
 
     MIDDLEWARE = (
-        'edx_django_utils.monitoring.DeploymentMonitoringMiddleware',
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
-        # Generate code ownership attributes. Keep this immediately after RequestCacheMiddleware.
-        ...
-        # Monitoring middleware must come after RequestCacheMiddleware
+
+        # Add monitoring middleware immediately after RequestCacheMiddleware
+        'edx_django_utils.monitoring.DeploymentMonitoringMiddleware',
+        'edx_django_utils.monitoring.CookieMonitoringMiddleware',
         'edx_django_utils.monitoring.CodeOwnerMonitoringMiddleware',
         'edx_django_utils.monitoring.CachedCustomMonitoringMiddleware',
         'edx_django_utils.monitoring.MonitoringMemoryMiddleware',
     )
 
-Monitoring Memory Usage
------------------------
+Cached Custom Monitoring Middleware
+-----------------------------------
 
-In addition to adding the MonitoringMemoryMiddleware, you will need to enable a waffle switch ``edx_django_utils.monitoring.enable_memory_middleware`` to enable the additional monitoring.
+The middleware ``CachedCustomMonitoringMiddleware`` is required to allow certain utility methods, like ``accumulate`` and ``increment``, to work appropriately.
 
 Code Owner Custom Attribute
 ---------------------------
 
-See docstrings for ``CodeOwnerMonitoringMiddleware`` for configuring the ``code_owner`` custom attribute for your IDA.
+See docstring for ``CodeOwnerMonitoringMiddleware`` for configuring the ``code_owner`` custom attribute for your IDA.
+
+Cookie Monitoring Middleware
+----------------------------
+
+See docstring for configuring ``CookieMonitoringMiddleware`` to monitor cookie header size.
+
+Also see ``monitoring/scripts/process_cookie_monitoring_logs.py`` for processing log messages.
+
+Deployment Monitoring Middleware
+--------------------------------
+
+Simply add ``DeploymentMonitoringMiddleware`` to monitor the python and django version of each request. See docstring for details.
+
+Monitoring Memory Usage
+-----------------------
+
+In addition to adding the MonitoringMemoryMiddleware, you will need to enable a waffle switch ``edx_django_utils.monitoring.enable_memory_middleware`` to enable the additional monitoring.

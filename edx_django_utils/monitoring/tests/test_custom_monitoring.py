@@ -1,8 +1,9 @@
 """
-Tests for custom monitoring.
+Tests for CachedCustomMonitoringMiddleware and associated utilities.
+
+Note: See test_middleware.py for the rest of the middleware tests.
 """
-import re
-from unittest.mock import Mock, call, patch
+from unittest.mock import call, patch
 
 import ddt
 from django.test import TestCase
@@ -10,7 +11,6 @@ from django.test import TestCase
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (
     CachedCustomMonitoringMiddleware,
-    DeploymentMonitoringMiddleware,
     accumulate,
     get_current_transaction,
     increment,
@@ -151,37 +151,3 @@ class TestCustomMonitoringMiddleware(TestCase):
     def test_record_exception(self, mock_record_exception):
         record_exception()
         mock_record_exception.assert_called_once()
-
-
-class TestDeploymentMonitoringMiddleware(TestCase):
-    """
-    Test the DeploymentMonitoringMiddleware functionalities
-    """
-    version_pattern = r'\d+(\.\d+){2}'
-
-    def setUp(self):
-        super().setUp()
-        RequestCache.clear_all_namespaces()
-
-    def _test_key_value_pair(self, function_call, key):
-        """
-        Asserts the function call key and value with the provided key and the default version_pattern
-        """
-        attribute_key, attribute_value = function_call[0]
-        assert attribute_key == key
-        assert re.match(re.compile(self.version_pattern), attribute_value)
-
-    @patch('newrelic.agent')
-    def test_record_python_and_django_version(self, mock_newrelic_agent):
-        """
-        Test that the DeploymentMonitoringMiddleware records the correct Python and Django versions
-        """
-        middleware = DeploymentMonitoringMiddleware(Mock())
-        middleware(Mock())
-
-        parameter_calls_count = mock_newrelic_agent.add_custom_parameter.call_count
-        assert parameter_calls_count == 2
-
-        function_calls = mock_newrelic_agent.add_custom_parameter.call_args_list
-        self._test_key_value_pair(function_calls[0], 'python_version')
-        self._test_key_value_pair(function_calls[1], 'django_version')
