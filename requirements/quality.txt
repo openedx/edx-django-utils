@@ -62,7 +62,7 @@ mccabe==0.7.0
     # via pylint
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==7.8.0.174
+newrelic==7.10.0.175
     # via -r requirements/test.txt
 packaging==21.3
     # via
@@ -88,7 +88,7 @@ pycodestyle==2.8.0
     # via -r requirements/quality.in
 pydocstyle==6.1.1
     # via -r requirements/quality.in
-pylint==2.13.4
+pylint==2.13.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -102,7 +102,7 @@ pylint-plugin-utils==0.7
     # via
     #   pylint-celery
     #   pylint-django
-pyparsing==3.0.7
+pyparsing==3.0.8
     # via
     #   -r requirements/test.txt
     #   packaging
