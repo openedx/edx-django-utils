@@ -6,7 +6,7 @@
 #
 asgiref==3.5.0
     # via django
-django==3.2.12
+django==3.2.13
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
