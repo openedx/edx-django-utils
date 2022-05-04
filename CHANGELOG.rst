@@ -14,6 +14,11 @@ Change Log
 Unreleased
 ----------
 
+[4.8.0] - 2022-05-06
+--------------------
+
+* Added ability to log headers when a corrupted cookie is detected in a large (or sampled) cookie header
+
 [4.7.0] - 2022-05-05
 --------------------
 
