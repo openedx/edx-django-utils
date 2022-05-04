@@ -16,8 +16,13 @@ attrs==21.4.0
     # via
     #   -r requirements/test.txt
     #   pytest
-click==8.1.2
+cffi==1.15.0
     # via
+    #   -r requirements/test.txt
+    #   pynacl
+click==8.1.3
+    # via
+    #   -r requirements/test.txt
     #   click-log
     #   code-annotations
     #   edx-lint
@@ -86,6 +91,10 @@ py==1.11.0
     #   pytest
 pycodestyle==2.8.0
     # via -r requirements/quality.in
+pycparser==2.21
+    # via
+    #   -r requirements/test.txt
+    #   cffi
 pydocstyle==6.1.1
     # via -r requirements/quality.in
 pylint==2.13.7
@@ -102,6 +111,8 @@ pylint-plugin-utils==0.7
     # via
     #   pylint-celery
     #   pylint-django
+pynacl==1.5.0
+    # via -r requirements/test.txt
 pyparsing==3.0.8
     # via
     #   -r requirements/test.txt
