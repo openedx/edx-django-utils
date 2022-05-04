@@ -119,7 +119,7 @@ def cli():
 
 
 @click.command('gen-keys', help="Generate keypair")
-def cli_gen_keys():
+def cli_gen_keys():  # pragma: no cover
     """
     Generate and print a keypair for handling sensitive log messages.
     """
@@ -178,7 +178,7 @@ which is less sensitive but should also be handled with care.
     '--message-file', type=click.File('r'), required=True,
     help="Path to file containing encrypted message, or - for stdin",
 )
-def cli_decrypt(private_key_file, message_file):
+def cli_decrypt(private_key_file, message_file):  # pragma: no cover
     """
     Decrypt a message and print it to stdout.
     """
@@ -195,7 +195,7 @@ def cli_decrypt(private_key_file, message_file):
     '--message-file', type=click.File('r'), required=True,
     help="Path to file containing message to encrypt, or - for stdin",
 )
-def cli_encrypt(public_key, message_file):
+def cli_encrypt(public_key, message_file):  # pragma: no cover
     """
     Encrypt a message to the provided public key and print it to stdout.
 
