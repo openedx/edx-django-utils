@@ -3,7 +3,7 @@ Utilities for logging sensitive debug information such as authentication tokens.
 
 Usage:
 
-1. Generate keys using ``python3 -m common.djangoapps.util.log_sensitive gen-keys``
+1. Generate keys using ``python3 -m edx_django_utils.logging.log_sensitive gen-keys``
 2. Follow the instructions it prints out, and pay close attention to the warning
    at the end of the output
 3. When logging sensitive information, use like so::
@@ -19,10 +19,11 @@ Usage:
 
 4. If you need to decrypt one of these messages, save the encrypted portion
    to file, retrieve the securely held private key, and run
-   ``python3 -m common.djangoapps.util.log_sensitive decrypt --help``
+   ``python3 -m edx_django_utils.logging.log_sensitive decrypt --help``
    for instructions.
 """
 
+import sys
 from base64 import b64decode, b64encode
 
 import click
@@ -127,13 +128,13 @@ def cli_gen_keys():
     public_64 = reader_keys['public']
     private_64 = reader_keys['private']
     print(
-        "This is your PUBLIC key, which should be included in the server's "
+        "The following is your PUBLIC key, which should be included in the server's "
         "configuration. Create a separate setting (and keypair) for each "
         "distinct project or team. This value does not need special protection:"
         "\n\n"
         f"  settings.<YOUR_DEBUG_PUBLIC_KEY> = \"{public_64}\""
         "\n\n"
-        "This is your PRIVATE key, which must never be present on the server "
+        "The following is your PRIVATE key, which must never be present on the server "
         "and should instead be kept encrypted in a separate, safe place "
         "such as a password manager:"
         "\n\n"
@@ -182,7 +183,11 @@ def cli_decrypt(private_key_file, message_file):
     """
     Decrypt a message and print it to stdout.
     """
-    print(decrypt_log_message(message_file.read(), private_key_file.read()))
+    message = message_file.read()
+    if 'encrypted:' in message:
+        print("ERROR: Only include the Base64, not the 'encrypted:' wrapper.", file=sys.stderr)
+        sys.exit(1)
+    print(decrypt_log_message(message, private_key_file.read()))
 
 
 @click.command('encrypt', help="Encrypt a one-off message (for testing)")
