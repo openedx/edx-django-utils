@@ -64,7 +64,7 @@ requirements: ## install development environment requirements
 	pip install -r requirements/pip.txt
 	pip install -qr requirements/pip-tools.txt
 	pip-sync requirements/dev.txt requirements/private.*
-	pip install -e . # CLI entry points
+	pip install . # CLI entry points
 
 test: clean ## run tests in the current virtualenv
 	pytest
