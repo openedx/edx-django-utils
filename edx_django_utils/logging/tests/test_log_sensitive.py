@@ -7,7 +7,7 @@ import subprocess
 
 import pytest
 
-from edx_django_utils.logging.log_sensitive import decrypt_log_message, encrypt_for_log, generate_reader_keys
+from edx_django_utils.logging.internal.log_sensitive import decrypt_log_message, encrypt_for_log, generate_reader_keys
 
 
 def test_encryption_no_key():
@@ -40,8 +40,8 @@ def test_encryption_round_trip():
 def test_full_cli(tmp_path):
     def do_call(args, stdin=None):
         return subprocess.run(
-            ['python3', '-m', 'edx_django_utils.logging.log_sensitive', *args],
-            check=True, capture_output=True, input=(stdin.encode() if stdin else None),
+            ['log_sensitive', *args], check=True,
+            input=(stdin.encode() if stdin else None), capture_output=True,
         ).stdout.decode()
 
     # Generate keys and save the private key to file

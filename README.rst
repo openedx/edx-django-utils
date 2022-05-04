@@ -28,6 +28,8 @@ This repository includes shared utilities for:
 
 .. _Monitoring Utilities: edx_django_utils/monitoring/README.rst
 
+.. _Logging Utilities: edx_django_utils/logging/README.rst
+
 .. _Plugin Infrastructure: edx_django_utils/plugins/README.rst
 
 .. _Django User and Group Utilities: edx_django_utils/user/README.rst
