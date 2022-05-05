@@ -116,6 +116,11 @@ setup(
     ],
     include_package_data=True,
     install_requires=load_requirements('requirements/base.in'),
+    entry_points={
+        'console_scripts': [
+            'log-sensitive = edx_django_utils.logging.internal.log_sensitive:cli',
+        ],
+    },
     license="AGPL 3.0",
     zip_safe=False,
     keywords='Django edx',

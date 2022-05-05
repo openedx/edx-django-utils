@@ -9,3 +9,5 @@ psutil                    # Library for retrieving information on running proces
                           # NOTE: psutil pinned to match edx-platform version. Will need to be updated at the same time.
 stevedore                 # Used by plugins to make importing easier
 django-crum               # Used by logging filters
+PyNaCl                    # User-friendly cryptography (wrapper and bindings for libsodium)
+click                     # CLI tools
