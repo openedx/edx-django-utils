@@ -118,7 +118,7 @@ setup(
     install_requires=load_requirements('requirements/base.in'),
     entry_points={
         'console_scripts': [
-            'log_sensitive = edx_django_utils.logging.internal.log_sensitive:cli',
+            'log-sensitive = edx_django_utils.logging.internal.log_sensitive:cli',
         ],
     },
     license="AGPL 3.0",

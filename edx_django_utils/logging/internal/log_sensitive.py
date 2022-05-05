@@ -3,7 +3,7 @@ Utilities for logging sensitive debug information such as authentication tokens.
 
 Usage:
 
-1. Generate keys using ``log_sensitive gen-keys``
+1. Generate keys using ``log-sensitive gen-keys``
 2. Follow the instructions it prints out, and pay close attention to the warning
    at the end of the output
 3. When logging sensitive information, use like so::
@@ -19,7 +19,7 @@ Usage:
 
 4. If you need to decrypt one of these messages, save the encrypted portion
    to file, retrieve the securely held private key, and run
-   ``log_sensitive decrypt --help`` for instructions.
+   ``log-sensitive decrypt --help`` for instructions.
 """
 
 import sys

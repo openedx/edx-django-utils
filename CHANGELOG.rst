@@ -14,13 +14,13 @@ Change Log
 Unreleased
 ----------
 
-[4.7.0] - 2022-05-04
+[4.7.0] - 2022-05-05
 --------------------
 
 Added
 ~~~~~
 
-* Added ``log_sensitive`` module for encrypted logging of sensitive information
+* Added ``encrypt_for_log`` logging helper and ``log-sensitive`` CLI command for encrypted logging of sensitive information
 
 [4.6.0] - 2022-03-16
 --------------------

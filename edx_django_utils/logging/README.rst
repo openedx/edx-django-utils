@@ -16,4 +16,4 @@ Logging of sensitive information
 
 ``encrypt_for_log`` allows encrypting a string in a way appropriate for logging. See module docstring for more information.
 
-This package also exposes a CLI command ``log_sensitive`` for key generation and decryption.
+This package also exposes a CLI command ``log-sensitive`` for key generation and decryption.

@@ -40,7 +40,7 @@ def test_encryption_round_trip():
 def test_full_cli(tmp_path):
     def do_call(args, stdin=None):
         return subprocess.run(
-            ['log_sensitive', *args], check=True,
+            ['log-sensitive', *args], check=True,
             input=(stdin.encode() if stdin else None), capture_output=True,
         ).stdout.decode()
 
