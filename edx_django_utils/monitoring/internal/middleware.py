@@ -4,6 +4,7 @@ Middleware for monitoring.
 At this time, monitoring details can only be reported to New Relic.
 
 """
+import json
 import logging
 import platform
 import random
@@ -17,6 +18,7 @@ from django.conf import settings
 from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
+from edx_django_utils.logging import encrypt_for_log
 
 log = logging.getLogger(__name__)
 try:
@@ -312,6 +314,7 @@ class CookieMonitoringMiddleware:
 
             - COOKIE_HEADER_SIZE_LOGGING_THRESHOLD
             - COOKIE_SAMPLING_REQUEST_COUNT
+            - UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY
 
         Returns: The message to be logged. This is returned, rather than directly
             logged, so that it can be processed at request time (before any cookies
@@ -396,4 +399,19 @@ class CookieMonitoringMiddleware:
         else:
             log_prefix = f"Sampled small (< {logging_threshold}) cookie header."
         log_message = f"{log_prefix} BEGIN-COOKIE-SIZES(total={cookie_header_size}) {sizes} END-COOKIE-SIZES"
+
+        # If we have a large (or otherwise sampled) cookie header, and
+        # there's indication of corruption, just log all the headers
+        # for later diagnosis.
+        if corrupt_cookie_count:
+            # .. setting_name: UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY
+            # .. setting_default: None
+            # .. setting_description: If set and there's a corrupt-looking cookie and cookie information
+            #   is being logged, then log the (encrypted) request headers as well. See log_sensitive
+            #   module for more detail on the encryption.
+            if cookie_encryption_pub_key := getattr(settings, 'UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY', None):
+                headers_plain = dict(request.headers.items())
+                headers_enc = encrypt_for_log(json.dumps(headers_plain), cookie_encryption_pub_key)
+                log_message += f" All headers, with {corrupt_cookie_count} likely corruptions: {headers_enc}"
+
         return log_message
