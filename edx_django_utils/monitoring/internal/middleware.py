@@ -345,10 +345,10 @@ class CookieMonitoringMiddleware:
             #   requests where other mysterious cookie problems are occurring, this may help troubleshoot.
             #   See https://openedx.atlassian.net/browse/CR-4614 for more details.
             #   Also see cookies.header.corrupt_count.
-            corrupt_key_count = sum(1 for key in request.COOKIES.keys() if 'Cookie: ' in key)
-            _set_custom_attribute('cookies.header.corrupt_key_count', corrupt_key_count)
-        else:
-            corrupt_key_count = 0
+            _set_custom_attribute(
+                'cookies.header.corrupt_key_count',
+                sum(1 for key in request.COOKIES.keys() if 'Cookie: ' in key)
+            )
 
         # .. setting_name: COOKIE_HEADER_SIZE_LOGGING_THRESHOLD
         # .. setting_default: None
@@ -403,7 +403,7 @@ class CookieMonitoringMiddleware:
         # If we have a large (or otherwise sampled) cookie header, and
         # there's indication of corruption, just log all the headers
         # for later diagnosis.
-        if corrupt_key_count:
+        if corrupt_cookie_count:
             # .. setting_name: UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY
             # .. setting_default: None
             # .. setting_description: If set and there's a corrupt-looking cookie and cookie information
@@ -412,6 +412,6 @@ class CookieMonitoringMiddleware:
             if cookie_encryption_pub_key := getattr(settings, 'UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY', None):
                 headers_plain = dict(request.headers.items())
                 headers_enc = encrypt_for_log(json.dumps(headers_plain), cookie_encryption_pub_key)
-                log_message += f" All headers, with {corrupt_key_count} likely-corrupted cookie keys: {headers_enc}"
+                log_message += f" All headers, with {corrupt_cookie_count} likely corruptions: {headers_enc}"
 
         return log_message

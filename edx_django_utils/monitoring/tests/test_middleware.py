@@ -169,22 +169,22 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
     def test_log_corrupt_cookies(self, mock_encrypt, mock_logger):
         middleware = CookieMonitoringMiddleware(self.mock_response)
         request = RequestFactory().request()
-        request.META['HTTP_COOKIE'] = 'aa=1; bCookie: bb=22; Cookie: ccc=333'
+        request.META['HTTP_COOKIE'] = 'aa=1; bCookie: bb=22; ccc=3Cookie: 33'
         request.META['HTTP_SOMETHING'] = 'else'
 
         middleware(request)
 
         # Is passed all headers
         mock_encrypt.assert_called_once_with(
-            '{"Cookie": "aa=1; bCookie: bb=22; Cookie: ccc=333", "Something": "else"}',
+            '{"Cookie": "aa=1; bCookie: bb=22; ccc=3Cookie: 33", "Something": "else"}',
             "some private key",
         )
 
         # Encrypted headers are appended, along with corrupt cookie count, if any appeared corrupted
         mock_logger.info.assert_called_once_with(
             "Large (>= 1) cookie header detected. "
-            "BEGIN-COOKIE-SIZES(total=37) Cookie: ccc: 3, bCookie: bb: 2, aa: 1 END-COOKIE-SIZES "
-            "All headers, with 2 likely-corrupted cookie keys: [encrypted: 50M3JUN|<]"
+            "BEGIN-COOKIE-SIZES(total=37) ccc: 11, bCookie: bb: 2, aa: 1 END-COOKIE-SIZES "
+            "All headers, with 2 likely corruptions: [encrypted: 50M3JUN|<]"
         )
 
     @override_settings(COOKIE_HEADER_SIZE_LOGGING_THRESHOLD=9999)
