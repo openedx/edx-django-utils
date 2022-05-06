@@ -14,10 +14,18 @@ Change Log
 Unreleased
 ----------
 
+[4.8.1] - 2022-05-06
+--------------------
+
+Added
+~~~~~
+
+* Added ability to log headers when a corrupted cookie is detected in a large (or sampled) cookie header
+
 [4.8.0] - 2022-05-06
 --------------------
 
-* Added ability to log headers when a corrupted cookie is detected in a large (or sampled) cookie header
+Bad version -- tag does not match package version, not released to PyPI. Released as 4.8.1 instead.
 
 [4.7.0] - 2022-05-05
 --------------------
