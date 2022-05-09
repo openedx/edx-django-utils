@@ -4,11 +4,11 @@
 #
 #    make upgrade
 #
-asgiref==3.5.0
+asgiref==3.5.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.11.3
+astroid==2.11.4
     # via
     #   pylint
     #   pylint-celery
@@ -57,7 +57,7 @@ isort==5.10.1
     # via
     #   -r requirements/quality.in
     #   pylint
-jinja2==3.1.1
+jinja2==3.1.2
     # via code-annotations
 lazy-object-proxy==1.7.1
     # via astroid
@@ -73,7 +73,7 @@ packaging==21.3
     # via
     #   -r requirements/test.txt
     #   pytest
-pbr==5.8.1
+pbr==5.9.0
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -97,7 +97,7 @@ pycparser==2.21
     #   cffi
 pydocstyle==6.1.1
     # via -r requirements/quality.in
-pylint==2.13.7
+pylint==2.13.8
     # via
     #   edx-lint
     #   pylint-celery
@@ -126,7 +126,7 @@ pytest-cov==3.0.0
     # via -r requirements/test.txt
 pytest-django==4.5.2
     # via -r requirements/test.txt
-python-slugify==6.1.1
+python-slugify==6.1.2
     # via code-annotations
 pytz==2022.1
     # via
@@ -158,7 +158,7 @@ typing-extensions==4.2.0
     # via
     #   astroid
     #   pylint
-wrapt==1.14.0
+wrapt==1.14.1
     # via astroid
 
 # The following packages are considered to be unsafe in a requirements file:

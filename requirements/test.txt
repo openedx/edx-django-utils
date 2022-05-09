@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.5.0
+asgiref==3.5.1
     # via
     #   -r requirements/base.txt
     #   django
@@ -36,7 +36,7 @@ newrelic==7.10.0.175
     # via -r requirements/base.txt
 packaging==21.3
     # via pytest
-pbr==5.8.1
+pbr==5.9.0
     # via
     #   -r requirements/base.txt
     #   stevedore
