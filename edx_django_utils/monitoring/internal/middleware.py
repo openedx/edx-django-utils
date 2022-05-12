@@ -4,8 +4,11 @@ Middleware for monitoring.
 At this time, monitoring details can only be reported to New Relic.
 
 """
+import base64
+import hashlib
 import json
 import logging
+import math
 import platform
 import random
 import warnings
@@ -349,6 +352,11 @@ class CookieMonitoringMiddleware:
                 'cookies.header.corrupt_key_count',
                 sum(1 for key in request.COOKIES.keys() if 'Cookie: ' in key)
             )
+            # If we have indication of corruption, just log all the headers for later diagnosis.
+            # (Not part of other cookie logging because we need as much space as possible for
+            # this log message, which can be quite large, and may need to chunk it across
+            # multiple lines.)
+            self.log_corrupt_cookie_headers(request, corrupt_cookie_count)
 
         # .. setting_name: COOKIE_HEADER_SIZE_LOGGING_THRESHOLD
         # .. setting_default: None
@@ -400,18 +408,71 @@ class CookieMonitoringMiddleware:
             log_prefix = f"Sampled small (< {logging_threshold}) cookie header."
         log_message = f"{log_prefix} BEGIN-COOKIE-SIZES(total={cookie_header_size}) {sizes} END-COOKIE-SIZES"
 
-        # If we have a large (or otherwise sampled) cookie header, and
-        # there's indication of corruption, just log all the headers
-        # for later diagnosis.
-        if corrupt_cookie_count:
-            # .. setting_name: UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY
-            # .. setting_default: None
-            # .. setting_description: If set and there's a corrupt-looking cookie and cookie information
-            #   is being logged, then log the (encrypted) request headers as well. See log_sensitive
-            #   module for more detail on the encryption.
-            if cookie_encryption_pub_key := getattr(settings, 'UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY', None):
-                headers_plain = dict(request.headers.items())
-                headers_enc = encrypt_for_log(json.dumps(headers_plain), cookie_encryption_pub_key)
-                log_message += f" All headers, with {corrupt_cookie_count} likely corruptions: {headers_enc}"
-
         return log_message
+
+    def log_corrupt_cookie_headers(self, request, corrupt_cookie_count):
+        """
+        Log all headers when corrupt cookies are detected (if settings permit).
+
+        This log data is encrypted using the log-sensitive utility.
+
+        - Logging requires that ``UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY`` is set.
+        - Output is split across multiple lines using ``UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK``.
+        """
+        # Caller should ensure this, but check here anyway.
+        if corrupt_cookie_count < 1:
+            return
+
+        # .. setting_name: UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY
+        # .. setting_default: None
+        # .. setting_description: Use this public key to encrypt and log headers when there's
+        #   a corrupted-looking cookie in the request. See log_sensitive module for more detail
+        #   on the encryption. If no key is provided, this logging is skipped. Also see
+        #   ``UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK``.
+        corrupt_cookie_log_pub_key = getattr(settings, 'UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY', None)
+
+        if not corrupt_cookie_log_pub_key:
+            return
+
+        # .. setting_name: UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK
+        # .. setting_default: 9000
+        # .. setting_description: If necessary, logs data in chunks of this size, splitting across
+        #   multiple log messages. This should be set with your deployment's maximum log message
+        #   size in mind: Setting it too high may result in truncated messages, which will prevent
+        #   decryption (CryptoError).
+        chunk_size = getattr(settings, 'UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK', 9000)
+
+        header_data = json.dumps(dict(request.headers.items()))
+        enc_output = encrypt_for_log(header_data, corrupt_cookie_log_pub_key)
+        msg = f"All headers for request with corrupted cookies (count={corrupt_cookie_count}): {enc_output}"
+
+        for piece in split_ascii_log_message(msg, chunk_size):
+            log.info(piece)
+
+
+def split_ascii_log_message(msg, chunk_size):
+    """
+    Generator that splits a message string into chunks of at most ``chunk_size`` characters.
+
+    Message must consist of single-byte (ASCII-range) characters, otherwise chunks will
+    not reliably be capped at the ``chunk_size``.
+
+    A small collation tag will be added to the end of each chunk, and it may not be possible
+    to reliably predict the length of a log message's prefix (in its final output format), so
+    the ``chunk_size`` should be set conservatively.
+    """
+    chunk_count = math.ceil(len(msg) / chunk_size)
+    if chunk_count <= 1:
+        yield msg  # no need for continuation messages
+    else:
+        # Generate a unique-enough collation ID for this message.
+        h = hashlib.shake_128(msg.encode()).digest(6)  # pylint/#4039 pylint: disable=too-many-function-args
+        group_id = base64.b64encode(h).decode().rstrip('=')
+
+        for i in range(chunk_count):
+            chunk = msg[i*chunk_size:(i + 1)*chunk_size]
+            if i < chunk_count - 1:
+                continue_desc = "continues"
+            else:
+                continue_desc = "final"
+            yield f"{chunk} [chunk #{i + 1}, group={group_id} {continue_desc}]"
