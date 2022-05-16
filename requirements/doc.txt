@@ -31,7 +31,7 @@ click==8.1.3
     # via -r requirements/test.txt
 commonmark==0.9.1
     # via rich
-coverage[toml]==6.3.2
+coverage[toml]==6.3.3
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -117,7 +117,7 @@ pygments==2.12.0
     #   sphinx
 pynacl==1.5.0
     # via -r requirements/test.txt
-pyparsing==3.0.8
+pyparsing==3.0.9
     # via
     #   -r requirements/test.txt
     #   packaging
