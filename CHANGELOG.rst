@@ -14,6 +14,17 @@ Change Log
 Unreleased
 ----------
 
+[4.9.0] - 2022-05-19
+--------------------
+
+Changed
+~~~~~~~
+
+* Corrupt cookie logging:
+
+  * Now independent of other cookie logging; no longer needs to meet cookie size threshold or sampling rate.
+  * New setting ``UNUSUAL_COOKIE_HEADER_LOG_CHUNK`` helps avoid truncated (non-decryptable) messages by splitting the output across multiple log messages.
+
 [4.8.1] - 2022-05-06
 --------------------
 

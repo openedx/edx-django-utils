@@ -162,7 +162,7 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
 
     @override_settings(
         COOKIE_HEADER_SIZE_LOGGING_THRESHOLD=1,
-        UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY="some private key",
+        UNUSUAL_COOKIE_HEADER_PUBLIC_KEY="some private key",
     )
     @patch('edx_django_utils.monitoring.internal.middleware.log', autospec=True)
     @patch("edx_django_utils.monitoring.internal.middleware.encrypt_for_log", return_value="[encrypted: 50M3JUN|<]")
@@ -180,12 +180,54 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
             "some private key",
         )
 
-        # Encrypted headers are appended, along with corrupt cookie count, if any appeared corrupted
-        mock_logger.info.assert_called_once_with(
-            "Large (>= 1) cookie header detected. "
-            "BEGIN-COOKIE-SIZES(total=37) ccc: 11, bCookie: bb: 2, aa: 1 END-COOKIE-SIZES "
-            "All headers, with 2 likely corruptions: [encrypted: 50M3JUN|<]"
+        # Encrypted headers are logged in additional message if any cookies appeared corrupted.
+        mock_logger.info.assert_has_calls([
+            call("All headers for request with corrupted cookies (count=2): [encrypted: 50M3JUN|<]"),
+            call(
+                "Large (>= 1) cookie header detected. "
+                "BEGIN-COOKIE-SIZES(total=37) ccc: 11, bCookie: bb: 2, aa: 1 END-COOKIE-SIZES"
+            ),
+        ])
+
+    @override_settings(
+        COOKIE_HEADER_SIZE_LOGGING_THRESHOLD=1,
+        UNUSUAL_COOKIE_HEADER_PUBLIC_KEY="some private key",
+        UNUSUAL_COOKIE_HEADER_LOG_CHUNK=75,
+    )
+    @patch('edx_django_utils.monitoring.internal.middleware.log', autospec=True)
+    @patch(
+        "edx_django_utils.monitoring.internal.middleware.encrypt_for_log",
+        return_value="[encrypted: 50M3JUN|<_aaaabbbbccccdddd]"
+    )
+    def test_log_corrupt_cookies_split(self, mock_encrypt, mock_logger):
+        """
+        Like ``test_log_corrupt_cookies`` but with message splitting.
+        """
+        middleware = CookieMonitoringMiddleware(self.mock_response)
+        request = RequestFactory().request()
+        request.META['HTTP_COOKIE'] = 'aa=1; bCookie: bb=22; ccc=3Cookie: 33'
+        request.META['HTTP_SOMETHING'] = 'else'
+
+        middleware(request)
+
+        # Is passed all headers
+        mock_encrypt.assert_called_once_with(
+            '{"Cookie": "aa=1; bCookie: bb=22; ccc=3Cookie: 33", "Something": "else"}',
+            "some private key",
         )
+
+        # Encrypted headers are logged across multiple messages if too large.
+        mock_logger.info.assert_has_calls([
+            call(
+                "All headers for request with corrupted cookies (count=2): "
+                "[encrypted: 50M3J [chunk #1, group=OUMTkx5O continues]"
+            ),
+            call("UN|<_aaaabbbbccccdddd] [chunk #2, group=OUMTkx5O final]"),
+            call(
+                "Large (>= 1) cookie header detected. "
+                "BEGIN-COOKIE-SIZES(total=37) ccc: 11, bCookie: bb: 2, aa: 1 END-COOKIE-SIZES"
+            ),
+        ])
 
     @override_settings(COOKIE_HEADER_SIZE_LOGGING_THRESHOLD=9999)
     @override_settings(COOKIE_SAMPLING_REQUEST_COUNT=1)
