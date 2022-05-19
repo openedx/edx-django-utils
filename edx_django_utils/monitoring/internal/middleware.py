@@ -455,6 +455,18 @@ class CookieMonitoringMiddleware:
             log.info(piece)
 
 
+# This function should be cleaned up and made into a general logging utility, but it will first
+# need some work to make it able to handle multibyte characters.
+#
+# - If you split on character count, then you may exceed the line size if there are a large number
+#   of multibyte characters.
+# - If you split on byte count, then multibyte characters like "犬" run a risk of being split
+#   between the bytes, resulting in b'ç' and 'b\x8a¬' and no easy way to reconstruct the data.
+#
+# It may be that there's some library that already does this. In the meantime, this code should be
+# sufficient for corrupted cookie logging, with its known-character-range code.
+#
+# If it is separated out, it should get its own setting, maybe `LONG_LOG_MESSAGE_CHUNK_SIZE`.
 def split_ascii_log_message(msg, chunk_size):
     """
     Generator that splits a message string into chunks of at most ``chunk_size`` characters.
