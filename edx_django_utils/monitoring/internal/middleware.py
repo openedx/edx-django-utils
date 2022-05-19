@@ -295,8 +295,10 @@ class CookieMonitoringMiddleware:
         """
         Add logging and custom attributes for monitoring cookie sizes.
 
-        Don't log contents of cookies because that might cause a security issue.
-        We just want to see if any cookies are growing out of control.
+        For cookie size monitoring, we don't log raw contents of cookies because that might
+        cause a security issue—we just want to see if any cookies are growing out of control.
+        However, there is also an option for encrypted logging of cookie data where there
+        appears to be some kind of data corruption occurring.
 
         Useful NRQL Queries:
 
@@ -317,7 +319,8 @@ class CookieMonitoringMiddleware:
 
             - COOKIE_HEADER_SIZE_LOGGING_THRESHOLD
             - COOKIE_SAMPLING_REQUEST_COUNT
-            - UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY
+            - UNUSUAL_COOKIE_HEADER_PUBLIC_KEY
+            - UNUSUAL_COOKIE_HEADER_LOG_CHUNK
 
         Returns: The message to be logged. This is returned, rather than directly
             logged, so that it can be processed at request time (before any cookies
@@ -416,31 +419,31 @@ class CookieMonitoringMiddleware:
 
         This log data is encrypted using the log-sensitive utility.
 
-        - Logging requires that ``UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY`` is set.
-        - Output is split across multiple lines using ``UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK``.
+        - Logging requires that ``UNUSUAL_COOKIE_HEADER_PUBLIC_KEY`` is set.
+        - Output is split across multiple lines using ``UNUSUAL_COOKIE_HEADER_LOG_CHUNK``.
         """
         # Caller should ensure this, but check here anyway.
         if corrupt_cookie_count < 1:
             return
 
-        # .. setting_name: UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY
+        # .. setting_name: UNUSUAL_COOKIE_HEADER_PUBLIC_KEY
         # .. setting_default: None
         # .. setting_description: Use this public key to encrypt and log headers when there's
         #   a corrupted-looking cookie in the request. See log_sensitive module for more detail
         #   on the encryption. If no key is provided, this logging is skipped. Also see
-        #   ``UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK``.
-        corrupt_cookie_log_pub_key = getattr(settings, 'UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY', None)
+        #   ``UNUSUAL_COOKIE_HEADER_LOG_CHUNK``.
+        corrupt_cookie_log_pub_key = getattr(settings, 'UNUSUAL_COOKIE_HEADER_PUBLIC_KEY', None)
 
         if not corrupt_cookie_log_pub_key:
             return
 
-        # .. setting_name: UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK
+        # .. setting_name: UNUSUAL_COOKIE_HEADER_LOG_CHUNK
         # .. setting_default: 9000
         # .. setting_description: If necessary, logs data in chunks of this size, splitting across
         #   multiple log messages. This should be set with your deployment's maximum log message
         #   size in mind: Setting it too high may result in truncated messages, which will prevent
         #   decryption (CryptoError).
-        chunk_size = getattr(settings, 'UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK', 9000)
+        chunk_size = getattr(settings, 'UNUSUAL_COOKIE_HEADER_LOG_CHUNK', 9000)
 
         header_data = json.dumps(dict(request.headers.items()))
         enc_output = encrypt_for_log(header_data, corrupt_cookie_log_pub_key)

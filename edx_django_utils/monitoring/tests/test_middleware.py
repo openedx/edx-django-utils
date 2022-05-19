@@ -162,7 +162,7 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
 
     @override_settings(
         COOKIE_HEADER_SIZE_LOGGING_THRESHOLD=1,
-        UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY="some private key",
+        UNUSUAL_COOKIE_HEADER_PUBLIC_KEY="some private key",
     )
     @patch('edx_django_utils.monitoring.internal.middleware.log', autospec=True)
     @patch("edx_django_utils.monitoring.internal.middleware.encrypt_for_log", return_value="[encrypted: 50M3JUN|<]")
@@ -191,8 +191,8 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
 
     @override_settings(
         COOKIE_HEADER_SIZE_LOGGING_THRESHOLD=1,
-        UNUSUAL_COOKIE_SAMPLING_PUBLIC_KEY="some private key",
-        UNUSUAL_COOKIE_SAMPLING_LOG_CHUNK=75,
+        UNUSUAL_COOKIE_HEADER_PUBLIC_KEY="some private key",
+        UNUSUAL_COOKIE_HEADER_LOG_CHUNK=75,
     )
     @patch('edx_django_utils.monitoring.internal.middleware.log', autospec=True)
     @patch(
