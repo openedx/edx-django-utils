@@ -441,8 +441,10 @@ class CookieMonitoringMiddleware:
         # .. setting_default: 9000
         # .. setting_description: If necessary, logs data in chunks of this size, splitting across
         #   multiple log messages. This should be set with your deployment's maximum log message
-        #   size in mind: Setting it too high may result in truncated messages, which will prevent
-        #   decryption (CryptoError).
+        #   size in mind. Setting it too high may result in truncated messages, which will prevent
+        #   decryption (CryptoError). Since there is a relatively constant-size prefix on all log
+        #   messages (date, module, etc.) this chunk size should be at least 500 bytes shorter than
+        #   the max log message size to provide a reasonable margin of safety.
         chunk_size = getattr(settings, 'UNUSUAL_COOKIE_HEADER_LOG_CHUNK', 9000)
 
         header_data = json.dumps(dict(request.headers.items()))
@@ -462,7 +464,7 @@ def split_ascii_log_message(msg, chunk_size):
 
     A small collation tag will be added to the end of each chunk, and it may not be possible
     to reliably predict the length of a log message's prefix (in its final output format), so
-    the ``chunk_size`` should be set conservatively.
+    the ``chunk_size`` should be set considerably smaller than max log message size.
     """
     chunk_count = math.ceil(len(msg) / chunk_size)
     if chunk_count <= 1:
