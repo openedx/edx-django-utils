@@ -17,6 +17,8 @@ This repository includes shared utilities for:
 
 * `Cache Utilities`_: Includes a RequestCache and a TieredCache.
 
+* `Cookie Consent`_: Utilities for respecting user cookie consent.
+
 * `Django User and Group Utilities`_: Includes user and group utilities.
 
 * `Logging Utilities`_: Includes log filters and an encrypted logging helper.
@@ -27,6 +29,8 @@ This repository includes shared utilities for:
 * `Plugin Infrastructure`_: Enables enhanced Django Plugin capabilities.
 
 .. _Cache Utilities: edx_django_utils/cache/README.rst
+
+.. _Cookie Consent: edx_django_utils/cookie_consent/README.rst
 
 .. _Django User and Group Utilities: edx_django_utils/user/README.rst
 
