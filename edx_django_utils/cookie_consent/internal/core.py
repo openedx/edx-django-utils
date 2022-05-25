@@ -38,13 +38,16 @@ class AcceptAll(ConsentSource):
 
 class OnlyNecessary(ConsentSource):
     """
-    Static sources that only says yes to the "strictly necessary" category.
+    Static "source" that only says yes to the "strictly necessary" category.
     """
     def has_consented(self, request, category):
         return category == 'necessary'
 
 
 class OneTrustSource(ConsentSource):
+    """
+    Interprets OneTrust's consent cookie.
+    """
     groups_re = re.compile('(?:^|&)groups=([^&]*)(?:&|$)')
 
     def parse_cookie():
@@ -53,9 +56,6 @@ class OneTrustSource(ConsentSource):
             return False
         return {kv.split(':', 1) for kv in match[1].split(',') if ':' in kv}
 
-    """
-    Interprets OneTrust's consent cookies.
-    """
     def has_consented(self, request, category):
         if category == 'necessary':
             return True
