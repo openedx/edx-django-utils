@@ -24,6 +24,18 @@ class ConsentSource(abc.ABC):
         pass
 
 
+class AcceptAll(ConsentSource):
+    """
+    Static "source" that always says yes.
+
+    This does not represent an actual consent decision, and would not be compliant
+    with privacy regulations. It is provided only as a fallback for unconfigured
+    deployments.
+    """
+    def has_consented(self, request, category):
+        return True
+
+
 class OnlyNecessary(ConsentSource):
     """
     Static sources that only says yes to the "strictly necessary" category.
@@ -57,18 +69,19 @@ class OneTrustSource(ConsentSource):
 
 
 def load_consent_source(module_class):
-    fallback = OnlyNecessary()
+    fallback = AcceptAll()
+
     if not module_class:
         return fallback
 
     try:
         cls = import_string(module_class)
     except BaseException:
-        log.warn(f"Could not load class {module_class}; defaulting to only-necessary strategy.")
+        log.warn(f"Could not load class {module_class}; defaulting to AcceptAll.")
         return fallback
 
     if not issubclass(cls, ConsentSource):
-        log.warn(f"Class {module_class} does not inherit from ConsentSource; defaulting to only-necessary strategy.")
+        log.warn(f"Class {module_class} does not inherit from ConsentSource; defaulting to AcceptAll.")
         return fallback
 
     return cls()
@@ -83,7 +96,7 @@ def has_consented(request, category):
     # .. setting_description: Indicates the class to use for making decisions about cookie consent.
     #   The class must inherit from ``edx_django_utils.cookie_consent.ConsentSource`` and implement
     #   ``has_consented``, accepting a request object and a category string. If class cannot be
-    #   found or is not specified, the OnlyNecessary class will be used, so that only necessary
-    #   cookies are read and written.
+    #   found or is not specified, the AcceptAll class will be used, so that no restrictions are
+    #   imposed (i.e. ``has_consented`` will always return ``True``).
     consent_source = load_consent_source_cached(getattr(settings, 'COOKIE_CONSENT_SOURCE', ''))
     return consent_source.has_consented(request, category)
