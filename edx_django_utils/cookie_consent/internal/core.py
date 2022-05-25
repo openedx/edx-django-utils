@@ -2,6 +2,7 @@
 Core functions for user consent.
 """
 
+import abc
 import re
 from functools import lru_cache
 
@@ -9,13 +10,18 @@ from django.conf import settings
 from django.utils.module_loading import import_string
 
 
-class ConsentSource:
+class ConsentSource(abc.ABC):
     """
     Marker class for all consent-data sources
 
     This is used to ensure that arbitrary classes cannot be instantiated by config.
     """
-    pass
+    @abc.abstractmethod
+    def has_consented(self, request, category):
+        """
+        Returns True if this cookie category is allowed for this request.
+        """
+        pass
 
 
 class OnlyNecessary(ConsentSource):
