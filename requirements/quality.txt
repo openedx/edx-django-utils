@@ -34,7 +34,7 @@ coverage[toml]==6.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-ddt==1.4.4
+ddt==1.5.0
     # via -r requirements/test.txt
 dill==0.3.5.1
     # via pylint

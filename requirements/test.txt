@@ -18,7 +18,7 @@ click==8.1.3
     # via -r requirements/base.txt
 coverage[toml]==6.4
     # via pytest-cov
-ddt==1.4.4
+ddt==1.5.0
     # via -r requirements/test.in
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
