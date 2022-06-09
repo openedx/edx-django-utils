@@ -47,7 +47,7 @@ django-crum==0.7.9
     # via -r requirements/test.txt
 django-waffle==2.5.0
     # via -r requirements/test.txt
-edx-lint==5.2.2
+edx-lint==5.2.3
     # via -r requirements/quality.in
 iniconfig==1.1.1
     # via

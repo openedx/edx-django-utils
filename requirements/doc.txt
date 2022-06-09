@@ -69,7 +69,7 @@ iniconfig==1.1.1
     #   pytest
 jinja2==3.1.2
     # via sphinx
-keyring==23.5.1
+keyring==23.6.0
     # via twine
 markupsafe==2.1.1
     # via jinja2
@@ -86,7 +86,7 @@ pbr==5.9.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.8.2
+pkginfo==1.8.3
     # via twine
 pluggy==1.0.0
     # via
