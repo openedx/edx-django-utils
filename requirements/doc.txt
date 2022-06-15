@@ -75,7 +75,7 @@ markupsafe==2.1.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==7.10.0.175
+newrelic==7.12.0.176
     # via -r requirements/test.txt
 packaging==21.3
     # via
@@ -132,7 +132,7 @@ readme-renderer==35.0
     # via
     #   -r requirements/doc.in
     #   twine
-requests==2.27.1
+requests==2.28.0
     # via
     #   requests-toolbelt
     #   sphinx

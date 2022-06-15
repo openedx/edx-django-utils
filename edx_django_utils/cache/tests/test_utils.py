@@ -211,7 +211,10 @@ class CacheResponseTests(TestCase):  # pylint: disable=missing-class-docstring
         with self.assertRaises(AttributeError):
             cached_response.value  # pylint: disable=pointless-statement
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE_2)
-        self.assertIn('CachedResponse(is_found={}, key={}'.format(False, TEST_KEY), repr(cached_response))
+        self.assertIn(
+            'CachedResponse(is_found={}, key={}'.format(False, TEST_KEY),
+            cached_response.__repr__()  # pylint: disable=unnecessary-dunder-call
+        )
 
     def test_is_hit(self):
         is_found = True
@@ -220,7 +223,10 @@ class CacheResponseTests(TestCase):  # pylint: disable=missing-class-docstring
         self.assertEqual(cached_response.key, TEST_KEY)
         self.assertEqual(cached_response.value, EXPECTED_VALUE)
         self.assertEqual(cached_response.get_value_or_default(EXPECTED_VALUE_2), EXPECTED_VALUE)
-        self.assertIn('CachedResponse(is_found={}, key={}'.format(True, TEST_KEY), repr(cached_response))
+        self.assertIn(
+            'CachedResponse(is_found={}, key={}'.format(True, TEST_KEY),
+            cached_response.__repr__()  # pylint: disable=unnecessary-dunder-call
+        )
 
     def test_cached_response_equals(self):
         self.assertEqual(
