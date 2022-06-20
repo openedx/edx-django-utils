@@ -14,15 +14,16 @@ attrs==21.4.0
     # via
     #   -r requirements/test.txt
     #   pytest
-babel==2.10.1
+babel==2.10.3
     # via sphinx
 bleach==5.0.0
     # via readme-renderer
-certifi==2022.5.18.1
+certifi==2022.6.15
     # via requests
 cffi==1.15.0
     # via
     #   -r requirements/test.txt
+    #   cryptography
     #   pynacl
 charset-normalizer==2.0.12
     # via requests
@@ -34,6 +35,8 @@ coverage[toml]==6.4.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
+cryptography==37.0.2
+    # via secretstorage
 ddt==1.5.0
     # via -r requirements/test.txt
 django==3.2.13
@@ -67,6 +70,10 @@ iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
+jeepney==0.8.0
+    # via
+    #   keyring
+    #   secretstorage
 jinja2==3.1.2
     # via sphinx
 keyring==23.6.0
@@ -145,6 +152,8 @@ rfc3986==2.0.0
     # via twine
 rich==12.4.4
     # via twine
+secretstorage==3.3.2
+    # via keyring
 six==1.16.0
     # via
     #   bleach
