@@ -1,6 +1,11 @@
 How to enable plugins for an IDA
 ================================
 
+Overview
+--------
+
+Plugins are meant to be automatically discovered and installed by an Independently Deployable Application (IDA). In order for an IDA to recognize and install plugins, a one time setup is required in each IDA. This how-to guide is for this one-time preparation of an IDA.
+
 Django Projects
 ---------------
 
