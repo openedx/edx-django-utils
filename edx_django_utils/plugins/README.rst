@@ -62,7 +62,7 @@ Enable Plugins in an IDA
 
 `Instructions to enable plugins for an IDA`_
 
-.. _Instructions to Enable plugins in your ida: https://github.com/edx/edx-django-utils/blob/master/docs/how_tos/how_to_enable_plugins_for_an_ida.rst
+.. _Instructions to enable plugins for an IDA: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/plugins/docs/how_tos/how_to_enable_plugins_for_an_ida.rst
 
 
 Plugin Apps
