@@ -25,7 +25,7 @@ cffi==1.15.0
     # via
     #   -r requirements/quality.txt
     #   pynacl
-chardet==4.0.0
+chardet==5.0.0
     # via diff-cover
 charset-normalizer==2.0.12
     # via
@@ -289,7 +289,7 @@ urllib3==1.26.9
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.14.1
+virtualenv==20.15.0
     # via
     #   -r requirements/ci.txt
     #   tox
