@@ -10,7 +10,7 @@ asgiref==3.5.2
     #   django
 attrs==21.4.0
     # via pytest
-cffi==1.15.0
+cffi==1.15.1
     # via
     #   -r requirements/base.txt
     #   pynacl
@@ -32,7 +32,7 @@ iniconfig==1.1.1
     # via pytest
 mock==4.0.3
     # via -r requirements/test.in
-newrelic==7.12.0.176
+newrelic==7.14.0.177
     # via -r requirements/base.txt
 packaging==21.3
     # via pytest
