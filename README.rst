@@ -39,9 +39,7 @@ This repository includes shared utilities for:
 Documentation
 -------------
 
-The full documentation is in the docs directory.
-
-TODO: Publish to https://edx-django-utils.readthedocs.org.
+The full documentation is in the docs directory, and is published to https://edx-django-utils.readthedocs.org.
 
 Development Workflow
 --------------------
