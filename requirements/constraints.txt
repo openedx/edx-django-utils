@@ -18,3 +18,6 @@ diff-cover<6.2.2
 
 # greater version failing docs build
 sphinx==4.2.0
+
+# version 1.0.0 requires docutils >0.19 but sphinx@4.2.0 needs docutils<0.18
+doc8<1.0.0
