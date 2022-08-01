@@ -10,7 +10,7 @@ asgiref==3.5.2
     # via
     #   -r requirements/test.txt
     #   django
-attrs==21.4.0
+attrs==22.1.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -23,7 +23,6 @@ certifi==2022.6.15
 cffi==1.15.1
     # via
     #   -r requirements/test.txt
-    #   cryptography
     #   pynacl
 charset-normalizer==2.1.0
     # via requests
@@ -35,8 +34,6 @@ coverage[toml]==6.4.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==37.0.4
-    # via secretstorage
 ddt==1.5.0
     # via -r requirements/test.txt
 django==3.2.14
@@ -49,7 +46,9 @@ django-crum==0.7.9
 django-waffle==2.6.0
     # via -r requirements/test.txt
 doc8==0.11.2
-    # via -r requirements/doc.in
+    # via
+    #   -c requirements/constraints.txt
+    #   -r requirements/doc.in
 docutils==0.17.1
     # via
     #   doc8
@@ -70,10 +69,6 @@ iniconfig==1.1.1
     # via
     #   -r requirements/test.txt
     #   pytest
-jeepney==0.8.0
-    # via
-    #   keyring
-    #   secretstorage
 jinja2==3.1.2
     # via sphinx
 keyring==23.7.0
@@ -152,8 +147,6 @@ rfc3986==2.0.0
     # via twine
 rich==12.5.1
     # via twine
-secretstorage==3.3.2
-    # via keyring
 six==1.16.0
     # via
     #   bleach
@@ -194,7 +187,7 @@ twine==4.0.1
     # via -r requirements/doc.in
 typing-extensions==4.3.0
     # via rich
-urllib3==1.26.10
+urllib3==1.26.11
     # via
     #   requests
     #   twine

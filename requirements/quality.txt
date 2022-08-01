@@ -12,7 +12,7 @@ astroid==2.11.7
     # via
     #   pylint
     #   pylint-celery
-attrs==21.4.0
+attrs==22.1.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -89,7 +89,7 @@ py==1.11.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pycodestyle==2.8.0
+pycodestyle==2.9.0
     # via -r requirements/quality.in
 pycparser==2.21
     # via
