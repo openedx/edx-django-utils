@@ -19,7 +19,7 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==2.6.0
     # via -r requirements/base.in
-newrelic==7.16.0.178
+newrelic==8.0.0.179
     # via -r requirements/base.in
 pbr==5.10.0
     # via stevedore
