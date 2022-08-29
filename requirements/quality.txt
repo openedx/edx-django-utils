@@ -8,7 +8,7 @@ asgiref==3.5.2
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.11.7
+astroid==2.12.4
     # via
     #   pylint
     #   pylint-celery
@@ -45,7 +45,7 @@ django==3.2.15
     #   django-crum
 django-crum==0.7.9
     # via -r requirements/test.txt
-django-waffle==2.6.0
+django-waffle==2.7.0
     # via -r requirements/test.txt
 edx-lint==5.2.4
     # via -r requirements/quality.in
@@ -97,7 +97,7 @@ pycparser==2.21
     #   cffi
 pydocstyle==6.1.1
     # via -r requirements/quality.in
-pylint==2.14.5
+pylint==2.15.0
     # via
     #   edx-lint
     #   pylint-celery
@@ -162,6 +162,3 @@ typing-extensions==4.3.0
     #   pylint
 wrapt==1.14.1
     # via astroid
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
