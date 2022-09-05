@@ -17,13 +17,13 @@ django==3.2.15
     #   django-crum
 django-crum==0.7.9
     # via -r requirements/base.in
-django-waffle==2.6.0
+django-waffle==3.0.0
     # via -r requirements/base.in
 newrelic==8.0.0.179
     # via -r requirements/base.in
 pbr==5.10.0
     # via stevedore
-psutil==5.9.1
+psutil==5.9.2
     # via -r requirements/base.in
 pycparser==2.21
     # via cffi
