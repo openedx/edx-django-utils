@@ -100,7 +100,7 @@ All tools in edx_django_utils should expose their public api in their __init__.p
 License
 -------
 
-The code in this repository is licensed under the AGPL 3.0 unless
+The code in this repository is licensed under the Apache License, Version 2.0, unless
 otherwise noted.
 
 Please see ``LICENSE.txt`` for details.

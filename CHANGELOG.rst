@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[5.0.1] - 2022-09-09
+--------------------
+
+Changed
+~~~~~~~
+
+* License has been changed from AGPL v3 to Apache v2 to reflect existing policies
+
 [5.0.0] - 2022-05-19
 --------------------
 
