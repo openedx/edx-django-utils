@@ -12,7 +12,7 @@ Context
 As part of the Security Working Group's work on SEG-34, we recognized that the `logging filters`_ for
 LMS users and remote IP addresses were not reusable by other IDAs from inside LMS.
 
-.. _logging filters: https://github.com/edx/edx-platform/blob/11e4cab6220c8c503787142f48a352410191de0a/openedx/core/djangoapps/util/log_utils.py#L16
+.. _logging filters: https://github.com/openedx/edx-platform/blob/11e4cab6220c8c503787142f48a352410191de0a/openedx/core/djangoapps/util/log_utils.py#L16
 
 Decision
 --------

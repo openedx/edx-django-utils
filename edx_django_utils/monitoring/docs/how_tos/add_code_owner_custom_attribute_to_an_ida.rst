@@ -20,7 +20,7 @@ You can now easily add this same attribute to any IDA so that your dashboards an
 
 If you want to know about custom attributes in general, see :doc:`using_custom_attributes`.
 
-.. _ADR on monitoring by code owner: https://github.com/edx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
+.. _ADR on monitoring by code owner: https://github.com/openedx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
 Setting up the Middleware
 -------------------------
@@ -48,7 +48,7 @@ If the task is not compatible with additional decorators, you can use the follow
 
 An untested potential alternative to the decorator is documented in the `Code Owner for Celery Tasks ADR`_, should we run into maintenance issues using the decorator.
 
-.. _Code Owner for Celery Tasks ADR: https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/decisions/0003-code-owner-for-celery-tasks.rst
+.. _Code Owner for Celery Tasks ADR: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/decisions/0003-code-owner-for-celery-tasks.rst
 Configuring your app settings
 -----------------------------
 
@@ -77,7 +77,7 @@ How to find and fix code_owner mappings
 
 If you are missing the ``code_owner`` custom attributes on a particular Transaction or Error, or if ``code_owner`` is matching the catch-all, but you want to add a more specific mapping, you can use the other `code_owner supporting attributes`_ to determine what the appropriate mappings should be.
 
-.. _code_owner supporting attributes: https://github.com/edx/edx-django-utils/blob/c022565/edx_django_utils/monitoring/internal/code_owner/middleware.py#L30-L34
+.. _code_owner supporting attributes: https://github.com/openedx/edx-django-utils/blob/c022565/edx_django_utils/monitoring/internal/code_owner/middleware.py#L30-L34
 
 Updating New Relic monitoring
 -----------------------------

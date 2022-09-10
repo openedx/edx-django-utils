@@ -50,7 +50,7 @@ design principles:
 
 .. note:: This plugin capability originally existed in edx-platform. See the `decision (ADR) for moving this to edx-django-utils`_.
 
-.. _decision (ADR) for moving this to edx-django-utils: https://github.com/edx/edx-django-utils/blob/master/docs/decisions/0002-extract-plugins-infrastructure-from-edx-platform.rst
+.. _decision (ADR) for moving this to edx-django-utils: https://github.com/openedx/edx-django-utils/blob/master/docs/decisions/0002-extract-plugins-infrastructure-from-edx-platform.rst
 
 Next Steps
 ----------

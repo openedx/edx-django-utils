@@ -22,7 +22,7 @@ def get_code_owner_from_module(module):
     'openedx.features', because the former is more specific.
 
     See how to:
-    https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida.rst
+    https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida.rst
 
     """
     if not module:
@@ -206,7 +206,7 @@ def clear_cached_mappings():
 
 # TODO: Retire this once edx-platform import_shims is no longer used.
 #   Note: This should be ready for removal because import_shims has been removed.
-#   See https://github.com/edx/edx-platform/tree/854502b560bda74ef898501bb2a95ce238cf794c/import_shims
+#   See https://github.com/openedx/edx-platform/tree/854502b560bda74ef898501bb2a95ce238cf794c/import_shims
 _OPTIONAL_MODULE_PREFIX_PATTERN = re.compile(r'^(lms|common|openedx\.core)\.djangoapps\.')
 
 

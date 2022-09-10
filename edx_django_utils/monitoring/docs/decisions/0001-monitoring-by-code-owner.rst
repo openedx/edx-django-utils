@@ -13,7 +13,7 @@ We originally implemented the "code_owner" custom attribute in edx-platform for 
 
 Owners wanted to be able to see transactions that they owned, in any IDA.
 
-.. _ADR in edx-platform for monitoring by code owner: https://github.com/edx/edx-platform/blob/59e0f6efcf2a297806918f8e0020255c1f59ea5f/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
+.. _ADR in edx-platform for monitoring by code owner: https://github.com/openedx/edx-platform/blob/59e0f6efcf2a297806918f8e0020255c1f59ea5f/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
 Decision
 ========

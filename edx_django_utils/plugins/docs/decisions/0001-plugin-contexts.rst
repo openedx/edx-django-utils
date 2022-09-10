@@ -11,7 +11,7 @@ Context
 
 .. note:: This decision was originally written while this plugins directory still lived in edx-platform. So the language of this decision reflects the origins of this file in edx-platform. Assume the words below also apply to any IDA that has this plugin system setup.
 
-edx-platform contains a plugin system (https://github.com/edx/edx-platform/tree/master/openedx/core/djangoapps/plugins) which allows new Django apps to be installed inside the LMS and Studio without requiring the LMS/Studio to know about them. This is what enables us to move to a small and extensible core. While we had the ability to add settings, URLs, and signal handlers in our plugins, there wasn't any way for a plugin to affect the commonly used pages that the core was delivering. Thus a plugin couldn't change any details on the dashboard, courseware, or any other rendered page that the platform delivered.
+edx-platform contains a plugin system (https://github.com/openedx/edx-platform/tree/master/openedx/core/djangoapps/plugins) which allows new Django apps to be installed inside the LMS and Studio without requiring the LMS/Studio to know about them. This is what enables us to move to a small and extensible core. While we had the ability to add settings, URLs, and signal handlers in our plugins, there wasn't any way for a plugin to affect the commonly used pages that the core was delivering. Thus a plugin couldn't change any details on the dashboard, courseware, or any other rendered page that the platform delivered.
 
 Decisions
 ---------
