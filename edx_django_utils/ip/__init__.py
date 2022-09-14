@@ -1,6 +1,5 @@
 """
-Utilities for determining the IP address of a request.
-
+Public API for determining the IP address of a request.
 
 Summary
 =======

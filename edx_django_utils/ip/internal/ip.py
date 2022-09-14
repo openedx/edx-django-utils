@@ -1,3 +1,11 @@
+"""
+Implementation of ``edx_django_utils.ip`` -- contains non-public
+functions, and is subject to breaking changes without warning.
+
+Import from ``edx_django_utils.ip`` instead of this one.
+See that module's docstring for additional background.
+"""
+
 import ipaddress
 import warnings
 
@@ -13,11 +21,7 @@ def _get_meta_ip_strs(request, header_name):
     may be an empty list for missing or empty header. List items may not be
     valid IPs.
     """
-    if not header_name:
-        return []
-
-    field_name = 'HTTP_' + header_name.replace('-', '_').upper()
-    header_value = request.META.get(field_name, '').strip()
+    header_value = request.headers.get(header_name, '').strip()
 
     if header_value:
         return [s.strip() for s in header_value.split(',')]
@@ -153,9 +157,10 @@ def _get_trusted_header_ip(request, header_name, index):
             f"{header_name!r}:{index!r}",
             UserWarning
         )
+        return None
 
 
-def _get_client_ips_via_trusted_header(request):
+def _get_client_ips_via_trusted_header(request) -> list:
     """
     Get the external chain by reading the trust boundary from a header.
 
@@ -171,7 +176,7 @@ def _get_client_ips_via_trusted_header(request):
 
     - A non-empty list of *parsed* IP addresses, where the rightmost IP is the
       same as the one identified in the trusted header.
-    - None if no headers configured or all headers are unusable.
+    - Empty list if no headers configured or all headers are unusable.
 
     A configured header can be unusable if it's missing from the request, the
     index is out of range, the indicated entry in the header can't be parsed
@@ -191,12 +196,12 @@ def _get_client_ips_via_trusted_header(request):
             external_chain = _remove_tail(full_chain, lambda ip: ip != closest_client_ip)  # pylint: disable=cell-var-from-loop
             if external_chain:
                 break
-            else:
-                warnings.warn(
-                    f"Ignoring trusted header IP {header_name!r}:{index!r} "
-                    "because it was not found in the actual IP chain.",
-                    UserWarning
-                )
+
+            warnings.warn(
+                f"Ignoring trusted header IP {header_name!r}:{index!r} "
+                "because it was not found in the actual IP chain.",
+                UserWarning
+            )
 
     return external_chain
 

@@ -247,6 +247,20 @@ class TestClientIP(TestCase):
             ['1.2.3.4'],
             0,
         ),
+
+        # Header is present but doesn't match anything in the XFF
+        (
+            [
+                {'name': 'X-Real-IP', 'index': 0},
+            ],
+            {
+                'HTTP_X_FORWARDED_FOR': '7.8.9.0, 1.2.3.4, 5.5.5.5',
+                'REMOTE_ADDR': '10.0.3.0',
+                'HTTP_X_REAL_IP': '127.0.0.1',
+            },
+            [],
+            1,
+        ),
     )
     def test_get_client_ips_via_trusted_header(self, cnf_headers, add_meta, expected, warning_count):
         self.request.META.update(add_meta)
@@ -293,7 +307,7 @@ class TestClientIP(TestCase):
 
         # By default, with the least possible information, do something useful.
         # (And no warnings when no override headers are specified.)
-        ([], {'REMOTE_ADDR': '127.0.0.2'}, ['127.0.0.2'], 0),
+        (None, {'REMOTE_ADDR': '127.0.0.2'}, ['127.0.0.2'], 0),
     )
     def test_compute_client_ips(self, cnf_headers, add_meta, expected, expect_warnings):
         """
@@ -313,6 +327,34 @@ class TestClientIP(TestCase):
         assert actual == expected
         assert len(caught_warnings) == expect_warnings
 
+    def test_init_client_ips(self):
+        """
+        Test idempotence of init_client_ips.
+        """
+        self.request.META.update({
+            'HTTP_X_FORWARDED_FOR': '1.2.3.4',
+            'REMOTE_ADDR': '127.0.0.2',
+        })
+
+        # Not there to begin with
+        assert 'CLIENT_IPS' not in self.request.META
+
+        # Gets added by init call
+        with warning_messages() as caught_warnings:
+            ip.init_client_ips(self.request)
+
+        assert self.request.META['CLIENT_IPS'] == ['1.2.3.4']
+        assert len(caught_warnings) == 0
+
+        # Second call warns but does not recalculate.
+        # (This input wouldn't change in reality; just changing it here to illustrate the caching.)
+        self.request.META['HTTP_X_FORWARDED_FOR'] = '7.8.9.0, 1.2.3.4'
+        with warning_messages() as caught_warnings:
+            ip.init_client_ips(self.request)
+
+        assert self.request.META['CLIENT_IPS'] == ['1.2.3.4']  # unchanged
+        assert len(caught_warnings) == 1
+
     def test_get_all_client_ips(self):
         """
         Test getter for all IPs.
@@ -322,6 +364,11 @@ class TestClientIP(TestCase):
             'REMOTE_ADDR': '127.0.0.2',
         })
 
+        assert 'CLIENT_IPS' not in self.request.META
+        assert ip.get_all_client_ips(self.request) == ['7.8.9.0', '1.2.3.4']
+        assert 'CLIENT_IPS' in self.request.META
+
+        # Just calling again for coverage (cached case)
         assert ip.get_all_client_ips(self.request) == ['7.8.9.0', '1.2.3.4']
 
     def test_get_safest_client_ip(self):
