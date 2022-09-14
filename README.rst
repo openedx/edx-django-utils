@@ -19,6 +19,8 @@ This repository includes shared utilities for:
 
 * `Django User and Group Utilities`_: Includes user and group utilities.
 
+* `IP Address Utilities`_: Utilities for handling request IP addresses.
+
 * `Logging Utilities`_: Includes log filters and an encrypted logging helper.
 
 * `Monitoring Utilities`_: Includes Middleware and utilities for enhanced monitoring.
@@ -29,6 +31,8 @@ This repository includes shared utilities for:
 .. _Cache Utilities: edx_django_utils/cache/README.rst
 
 .. _Django User and Group Utilities: edx_django_utils/user/README.rst
+
+.. _IP Address Utilities: edx_django_utils/ip/README.rst
 
 .. _Logging Utilities: edx_django_utils/logging/README.rst
 
