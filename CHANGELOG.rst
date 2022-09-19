@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[5.1.0] - 2022-09-19
+--------------------
+
+Added
+~~~~~
+
+* Utilities for safely determining the IP address of a request: ``edx_django_utils.ip`` (moved from edx-platform)
+
 [5.0.1] - 2022-09-09
 --------------------
 
