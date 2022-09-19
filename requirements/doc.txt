@@ -18,7 +18,7 @@ babel==2.10.3
     # via sphinx
 bleach==5.0.1
     # via readme-renderer
-certifi==2022.6.15
+certifi==2022.9.14
     # via requests
 cffi==1.15.1
     # via
@@ -35,7 +35,7 @@ coverage[toml]==6.4.4
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==37.0.4
+cryptography==38.0.1
     # via secretstorage
 ddt==1.6.0
     # via -r requirements/test.txt
@@ -60,7 +60,7 @@ docutils==0.17.1
     #   sphinx
 edx-sphinx-theme==3.0.0
     # via -r requirements/doc.in
-idna==3.3
+idna==3.4
     # via requests
 imagesize==1.4.1
     # via sphinx
@@ -80,7 +80,7 @@ jeepney==0.8.0
     #   secretstorage
 jinja2==3.1.2
     # via sphinx
-keyring==23.9.1
+keyring==23.9.3
     # via twine
 markupsafe==2.1.1
     # via jinja2
@@ -88,7 +88,7 @@ mock==4.0.3
     # via -r requirements/test.txt
 more-itertools==8.14.0
     # via jaraco-classes
-newrelic==8.0.0.179
+newrelic==8.1.0.180
     # via -r requirements/test.txt
 packaging==21.3
     # via
