@@ -21,7 +21,7 @@ build==0.8.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-certifi==2022.9.14
+certifi==2022.9.24
     # via
     #   -r requirements/ci.txt
     #   requests
@@ -140,7 +140,7 @@ packaging==21.3
     #   build
     #   pytest
     #   tox
-path==16.4.0
+path==16.5.0
     # via edx-i18n-tools
 pbr==5.10.0
     # via
@@ -187,7 +187,7 @@ pydocstyle==6.1.1
     # via -r requirements/quality.txt
 pygments==2.13.0
     # via diff-cover
-pylint==2.15.2
+pylint==2.15.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -254,7 +254,7 @@ snowballstemmer==2.2.0
     # via
     #   -r requirements/quality.txt
     #   pydocstyle
-sqlparse==0.4.2
+sqlparse==0.4.3
     # via
     #   -r requirements/quality.txt
     #   django
