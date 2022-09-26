@@ -97,7 +97,7 @@ pycparser==2.21
     #   cffi
 pydocstyle==6.1.1
     # via -r requirements/quality.in
-pylint==2.15.2
+pylint==2.15.3
     # via
     #   edx-lint
     #   pylint-celery
@@ -138,7 +138,7 @@ six==1.16.0
     # via edx-lint
 snowballstemmer==2.2.0
     # via pydocstyle
-sqlparse==0.4.2
+sqlparse==0.4.3
     # via
     #   -r requirements/test.txt
     #   django
