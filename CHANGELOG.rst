@@ -14,6 +14,14 @@ Change Log
 Unreleased
 ----------
 
+[5.2.0] - 2022-10-06
+--------------------
+
+Added
+~~~~~
+
+* Added a wrapper for background_task in monitoring.
+
 [5.1.0] - 2022-09-19
 --------------------
 
