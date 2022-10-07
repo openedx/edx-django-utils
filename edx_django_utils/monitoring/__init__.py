@@ -23,6 +23,7 @@ from .internal.transactions import (
 )
 from .internal.utils import (
     accumulate,
+    background_task,
     increment,
     record_exception,
     set_custom_attribute,
