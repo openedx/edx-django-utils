@@ -88,7 +88,7 @@ mock==4.0.3
     # via -r requirements/test.txt
 more-itertools==8.14.0
     # via jaraco-classes
-newrelic==8.2.0.181
+newrelic==8.2.1
     # via -r requirements/test.txt
 packaging==21.3
     # via
@@ -187,7 +187,7 @@ sqlparse==0.4.3
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==4.0.0
+stevedore==4.0.1
     # via
     #   -r requirements/test.txt
     #   doc8
