@@ -8,7 +8,7 @@ asgiref==3.5.2
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.12.10
+astroid==2.12.11
     # via
     #   pylint
     #   pylint-celery
@@ -67,7 +67,7 @@ mccabe==0.7.0
     # via pylint
 mock==4.0.3
     # via -r requirements/test.txt
-newrelic==8.2.0.181
+newrelic==8.2.1
     # via -r requirements/test.txt
 packaging==21.3
     # via
@@ -97,7 +97,7 @@ pycparser==2.21
     #   cffi
 pydocstyle==6.1.1
     # via -r requirements/quality.in
-pylint==2.15.3
+pylint==2.15.4
     # via
     #   edx-lint
     #   pylint-celery
@@ -142,7 +142,7 @@ sqlparse==0.4.3
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==4.0.0
+stevedore==4.0.1
     # via
     #   -r requirements/test.txt
     #   code-annotations
