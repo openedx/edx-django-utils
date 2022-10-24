@@ -36,13 +36,13 @@ newrelic==8.2.1
     # via -r requirements/base.txt
 packaging==21.3
     # via pytest
-pbr==5.10.0
+pbr==5.11.0
     # via
     #   -r requirements/base.txt
     #   stevedore
 pluggy==1.0.0
     # via pytest
-psutil==5.9.2
+psutil==5.9.3
     # via -r requirements/base.txt
 py==1.11.0
     # via pytest
@@ -62,7 +62,7 @@ pytest-cov==4.0.0
     # via -r requirements/test.in
 pytest-django==4.5.2
     # via -r requirements/test.in
-pytz==2022.4
+pytz==2022.5
     # via
     #   -r requirements/base.txt
     #   django
@@ -70,7 +70,7 @@ sqlparse==0.4.3
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==4.0.1
+stevedore==4.1.0
     # via -r requirements/base.txt
 tomli==2.0.1
     # via

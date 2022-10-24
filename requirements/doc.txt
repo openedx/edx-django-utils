@@ -86,7 +86,7 @@ markupsafe==2.1.1
     # via jinja2
 mock==4.0.3
     # via -r requirements/test.txt
-more-itertools==8.14.0
+more-itertools==9.0.0
     # via jaraco-classes
 newrelic==8.2.1
     # via -r requirements/test.txt
@@ -95,7 +95,7 @@ packaging==21.3
     #   -r requirements/test.txt
     #   pytest
     #   sphinx
-pbr==5.10.0
+pbr==5.11.0
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -105,7 +105,7 @@ pluggy==1.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-psutil==5.9.2
+psutil==5.9.3
     # via -r requirements/test.txt
 py==1.11.0
     # via
@@ -136,7 +136,7 @@ pytest-cov==4.0.0
     # via -r requirements/test.txt
 pytest-django==4.5.2
     # via -r requirements/test.txt
-pytz==2022.4
+pytz==2022.5
     # via
     #   -r requirements/test.txt
     #   babel
@@ -187,7 +187,7 @@ sqlparse==0.4.3
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==4.0.1
+stevedore==4.1.0
     # via
     #   -r requirements/test.txt
     #   doc8
@@ -206,7 +206,7 @@ urllib3==1.26.12
     #   twine
 webencodings==0.5.1
     # via bleach
-zipp==3.9.0
+zipp==3.10.0
     # via importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
