@@ -87,7 +87,7 @@ edx-i18n-tools==0.9.2
     # via -r requirements/dev.in
 edx-lint==5.3.0
     # via -r requirements/quality.txt
-exceptiongroup==1.0.1
+exceptiongroup==1.0.2
     # via
     #   -r requirements/quality.txt
     #   pytest
@@ -156,7 +156,7 @@ pep517==0.13.0
     #   build
 pip-tools==6.9.0
     # via -r requirements/pip-tools.txt
-platformdirs==2.5.3
+platformdirs==2.5.4
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -171,7 +171,7 @@ pluggy==1.0.0
     #   tox
 polib==1.1.1
     # via edx-i18n-tools
-psutil==5.9.3
+psutil==5.9.4
     # via -r requirements/quality.txt
 py==1.11.0
     # via
@@ -260,7 +260,7 @@ sqlparse==0.4.3
     # via
     #   -r requirements/quality.txt
     #   django
-stevedore==4.1.0
+stevedore==4.1.1
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -299,11 +299,11 @@ urllib3==1.26.12
     # via
     #   -r requirements/ci.txt
     #   requests
-virtualenv==20.16.6
+virtualenv==20.16.7
     # via
     #   -r requirements/ci.txt
     #   tox
-wheel==0.38.2
+wheel==0.38.4
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
