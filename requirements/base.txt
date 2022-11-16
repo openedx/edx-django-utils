@@ -23,7 +23,7 @@ newrelic==8.4.0
     # via -r requirements/base.in
 pbr==5.11.0
     # via stevedore
-psutil==5.9.3
+psutil==5.9.4
     # via -r requirements/base.in
 pycparser==2.21
     # via cffi
@@ -33,5 +33,5 @@ pytz==2022.6
     # via django
 sqlparse==0.4.3
     # via django
-stevedore==4.1.0
+stevedore==4.1.1
     # via -r requirements/base.in
