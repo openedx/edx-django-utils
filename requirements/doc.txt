@@ -60,7 +60,7 @@ docutils==0.17.1
     #   sphinx
 edx-sphinx-theme==3.0.0
     # via -r requirements/doc.in
-exceptiongroup==1.0.2
+exceptiongroup==1.0.4
     # via
     #   -r requirements/test.txt
     #   pytest
