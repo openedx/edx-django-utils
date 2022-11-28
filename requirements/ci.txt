@@ -38,13 +38,13 @@ six==1.16.0
     # via tox
 tomli==2.0.1
     # via tox
-tox==3.27.0
+tox==3.27.1
     # via
     #   -r requirements/ci.in
     #   tox-battery
 tox-battery==0.6.1
     # via -r requirements/ci.in
-urllib3==1.26.12
+urllib3==1.26.13
     # via requests
 virtualenv==20.16.7
     # via tox
