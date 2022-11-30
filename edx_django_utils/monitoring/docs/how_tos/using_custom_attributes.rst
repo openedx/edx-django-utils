@@ -12,7 +12,7 @@ A custom attribute is a name/value pair that you define, which will be associate
 
 If you are using NewRelic, you can search for PageViews, Transactions, TransactionErrors, etc. using NewRelic Insights, either with custom queries using the Data Explorer (searching "Events", not Metrics). They will also appear in other places, like when viewing an error in NewRelic APM.
 
-.. RequestCustomAttributesMiddleware: https://github.com/edx/edx-drf-extensions/blob/e3186555ab234a1a95453eb5ead2420013ddb2f2/edx_rest_framework_extensions/middleware.py#L14-L41
+.. RequestCustomAttributesMiddleware: https://github.com/openedx/edx-drf-extensions/blob/e3186555ab234a1a95453eb5ead2420013ddb2f2/edx_rest_framework_extensions/middleware.py#L14-L41
 
 Coding New Custom Attributes
 ----------------------------

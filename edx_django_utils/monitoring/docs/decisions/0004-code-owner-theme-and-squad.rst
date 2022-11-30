@@ -13,7 +13,7 @@ As detailed in the `Monitoring by Code Owner ADR`_, we added a ``code_owner`` cu
 
 The problems with this configuration is that for theme name changes, or when squads transfer themes, any monitoring referencing the full name would also need to be updated.
 
-.. _Monitoring by Code Owner ADR: https://github.com/edx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
+.. _Monitoring by Code Owner ADR: https://github.com/openedx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
 Decision
 --------

@@ -15,5 +15,5 @@ User and group management commands should be moved to edx-django-utils from edx-
 
 The original idea for this decision came from an `edx.org private discussion on app permissions`_.
 
-.. _`edx.org private discussion on app permissions`: https://github.com/edx/app-permissions/blob/master/docs/known-issues.md#it-only-works-on-edxapp
+.. _`edx.org private discussion on app permissions`: https://github.com/openedx/app-permissions/blob/master/docs/known-issues.md#it-only-works-on-edxapp
 

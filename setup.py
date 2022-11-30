@@ -110,7 +110,7 @@ setup(
     long_description=README + '\n\n' + CHANGELOG,
     author='edX',
     author_email='oscm@edx.org',
-    url='https://github.com/edx/edx-django-utils',
+    url='https://github.com/openedx/edx-django-utils',
     packages=[
         'edx_django_utils',
     ],

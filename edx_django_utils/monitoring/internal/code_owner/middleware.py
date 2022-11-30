@@ -23,7 +23,7 @@ class CodeOwnerMonitoringMiddleware:
     Django middleware object to set custom attributes for the owner of each view.
 
     For instructions on usage, see:
-    https://github.com/edx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida.rst
+    https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida.rst
 
     Custom attributes set:
     - code_owner: The owning team mapped to the current view.
