@@ -96,3 +96,21 @@ def record_exception():
     """
     if newrelic:  # pragma: no cover
         newrelic.agent.record_exception()
+
+
+def background_task(*args, **kwargs):
+    """
+    Handles monitoring for background tasks that are not passed in through the web server like
+    celery and event consuming tasks.
+
+    For more details, see:
+    https://docs.newrelic.com/docs/apm/agents/python-agent/supported-features/monitor-non-web-scripts-worker-processes-tasks-functions
+
+    """
+    def noop_decorator(func):
+        return func
+
+    if newrelic:  # pragma: no cover
+        return newrelic.agent.background_task(*args, **kwargs)
+    else:
+        return noop_decorator

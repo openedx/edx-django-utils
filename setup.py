@@ -121,7 +121,6 @@ setup(
             'log-sensitive = edx_django_utils.logging.internal.log_sensitive:cli',
         ],
     },
-    license="AGPL 3.0",
     zip_safe=False,
     keywords='Django edx',
     classifiers=[
@@ -129,7 +128,7 @@ setup(
         'Framework :: Django',
         'Framework :: Django :: 3.2',
         'Intended Audience :: Developers',
-        'License :: OSI Approved :: GNU Affero General Public License v3 or later (AGPLv3+)',
+        'License :: OSI Approved :: Apache Software License',
         'Natural Language :: English',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.8',

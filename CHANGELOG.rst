@@ -14,6 +14,30 @@ Change Log
 Unreleased
 ----------
 
+[5.2.0] - 2022-10-06
+--------------------
+
+Added
+~~~~~
+
+* Added a wrapper for background_task in monitoring.
+
+[5.1.0] - 2022-09-19
+--------------------
+
+Added
+~~~~~
+
+* Utilities for safely determining the IP address of a request: ``edx_django_utils.ip`` (moved from edx-platform)
+
+[5.0.1] - 2022-09-09
+--------------------
+
+Changed
+~~~~~~~
+
+* License has been changed from AGPL v3 to Apache v2 to reflect existing policies
+
 [5.0.0] - 2022-05-19
 --------------------
 
