@@ -2,7 +2,7 @@ edx-django-utils
 ================
 
 |pypi-badge| |ci-badge| |codecov-badge| |doc-badge| |pyversions-badge|
-|license-badge|
+|license-badge| |status-badge|
 
 EdX utilities for Django Application development.
 
