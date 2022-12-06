@@ -16,4 +16,3 @@ spec:
   owner: group:arch-bom
   type: 'library'
   lifecycle: 'production'
-  
