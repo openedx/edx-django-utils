@@ -10,8 +10,8 @@ Note that some utilities may warrant their own repository. A judgement call
 needs to be made as to whether code properly belongs here or not. Please
 review with the Architecture Team if you have any questions.
 
-Overview
---------
+Purpose
+-------
 
 This repository includes shared utilities for:
 
@@ -45,8 +45,8 @@ Documentation
 
 The full documentation is in the docs directory, and is published to https://edx-django-utils.readthedocs.org.
 
-Development Workflow
---------------------
+Getting Started
+---------------
 
 One Time Setup
 ~~~~~~~~~~~~~~
@@ -101,35 +101,6 @@ Design Pattern followed by packages
 
 All tools in edx_django_utils should expose their public api in their __init__.py files. This entails adding to __init__.py all functions/classes/constants/objects that are intended to be used by users of library.
 
-License
--------
-
-The code in this repository is licensed under the Apache License, Version 2.0, unless
-otherwise noted.
-
-Please see ``LICENSE.txt`` for details.
-
-How To Contribute
------------------
-
-Contributions are very welcome.
-
-Please read `How To Contribute <https://github.com/openedx/edx-platform/blob/master/CONTRIBUTING.rst>`_ for details.
-
-Even though they were written with ``edx-platform`` in mind, the guidelines
-should be followed for Open edX code in general.
-
-PR description template should be automatically applied if you are sending PR from github interface; otherwise you
-can find it it at `PULL_REQUEST_TEMPLATE.md <https://github.com/openedx/edx-django-utils/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_
-
-Issue report template should be automatically applied if you are sending it from github UI as well; otherwise you
-can find it at `ISSUE_TEMPLATE.md <https://github.com/openedx/edx-django-utils/blob/master/.github/ISSUE_TEMPLATE.md>`_
-
-Reporting Security Issues
--------------------------
-
-Please do not report security issues in public. Please email security@edx.org.
-
 Getting Help
 ------------
 
@@ -151,6 +122,52 @@ For more information about these options, see the `Getting Help`_ page.
 .. _Slack invitation: https://openedx.org/slack
 .. _community Slack workspace: https://openedx.slack.com/
 .. _Getting Help: https://openedx.org/getting-help
+
+How To Contribute
+-----------------
+
+Contributions are very welcome.
+
+Please read `How To Contribute <https://github.com/openedx/edx-platform/blob/master/CONTRIBUTING.rst>`_ for details.
+
+Even though they were written with ``edx-platform`` in mind, the guidelines
+should be followed for Open edX code in general.
+
+PR description template should be automatically applied if you are sending PR from github interface; otherwise you
+can find it it at `PULL_REQUEST_TEMPLATE.md <https://github.com/openedx/edx-django-utils/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_
+
+Issue report template should be automatically applied if you are sending it from github UI as well; otherwise you
+can find it at `ISSUE_TEMPLATE.md <https://github.com/openedx/edx-django-utils/blob/master/.github/ISSUE_TEMPLATE.md>`_
+
+This project is currently accepting all types of contributions, bug fixes, security fixes, maintenance work, or new features. However, please make sure to have a discussion about your new feature idea with the maintainers prior to beginning development to maximize the chances of your change being accepted. You can start a conversation by creating a new issue on this repo summarizing your idea.
+
+Open edX Code of Conduct
+------------------------
+All community members are expected to follow the `Open edX Code of Conduct`_.
+
+.. _Open edX Code of Conduct: https://openedx.org/code-of-conduct/
+
+People
+------
+The assigned maintainers for this component and other project details may be
+found in `Backstage`_. Backstage pulls this data from the ``catalog-info.yaml``
+file in this repo.
+
+
+.. _Backstage: https://open-edx-backstage.herokuapp.com/catalog/default/component/edx-django-utils
+
+Reporting Security Issues
+-------------------------
+
+Please do not report security issues in public. Please email security@edx.org.
+
+License
+-------
+
+The code in this repository is licensed under the Apache License, Version 2.0, unless
+otherwise noted.
+
+Please see ``LICENSE.txt`` for details.
 
 
 .. |pypi-badge| image:: https://img.shields.io/pypi/v/edx-django-utils.svg
