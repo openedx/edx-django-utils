@@ -154,7 +154,7 @@ found in `Backstage`_. Backstage pulls this data from the ``catalog-info.yaml``
 file in this repo.
 
 
-.. _Backstage: https://open-edx-backstage.herokuapp.com/catalog/default/component/edx-django-utils
+.. _Backstage: https://backstage.openedx.org/catalog/default/component/edx-django-utils
 
 Reporting Security Issues
 -------------------------
