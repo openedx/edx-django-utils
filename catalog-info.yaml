@@ -5,7 +5,7 @@ apiVersion: backstage.io/v1alpha1
 kind: Component
 metadata:
   name: 'edx-django-utils'
-  description: "EdX utilities for Django Application development"
+  description: "edX utilities for Django Application development"
   links:
     - url: "https://edx-django-utils.readthedocs.org"
       title: "Full Documentation"
