@@ -1,0 +1,18 @@
+# This file records information about this repo. Its use is described in OEP-55:
+# https://open-edx-proposals.readthedocs.io/en/latest/processes/oep-0055-proc-project-maintainers.html
+
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: 'edx-django-utils'
+  description: "edX utilities for Django Application development"
+  links:
+    - url: "https://edx-django-utils.readthedocs.org"
+      title: "Full Documentation"
+      icon: "Web"
+  annotations:
+    openedx.org/arch-interest-groups: ""
+spec:
+  owner: group:arch-bom
+  type: 'library'
+  lifecycle: 'production'

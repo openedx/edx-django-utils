@@ -2,7 +2,7 @@ edx-django-utils
 ================
 
 |pypi-badge| |ci-badge| |codecov-badge| |doc-badge| |pyversions-badge|
-|license-badge|
+|license-badge| |status-badge|
 
 EdX utilities for Django Application development.
 
@@ -162,3 +162,6 @@ refer to this `list of resources`_ if you need any assistance.
 .. |license-badge| image:: https://img.shields.io/github/license/edx/edx-django-utils.svg
     :target: https://github.com/openedx/edx-django-utils/blob/master/LICENSE.txt
     :alt: License
+
+.. |status-badge| image:: https://img.shields.io/badge/Status-Maintained-brightgreen
+    :alt: Maintenance status

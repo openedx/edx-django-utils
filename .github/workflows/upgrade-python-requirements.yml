@@ -12,7 +12,7 @@ on:
 jobs:
    call-upgrade-python-requirements-workflow:
     with:
-       branch: ${{ github.event.inputs.branch }}
+       branch: ${{ github.event.inputs.branch || 'master' }}
        team_reviewers: "arbi-bom"
        email_address: arbi-bom@edx.org
        send_success_notification: false
