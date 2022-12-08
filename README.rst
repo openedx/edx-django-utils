@@ -115,7 +115,7 @@ For anything non-trivial, the best path is to `open an issue`__ in this
 repository with as many details about the issue you are facing as you
 can provide.
 
-__ https://github.com/openedx/django-config-models /issues
+__ https://github.com/openedx/django-config-models/issues
 
 For more information about these options, see the `Getting Help`_ page.
 
