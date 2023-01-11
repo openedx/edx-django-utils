@@ -90,36 +90,37 @@ def _load_csv(csv_file):
             # Note: this wouldn't parse correctly right now, and it isn't worth coding for.
             logging.warning("Multiple cookie entries found in same row. Skipping row.")
             continue
-        match = cookie_log_regex.search(raw_cookie_log)
-        if not match:
+        matches = cookie_log_regex.findall(raw_cookie_log)
+        if len(matches) == 0:
             logging.error("Malformed cookie entry. Skipping row.")
             continue
 
-        cookie_header_size = int(match.group("total"))
-        if cookie_header_size == 0:
-            continue
-
-        cookie_sizes_str = match.group("cookie_sizes").strip()
-
-        cookie_sizes = cookie_sizes_str.split(", ")
-        for cookie_size in cookie_sizes:
-            match = cookie_size_regex.search(cookie_size)
-            if not match:
-                logging.error(f"Could not parse cookie size from: {cookie_size}")
+        for match in matches:
+            cookie_header_size = int(match[0])
+            if cookie_header_size == 0:
                 continue
-            cookie_header_sizes[match.group("name")] = int(match.group("size"))
 
-        cookie_header_size_computed = max(
-            0, sum(len(name) + size + 3 for (name, size) in cookie_header_sizes.items()) - 2
-        )
+            cookie_sizes_str = match[1].strip()
 
-        cookie_headers.append({
-            "datetime": parser.parse(row.get("_time")),
-            "env": row.get("index"),
-            "cookie_header_size": cookie_header_size,
-            "cookie_header_size_computed": cookie_header_size_computed,
-            "cookie_sizes": cookie_header_sizes,
-        })
+            cookie_sizes = cookie_sizes_str.split(", ")
+            for cookie_size in cookie_sizes:
+                match = cookie_size_regex.search(cookie_size)
+                if not match:
+                    logging.error(f"Could not parse cookie size from: {cookie_size}")
+                    continue
+                cookie_header_sizes[match.group("name")] = int(match.group("size"))
+
+                cookie_header_size_computed = max(
+                    0, sum(len(name) + size + 3 for (name, size) in cookie_header_sizes.items()) - 2
+                )
+
+                cookie_headers.append({
+                    "datetime": parser.parse(row.get("_time")),
+                    "env": row.get("index"),
+                    "cookie_header_size": cookie_header_size,
+                    "cookie_header_size_computed": cookie_header_size_computed,
+                    "cookie_sizes": cookie_header_sizes,
+                })
 
     return cookie_headers
 
