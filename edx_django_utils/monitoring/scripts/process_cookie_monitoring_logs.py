@@ -78,12 +78,8 @@ def _load_csv(csv_file):
     # Regex to match against just a single size, like the following:
     #   csrftoken: 64
     cookie_size_regex = re.compile(r"(?P<name>.*): (?P<size>\d+)")
-    index=0
     cookie_headers = []
     for row in reader:
-        if index == 100:
-            break
-        index+=1
         cookie_header_sizes = {}
 
         raw_cookie_log = row.get("_raw")
@@ -95,7 +91,6 @@ def _load_csv(csv_file):
         if len(matches) == 0:
             logging.error("Malformed cookie entry. Skipping row.")
             continue
-        print(f"processing line {index} with {len(matches)} matches")
         for match in matches:
             cookie_header_size = int(match[0])
             if cookie_header_size == 0:
@@ -104,7 +99,6 @@ def _load_csv(csv_file):
             cookie_sizes_str = match[1].strip()
 
             cookie_sizes = cookie_sizes_str.split(", ")
-            print(f"processing match with {len(cookie_sizes)} cookies")
             for cookie_size in cookie_sizes:
                 match = cookie_size_regex.search(cookie_size)
                 if not match:
@@ -116,20 +110,18 @@ def _load_csv(csv_file):
                     0, sum(len(name) + size + 3 for (name, size) in cookie_header_sizes.items()) - 2
                 )
 
-                cookie_headers.append({
-                    "datetime": parser.parse(row.get("_time")),
-                    "env": row.get("index"),
-                    "cookie_header_size": cookie_header_size,
-                    "cookie_header_size_computed": cookie_header_size_computed,
-                    "cookie_sizes": cookie_header_sizes,
-                })
+            cookie_headers.append({
+                "datetime": parser.parse(row.get("_time")),
+                "env": row.get("index"),
+                "cookie_header_size": cookie_header_size,
+                "cookie_header_size_computed": cookie_header_size_computed,
+                "cookie_sizes": cookie_header_sizes,
+            })
 
-    print(f"processed line  of headers: {len(cookie_headers)}")
     return cookie_headers
 
 
 def process_cookie_headers(cookie_headers):
-    print("Processing cookie headers")
     """
     Process the parsed cookie header log entries.
 
@@ -139,11 +131,7 @@ def process_cookie_headers(cookie_headers):
     Returns a dict of processed cookies.
     """
     processed_cookies = {}
-    index = 0
     for cookie_header in cookie_headers:
-        index+=1
-        thing = len(cookie_header["cookie_sizes"].items())
-        print(f"processing cookie header index {index} with {thing} cookies")
         for (name, size) in cookie_header["cookie_sizes"].items():
 
             # Replace parameterized cookies. For example:
@@ -155,7 +143,6 @@ def process_cookie_headers(cookie_headers):
                     break
 
             processed_cookie = processed_cookies.get(name, {})
-
             # compute the full size each cookie takes up in the cookie header, including name and delimiters
             full_size = len(name) + size + 3
             set_max_attribute(processed_cookie, "max_full_size", full_size)
