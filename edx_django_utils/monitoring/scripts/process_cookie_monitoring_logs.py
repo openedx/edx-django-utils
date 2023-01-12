@@ -73,28 +73,29 @@ def _load_csv(csv_file):
 
     # Regex to match against log messages like the following:
     #   BEGIN-COOKIE-SIZES(total=3773) user-info: 903, csrftoken: 64, ... END-COOKIE-SIZES
-    cookie_log_regex = re.compile(r"BEGIN-COOKIE-SIZES\(total=(?P<total>\d+)\)(?P<cookie_sizes>.*)END-COOKIE-SIZES")
+    # Use a non-greedy (*?) quantifier for the occasional logs that have >1 set of cookie data
+    cookie_log_regex = re.compile(r"BEGIN-COOKIE-SIZES\(total=(?P<total>\d+)\)(?P<cookie_sizes>.*?)END-COOKIE-SIZES")
     # Regex to match against just a single size, like the following:
     #   csrftoken: 64
     cookie_size_regex = re.compile(r"(?P<name>.*): (?P<size>\d+)")
-
+    index=0
     cookie_headers = []
     for row in reader:
+        if index == 100:
+            break
+        index+=1
         cookie_header_sizes = {}
 
         raw_cookie_log = row.get("_raw")
         cookie_begin_count = raw_cookie_log.count("BEGIN-COOKIE-SIZES")
         if cookie_begin_count == 0:
             logging.info("No BEGIN-COOKIE-SIZES delimiter found. Skipping row.")
-        elif cookie_begin_count > 1:
-            # Note: this wouldn't parse correctly right now, and it isn't worth coding for.
-            logging.warning("Multiple cookie entries found in same row. Skipping row.")
             continue
         matches = cookie_log_regex.findall(raw_cookie_log)
         if len(matches) == 0:
             logging.error("Malformed cookie entry. Skipping row.")
             continue
-
+        print(f"processing line {index} with {len(matches)} matches")
         for match in matches:
             cookie_header_size = int(match[0])
             if cookie_header_size == 0:
@@ -103,6 +104,7 @@ def _load_csv(csv_file):
             cookie_sizes_str = match[1].strip()
 
             cookie_sizes = cookie_sizes_str.split(", ")
+            print(f"processing match with {len(cookie_sizes)} cookies")
             for cookie_size in cookie_sizes:
                 match = cookie_size_regex.search(cookie_size)
                 if not match:
@@ -122,10 +124,12 @@ def _load_csv(csv_file):
                     "cookie_sizes": cookie_header_sizes,
                 })
 
+    print(f"processed line  of headers: {len(cookie_headers)}")
     return cookie_headers
 
 
 def process_cookie_headers(cookie_headers):
+    print("Processing cookie headers")
     """
     Process the parsed cookie header log entries.
 
@@ -135,7 +139,11 @@ def process_cookie_headers(cookie_headers):
     Returns a dict of processed cookies.
     """
     processed_cookies = {}
+    index = 0
     for cookie_header in cookie_headers:
+        index+=1
+        thing = len(cookie_header["cookie_sizes"].items())
+        print(f"processing cookie header index {index} with {thing} cookies")
         for (name, size) in cookie_header["cookie_sizes"].items():
 
             # Replace parameterized cookies. For example:
