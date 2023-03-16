@@ -117,7 +117,7 @@ class TestManageUserCommand(TestCase):
         # check that removal uses the same check
         with pytest.raises(CommandError) as exc_context:
             call_command('manage_user', TEST_USERNAME, 'other@example.com', '--remove')
-        assert "do not match' in str(exc_context.value).lower()
+        assert 'do not match' in str(exc_context.value).lower()
         assert [(TEST_USERNAME, TEST_EMAIL)] == [(u.username, u.email) for u in User.objects.all()]
 
     def test_same_email_varied_case(self):
