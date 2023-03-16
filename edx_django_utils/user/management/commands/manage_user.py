@@ -70,8 +70,8 @@ class Command(BaseCommand):
             raise CommandError(
                 _(
                     'Skipping user "{}" because the specified and existing email '
-                    'addresses do not match.'
-                ).format(user.username)
+                    'addresses "{}" and "{}" do not match.'
+                ).format(user.username, user.email, email)
             )
 
     def _handle_remove(self, username, email):
