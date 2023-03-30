@@ -4,6 +4,8 @@
 #
 #    make upgrade
 #
+accessible-pygments==0.0.4
+    # via pydata-sphinx-theme
 alabaster==0.7.12
     # via sphinx
 asgiref==3.5.2
@@ -15,7 +17,11 @@ attrs==22.1.0
     #   -r requirements/test.txt
     #   pytest
 babel==2.11.0
-    # via sphinx
+    # via
+    #   pydata-sphinx-theme
+    #   sphinx
+beautifulsoup4==4.12.0
+    # via pydata-sphinx-theme
 bleach==5.0.1
     # via readme-renderer
 certifi==2022.12.7
@@ -55,11 +61,10 @@ doc8==0.11.2
 docutils==0.17.1
     # via
     #   doc8
+    #   pydata-sphinx-theme
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
-edx-sphinx-theme==3.0.0
-    # via -r requirements/doc.in
 exceptiongroup==1.0.4
     # via
     #   -r requirements/test.txt
@@ -97,6 +102,7 @@ newrelic==8.5.0
 packaging==22.0
     # via
     #   -r requirements/test.txt
+    #   pydata-sphinx-theme
     #   pytest
     #   sphinx
 pbr==5.11.0
@@ -115,9 +121,13 @@ pycparser==2.21
     # via
     #   -r requirements/test.txt
     #   cffi
+pydata-sphinx-theme==0.13.1
+    # via sphinx-book-theme
 pygments==2.13.0
     # via
+    #   accessible-pygments
     #   doc8
+    #   pydata-sphinx-theme
     #   readme-renderer
     #   rich
     #   sphinx
@@ -157,17 +167,20 @@ rich==12.6.0
 secretstorage==3.3.3
     # via keyring
 six==1.16.0
-    # via
-    #   bleach
-    #   edx-sphinx-theme
+    # via bleach
 snowballstemmer==2.2.0
     # via sphinx
+soupsieve==2.4
+    # via beautifulsoup4
 sphinx==4.2.0
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -c requirements/constraints.txt
     #   -r requirements/doc.in
-    #   edx-sphinx-theme
+    #   pydata-sphinx-theme
+    #   sphinx-book-theme
+sphinx-book-theme==1.0.0
+    # via -r requirements/doc.in
 sphinxcontrib-applehelp==1.0.2
     # via sphinx
 sphinxcontrib-devhelp==1.0.2
