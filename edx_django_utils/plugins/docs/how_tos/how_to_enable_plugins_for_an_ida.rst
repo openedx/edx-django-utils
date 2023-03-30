@@ -1,6 +1,12 @@
 How to enable plugins for an IDA
 ================================
 
+.. note:: Enabling plugins only needs to have once per IDA. If you are creating a plugin app for an IDA that already supports plugins, see `how_to_create_a_plugin_app`_.
+
+If you are unsure if your IDA supports plugins, you can look for ``INSTALLED_APPS.extend(get_plugin_apps(...))`` in your settings file.
+
+.. _how_to_create_a_plugin_app: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/plugins/docs/how_tos/how_to_create_a_plugin_app.rst
+
 Overview
 --------
 
