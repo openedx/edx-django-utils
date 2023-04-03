@@ -24,23 +24,17 @@ While Django+Python already support dynamic installation of components/apps,
 they do not have out-of-the-box support for plugin apps that auto-install
 into a containing Django project.
 
-.. _decision (ADR) for moving this to edx-django-utils: https://github.com/openedx/edx-django-utils/blob/master/docs/decisions/0002-extract-plugins-infrastructure-from-edx-platform.rst
-
 Enable Plugins in an IDA
 ------------------------
 
-See `instructions to enable plugins for an IDA`_.
-
-.. _instructions to enable plugins for an IDA: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/plugins/docs/how_tos/how_to_enable_plugins_for_an_ida.rst
+See :doc:`instructions to enable plugins for an IDA <how_tos/how_to_enable_plugins_for_an_ida>`.
 
 Creating a Plugin App
 ---------------------
 
-See `how to create a plugin app`_.
+See :doc:`how to create a plugin app <how_tos/how_to_create_a_plugin_app>`.
 
 .. note:: Do not use this plugin framework for required apps. Instead, explicitly add your required app to the ``INSTALLED_APPS`` of the IDA.
-
-.. _how to create a plugin app: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/plugins/docs/how_tos/how_to_create_a_plugin_app.rst
 
 Design Principles
 -----------------
@@ -62,7 +56,7 @@ design principles:
   installation of Django apps. Having automatic Django App Plugin support allows
   for this extensibility without modification to an IDA. Currently, this is only
   set up in edx platform. Going forward, we expect this capability to be widely
-  used by othe IDAs to enable enchancement without need to modify core IDA code.
+  used by other IDAs to enable enhancement without need to modify core IDA code.
 
 * Dependency Inversion Principle, which says "high level modules should not
   depend upon low level modules." The high-level module here is the Django

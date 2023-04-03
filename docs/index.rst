@@ -62,6 +62,7 @@ EdX utilities for Django Application development.
    :caption: Plugins How-Tos
 
    plugins/how_tos/how_to_enable_plugins_for_an_ida
+   plugins/how_tos/how_to_create_a_plugin_app
 
 
 Indices and tables

@@ -1,3 +1,6 @@
+How to create a plugin app
+==========================
+
 .. note:: Do not use this plugin framework for required apps. Instead, explicitly add your required app to the ``INSTALLED_APPS`` of the IDA.
 
 Using edx-cookiecutter
