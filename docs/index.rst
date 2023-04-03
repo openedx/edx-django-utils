@@ -45,6 +45,25 @@ EdX utilities for Django Application development.
    monitoring/how_tos/search_new_relic_nrql
    monitoring/how_tos/update_monitoring_for_squad_or_theme_changes
 
+.. toctree::
+   :maxdepth: 1
+   :caption: Plugins README
+
+   plugins/readme
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Plugins Decisions
+
+   plugins/decisions/0001-plugin-contexts
+
+.. toctree::
+   :maxdepth: 1
+   :caption: Plugins How-Tos
+
+   plugins/how_tos/how_to_enable_plugins_for_an_ida
+
+
 Indices and tables
 ==================
 
