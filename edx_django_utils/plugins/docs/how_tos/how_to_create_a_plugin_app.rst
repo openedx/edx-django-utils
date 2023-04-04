@@ -192,3 +192,9 @@ Then, open a shell using ``./manage.py lms shell`` and run::
 You should see your app in the printed output.
 
 Another easy way to test if your plugin is installed correctly is to create a simple management command within your plugin. If the plugin is installed correctly into edx-platform, you should be able to run this management command from within the lms or cms container.
+
+
+Installing A Private Plugin (edX.org only)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+See `How to add private requirements to edx-platform <https://2u-internal.atlassian.net/wiki/spaces/AT/pages/396034066/How+to+add+private+requirements+to+edx-platform>`_ (private link).
