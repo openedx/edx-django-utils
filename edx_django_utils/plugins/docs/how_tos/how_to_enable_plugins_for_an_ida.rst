@@ -1,6 +1,10 @@
 How to enable plugins for an IDA
 ================================
 
+.. note:: Enabling plugins only needs to be done once per IDA. If you are creating a plugin app for an IDA that already supports plugins, see :doc:`how to create a plugin app <how_to_create_a_plugin_app>`.
+
+If you are unsure if your IDA supports plugins, you can look for ``INSTALLED_APPS.extend(get_plugin_apps(...))`` in your settings file.
+
 Overview
 --------
 
