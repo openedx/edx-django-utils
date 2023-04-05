@@ -2,7 +2,6 @@
 Tests for Content-Security-Policy middleware.
 """
 
-import warnings
 from unittest import TestCase
 from unittest.mock import Mock, patch
 
@@ -11,7 +10,7 @@ import pytest
 from django.core.exceptions import MiddlewareNotUsed
 from django.test import override_settings
 
-import edx_arch_experiments.csp.middleware as csp
+import edx_django_utils.security.csp.middleware as csp
 
 
 @ddt.ddt
@@ -98,22 +97,6 @@ class TestLoadHeaders(TestCase):
         with override_settings(**settings):
             assert csp._load_headers() == headers  # pylint: disable=protected-access
 
-    def test_validation(self):
-        """When the reporting name is invalid, don't use it."""
-        with override_settings(
-                CSP_ENFORCE="default-src https:",
-                CSP_REPORTING_URI="http://localhost",
-                CSP_REPORTING_NAME="&&&&&&&&&&&&",
-        ):
-            with warnings.catch_warnings(record=True) as warns:
-                warnings.simplefilter("always")
-                headers = csp._load_headers()  # pylint: disable=protected-access
-
-        assert "CSP_REPORTING_NAME ignored" in warns[0].message.args[0]
-        assert headers == {
-            'Content-Security-Policy': "default-src https:; report-uri http://localhost"
-        }
-
 
 @ddt.ddt
 class TestHeaderManipulation(TestCase):
@@ -146,23 +129,14 @@ class TestCSPMiddleware(TestCase):
         with pytest.raises(MiddlewareNotUsed):
             csp.content_security_policy_middleware(lambda _: self.fake_response)
 
-    @ddt.unpack
-    @ddt.data(
-        [False, {'Existing': 'something'},],
-        [
-            True, {
-                'Existing': 'something',
-                'Content-Security-Policy': 'default-src: https:',
-            },
-        ],
-    )
     @override_settings(CSP_ENFORCE="default-src: https:")
-    def test_make_middleware_configured(self, flag_enabled, expected_headers):
+    def test_make_middleware_configured(self):
         handler = csp.content_security_policy_middleware(lambda _: self.fake_response)
 
-        with patch.object(csp, 'FLAG_CSP', autospec=True):
-            csp.FLAG_CSP.is_enabled.return_value = flag_enabled
-            assert handler(Mock()) is self.fake_response
+        assert handler(Mock()) is self.fake_response
 
         # Headers have been mutated in place (if flag enabled)
-        assert self.fake_response.headers == expected_headers
+        assert self.fake_response.headers == {
+            'Existing': 'something',
+            'Content-Security-Policy': 'default-src: https:',
+        }

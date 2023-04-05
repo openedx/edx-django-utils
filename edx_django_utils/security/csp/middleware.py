@@ -4,15 +4,12 @@ Middleware to add Content-Security-Policy and related headers.
 The ``content_security_policy_middleware`` middleware function can add
 ``Content-Security-Policy``, ``Content-Security-Policy-Report-Only``, and
 ``Reporting-Endpoints`` HTTP response headers. This functionality is
-configured by Django settings but is also gated behind a Waffle flag,
-``cms.experimental.content-security-policy``.
+configured by Django settings.
 """
 import re
-import warnings
 
 from django.conf import settings
 from django.core.exceptions import MiddlewareNotUsed
-from edx_toggles.toggles import WaffleFlag
 
 
 def _load_headers() -> dict:
@@ -41,26 +38,19 @@ def _load_headers() -> dict:
 
     # .. setting_name: CSP_REPORTING_URI
     # .. setting_default: None
-    # .. setting_description: Content-Security-Policy-Report-Only header to attach to
-    #   all responses. See ``CSP_ENFORCE`` for details.
+    # .. setting_description: URL of reporting server. This will be used for both Level 2 and
+    #   Level 3 reports. If there are any semicolons or commas in the URL, they must be URL-encoded.
+    #   Level 3 reporting is only enabled if ``CSP_REPORTING_NAME`` is also set.
     reporting_uri = getattr(settings, 'CSP_REPORTING_URI', None)
 
     # .. setting_name: CSP_REPORTING_NAME
     # .. setting_default: None
     # .. setting_description: Used for CSP Level 3 reporting. This sets the name to use in the
-    #   report-to CSP field and the Reporting-Endpoints header. This should generally be an
-    #   alphanumeric string; other characters such as hyphen and underscore are also allowed.
+    #   report-to CSP field and the Reporting-Endpoints header. If omitted, then Level 3 CSP
+    #   reporting will not be enabled. If present, this must be a string starting with an ASCII
+    #   letter and can contain ASCII letters, numbers, hyphen, underscore, and some other characters.
     #   See https://www.rfc-editor.org/rfc/rfc8941.html#section-3.3.4 for full grammar.
     reporting_endpoint_name = getattr(settings, 'CSP_REPORTING_NAME', None)
-
-    # RFC 8941 Token is a RFC 7230 that must start with ALPHA or *, and can also contain / and :.
-    sfToken = "[a-zA-Z*][a-zA-Z0-9!#$%&'*+\\-.^_`|~\":/]*"
-    if reporting_endpoint_name and not re.fullmatch(sfToken, reporting_endpoint_name):
-        warnings.warn(
-            "CSP_REPORTING_NAME ignored, as it contains disallowed characters. "
-            "CSP Level 3 will not be in use."
-        )
-        reporting_endpoint_name = None
 
     if not enforce_policies and not report_policies:
         return {}
@@ -109,20 +99,6 @@ def _append_headers(response_headers, more_headers):
             response_headers[k] = v
 
 
-# .. toggle_name: cms.experimental.content-security-policy
-# .. toggle_implementation: WaffleFlag
-# .. toggle_default: False
-# .. toggle_description: Gates deployment of CSP headers. When disabled, Content-Security-Policy
-#   and other related headers are not attached to the response. This is primarily intended for
-#   allowing a gradual rollout on large sites, where even a report-only header can cause
-#   trouble by overwhelming the report-collection server. When adding a new clause to
-#   ``CSP_REPORT_ONLY``, this can be first set to 1% activation, then 10%, then to Everyone.
-#   This should be set to Everyone except when rolling out new restrictions.
-# .. toggle_use_cases: circuit_breaker
-# .. toggle_creation_date: 2023-03-24
-FLAG_CSP = WaffleFlag('cms.experimental.content-security-policy', module_name=__name__)
-
-
 def content_security_policy_middleware(get_response):
     """
     Middleware that adds Content-Security-Policy and related headers, if enabled.
@@ -137,11 +113,10 @@ def content_security_policy_middleware(get_response):
 
     def middleware_handler(request):
         response = get_response(request)
-        if FLAG_CSP.is_enabled():
-            # Reporting-Endpoints, CSP, and CSP-RO can all be multi-valued
-            # (comma-separated) headers, though the CSP spec says "SHOULD NOT"
-            # for the latter two.
-            _append_headers(response.headers, csp_headers)
+        # Reporting-Endpoints, CSP, and CSP-RO can all be multi-valued
+        # (comma-separated) headers, though the CSP spec says "SHOULD NOT"
+        # for the latter two.
+        _append_headers(response.headers, csp_headers)
         return response
 
     return middleware_handler
