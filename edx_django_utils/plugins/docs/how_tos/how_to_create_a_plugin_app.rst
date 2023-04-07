@@ -49,8 +49,10 @@ class::
            # Configuration setting for Plugin URLs for this app.
            PluginURLs.CONFIG: {
 
-               # Configure the Plugin URLs for each project type, as needed.
-               ProjectType.LMS: {
+               # Configure the Plugin URLs for each project type, as needed. The full list of project types for edx-platform is 
+               # here: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/constants.py#L14 . Other IDAs may use different
+               # values.
+               'lms.djangoapp': {
 
                    # The namespace to provide to django's urls.include.
                    PluginURLs.NAMESPACE: 'my_app',
@@ -72,9 +74,10 @@ class::
            # Configuration setting for Plugin Settings for this app.
            PluginSettings.CONFIG: {
 
-               # Configure the Plugin Settings for each Project Type, as needed. The full list of project types for the LMS is 
-               # here: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/constants.py#L25
-               ProjectType.LMS: {
+               # Configure the Plugin Settings for each Project Type, as needed. The full list setting types for edx-platform is 
+               # here: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/constants.py#L25 . Other IDAs may use different
+               # values.
+               'lms.djangoapp': {
 
                    # Configure each settings, as needed.
                    'production': {
@@ -93,7 +96,7 @@ class::
            PluginSignals.CONFIG: {
 
                # Configure the Plugin Signals for each Project Type, as needed.
-               ProjectType.LMS: {
+               'lms.djangoapp': {
 
                    # The python path (relative to this app) to the Signals module containing this app's Signal receivers.
                    # Optional; Defaults to 'signals'.
@@ -123,7 +126,7 @@ class::
            PluginContexts.CONFIG: {
 
                # Configure the Plugin Signals for each Project Type, as needed.
-               ProjectType.LMS: {
+               'lms.djangoapp': {
 
                    # Key is the view that the app wishes to add context to and the value
                    # is the function within the app that will return additional context
