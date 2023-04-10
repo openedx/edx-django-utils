@@ -28,6 +28,8 @@ This repository includes shared utilities for:
 
 * `Plugin Infrastructure`_: Enables enhanced Django Plugin capabilities.
 
+* `Security Utilities`_: Includes a middleware to add CSP response headers.
+
 .. _Cache Utilities: edx_django_utils/cache/README.rst
 
 .. _Django User and Group Utilities: edx_django_utils/user/README.rst
@@ -39,6 +41,8 @@ This repository includes shared utilities for:
 .. _Monitoring Utilities: edx_django_utils/monitoring/README.rst
 
 .. _Plugin Infrastructure: edx_django_utils/plugins/README.rst
+
+.. _Security Utilities: edx_django_utils/security/README.rst
 
 Documentation
 -------------
