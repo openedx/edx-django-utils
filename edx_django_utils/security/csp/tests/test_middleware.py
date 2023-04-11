@@ -22,31 +22,31 @@ class TestLoadHeaders(TestCase):
         # Empty settings
         [{}, {}],
         # The reporting URL and endpoint names alone don't do anything
-        [{"CSP_REPORTING_URI": "http://localhost"}, {}],
-        [{"CSP_REPORTING_NAME": "default"}, {}],
+        [{"CSP_STATIC_REPORTING_URI": "http://localhost"}, {}],
+        [{"CSP_STATIC_REPORTING_NAME": "default"}, {}],
         [
             {
-                "CSP_REPORTING_URI": "http://localhost",
-                "CSP_REPORTING_NAME": "default"
+                "CSP_STATIC_REPORTING_URI": "http://localhost",
+                "CSP_STATIC_REPORTING_NAME": "default"
             },
             {},
         ],
         # Just the enforcement header
         [
-            {"CSP_ENFORCE": "default-src https:"},
+            {"CSP_STATIC_ENFORCE": "default-src https:"},
             {'Content-Security-Policy': "default-src https:"},
         ],
         # Just the reporting header
         [
-            {"CSP_REPORT_ONLY": "default-src 'none'"},
+            {"CSP_STATIC_REPORT_ONLY": "default-src 'none'"},
             {'Content-Security-Policy-Report-Only': "default-src 'none'"},
         ],
         # Reporting URL is automatically appended to headers
         [
             {
-                "CSP_ENFORCE": "default-src https:",
-                "CSP_REPORT_ONLY": "default-src 'none'",
-                "CSP_REPORTING_URI": "http://localhost",
+                "CSP_STATIC_ENFORCE": "default-src https:",
+                "CSP_STATIC_REPORT_ONLY": "default-src 'none'",
+                "CSP_STATIC_REPORTING_URI": "http://localhost",
             },
             {
                 'Content-Security-Policy': "default-src https:; report-uri http://localhost",
@@ -58,10 +58,10 @@ class TestLoadHeaders(TestCase):
         # included.
         [
             {
-                "CSP_ENFORCE": "default-src https:",
-                "CSP_REPORT_ONLY": "default-src 'none'",
-                "CSP_REPORTING_URI": "http://localhost",
-                "CSP_REPORTING_NAME": "default",
+                "CSP_STATIC_ENFORCE": "default-src https:",
+                "CSP_STATIC_REPORT_ONLY": "default-src 'none'",
+                "CSP_STATIC_REPORTING_URI": "http://localhost",
+                "CSP_STATIC_REPORTING_NAME": "default",
             },
             {
                 'Reporting-Endpoints': 'default="http://localhost"',
@@ -74,16 +74,16 @@ class TestLoadHeaders(TestCase):
         # Adding a reporting endpoint name without a URL doesn't change anything.
         [
             {
-                "CSP_REPORT_ONLY": "default-src 'none'",
-                "CSP_REPORTING_NAME": "default",
+                "CSP_STATIC_REPORT_ONLY": "default-src 'none'",
+                "CSP_STATIC_REPORTING_NAME": "default",
             },
             {'Content-Security-Policy-Report-Only': "default-src 'none'"},
         ],
         # Any newlines and trailing semicolon are stripped.
         [
             {
-                "CSP_REPORT_ONLY": "default-src 'self';   \n \t  frame-src 'none';  \n ",
-                "CSP_REPORTING_URI": "http://localhost",
+                "CSP_STATIC_REPORT_ONLY": "default-src 'self';   \n \t  frame-src 'none';  \n ",
+                "CSP_STATIC_REPORTING_URI": "http://localhost",
             },
             {
                 'Content-Security-Policy-Report-Only': (
@@ -129,7 +129,7 @@ class TestCSPMiddleware(TestCase):
         with pytest.raises(MiddlewareNotUsed):
             csp.content_security_policy_middleware(lambda _: self.fake_response)
 
-    @override_settings(CSP_ENFORCE="default-src: https:")
+    @override_settings(CSP_STATIC_ENFORCE="default-src: https:")
     def test_make_middleware_configured(self):
         handler = csp.content_security_policy_middleware(lambda _: self.fake_response)
 

@@ -5,6 +5,10 @@ The ``content_security_policy_middleware`` middleware function can add
 ``Content-Security-Policy``, ``Content-Security-Policy-Report-Only``, and
 ``Reporting-Endpoints`` HTTP response headers. This functionality is
 configured by Django settings.
+
+This middleware only supports static values for the headers. That is, it does not
+support the ``strict-dynamic`` directive, which requires coordination of nonces or
+hashes between the response header and response body.
 """
 import re
 
@@ -16,41 +20,41 @@ def _load_headers() -> dict:
     """
     Return a dict of headers to append to every response, based on settings.
     """
-    # .. setting_name: CSP_ENFORCE
+    # .. setting_name: CSP_STATIC_ENFORCE
     # .. setting_default: None
     # .. setting_description: Content-Security-Policy header to attach to all responses.
     #   This should include everything but the ``report-to`` or ``report-uri`` clauses; those
-    #   will be appended automatically according to the ``CSP_REPORTING_NAME`` and
-    #   ``CSP_REPORTING_URI`` settings. Newlines are permitted and will be replaced with spaces.
+    #   will be appended automatically according to the ``CSP_STATIC_REPORTING_NAME`` and
+    #   ``CSP_STATIC_REPORTING_URI`` settings. Newlines are permitted and will be replaced with spaces.
     #   A trailing `;` is also permitted.
     # .. setting_warning: Setting the CSP header to too strict a value can cause your pages to
-    #   break. It is strongly recommended that deployers start by using ``CSP_REPORT_ONLY`` (along
-    #   with the reporting settings) and only move or copy the policies into ``CSP_ENFORCE`` after
+    #   break. It is strongly recommended that deployers start by using ``CSP_STATIC_REPORT_ONLY`` (along
+    #   with the reporting settings) and only move or copy the policies into ``CSP_STATIC_ENFORCE`` after
     #   confirming that the received CSP reports only represent false positives. (The report-only
     #   and enforcement headers may be used at the same time.)
-    enforce_policies = getattr(settings, 'CSP_ENFORCE', None)
+    enforce_policies = getattr(settings, 'CSP_STATIC_ENFORCE', None)
 
-    # .. setting_name: CSP_REPORT_ONLY
+    # .. setting_name: CSP_STATIC_REPORT_ONLY
     # .. setting_default: None
     # .. setting_description: Content-Security-Policy-Report-Only header to attach to
-    #   all responses. See ``CSP_ENFORCE`` for details.
-    report_policies = getattr(settings, 'CSP_REPORT_ONLY', None)
+    #   all responses. See ``CSP_STATIC_ENFORCE`` for details.
+    report_policies = getattr(settings, 'CSP_STATIC_REPORT_ONLY', None)
 
-    # .. setting_name: CSP_REPORTING_URI
+    # .. setting_name: CSP_STATIC_REPORTING_URI
     # .. setting_default: None
     # .. setting_description: URL of reporting server. This will be used for both Level 2 and
     #   Level 3 reports. If there are any semicolons or commas in the URL, they must be URL-encoded.
-    #   Level 3 reporting is only enabled if ``CSP_REPORTING_NAME`` is also set.
-    reporting_uri = getattr(settings, 'CSP_REPORTING_URI', None)
+    #   Level 3 reporting is only enabled if ``CSP_STATIC_REPORTING_NAME`` is also set.
+    reporting_uri = getattr(settings, 'CSP_STATIC_REPORTING_URI', None)
 
-    # .. setting_name: CSP_REPORTING_NAME
+    # .. setting_name: CSP_STATIC_REPORTING_NAME
     # .. setting_default: None
     # .. setting_description: Used for CSP Level 3 reporting. This sets the name to use in the
     #   report-to CSP field and the Reporting-Endpoints header. If omitted, then Level 3 CSP
     #   reporting will not be enabled. If present, this must be a string starting with an ASCII
     #   letter and can contain ASCII letters, numbers, hyphen, underscore, and some other characters.
     #   See https://www.rfc-editor.org/rfc/rfc8941.html#section-3.3.4 for full grammar.
-    reporting_endpoint_name = getattr(settings, 'CSP_REPORTING_NAME', None)
+    reporting_endpoint_name = getattr(settings, 'CSP_STATIC_REPORTING_NAME', None)
 
     if not enforce_policies and not report_policies:
         return {}
