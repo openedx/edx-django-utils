@@ -69,7 +69,7 @@ extensions = [
     'sphinx.ext.intersphinx',
     'sphinx.ext.ifconfig',
     'sphinx.ext.napoleon',
-    'helloworld',
+    'include_all_files',
 ]
 
 # A list of warning types to suppress arbitrary warning messages.
