@@ -49,20 +49,20 @@ EdX utilities for Django Application development.
    :maxdepth: 1
    :caption: Plugins README
 
-   plugins/readme
+   symlinks/edx_django_utils/plugins/README
 
 .. toctree::
    :maxdepth: 1
    :caption: Plugins Decisions
 
-   plugins/decisions/0001-plugin-contexts
+   symlinks/edx_django_utils/plugins/docs/decisions/0001-plugin-contexts
 
 .. toctree::
    :maxdepth: 1
    :caption: Plugins How-Tos
 
-   plugins/how_tos/how_to_enable_plugins_for_an_ida
-   plugins/how_tos/how_to_create_a_plugin_app
+   symlinks/edx_django_utils/plugins/docs/how_tos/how_to_enable_plugins_for_an_ida
+   symlinks/edx_django_utils/plugins/docs/how_tos/how_to_create_a_plugin_app
 
 
 Indices and tables
