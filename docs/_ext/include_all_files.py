@@ -59,7 +59,7 @@ def create_symlinks(app, config):
         if path.commonpath([srcdir, root]) == srcdir:
             continue
 
-        [dirs.remove(d) for d in list(dirs) if should_remove_dir(srcdir, config.repo_root, d)]
+        [dirs.remove(d) for d in list(dirs) if should_remove_dir(d)]
 
         try:
             # if necessary, make the new subdir for these symlinks
