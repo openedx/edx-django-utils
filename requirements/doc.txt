@@ -164,6 +164,7 @@ snowballstemmer==2.2.0
     # via sphinx
 sphinx==4.2.0
     # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -c requirements/constraints.txt
     #   -r requirements/doc.in
     #   edx-sphinx-theme
