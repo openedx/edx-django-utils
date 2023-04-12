@@ -31,19 +31,19 @@ EdX utilities for Django Application development.
    :maxdepth: 1
    :caption: Monitoring Decisions
 
-   monitoring/decisions/0001-monitoring-by-code-owner
-   monitoring/decisions/0002-custom-monitoring-language
-   monitoring/decisions/0003-code-owner-for-celery-tasks
-   monitoring/decisions/0004-code-owner-theme-and-squad
+   symlinks/edx_django_utils/monitoring/docs/decisions/0001-monitoring-by-code-owner
+   symlinks/edx_django_utils/monitoring/docs/decisions/0002-custom-monitoring-language
+   symlinks/edx_django_utils/monitoring/docs/decisions/0003-code-owner-for-celery-tasks
+   symlinks/edx_django_utils/monitoring/docs/decisions/0004-code-owner-theme-and-squad
 
 .. toctree::
    :maxdepth: 1
    :caption: Monitoring How-Tos
 
-   monitoring/how_tos/add_code_owner_custom_attribute_to_an_ida
-   monitoring/how_tos/using_custom_attributes
-   monitoring/how_tos/search_new_relic_nrql
-   monitoring/how_tos/update_monitoring_for_squad_or_theme_changes
+   symlinks/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida
+   symlinks/edx_django_utils/monitoring/docs/how_tos/using_custom_attributes
+   symlinks/edx_django_utils/monitoring/docs/how_tos/search_new_relic_nrql
+   symlinks/edx_django_utils/monitoring/docs/how_tos/update_monitoring_for_squad_or_theme_changes
 
 .. toctree::
    :maxdepth: 1

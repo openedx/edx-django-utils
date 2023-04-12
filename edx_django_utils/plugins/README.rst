@@ -27,12 +27,12 @@ into a containing Django project.
 Enable Plugins in an IDA
 ------------------------
 
-See :doc:`instructions to enable plugins for an IDA <how_tos/how_to_enable_plugins_for_an_ida>`.
+See :doc:`instructions to enable plugins for an IDA <docs/how_tos/how_to_enable_plugins_for_an_ida>`.
 
 Creating a Plugin App
 ---------------------
 
-See :doc:`how to create a plugin app <how_tos/how_to_create_a_plugin_app>`.
+See :doc:`how to create a plugin app <docs/how_tos/how_to_create_a_plugin_app>`.
 
 .. note:: Do not use this plugin framework for required apps. Instead, explicitly add your required app to the ``INSTALLED_APPS`` of the IDA.
 
