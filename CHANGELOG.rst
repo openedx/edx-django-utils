@@ -14,6 +14,22 @@ Change Log
 Unreleased
 ----------
 
+[5.4.0] - 2023-04-12
+--------------------
+
+Added
+~~~~~
+
+* Added Content-Security-Policy response header middleware under ``security/csp``
+
+[5.3.0] - 2023-03-17
+--------------------
+
+Fixed
+~~~~~
+
+* Report both specified and existing email when refusing to create a user
+
 [5.2.0] - 2022-10-06
 --------------------
 
