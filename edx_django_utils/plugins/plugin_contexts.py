@@ -21,8 +21,8 @@ def get_plugins_view_context(project_type, view_name, existing_context=None):
     Params:
         project_type: a string that determines which project the view is being called in. See the
             ProjectType enum in
-            https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/constants.py#L14 for
-            valid options for edx-platform
+            https://github.com/openedx/edx-platform/blob/2dc79bcab42dafed2c122eb808cdd5604327c890/openedx/core/djangoapps/plugins/constants.py#L14 .
+            for valid options for edx-platform
         view_name: a string that determines which view needs the additional context. These are globally unique and
             noted in the api.py in the view's app.
         existing_context: a dictionary which includes all of the data that the page was going to render with prior

@@ -38,7 +38,7 @@ class::
 
    from django.apps import AppConfig
    from edx_django_utils.plugins.constants import (
-       ProjectType, PluginURLs, PluginSettings, PluginContexts
+       PluginURLs, PluginSettings, PluginContexts
    )
    class MyAppConfig(AppConfig):
        name = 'full_python_path.my_app'
@@ -50,8 +50,9 @@ class::
            PluginURLs.CONFIG: {
 
                # Configure the Plugin URLs for each project type, as needed. The full list of project types for edx-platform is 
-               # here: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/constants.py#L14 . Other IDAs may use different
-               # values.
+               # here:
+               # https://github.com/openedx/edx-platform/blob/2dc79bcab42dafed2c122eb808cdd5604327c890/openedx/core/djangoapps/plugins/constants.py#L14 .
+               # Other IDAs may use different values.
                'lms.djangoapp': {
 
                    # The namespace to provide to django's urls.include.
@@ -74,9 +75,10 @@ class::
            # Configuration setting for Plugin Settings for this app.
            PluginSettings.CONFIG: {
 
-               # Configure the Plugin Settings for each Project Type, as needed. The full list setting types for edx-platform is 
-               # here: https://github.com/openedx/edx-platform/blob/master/openedx/core/djangoapps/plugins/constants.py#L25 . Other IDAs may use different
-               # values.
+               # Configure the Plugin Settings for each Project Type, as needed. The full list of setting types for edx-platform is
+               # here:
+               # https://github.com/openedx/edx-platform/blob/2dc79bcab42dafed2c122eb808cdd5604327c890/openedx/core/djangoapps/plugins/constants.py#L25
+               # Other IDAs may use different values.
                'lms.djangoapp': {
 
                    # Configure each settings, as needed.
