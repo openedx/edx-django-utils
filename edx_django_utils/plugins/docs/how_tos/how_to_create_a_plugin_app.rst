@@ -77,7 +77,7 @@ class::
 
                # Configure the Plugin Settings for each Project Type, as needed. The full list of setting types for edx-platform is
                # here:
-               # https://github.com/openedx/edx-platform/blob/2dc79bcab42dafed2c122eb808cdd5604327c890/openedx/core/djangoapps/plugins/constants.py#L25
+               # https://github.com/openedx/edx-platform/blob/2dc79bcab42dafed2c122eb808cdd5604327c890/openedx/core/djangoapps/plugins/constants.py#L25 .
                # Other IDAs may use different values.
                'lms.djangoapp': {
 
