@@ -88,7 +88,7 @@ The view you wish to add context to should have the following pieces enabled:
     .. code-block::
 
         context_from_plugins = get_plugins_view_context(
-            plugin_constants.ProjectType.LMS,
+            'lms.djangoapp',
             current_app.api.THIS_VIEW_NAME,
             context
         )

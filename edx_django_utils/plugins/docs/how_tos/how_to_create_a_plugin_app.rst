@@ -32,12 +32,13 @@ file::
 
 3. (optional, but recommended) Create a top-level settings/ directory with common.py and production.py modules. This will allow you to use the PluginSettings.CONFIG option as written below.
 
-4. configure the Plugin App in their AppConfig
+4. configure the Plugin App in their AppConfig. Note that in this example, we are explicitly configuring plugins for use in edx-platform. If your plugin is going to be used in another IDA, you may have different project and settings types. You will need to look at the IDA in question for what values it expects. You may want to add new values to the relevant enums.
+
 class::
 
    from django.apps import AppConfig
    from edx_django_utils.plugins.constants import (
-       ProjectType, SettingsType, PluginURLs, PluginSettings, PluginContexts
+       PluginURLs, PluginSettings, PluginContexts
    )
    class MyAppConfig(AppConfig):
        name = 'full_python_path.my_app'
@@ -48,8 +49,11 @@ class::
            # Configuration setting for Plugin URLs for this app.
            PluginURLs.CONFIG: {
 
-               # Configure the Plugin URLs for each project type, as needed.
-               ProjectType.LMS: {
+               # Configure the Plugin URLs for each project type, as needed. The full list of project types for edx-platform is 
+               # here:
+               # https://github.com/openedx/edx-platform/blob/2dc79bcab42dafed2c122eb808cdd5604327c890/openedx/core/djangoapps/plugins/constants.py#L14 .
+               # Other IDAs may use different values.
+               'lms.djangoapp': {
 
                    # The namespace to provide to django's urls.include.
                    PluginURLs.NAMESPACE: 'my_app',
@@ -71,17 +75,20 @@ class::
            # Configuration setting for Plugin Settings for this app.
            PluginSettings.CONFIG: {
 
-               # Configure the Plugin Settings for each Project Type, as needed.
-               ProjectType.LMS: {
+               # Configure the Plugin Settings for each Project Type, as needed. The full list of setting types for edx-platform is
+               # here:
+               # https://github.com/openedx/edx-platform/blob/2dc79bcab42dafed2c122eb808cdd5604327c890/openedx/core/djangoapps/plugins/constants.py#L25 .
+               # Other IDAs may use different values.
+               'lms.djangoapp': {
 
-                   # Configure each Settings Type, as needed.
-                   SettingsType.PRODUCTION: {
+                   # Configure each settings, as needed.
+                   'production': {
 
                        # The python path (relative to this app) to the settings module for the relevant Project Type and Settings Type.
                        # Optional; Defaults to 'settings'.
                        PluginSettings.RELATIVE_PATH: 'settings.production',
                    },
-                   SettingsType.COMMON: {
+                   'common': {
                        PluginSettings.RELATIVE_PATH: 'settings.common',
                    },
                }
@@ -91,7 +98,7 @@ class::
            PluginSignals.CONFIG: {
 
                # Configure the Plugin Signals for each Project Type, as needed.
-               ProjectType.LMS: {
+               'lms.djangoapp': {
 
                    # The python path (relative to this app) to the Signals module containing this app's Signal receivers.
                    # Optional; Defaults to 'signals'.
@@ -121,7 +128,7 @@ class::
            PluginContexts.CONFIG: {
 
                # Configure the Plugin Signals for each Project Type, as needed.
-               ProjectType.LMS: {
+               'lms.djangoapp': {
 
                    # Key is the view that the app wishes to add context to and the value
                    # is the function within the app that will return additional context
