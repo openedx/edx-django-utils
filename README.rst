@@ -132,10 +132,7 @@ How To Contribute
 
 Contributions are very welcome.
 
-Please read `How To Contribute <https://github.com/openedx/edx-platform/blob/master/CONTRIBUTING.rst>`_ for details.
-
-Even though they were written with ``edx-platform`` in mind, the guidelines
-should be followed for Open edX code in general.
+Please read `How To Contribute <https://github.com/openedx/.github/blob/master/CONTRIBUTING.md>`_ for details.
 
 PR description template should be automatically applied if you are sending PR from github interface; otherwise you
 can find it it at `PULL_REQUEST_TEMPLATE.md <https://github.com/openedx/edx-django-utils/blob/master/.github/PULL_REQUEST_TEMPLATE.md>`_
