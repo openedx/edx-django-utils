@@ -40,5 +40,6 @@ jobs:
       if: matrix.python-version == '3.8' && matrix.toxenv == 'django32'
       uses: codecov/codecov-action@v3
       with:
+        files: htmlcov/index.html
         flags: unittests
         fail_ci_if_error: true
