@@ -17,6 +17,7 @@ Unreleased
 * Switched to ``sphinx-book-theme`` as the new standard theme across all Open
   edX repos.  See https://github.com/openedx/edx-sphinx-theme/issues/184 for
   more details.
+* Added upgrade-single-requirement GitHub workflow
 
 
 [5.4.0] - 2023-04-12
