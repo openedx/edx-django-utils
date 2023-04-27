@@ -8,7 +8,7 @@ version: 2
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
    configuration: docs/conf.py
-   # TODO: Fix autodoc warnings and set this to true
+   # TODO: Fix autodoc warnings and set this to true. See https://github.com/openedx/edx-django-utils/issues/304
    fail_on_warning: false
 
 python:
