@@ -57,7 +57,7 @@ distlib==0.3.6
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==3.2.18
+django==3.2.19
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -163,7 +163,7 @@ pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.15.1
     # via diff-cover
-pylint==2.17.3
+pylint==2.17.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
