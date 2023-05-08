@@ -20,11 +20,12 @@ beautifulsoup4==4.12.2
     # via pydata-sphinx-theme
 bleach==6.0.0
     # via readme-renderer
-certifi==2022.12.7
+certifi==2023.5.7
     # via requests
 cffi==1.15.1
     # via
     #   -r requirements/test.txt
+    #   cryptography
     #   pynacl
 charset-normalizer==3.1.0
     # via requests
@@ -34,9 +35,11 @@ coverage[toml]==7.2.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
+cryptography==40.0.2
+    # via secretstorage
 ddt==1.6.0
     # via -r requirements/test.txt
-django==3.2.18
+django==3.2.19
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -76,6 +79,10 @@ iniconfig==2.0.0
     #   pytest
 jaraco-classes==3.2.3
     # via keyring
+jeepney==0.8.0
+    # via
+    #   keyring
+    #   secretstorage
 jinja2==3.1.2
     # via sphinx
 keyring==23.13.1
@@ -144,7 +151,7 @@ readme-renderer==37.3
     # via
     #   -r requirements/doc.in
     #   twine
-requests==2.29.0
+requests==2.30.0
     # via
     #   requests-toolbelt
     #   sphinx
@@ -157,6 +164,8 @@ rfc3986==2.0.0
     # via twine
 rich==13.3.5
     # via twine
+secretstorage==3.3.3
+    # via keyring
 six==1.16.0
     # via bleach
 snowballstemmer==2.2.0
@@ -203,7 +212,7 @@ typing-extensions==4.5.0
     # via
     #   pydata-sphinx-theme
     #   rich
-urllib3==1.26.15
+urllib3==2.0.2
     # via
     #   requests
     #   twine
