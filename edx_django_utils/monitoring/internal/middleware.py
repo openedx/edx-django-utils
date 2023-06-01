@@ -5,6 +5,7 @@ At this time, monitoring details can only be reported to New Relic.
 
 """
 import base64
+from datetime import datetime, timedelta
 import hashlib
 import json
 import logging
@@ -284,6 +285,18 @@ class CookieMonitoringMiddleware:
             log.exception("Unexpected error logging and monitoring cookies.")
 
         response = self.get_response(request)
+
+        # .. setting_name: DEPRECATED_COOKIE_PREFIXES
+        # .. setting_default: []
+        # .. setting_description: A list of cookie prefixes. Any cookie starting with a prefix in this list
+        # will be manually removed from responses (i.e. set to expire in the past)
+        deprecated_cookie_prefixes = getattr(settings, "DEPRECATED_COOKIE_PREFIXES", [])
+        yesterday = datetime.utcnow() - timedelta(days=1)
+        for cookie_name in request.COOKIES.keys():
+            for deprecated_cookie_prefix in deprecated_cookie_prefixes:
+                if cookie_name.startswith(deprecated_cookie_prefix):
+                    response.set_cookie(cookie_name, value='', expires=yesterday,
+                                        domain=settings.BASE_COOKIE_DOMAIN)
 
         # Delay logging until response-time so that the user id can be included in the log message.
         if log_message:
