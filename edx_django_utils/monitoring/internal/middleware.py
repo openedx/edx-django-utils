@@ -286,11 +286,11 @@ class CookieMonitoringMiddleware:
 
         response = self.get_response(request)
 
-        # .. setting_name: DEPRECATED_COOKIE_PREFIXES
+        # .. setting_name: COOKIE_PREFIXES_TO_REMOVE
         # .. setting_default: []
         # .. setting_description: A list of cookie prefixes. Any cookie starting with a prefix in this list
         # will be manually removed from responses (i.e. set to expire in the past)
-        deprecated_cookie_prefixes = getattr(settings, "DEPRECATED_COOKIE_PREFIXES", [])
+        deprecated_cookie_prefixes = getattr(settings, "COOKIE_PREFIXES_TO_REMOVE", [])
         yesterday = datetime.utcnow() - timedelta(days=1)
         for cookie_name in request.COOKIES.keys():
             for deprecated_cookie_prefix in deprecated_cookie_prefixes:

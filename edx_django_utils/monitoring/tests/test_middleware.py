@@ -282,7 +282,7 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
         mock_logger.exception.assert_called_once_with("Unexpected error logging and monitoring cookies.")
 
     @override_settings(BASE_COOKIE_DOMAIN="localhost")
-    @override_settings(DEPRECATED_COOKIE_PREFIXES=['old_cookie'])
+    @override_settings(COOKIE_PREFIXES_TO_REMOVE=['old_cookie'])
     @patch('edx_django_utils.monitoring.internal.middleware.datetime')
     def test_deprecated_cookies_removed(self, datetime_mock):
         now = datetime.utcnow()
