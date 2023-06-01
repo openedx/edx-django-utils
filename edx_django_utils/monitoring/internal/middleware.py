@@ -12,7 +12,6 @@ import math
 import platform
 import random
 import warnings
-from datetime import datetime, timedelta
 from uuid import uuid4
 
 import django
@@ -275,6 +274,16 @@ class CookieMonitoringMiddleware:
     """
     def __init__(self, get_response):
         self.get_response = get_response
+        # .. setting_name: COOKIE_PREFIXES_TO_REMOVE
+        # .. setting_default: []
+        # .. setting_description: A list of cookie prefixes. Any cookie starting with a prefix in this list
+        # will be manually removed from responses (i.e. set to expire in the past). This is useful for removing
+        # leftover instances of large cookies that have since been deprecated.
+        self.deprecated_cookie_prefixes = getattr(settings, "COOKIE_PREFIXES_TO_REMOVE", [])
+        if not isinstance(self.deprecated_cookie_prefixes, list):
+            log.warning(f"COOKIE_PREFIXES_TO_REMOVE must be a list of (name, domain) tuples,"
+                        f" not {type(self.deprecated_cookie_prefixes)}. No cookies will be removed.")
+            self.deprecated_cookie_prefixes = []
 
     def __call__(self, request):
         # Monitor at request-time to skip any cookies that may be added during the request.
@@ -285,19 +294,12 @@ class CookieMonitoringMiddleware:
             log.exception("Unexpected error logging and monitoring cookies.")
 
         response = self.get_response(request)
-
-        # .. setting_name: COOKIE_PREFIXES_TO_REMOVE
-        # .. setting_default: []
-        # .. setting_description: A list of cookie prefixes. Any cookie starting with a prefix in this list
-        # will be manually removed from responses (i.e. set to expire in the past)
-        deprecated_cookie_prefixes = getattr(settings, "COOKIE_PREFIXES_TO_REMOVE", [])
-        yesterday = datetime.utcnow() - timedelta(days=1)
-        for cookie_name in request.COOKIES.keys():
-            for deprecated_cookie_prefix in deprecated_cookie_prefixes:
+        for deprecated_cookie_prefix, domain in self.deprecated_cookie_prefixes:
+            for cookie_name in request.COOKIES.keys():
                 if cookie_name.startswith(deprecated_cookie_prefix):
-                    log.info(f"Forcing expiration of {cookie_name}")
-                    response.set_cookie(cookie_name, value='', expires=yesterday,
-                                        domain=settings.BASE_COOKIE_DOMAIN)
+                    log.info(f"Deleting cookie {cookie_name} in domain {domain}")
+                    # delete_cookie sets the expiration date to the Unix epoch
+                    response.delete_cookie(cookie_name, domain=domain)
 
         # Delay logging until response-time so that the user id can be included in the log message.
         if log_message:

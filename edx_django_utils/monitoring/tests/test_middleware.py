@@ -4,7 +4,6 @@ Tests monitoring middleware.
 Note: CachedCustomMonitoringMiddleware is tested in ``test_custom_monitoring.py``.
 """
 import re
-from datetime import datetime, timedelta
 from unittest.mock import Mock, call, patch
 
 import ddt
@@ -281,13 +280,8 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
 
         mock_logger.exception.assert_called_once_with("Unexpected error logging and monitoring cookies.")
 
-    @override_settings(BASE_COOKIE_DOMAIN="localhost")
-    @override_settings(COOKIE_PREFIXES_TO_REMOVE=['old_cookie'])
-    @patch('edx_django_utils.monitoring.internal.middleware.datetime')
-    def test_deprecated_cookies_removed(self, datetime_mock):
-        now = datetime.utcnow()
-        yesterday = now - timedelta(days=1)
-        datetime_mock.utcnow.return_value = now
+    @override_settings(COOKIE_PREFIXES_TO_REMOVE=[('old_cookie', 'localhost')])
+    def test_deprecated_cookies_removed(self):
         self.mock_response.reset_mock()
         middleware = CookieMonitoringMiddleware(lambda _: self.mock_response)
         cookies_dict = {'old_cookie': 'x',
@@ -297,10 +291,26 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
         response = middleware(self.get_mock_request(cookies_dict))
 
         assert response == self.mock_response
-        assert response.set_cookie.mock_calls == [
-            call('old_cookie', value='', expires=yesterday, domain='localhost'),
-            call('old_cookie_9000', value='', expires=yesterday, domain='localhost'),
+        assert response.delete_cookie.mock_calls == [
+            call('old_cookie',  domain='localhost'),
+            call('old_cookie_9000', domain='localhost'),
         ]
+
+    @override_settings(COOKIE_PREFIXES_TO_REMOVE='old_cookie')
+    @patch('edx_django_utils.monitoring.internal.middleware.log', autospec=True)
+    def test_bad_cookie_prefix_setting(self, mock_log):
+        self.mock_response.reset_mock()
+        middleware = CookieMonitoringMiddleware(lambda _: self.mock_response)
+        cookies_dict = {'old_cookie': 'x',
+                        'ok_cookie': 'x',
+                        'old_cookie_9000': 'x'
+                        }
+        response = middleware(self.get_mock_request(cookies_dict))
+
+        assert response == self.mock_response
+        mock_log.warning.assert_called_once_with("COOKIE_PREFIXES_TO_REMOVE must be a list of (name, domain) tuples,"
+                                                 " not <class 'str'>. No cookies will be removed.")
+        response.delete_cookie.assert_not_called()
 
     def get_mock_request(self, cookies_dict):
         """
