@@ -295,6 +295,7 @@ class CookieMonitoringMiddleware:
         for cookie_name in request.COOKIES.keys():
             for deprecated_cookie_prefix in deprecated_cookie_prefixes:
                 if cookie_name.startswith(deprecated_cookie_prefix):
+                    log.info(f"Forcing expiration of {cookie_name}")
                     response.set_cookie(cookie_name, value='', expires=yesterday,
                                         domain=settings.BASE_COOKIE_DOMAIN)
 
