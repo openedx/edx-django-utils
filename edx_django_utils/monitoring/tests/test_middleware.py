@@ -4,9 +4,9 @@ Tests monitoring middleware.
 Note: CachedCustomMonitoringMiddleware is tested in ``test_custom_monitoring.py``.
 """
 import re
+from datetime import datetime, timedelta
 from unittest.mock import Mock, call, patch
 
-from datetime import datetime, timedelta
 import ddt
 from django.test import TestCase
 from django.test.client import RequestFactory

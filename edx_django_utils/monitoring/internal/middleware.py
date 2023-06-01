@@ -5,7 +5,6 @@ At this time, monitoring details can only be reported to New Relic.
 
 """
 import base64
-from datetime import datetime, timedelta
 import hashlib
 import json
 import logging
@@ -13,6 +12,7 @@ import math
 import platform
 import random
 import warnings
+from datetime import datetime, timedelta
 from uuid import uuid4
 
 import django
