@@ -280,6 +280,38 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
 
         mock_logger.exception.assert_called_once_with("Unexpected error logging and monitoring cookies.")
 
+    @override_settings(COOKIE_PREFIXES_TO_REMOVE=[('old_cookie', 'localhost')])
+    def test_deprecated_cookies_removed(self):
+        self.mock_response.reset_mock()
+        middleware = CookieMonitoringMiddleware(lambda _: self.mock_response)
+        cookies_dict = {'old_cookie': 'x',
+                        'ok_cookie': 'x',
+                        'old_cookie_9000': 'x'
+                        }
+        response = middleware(self.get_mock_request(cookies_dict))
+
+        assert response == self.mock_response
+        assert response.delete_cookie.mock_calls == [
+            call('old_cookie',  domain='localhost'),
+            call('old_cookie_9000', domain='localhost'),
+        ]
+
+    @override_settings(COOKIE_PREFIXES_TO_REMOVE='old_cookie')
+    @patch('edx_django_utils.monitoring.internal.middleware.log', autospec=True)
+    def test_bad_cookie_prefix_setting(self, mock_log):
+        self.mock_response.reset_mock()
+        middleware = CookieMonitoringMiddleware(lambda _: self.mock_response)
+        cookies_dict = {'old_cookie': 'x',
+                        'ok_cookie': 'x',
+                        'old_cookie_9000': 'x'
+                        }
+        response = middleware(self.get_mock_request(cookies_dict))
+
+        assert response == self.mock_response
+        mock_log.warning.assert_called_once_with("COOKIE_PREFIXES_TO_REMOVE must be a list of (name, domain) tuples,"
+                                                 " not <class 'str'>. No cookies will be removed.")
+        response.delete_cookie.assert_not_called()
+
     def get_mock_request(self, cookies_dict):
         """
         Return mock request with the provided cookies in the header.

@@ -4,8 +4,8 @@ data_file = .coverage
 source=edx_django_utils
 omit =
     test_settings
-    *migrations*
-    *admin.py
-    *static*
-    *templates*
-    *plugins*
+    */migrations/*
+    */admin.py
+    */static/*
+    */templates/*
+    */plugins/*
