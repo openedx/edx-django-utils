@@ -35,5 +35,5 @@ sqlparse==0.4.4
     # via django
 stevedore==5.1.0
     # via -r requirements/base.in
-typing-extensions==4.6.2
+typing-extensions==4.6.3
     # via asgiref
