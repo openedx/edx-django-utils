@@ -26,7 +26,7 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==1.3.0
     # via edx-lint
-coverage[toml]==7.2.6
+coverage[toml]==7.2.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -61,7 +61,7 @@ jinja2==3.1.2
     # via code-annotations
 lazy-object-proxy==1.9.0
     # via astroid
-markupsafe==2.1.2
+markupsafe==2.1.3
     # via jinja2
 mccabe==0.7.0
     # via pylint
@@ -148,7 +148,7 @@ tomli==2.0.1
     #   pytest
 tomlkit==0.11.8
     # via pylint
-typing-extensions==4.6.2
+typing-extensions==4.6.3
     # via
     #   -r requirements/test.txt
     #   asgiref
