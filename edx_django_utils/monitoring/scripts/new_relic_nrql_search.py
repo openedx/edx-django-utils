@@ -199,7 +199,7 @@ def search_alert_policies(regex, account_id, headers, policy_id):
                         f"Found in \"{policy['name']}\" "
                         # NOTE: The API doesn't provide a link to the policy, so this is a static link to
                         #   the alert policies home page.
-                        f"(policy_id={policy['id']}, search_link=https://one.nr/0X8woZOZvQx):"
+                        f"(policy_id={policy['id']}, search_link=https://onenr.io/0X8woZOZvQx):"
                     )
                     print('')
 
