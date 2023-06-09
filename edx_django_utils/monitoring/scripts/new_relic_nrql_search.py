@@ -34,7 +34,13 @@ import requests
     multiple=True,
     help="Optionally provide a specific dashboard guid to check. Multiple can be supplied.",
 )
-def main(regex, policy_id, dashboard_guid):
+@click.option(
+    '--skip_text_widgets',
+    is_flag=True,
+    default=False,
+    help="Optionally provide a specific dashboard guid to check. Multiple can be supplied.",
+)
+def main(regex, policy_id, dashboard_guid, skip_text_widgets):
     """
     Search NRQL in New Relic alert policies and dashboards using regex.
 
@@ -65,9 +71,10 @@ def main(regex, policy_id, dashboard_guid):
 
     account_ids = get_account_ids(headers)
     for account_id in account_ids:
-        search_alert_policies(compiled_regex, account_id, headers, policy_id)
+        pass
+       # search_alert_policies(compiled_regex, account_id, headers, policy_id)
     print()
-    search_dashboards(compiled_regex, headers, dashboard_guid)
+    search_dashboards(compiled_regex, headers, dashboard_guid, skip_text_widgets=skip_text_widgets)
     print(flush=True)
 
 
@@ -190,7 +197,6 @@ def search_alert_policies(regex, account_id, headers, policy_id):
         for nrql_condition in nrql_conditions:
             nrql_query = nrql_condition['nrql']['query']
             if regex.search(nrql_query, re.IGNORECASE):
-
                 # Print the alert policy header for the first alert condition matched
                 if policy['id'] not in policy_ids_printed:
                     policy_ids_printed[policy['id']] = True
@@ -260,7 +266,7 @@ DASHBOARD_ENTITY_QUERY = """
 """
 
 
-def search_dashboards(regex, headers, dashboard_guid):
+def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets=False):
     """
     Searches New Relic alert policy NRQL using the regex argument.
 
@@ -295,6 +301,7 @@ def search_dashboards(regex, headers, dashboard_guid):
     dashboard_guids_printed = {}
     for dashboard in dashboards:
         print('.', end='', flush=True)
+        found = False
 
         # get the dashboard details
         response = requests.get(
@@ -308,28 +315,45 @@ def search_dashboards(regex, headers, dashboard_guid):
         response.raise_for_status()  # could be an error response
         response_data = response.json()
 
+        if response_data['data'].get('errors', None) is not None:
+            response = requests.get(
+                'https://api.newrelic.com/graphql',
+                headers=headers,
+                params={
+                    'query': DASHBOARD_ENTITY_QUERY,
+                    'variables': json.dumps({'guids': dashboard['guid']}),
+                }
+            )
+            response_data = response.json()
+            if response_data['data'].get('errors', None) is not None:
+                continue
         if response_data['data']['actor']['entities'][0]['pages']:
             for page in response_data['data']['actor']['entities'][0]['pages']:
                 for widget in page['widgets']:
-                    if 'nrqlQueries' not in widget['rawConfiguration']:
-                        continue
-
-                    for nrql_query in widget['rawConfiguration']['nrqlQueries']:
-                        query = nrql_query['query']
-                        if regex.search(query, re.IGNORECASE):
-
-                            # Print the dashboard header for the first widget nrql that matches
-                            if dashboard['guid'] not in dashboard_guids_printed:
-                                dashboard_guids_printed[dashboard['guid']] = True
-                                print('\n')
-                                print(
-                                    f"Found in \"{dashboard['name']}\" "
-                                    f"(guid={dashboard['guid']}, link={dashboard['permalink']}):"
-                                )
-                                print('')
-
+                    found_text = None
+                    if 'text' in widget['rawConfiguration'] and not skip_text_widgets:
+                        widget_text = widget['rawConfiguration']['text']
+                        if regex.search(widget_text, re.IGNORECASE):
+                            found = True
+                            found_text = widget_text
+                    if 'nrqlQueries' in widget['rawConfiguration']:
+                        for nrql_query in widget['rawConfiguration']['nrqlQueries']:
+                            query = nrql_query['query']
+                            if regex.search(query, re.IGNORECASE):
+                                found = True
+                                found_text = query
+                    # Print the dashboard header for the first widget nrql that matches
+                    if found:
+                        if dashboard['guid'] not in dashboard_guids_printed:
+                            dashboard_guids_printed[dashboard['guid']] = True
+                            print('\n')
+                            print(
+                                f"Found in \"{dashboard['name']}\" "
+                                f"(guid={dashboard['guid']}, link={dashboard['permalink']}):"
+                            )
+                            print('')
                             # Print the widget NRQL that matches
-                            print(f"- {widget['title']}: {query}")
+                        print(f"- {widget['title']}: {found_text}")
 
     if dashboard_guids_printed:
         command_line = ''
