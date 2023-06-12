@@ -1,12 +1,12 @@
 """
-This script takes a regex to search through the NRQL of New Relic alert policies
+This script takes a regex to search through the New Relic alert policies
 and New dashboards.
 
 This script makes use of New Relic's GraphQL API. See https://api.newrelic.com/graphiql.
 
 For help::
 
-    python edx_django_utils/monitoring/scripts/new_relic_nrql_search.py --help
+    python edx_django_utils/monitoring/scripts/new_relic_search.py --help
 
 """
 import json
@@ -22,7 +22,7 @@ import requests
 @click.option(
     '--regex',
     required=True,
-    help="The regex to use to search NRQL in alert policies and dashboards.",
+    help="The regex to use to search in alert policies and dashboards.",
 )
 @click.option(
     '--policy_id',
@@ -38,15 +38,21 @@ import requests
     '--skip_text_widgets',
     is_flag=True,
     default=False,
-    help="Optionally provide a specific dashboard guid to check. Multiple can be supplied.",
+    help="Optionally skip text widgets and only search NRQL in dashboards",
 )
-def main(regex, policy_id, dashboard_guid, skip_text_widgets):
+@click.option(
+    '--retries',
+    required=False,
+    default=1,
+    help="Optionally specify the number of times to retry a graphql request before exiting. Default is 1.",
+)
+def main(regex, policy_id, dashboard_guid, skip_text_widgets, retries):
     """
-    Search NRQL in New Relic alert policies and dashboards using regex.
+    Search NRQL and markdown in New Relic alert policies and dashboards using regex.
 
     Example usage:
 
-        new_relic_nrql_search.py --regex tnl
+        new_relic_search.py --regex tnl
 
     Note: The search ignores case since NRQL is case insensitive.
 
@@ -57,7 +63,8 @@ def main(regex, policy_id, dashboard_guid, skip_text_widgets):
     See https://docs.newrelic.com/docs/apis/intro-apis/new-relic-api-keys/#user-api-key for details
     on setting an API key.
 
-    To skip alert policies or dashboards, just use a non-existent id, like --policy_id 0 or --dashboard_guid 0.
+    To skip alert policies or dashboards, just use a non-existent id, like --policy_id 0 or --dashboard_guid 0. To only
+    search NRQL and not markdown text, use --skip_text_widgets.
 
     """
     # Set environment variables
@@ -69,23 +76,45 @@ def main(regex, policy_id, dashboard_guid, skip_text_widgets):
 
     compiled_regex = re.compile(regex)
 
-    account_ids = get_account_ids(headers)
+    account_ids = get_account_ids(headers, retries)
     for account_id in account_ids:
-        pass
-       # search_alert_policies(compiled_regex, account_id, headers, policy_id)
+        search_alert_policies(compiled_regex, account_id, headers, policy_id, retries)
     print()
-    search_dashboards(compiled_regex, headers, dashboard_guid, skip_text_widgets=skip_text_widgets)
+    search_dashboards(compiled_regex, headers, dashboard_guid, skip_text_widgets, retries)
     print(flush=True)
 
 
-def get_account_ids(headers):
+def get_with_retries(url, headers, params, retries):
+    response = requests.get(url, headers=headers, params=params)
+    # this is a bit silly but it allows us to retry on HTTP errors iff we have retries left
+    try:
+        response.raise_for_status()  # could be an HTTP error response
+    except requests.exceptions.HTTPError as http_error:
+        if retries == 0:
+            raise Exception from http_error
+        print(f"HTTPError when fetching request: {http_error}. Retrying")
+        return get_with_retries(url, headers, params, retries=retries-1)
+
+    response_data = response.json()
+
+    # sometimes errors come back as 'errors' in the data block instead of HTTP errors
+    errors = response_data['data'].get('errors', None)
+    if errors is not None and retries > 0:
+        print(f"Errors when fetching request: {errors}. Retrying")
+        return get_with_retries(url, headers, params, retries=retries-1)
+    else:
+        # if the response succeeded or we're at 0 retries, return whatever we got
+        return response_data
+
+
+def get_account_ids(headers, retries):
     """
     Returns a list of the New Relic account ids to be searched.
     """
-    response = requests.get(
+    response_data = get_with_retries(
         'https://api.newrelic.com/graphql',
-        headers=headers,
-        params={'query': """
+        headers,
+        {'query': """
             {
               actor {
                 accounts {
@@ -94,9 +123,8 @@ def get_account_ids(headers):
               }
             }
         """},
+        retries,
     )
-    response.raise_for_status()  # could be an error response
-    response_data = response.json()
     account_ids = [account['id'] for account in response_data['data']['actor']['accounts']]
     return account_ids
 
@@ -145,7 +173,7 @@ NRQL_ALERT_CONDITIONS_TEMPLATE = Template("""
 """)
 
 
-def search_alert_policies(regex, account_id, headers, policy_id):
+def search_alert_policies(regex, account_id, headers, policy_id, retries):
     """
     Searches New Relic alert policy NRQL using the regex argument.
 
@@ -154,20 +182,20 @@ def search_alert_policies(regex, account_id, headers, policy_id):
         account_id (int): the id of the New Relic account in which to search.
         headers (dict): headers required to make http requests to New Relic.
         policy_id (tuple): optional tuple of policy ids supplied from the command-line.
+        retries (int): optional number of times to retry a failed request supplied from the command line. Default is 1.
     """
     policies = []
     cursor = 'null'
     while True:
-        response = requests.get(
+        response_data = get_with_retries(
             'https://api.newrelic.com/graphql',
-            headers=headers,
-            params={'query': ALERT_POLICY_LIST_TEMPLATE.substitute(
+            headers,
+            {'query': ALERT_POLICY_LIST_TEMPLATE.substitute(
                 account_id=account_id,
                 cursor=cursor
             )},
+            retries,
         )
-        response.raise_for_status()  # could be an error response
-        response_data = response.json()
         query_results = response_data['data']['actor']['account']['alerts']['policiesSearch']
         policies += query_results['policies']
         if not query_results['nextCursor']:
@@ -182,16 +210,15 @@ def search_alert_policies(regex, account_id, headers, policy_id):
         print('.', end='', flush=True)
 
         # get the NRQL alert conditions from the alert policy
-        response = requests.get(
+        response_data = get_with_retries(
             'https://api.newrelic.com/graphql',
-            headers=headers,
-            params={'query': NRQL_ALERT_CONDITIONS_TEMPLATE.substitute(
+            headers,
+            {'query': NRQL_ALERT_CONDITIONS_TEMPLATE.substitute(
                 account_id=account_id,
                 policy_id=policy['id'],
             )},
+            retries,
         )
-        response.raise_for_status()  # could be an error response
-        response_data = response.json()
 
         nrql_conditions = response_data['data']['actor']['account']['alerts']['nrqlConditionsSearch']['nrqlConditions']
         for nrql_condition in nrql_conditions:
@@ -266,7 +293,7 @@ DASHBOARD_ENTITY_QUERY = """
 """
 
 
-def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets=False):
+def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets, retries):
     """
     Searches New Relic alert policy NRQL using the regex argument.
 
@@ -274,18 +301,19 @@ def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets=False):
         regex (re.Pattern): compiled regex used to compare against NRQL
         headers (dict): headers required to make http requests to New Relic
         dashboard_guid (tuple): optional tuple of dashboard guids supplied from the command-line.
+        skip_text_widgets (bool): optional flag to only search NRQL widgets, supplied from command line
+        retries (int): optional number of times to retry requests, supplied from the command line. Default is 1.
     """
     # load details of all dashboards
     dashboards = []
     cursor = 'null'
     while True:
-        response = requests.get(
+        response_data = get_with_retries(
             'https://api.newrelic.com/graphql',
-            headers=headers,
-            params={'query': DASHBOARD_LIST_QUERY_TEMPLATE.substitute(cursor=cursor)},
+            headers,
+            {'query': DASHBOARD_LIST_QUERY_TEMPLATE.substitute(cursor=cursor)},
+            retries,
         )
-        response.raise_for_status()  # could be an error response
-        response_data = response.json()
         query_results = response_data['data']['actor']['entitySearch']['results']
         dashboards += query_results['entities']
         if not query_results['nextCursor']:
@@ -304,29 +332,16 @@ def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets=False):
         found = False
 
         # get the dashboard details
-        response = requests.get(
+        response_data = get_with_retries(
             'https://api.newrelic.com/graphql',
-            headers=headers,
-            params={
+            headers,
+            {
                 'query': DASHBOARD_ENTITY_QUERY,
                 'variables': json.dumps({'guids': dashboard['guid']}),
-            }
+            },
+            retries,
         )
-        response.raise_for_status()  # could be an error response
-        response_data = response.json()
 
-        if response_data['data'].get('errors', None) is not None:
-            response = requests.get(
-                'https://api.newrelic.com/graphql',
-                headers=headers,
-                params={
-                    'query': DASHBOARD_ENTITY_QUERY,
-                    'variables': json.dumps({'guids': dashboard['guid']}),
-                }
-            )
-            response_data = response.json()
-            if response_data['data'].get('errors', None) is not None:
-                continue
         if response_data['data']['actor']['entities'][0]['pages']:
             for page in response_data['data']['actor']['entities'][0]['pages']:
                 for widget in page['widgets']:
