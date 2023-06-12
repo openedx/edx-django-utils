@@ -36,9 +36,9 @@ To find the relevant NRQL to update, see `Searching New Relic NRQL`_.
 Searching New Relic NRQL
 ------------------------
 
-See :doc:`search_new_relic_nrql` for general information about the ``new_relic_nrql_search.py`` script.
+See :doc:`search_new_relic` for general information about the ``new_relic_search.py`` script.
 
 This script can be especially useful for helping with the expand/contract phase when changing squad or theme names. For example, you could use the following::
 
-    new_relic_nrql_search.py --regex old-squad-name
-    new_relic_nrql_search.py --regex new-squad-name
+    new_relic_search.py --regex old-squad-name
+    new_relic_search.py --regex new-squad-name

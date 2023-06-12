@@ -13,6 +13,9 @@ Change Log
 
 Unreleased
 ----------
+Changed
+~~~~~~~
+* Updated and renamed new_relic_nrql_search to search in text widgets as well as NRQL queries
 
 [5.5.0] - 2023-06-01
 --------------------
