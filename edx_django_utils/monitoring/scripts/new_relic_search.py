@@ -357,7 +357,7 @@ def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets, retries
                             if regex.search(query, re.IGNORECASE):
                                 found = True
                                 found_text = query
-                    # Print the dashboard header for the first widget nrql that matches
+                    # Print the dashboard header for the first widget/nrql that matches
                     if found:
                         if dashboard['guid'] not in dashboard_guids_printed:
                             dashboard_guids_printed[dashboard['guid']] = True
