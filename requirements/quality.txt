@@ -77,7 +77,7 @@ pbr==5.11.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==3.5.3
+platformdirs==3.6.0
     # via pylint
 pluggy==1.0.0
     # via
