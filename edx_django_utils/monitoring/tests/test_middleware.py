@@ -11,7 +11,6 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from waffle.testutils import override_switch
-from unittest.mock import Mock
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (

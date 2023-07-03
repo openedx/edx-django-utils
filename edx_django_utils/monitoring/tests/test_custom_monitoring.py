@@ -3,11 +3,11 @@ Tests for CachedCustomMonitoringMiddleware and associated utilities.
 
 Note: See test_middleware.py for the rest of the middleware tests.
 """
-from unittest.mock import call, patch
+from unittest.mock import Mock, call, patch
 
 import ddt
 from django.test import TestCase
-from unittest.mock import Mock
+
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (
     CachedCustomMonitoringMiddleware,
