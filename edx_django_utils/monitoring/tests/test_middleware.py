@@ -11,6 +11,7 @@ from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
 from waffle.testutils import override_switch
+from unittest.mock import Mock
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (
@@ -27,7 +28,8 @@ class TestMonitoringMemoryMiddleware(TestCase):
     @override_switch('edx_django_utils.monitoring.enable_memory_middleware', False)
     @patch('edx_django_utils.monitoring.internal.middleware.log')
     def test_memory_monitoring_when_disabled(self, mock_logger):
-        MonitoringMemoryMiddleware().process_response(
+        mock_response = Mock()
+        MonitoringMemoryMiddleware(mock_response).process_response(
             'fake request',
             'fake response',
         )
@@ -37,7 +39,8 @@ class TestMonitoringMemoryMiddleware(TestCase):
     @patch('edx_django_utils.monitoring.internal.middleware.log')
     def test_memory_monitoring_when_enabled(self, mock_logger):
         request = RequestFactory().get('/')
-        MonitoringMemoryMiddleware().process_response(
+        mock_response = Mock()
+        MonitoringMemoryMiddleware(mock_response).process_response(
             request,
             'fake response',
         )
