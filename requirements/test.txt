@@ -32,7 +32,7 @@ iniconfig==2.0.0
     # via pytest
 mock==5.0.2
     # via -r requirements/test.in
-newrelic==8.8.0
+newrelic==8.8.1
     # via -r requirements/base.txt
 packaging==23.1
     # via pytest
@@ -40,7 +40,7 @@ pbr==5.11.1
     # via
     #   -r requirements/base.txt
     #   stevedore
-pluggy==1.0.0
+pluggy==1.2.0
     # via pytest
 psutil==5.9.5
     # via -r requirements/base.txt
@@ -50,7 +50,7 @@ pycparser==2.21
     #   cffi
 pynacl==1.5.0
     # via -r requirements/base.txt
-pytest==7.3.2
+pytest==7.4.0
     # via
     #   pytest-cov
     #   pytest-django
@@ -72,7 +72,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.6.3
+typing-extensions==4.7.1
     # via
     #   -r requirements/base.txt
     #   asgiref
