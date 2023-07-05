@@ -3,7 +3,7 @@ Tests for CachedCustomMonitoringMiddleware and associated utilities.
 
 Note: See test_middleware.py for the rest of the middleware tests.
 """
-from unittest.mock import call, patch
+from unittest.mock import Mock, call, patch
 
 import ddt
 from django.test import TestCase
@@ -32,6 +32,7 @@ class TestCustomMonitoringMiddleware(TestCase):
     """
     def setUp(self):
         super().setUp()
+        self.mock_response = Mock()
         RequestCache.clear_all_namespaces()
 
     @patch('newrelic.agent')
@@ -62,7 +63,7 @@ class TestCustomMonitoringMiddleware(TestCase):
         ]
 
         # fake a response to trigger attributes reporting
-        middleware_method = getattr(cached_monitoring_middleware_class(), middleware_method_name)
+        middleware_method = getattr(cached_monitoring_middleware_class(self.mock_response), middleware_method_name)
         middleware_method(
             'fake request',
             'fake response',
@@ -101,8 +102,9 @@ class TestCustomMonitoringMiddleware(TestCase):
             call('error_adding_accumulated_metric', 'name=hello, new_value=10, cached_value=None'),
         ]
 
+        self.mock_response = Mock()
         # fake a response to trigger metrics reporting
-        cached_monitoring_middleware_class().process_response(
+        cached_monitoring_middleware_class(self.mock_response).process_response(
             'fake request',
             'fake response',
         )
