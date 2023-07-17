@@ -16,7 +16,7 @@ cffi==1.15.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-click==8.1.4
+click==8.1.5
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -77,7 +77,7 @@ pbr==5.11.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==3.8.1
+platformdirs==3.9.1
     # via pylint
 pluggy==1.2.0
     # via
