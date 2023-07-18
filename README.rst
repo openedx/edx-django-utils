@@ -6,7 +6,7 @@ edx-django-utils
 
 EdX utilities for Django Application development.
 
-Note that some utilities may warrant their own repository. A judgement call
+Note : that some utilities may warrant their own repository. A judgement call
 needs to be made as to whether code properly belongs here or not. Please
 review with the Architecture Team if you have any questions.
 
