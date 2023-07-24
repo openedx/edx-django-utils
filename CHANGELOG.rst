@@ -13,6 +13,14 @@ Change Log
 
 Unreleased
 ----------
+
+Added
+
+* Support added for Django 4.2
+
+[5.6.0] - 2023-07-24
+--------------------
+
 Changed
 ~~~~~~~
 * Updated and renamed new_relic_nrql_search to search in text widgets as well as NRQL queries
