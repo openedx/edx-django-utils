@@ -259,6 +259,8 @@ class TieredCache:
             return CachedResponse(is_found=False, key=key, value=None)
 
         cached_value = django_cache.get(key, _CACHE_MISS)
+        if cached_value is None:
+            cached_value = _CACHE_MISS
         is_found = cached_value is not _CACHE_MISS
         return CachedResponse(is_found, key, cached_value)
 

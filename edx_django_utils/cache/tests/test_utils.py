@@ -8,6 +8,7 @@ from unittest import TestCase, mock
 import ddt
 
 from edx_django_utils.cache.utils import (
+    _CACHE_MISS,
     DEFAULT_REQUEST_CACHE_NAMESPACE,
     SHOULD_FORCE_CACHE_MISS_KEY,
     CachedResponse,
@@ -167,6 +168,78 @@ class TestTieredCache(TestCase):  # pylint: disable=missing-class-docstring
 
         cached_response = self.request_cache.get_cached_response(TEST_KEY)
         self.assertTrue(cached_response.is_found, 'Django cache hit should cache value in request cache.')
+
+    @mock.patch('django.core.cache.cache.get')
+    def test_get_cached_response_hit_with_cached_none_using_python_memcached_like_functionality(self, mock_cache_get):
+        """
+        Using python-memcached as a django cache backend, if you try to retrieve None
+        (which has been cached earlier), python-memcached would take it as a CACHE_MISS.
+
+        Although, during the execution of these tests the backend would be locmem (Local Memcache) instead
+        of python-memcache but we have simulated python-memcache functionality using mock.
+
+        Tiered Cache is a 2-tier cache
+
+        1. Request Cache (in-memory python dict)
+        2. Django Cache
+
+        In this test, first we will set all the tiers. Then we will clear the first tear (Request Cache).
+        After that, we will try to retrieve value from second tier (django cache). The `is_found` status of
+        the cache value in second tear should be False as second tear would consider cached `None` as a CACHE MISS.
+        """
+        mock_cache_get.return_value = _CACHE_MISS
+        TieredCache.set_all_tiers(TEST_KEY, None)
+        cached_response = self.request_cache.get_cached_response(TEST_KEY)
+        self.assertTrue(cached_response.is_found)
+
+        self.request_cache.clear()
+        cached_response = self.request_cache.get_cached_response(TEST_KEY)
+        self.assertFalse(cached_response.is_found)
+
+        cached_response = TieredCache.get_cached_response(TEST_KEY)
+        self.assertFalse(cached_response.is_found)
+
+    def test_get_cached_response_hit_with_cached_none_using_pymemcache_like_functionality(self):
+        """
+        Using pymemcached as a django cache backend, if you try to retrieve None
+        (which has been cached earlier), pymemcache would not take it as CACHE MISS.
+        Unlike python-memcache (deprecated backend) it would treat it as it is means `None`.
+
+        Although, during the execution of these tests the backend would be locmem (Local Memcache) instead
+        of pymemcache but it exactly behaves like pymemcache. So we don't need to mock anything in this test.
+
+        Tiered Cache is a 2-tier cache
+
+        1. Request Cache (in-memory python dict)
+        2. Django Cache
+
+        In this test, first we will set all the tiers. Then we will clear the first tear (Request Cache).
+        After that, we will try to retrieve value from second tier (django cache). Now, second tear would return
+        a valid value which is `None`. But we would still treat is as CACHE MISS intentionally. Why is that so?
+
+        Well the answer is, other services which are using this package (edx-django-utils), they have incorporated
+        this package in their codebase assuming that the second tier (django cache: with pthon-memached backend) would
+        treat cached `None` value as a CACHE MISS.
+
+        Now, if instead of CACHE MISS, we return `None` it will cause errors. So, to don't let it happen. We're
+        now treating cached `None` value as CACHE MISS explicitly. This way, we're keeping the functionality intact.
+        And achieving backward-compatibility.
+
+        # TODO: In future, we need to fix this functionality of treating cached None as CACHE MISS explicitly.
+        Let's consider a case where a large computation is done and the answer is None. We cache that None value
+        to avoid that computation in future. But using our current functionality, we would treat that None as CACHE MISS
+        on retrieval. This will make us to do the computation again which is an overhead.
+        """
+        TieredCache.set_all_tiers(TEST_KEY, None)
+        cached_response = TieredCache.get_cached_response(TEST_KEY)
+        self.assertTrue(cached_response.is_found)
+
+        self.request_cache.clear()
+        cached_response = self.request_cache.get_cached_response(TEST_KEY)
+        self.assertFalse(cached_response.is_found)
+
+        cached_response = TieredCache.get_cached_response(TEST_KEY)
+        self.assertFalse(cached_response.is_found)
 
     @mock.patch('django.core.cache.cache.get')
     def test_get_cached_response_force_cache_miss(self, mock_cache_get):
