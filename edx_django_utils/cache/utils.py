@@ -14,6 +14,7 @@ DEFAULT_REQUEST_CACHE_NAMESPACE = f'{DEFAULT_NAMESPACE}.default'
 SHOULD_FORCE_CACHE_MISS_KEY = 'edx_django_utils.cache.should_force_cache_miss'
 
 _CACHE_MISS = object()
+_CACHED_NONE = 'CACHED_NONE'
 
 
 def get_cache_key(**kwargs):
@@ -210,7 +211,13 @@ class TieredCache:
 
         """
         DEFAULT_REQUEST_CACHE.set(key, value)
-        django_cache.set(key, value, django_cache_timeout)
+        cached_value = value
+        if value is None:
+            # It is not possible to store None in memcached with our libraries,
+            # so to make it compatible with RequestCache (which can store None),
+            # we temporarily store an object that represents None.
+            cached_value = _CACHED_NONE
+        django_cache.set(key, cached_value, django_cache_timeout)
 
     @staticmethod
     def delete_all_tiers(key):
@@ -259,8 +266,8 @@ class TieredCache:
             return CachedResponse(is_found=False, key=key, value=None)
 
         cached_value = django_cache.get(key, _CACHE_MISS)
-        if cached_value is None:
-            cached_value = _CACHE_MISS
+        if cached_value == _CACHED_NONE:
+            cached_value = None
         is_found = cached_value is not _CACHE_MISS
         return CachedResponse(is_found, key, cached_value)
 

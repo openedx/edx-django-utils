@@ -18,10 +18,9 @@ Added
 ~~~~~
 * Support added for Django 4.2
 
-Changed
+Fixed
 ~~~~~~~
-* #330 ``TieredCache._get_cached_response_from_django_cache`` will now treat None as CACHE_MISS
-  no matter which cache backend (``python-memcached`` or ``pymemcache``) is used
+* ``TieredCache`` will now correctly return a cached None from either cache tier.
 
 [5.6.0] - 2023-07-24
 --------------------
