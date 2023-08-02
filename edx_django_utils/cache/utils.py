@@ -265,10 +265,11 @@ class TieredCache:
 
         cached_value = django_cache.get(key, _CACHE_MISS)
 
-        if cached_value == _CACHED_NONE and not TieredCache._is_forced_cache_miss_for_none_disabled():
-            cached_value = _CACHE_MISS
-        elif cached_value == _CACHED_NONE:
-            cached_value = None
+        if cached_value == _CACHED_NONE:
+            if TieredCache._is_forced_cache_miss_for_none_disabled():
+                cached_value = None
+            else:
+                cached_value = _CACHE_MISS
 
         is_found = cached_value is not _CACHE_MISS
         return CachedResponse(is_found, key, cached_value)
