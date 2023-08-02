@@ -177,8 +177,9 @@ class TestTieredCache(DjangoTestCase):  # pylint: disable=missing-class-docstrin
         cached_response = self.request_cache.get_cached_response(TEST_KEY)
         self.assertTrue(cached_response.is_found, 'Django cache hit should cache value in request cache.')
 
+    @mock.patch('edx_django_utils.monitoring.internal.utils.set_custom_attribute')
     @override_switch('edx_django_utils.cache.disable_forced_cache_miss_for_none', True)
-    def test_get_cached_response_hit_with_cached_none(self):
+    def test_get_cached_response_hit_with_cached_none(self, mock_set_custom_attribute):
         """
         Tests cache hit when caching a None.
 
@@ -197,7 +198,13 @@ class TestTieredCache(DjangoTestCase):  # pylint: disable=missing-class-docstrin
         self.assertTrue(cached_response.is_found)
         self.assertEqual(cached_response.value, None)
 
-    def test_get_cached_response_miss_with_cached_none(self):
+        expected_calls = [
+            mock.call('retrieved_cached_none', True)
+        ]
+        mock_set_custom_attribute.assert_has_calls(expected_calls)
+
+    @mock.patch('edx_django_utils.monitoring.internal.utils.set_custom_attribute')
+    def test_get_cached_response_miss_with_cached_none(self, mock_set_custom_attribute):
         TieredCache.set_all_tiers(TEST_KEY, None)
         # Test retrieval from tier 1: RequestCache
         cached_response = TieredCache.get_cached_response(TEST_KEY)
@@ -208,6 +215,11 @@ class TestTieredCache(DjangoTestCase):  # pylint: disable=missing-class-docstrin
         # Test retrieval from tier 2: Django Cache
         cached_response = TieredCache.get_cached_response(TEST_KEY)
         self.assertFalse(cached_response.is_found)
+
+        expected_calls = [
+            mock.call('retrieved_cached_none', True)
+        ]
+        mock_set_custom_attribute.assert_has_calls(expected_calls)
 
     @mock.patch('django.core.cache.cache.get')
     def test_get_cached_response_force_cache_miss(self, mock_cache_get):

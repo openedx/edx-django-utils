@@ -266,6 +266,14 @@ class TieredCache:
         cached_value = django_cache.get(key, _CACHE_MISS)
 
         if cached_value == _CACHED_NONE:
+            # Avoiding circular import
+            from edx_django_utils.monitoring.internal.utils import \
+                set_custom_attribute  # isort:skip, pylint: disable=cyclic-import, import-outside-toplevel
+
+            # .. custom_attribute_name: retrieved_cached_none
+            # .. custom_attribute_description: Temporary attribute to see when a None would
+            #      have been retrieved, so we know what will be affected by the toggle.
+            set_custom_attribute('retrieved_cached_none', True)
             if TieredCache._is_forced_cache_miss_for_none_disabled():
                 cached_value = None
             else:
