@@ -162,13 +162,6 @@ class TestTieredCache(DjangoTestCase):  # pylint: disable=missing-class-docstrin
 
     @mock.patch('django.core.cache.cache.get')
     def test_get_cached_response_django_cache_hit(self, mock_cache_get):
-        """
-        Temporary tests for cache miss when caching a None.
-
-        Temporarily we are forcing cache misses by default when caching None for
-        backward compatibility purposes. See ``disable_forced_cache_miss_for_none``
-        switch for more details.
-        """
         mock_cache_get.return_value = EXPECTED_VALUE
         cached_response = TieredCache.get_cached_response(TEST_KEY)
         self.assertTrue(cached_response.is_found)
@@ -205,6 +198,13 @@ class TestTieredCache(DjangoTestCase):  # pylint: disable=missing-class-docstrin
 
     @mock.patch('edx_django_utils.monitoring.internal.utils.set_custom_attribute')
     def test_get_cached_response_miss_with_cached_none(self, mock_set_custom_attribute):
+        """
+        Temporary tests for cache miss when caching a None.
+
+        Temporarily we are forcing cache misses by default when caching None for
+        backward compatibility purposes. See ``disable_forced_cache_miss_for_none``
+        switch for more details.
+        """
         TieredCache.set_all_tiers(TEST_KEY, None)
         # Test retrieval from tier 1: RequestCache
         cached_response = TieredCache.get_cached_response(TEST_KEY)
