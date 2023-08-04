@@ -11,8 +11,8 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
-Unreleased
-----------
+[5.7.0] - 2023-08-04
+--------------------
 
 Added
 ~~~~~
