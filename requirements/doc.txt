@@ -20,7 +20,7 @@ beautifulsoup4==4.12.2
     # via pydata-sphinx-theme
 bleach==6.0.0
     # via readme-renderer
-certifi==2023.5.7
+certifi==2023.7.22
     # via requests
 cffi==1.15.1
     # via
@@ -29,13 +29,13 @@ cffi==1.15.1
     #   pynacl
 charset-normalizer==3.2.0
     # via requests
-click==8.1.4
+click==8.1.6
     # via -r requirements/test.txt
 coverage[toml]==7.2.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==41.0.2
+cryptography==41.0.3
     # via secretstorage
 ddt==1.6.0
     # via -r requirements/test.txt
@@ -44,9 +44,10 @@ django==3.2.20
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-crum
+    #   django-waffle
 django-crum==0.7.9
     # via -r requirements/test.txt
-django-waffle==3.0.0
+django-waffle==4.0.0
     # via -r requirements/test.txt
 doc8==0.11.2
     # via
@@ -95,9 +96,9 @@ mdurl==0.1.2
     # via markdown-it-py
 mock==5.1.0
     # via -r requirements/test.txt
-more-itertools==9.1.0
+more-itertools==10.1.0
     # via jaraco-classes
-newrelic==8.8.1
+newrelic==8.9.0
     # via -r requirements/test.txt
 packaging==23.1
     # via
@@ -123,7 +124,7 @@ pycparser==2.21
     #   cffi
 pydata-sphinx-theme==0.13.3
     # via sphinx-book-theme
-pygments==2.15.1
+pygments==2.16.1
     # via
     #   accessible-pygments
     #   doc8
@@ -162,7 +163,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.4.2
+rich==13.5.2
     # via twine
 secretstorage==3.3.3
     # via keyring
@@ -213,13 +214,13 @@ typing-extensions==4.7.1
     #   asgiref
     #   pydata-sphinx-theme
     #   rich
-urllib3==2.0.3
+urllib3==2.0.4
     # via
     #   requests
     #   twine
 webencodings==0.5.1
     # via bleach
-zipp==3.16.1
+zipp==3.16.2
     # via
     #   importlib-metadata
     #   importlib-resources
