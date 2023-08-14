@@ -8,18 +8,19 @@ asgiref==3.7.2
     # via django
 cffi==1.15.1
     # via pynacl
-click==8.1.4
+click==8.1.6
     # via -r requirements/base.in
 django==3.2.20
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
     #   django-crum
+    #   django-waffle
 django-crum==0.7.9
     # via -r requirements/base.in
-django-waffle==3.0.0
+django-waffle==4.0.0
     # via -r requirements/base.in
-newrelic==8.8.1
+newrelic==8.10.0
     # via -r requirements/base.in
 pbr==5.11.1
     # via stevedore
