@@ -11,8 +11,22 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
-Unreleased
-----------
+[5.7.0] - 2023-08-04
+--------------------
+
+Added
+~~~~~
+* Support added for Django 4.2
+
+Fixed
+~~~~~
+* Fixed bug where None was not properly being stored by TieredCache.
+  For backward compatibility, ``edx_django_utils.cache.disable_forced_cache_miss_for_none`` waffle switch has
+  been added, which defaults to the old broken behavior of treating None as a cache miss.
+
+[5.6.0] - 2023-07-24
+--------------------
+
 Changed
 ~~~~~~~
 * Updated and renamed new_relic_nrql_search to search in text widgets as well as NRQL queries

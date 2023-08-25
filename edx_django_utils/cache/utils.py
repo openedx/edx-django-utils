@@ -4,6 +4,7 @@ Cache utilities.
 import hashlib
 import threading
 
+import waffle  # pylint: disable=invalid-django-waffle-import
 from django.core.cache import cache as django_cache
 from django.core.cache.backends.base import DEFAULT_TIMEOUT
 from django.utils.encoding import force_str
@@ -14,6 +15,7 @@ DEFAULT_REQUEST_CACHE_NAMESPACE = f'{DEFAULT_NAMESPACE}.default'
 SHOULD_FORCE_CACHE_MISS_KEY = 'edx_django_utils.cache.should_force_cache_miss'
 
 _CACHE_MISS = object()
+_CACHED_NONE = 'CACHED_NONE'
 
 
 def get_cache_key(**kwargs):
@@ -210,7 +212,10 @@ class TieredCache:
 
         """
         DEFAULT_REQUEST_CACHE.set(key, value)
-        django_cache.set(key, value, django_cache_timeout)
+        cached_value = value
+        if value is None:
+            cached_value = _CACHED_NONE
+        django_cache.set(key, cached_value, django_cache_timeout)
 
     @staticmethod
     def delete_all_tiers(key):
@@ -259,6 +264,21 @@ class TieredCache:
             return CachedResponse(is_found=False, key=key, value=None)
 
         cached_value = django_cache.get(key, _CACHE_MISS)
+
+        if cached_value == _CACHED_NONE:
+            # Avoiding circular import
+            from edx_django_utils.monitoring.internal.utils import \
+                set_custom_attribute  # isort:skip, pylint: disable=cyclic-import, import-outside-toplevel
+
+            # .. custom_attribute_name: retrieved_cached_none
+            # .. custom_attribute_description: Temporary attribute to see when a None would
+            #      have been retrieved, so we know what will be affected by the toggle.
+            set_custom_attribute('retrieved_cached_none', True)
+            if TieredCache._is_forced_cache_miss_for_none_disabled():
+                cached_value = None
+            else:
+                cached_value = _CACHE_MISS
+
         is_found = cached_value is not _CACHE_MISS
         return CachedResponse(is_found, key, cached_value)
 
@@ -302,6 +322,25 @@ class TieredCache:
         """
         cached_response = DEFAULT_REQUEST_CACHE.get_cached_response(SHOULD_FORCE_CACHE_MISS_KEY)
         return False if not cached_response.is_found else cached_response.value
+
+    @staticmethod
+    def _is_forced_cache_miss_for_none_disabled():
+        """
+        Returns True if disable_forced_cache_miss_for_none is on, and False otherwise.
+        """
+        # .. toggle_name: edx_django_utils.cache.disable_forced_cache_miss_for_none
+        # .. toggle_implementation: WaffleSwitch
+        # .. toggle_default: False
+        # .. toggle_description: By default, this toggle will replicate an existing bug by forcing
+        #      cache misses when setting None. Set the toggle to True to disable this behavior,
+        #      which fixes the bug and returns None when None was cached. This toggle is
+        #      being used for backward compatibility during rollout, until the toggle and old
+        #      broken behavior can be removed.
+        # .. toggle_use_cases: temporary
+        # .. toggle_creation_date: 2023-08-02
+        # .. toggle_target_removal_date: 2023-09-01
+        # .. toggle_tickets: https://github.com/openedx/edx-django-utils/issues/333
+        return waffle.switch_is_active('edx_django_utils.cache.disable_forced_cache_miss_for_none')
 
 
 class CachedResponseError(Exception):
