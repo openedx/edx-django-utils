@@ -15,7 +15,7 @@ astroid==2.15.6
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
-build==0.10.0
+build==1.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -23,9 +23,9 @@ cffi==1.15.1
     # via
     #   -r requirements/quality.txt
     #   pynacl
-chardet==5.1.0
+chardet==5.2.0
     # via diff-cover
-click==8.1.4
+click==8.1.7
     # via
     #   -r requirements/pip-tools.txt
     #   -r requirements/quality.txt
@@ -37,11 +37,11 @@ click-log==0.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-code-annotations==1.3.0
+code-annotations==1.5.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-coverage[toml]==7.2.7
+coverage[toml]==7.3.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -51,11 +51,11 @@ diff-cover==6.2.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/dev.in
-dill==0.3.6
+dill==0.3.7
     # via
     #   -r requirements/quality.txt
     #   pylint
-distlib==0.3.6
+distlib==0.3.7
     # via
     #   -r requirements/ci.txt
     #   virtualenv
@@ -64,24 +64,29 @@ django==3.2.20
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
     #   django-crum
+    #   django-waffle
     #   edx-i18n-tools
 django-crum==0.7.9
     # via -r requirements/quality.txt
-django-waffle==3.0.0
+django-waffle==4.0.0
     # via -r requirements/quality.txt
-edx-i18n-tools==1.0.0
+edx-i18n-tools==1.1.0
     # via -r requirements/dev.in
 edx-lint==5.3.4
     # via -r requirements/quality.txt
-exceptiongroup==1.1.2
+exceptiongroup==1.1.3
     # via
     #   -r requirements/quality.txt
     #   pytest
-filelock==3.12.2
+filelock==3.12.3
     # via
     #   -r requirements/ci.txt
     #   tox
     #   virtualenv
+importlib-metadata==6.8.0
+    # via
+    #   -r requirements/pip-tools.txt
+    #   build
 inflect==7.0.0
     # via jinja2-pluralize
 iniconfig==2.0.0
@@ -114,7 +119,7 @@ mccabe==0.7.0
     #   pylint
 mock==5.1.0
     # via -r requirements/quality.txt
-newrelic==8.8.1
+newrelic==9.0.0
     # via -r requirements/quality.txt
 packaging==23.1
     # via
@@ -130,15 +135,15 @@ pbr==5.11.1
     # via
     #   -r requirements/quality.txt
     #   stevedore
-pip-tools==6.14.0
+pip-tools==7.3.0
     # via -r requirements/pip-tools.txt
-platformdirs==3.8.1
+platformdirs==3.10.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   pylint
     #   virtualenv
-pluggy==1.2.0
+pluggy==1.3.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -153,21 +158,21 @@ py==1.11.0
     # via
     #   -r requirements/ci.txt
     #   tox
-pycodestyle==2.10.0
+pycodestyle==2.11.0
     # via -r requirements/quality.txt
 pycparser==2.21
     # via
     #   -r requirements/quality.txt
     #   cffi
-pydantic==2.0.2
+pydantic==2.3.0
     # via inflect
-pydantic-core==2.1.2
+pydantic-core==2.6.3
     # via pydantic
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pygments==2.15.1
+pygments==2.16.1
     # via diff-cover
-pylint==2.17.4
+pylint==2.17.5
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -193,7 +198,7 @@ pyproject-hooks==1.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
-pytest==7.4.0
+pytest==7.4.1
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -212,7 +217,7 @@ pytz==2023.3
     # via
     #   -r requirements/quality.txt
     #   django
-pyyaml==6.0
+pyyaml==6.0.1
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -252,7 +257,7 @@ tomli==2.0.1
     #   pyproject-hooks
     #   pytest
     #   tox
-tomlkit==0.11.8
+tomlkit==0.12.1
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -261,23 +266,25 @@ tox==3.28.0
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/ci.txt
     #   tox-battery
-tox-battery==0.6.1
+tox-battery==0.6.2
     # via -r requirements/ci.txt
 typing-extensions==4.7.1
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   annotated-types
     #   asgiref
     #   astroid
+    #   filelock
     #   inflect
     #   pydantic
     #   pydantic-core
     #   pylint
-virtualenv==20.23.1
+virtualenv==20.24.4
     # via
     #   -r requirements/ci.txt
     #   tox
-wheel==0.40.0
+wheel==0.41.2
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
@@ -285,6 +292,10 @@ wrapt==1.15.0
     # via
     #   -r requirements/quality.txt
     #   astroid
+zipp==3.16.2
+    # via
+    #   -r requirements/pip-tools.txt
+    #   importlib-metadata
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip
