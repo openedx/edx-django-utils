@@ -95,7 +95,7 @@ class RequestCache:
         Args:
             namespace (string): (optional) uses 'default' if not provided.
         """
-        assert namespace != DEFAULT_REQUEST_CACHE_NAMESPACE,\
+        assert namespace != DEFAULT_REQUEST_CACHE_NAMESPACE, \
             f'Optional namespace can not be {DEFAULT_REQUEST_CACHE_NAMESPACE}.'
         self.namespace = namespace or DEFAULT_REQUEST_CACHE_NAMESPACE
 
@@ -349,7 +349,7 @@ class CachedResponseError(Exception):
     """
     USAGE_MESSAGE = 'CachedResponse was misused. Try the attributes is_found, value or key.'
 
-    def __init__(self, message=USAGE_MESSAGE):  # pylint: disable=useless-super-delegation
+    def __init__(self, message=USAGE_MESSAGE):
         super().__init__(message)
 
 
