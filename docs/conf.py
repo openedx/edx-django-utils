@@ -37,6 +37,7 @@ def get_version(*file_paths):
 
 REPO_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(REPO_ROOT)
+sys.path.append("./_ext")
 
 VERSION = get_version('../edx_django_utils', '__init__.py')
 
@@ -66,7 +67,8 @@ extensions = [
     'sphinx.ext.doctest',
     'sphinx.ext.intersphinx',
     'sphinx.ext.ifconfig',
-    'sphinx.ext.napoleon'
+    'sphinx.ext.napoleon',
+    'include_all_files',
 ]
 
 # A list of warning types to suppress arbitrary warning messages.
@@ -497,6 +499,9 @@ epub_exclude_files = ['search.html']
 # If false, no index is generated.
 #
 # epub_use_index = True
+
+repo_root = os.path.abspath(os.path.join(os.path.abspath(os.path.dirname(__file__)), '..'))
+symlink_sub_dir = "symlinks"
 
 
 # Example configuration for intersphinx: refer to the Python standard library.
