@@ -29,8 +29,8 @@ Consequences
 (Rejected) Alternatives
 -----------------------
 
-An untested potential alternative to the ``@set_code_owner_attribute`` decorator is to try celery's `task_prerun signal`_ in an IDA, which would also ensure all future celery tasks are automatically handled. Although this is a potentially superior solution, it was missed at the time of implementation. We will not be switching to this solution at this time given we have a working solution and other priorities, but it is a potentially viable solution if the need arises.
+One hoped-for alternative we discovered after the initial ADR was to try setting the code owner in celery's `task_prerun signal`_ in an IDA, which would also ensure all future celery tasks are automatically handled. We `trialed the task_prerun approach <https://github.com/openedx/edx-platform/pull/33180>`_ but discovered that no attribute was set on the Celery tasks. This seems to be because New Relic instruments the task function itself with transaction-start and transaction-end calls, so any signals that are run before or after the task execution occur outside the scope of the transaction.
 
-Additionally, if this alternative solution were implemented, it would be best to not add celery as a dependency to this library, and to document a new edx-platform implementation. It is unlikely that the solution will be needed outside of edx-platform.
+Theoretically, we could do something similar to New Relic's monkeypatching in order to inject a code owner attribute call, but this would be fragile and could lead to disruptive failures.
 
 .. _task_prerun signal: https://docs.celeryproject.org/en/stable/userguide/signals.html#task-prerun
