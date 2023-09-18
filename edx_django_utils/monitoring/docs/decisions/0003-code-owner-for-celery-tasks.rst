@@ -24,7 +24,7 @@ Consequences
 ------------
 
 * We added the new decorator as needed for all existing tasks.
-* New celery tasks will need to add the same decorator. See "Rejected Alternatives" for a potential alternative.
+* New celery tasks will need to add the same decorator.
 
 (Rejected) Alternatives
 -----------------------
@@ -34,3 +34,8 @@ One hoped-for alternative we discovered after the initial ADR was to try setting
 Theoretically, we could do something similar to New Relic's monkeypatching in order to inject a code owner attribute call, but this would be fragile and could lead to disruptive failures.
 
 .. _task_prerun signal: https://docs.celeryproject.org/en/stable/userguide/signals.html#task-prerun
+
+Changelog
+---------
+
+* 2023-09-18: Updated ``task_prerun`` alternative with results of a failed attempt at using it.
