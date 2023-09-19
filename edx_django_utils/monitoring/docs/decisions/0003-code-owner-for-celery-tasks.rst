@@ -29,7 +29,9 @@ Consequences
 (Rejected) Alternatives
 -----------------------
 
-One hoped-for alternative we discovered after the initial ADR was to try setting the code owner in celery's `task_prerun signal`_ in an IDA, which would also ensure all future celery tasks are automatically handled. We `trialed the task_prerun approach <https://github.com/openedx/edx-platform/pull/33180>`_ but discovered that no attribute was set on the Celery tasks. This seems to be because New Relic instruments the task function itself with transaction-start and transaction-end calls, so any signals that are run before or after the task execution occur outside the scope of the transaction.
+Celery has a `task_prerun signal`_ that would allow us to execute code every time a task is about to start.
+
+This possibility was discovered after we had already annotated tasks. We hoped this would ensure all celery tasks were automatically handled rather than requiring explicit decorators. However, when we `trialed the task_prerun approach <https://github.com/openedx/edx-platform/pull/33180>`_ we discovered that no attribute was set on the Celery tasks. This seems to be because New Relic instruments the task function itself with transaction-start and transaction-end calls, so any signals that are run before or after the task execution occur outside the scope of the transaction.
 
 Theoretically, we could do something similar to New Relic's monkeypatching in order to inject a code owner attribute call, but this would be fragile and could lead to disruptive failures.
 
@@ -38,4 +40,4 @@ Theoretically, we could do something similar to New Relic's monkeypatching in or
 Changelog
 ---------
 
-* 2023-09-18: Updated ``task_prerun`` alternative with results of a failed attempt at using it.
+* 2023-09-19: Updated ``task_prerun`` alternative with results of a failed attempt at using it.
