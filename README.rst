@@ -52,6 +52,14 @@ The full documentation is in the docs directory, and is published to https://edx
 Getting Started
 ---------------
 
+Local testing
+~~~~~~~~~~~~~
+Two options are available for testing changes locally:
+
+First, via `make test-shell` a dockerized development envrionment can be launched to run `pytest` and do basic migration work.
+
+Second, a local copy of the package can be installed into edx-platform. For example, if using devstack, copy or clone your branch into <devstack-parent>/src/edx-django-utils. Then, in an lms or cms shell, run ``pip install -e /edx/src/edx-django-utils``.  The plug-in configuration will automatically be picked up once installed, and changes will be hot reloaded.
+
 One Time Setup
 ~~~~~~~~~~~~~~
 .. code-block::

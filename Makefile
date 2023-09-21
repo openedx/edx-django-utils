@@ -82,3 +82,8 @@ validate: quality test ## run tests and quality checks
 
 selfcheck: ## check that the Makefile is well-formed
 	@echo "The Makefile is well-formed."
+
+## Docker in this repo is only supported for running tests locally
+## as an alternative to virtualenv natively
+test-shell: ## Run a shell, as root, on the specified service container
+	docker-compose run -u 0 test-shell env TERM=$(TERM) /bin/bash
