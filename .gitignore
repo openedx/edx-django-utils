@@ -2,6 +2,8 @@
 __pycache__
 .pytest_cache
 
+/.venv-3.8
+
 # C extensions
 *.so
 
