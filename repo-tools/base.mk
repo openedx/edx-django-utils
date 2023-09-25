@@ -6,6 +6,8 @@
 # would be fast and simple.
 
 PYTHON_VER := 3.8
+#SHELL := docker run --rm -v .:/edx/dev -w /edx/dev sha256:68bb76a41f984e5562e81b1458f667acd242422bfb196d4664979531973e5192 /bin/bash -c	
+
 
 # These are required for bootstrapping a virtualenv to the point where
 # requirements can be installed.

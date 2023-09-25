@@ -4,6 +4,8 @@ include repo-tools/base.mk
 	extract_translations fake_translations help pull_translations push_translations \
 	quality requirements selfcheck test test-all upgrade validate
 
+SHELL := docker run --rm -v .:/edx/dev -w /edx/dev sha256:5889e21d7ebbf81b58d827343be052bed35676e9ff24bbb20f9185d977f5a84f /bin/bash -c
+
 .DEFAULT_GOAL := help
 
 define BROWSER_PYSCRIPT
