@@ -10,29 +10,29 @@ PYTHON_VER := 3.8
 # These are required for bootstrapping a virtualenv to the point where
 # requirements can be installed.
 
-VENV := .venv-$(PYTHON_VER)
-PIP := $(VENV)/bin/pip
-PIP-COMPILE := $(VENV)/bin/pip-compile
-PIP-SYNC := $(VENV)/bin/pip-sync
+venv_name := .venv-$(PYTHON_VER)
+pip := $(venv_name)/bin/pip
+pip-compile := $(venv_name)/bin/pip-compile
+pip-sync := $(venv_name)/bin/pip-sync
 
-$(VENV): ## Create the virtualenv, or recreate it if it already exists
-	python$(PYTHON_VER) -m venv $(VENV) --clear
+$(venv_name): ## Create the virtualenv, or recreate it if it already exists
+	python$(PYTHON_VER) -m venv $(venv_name) --clear
 
-$(PIP): $(VENV)
+$(pip): $(venv_name)
 	pip install -r requirements/pip.txt
 
-$(PIP-COMPILE) $(PIP-SYNC): $(VENV)
-	$(PIP) install -r requirements/pip-tools.txt
+$(pip-compile) $(pip-sync): $(venv_name)
+	$(pip) install -r requirements/pip-tools.txt
 
 # The rest of the Python tools are listed here, and all are fulfilled
 # by the same target. By calling them from their explicit virtualenv
 # paths, we ensure that the virtualenv will be used (including by
 # other tools they call).
 
-COVERAGE := $(VENV)/bin/coverage
-DIFF-COVER := $(VENV)/bin/diff-cover
-PYTEST := $(VENV)/bin/pytest
-TOX := $(VENV)/bin/tox
+coverage := $(venv_name)/bin/coverage
+diff-cover := $(venv_name)/bin/diff-cover
+pytest := $(venv_name)/bin/pytest
+tox := $(venv_name)/bin/tox
 
-$(VENV)/bin/%: $(VENV)
+$(venv_name)/bin/%: $(venv_name)
 	make requirements
