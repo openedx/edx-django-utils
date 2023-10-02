@@ -20,12 +20,12 @@ beautifulsoup4==4.12.2
     # via pydata-sphinx-theme
 certifi==2023.7.22
     # via requests
-cffi==1.15.1
+cffi==1.16.0
     # via
     #   -r requirements/test.txt
     #   cryptography
     #   pynacl
-charset-normalizer==3.2.0
+charset-normalizer==3.3.0
     # via requests
 click==8.1.7
     # via -r requirements/test.txt
@@ -33,7 +33,7 @@ coverage[toml]==7.3.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==41.0.3
+cryptography==41.0.4
     # via secretstorage
 ddt==1.6.0
     # via -r requirements/test.txt
@@ -70,7 +70,7 @@ importlib-metadata==6.8.0
     # via
     #   keyring
     #   twine
-importlib-resources==6.0.1
+importlib-resources==6.1.0
     # via keyring
 iniconfig==2.0.0
     # via
@@ -96,11 +96,11 @@ mock==5.1.0
     # via -r requirements/test.txt
 more-itertools==10.1.0
     # via jaraco-classes
-newrelic==9.0.0
+newrelic==9.1.0
     # via -r requirements/test.txt
 nh3==0.2.14
     # via readme-renderer
-packaging==23.1
+packaging==23.2
     # via
     #   -r requirements/test.txt
     #   pydata-sphinx-theme
@@ -163,7 +163,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.5.2
+rich==13.6.0
     # via twine
 secretstorage==3.3.3
     # via keyring
@@ -206,17 +206,17 @@ tomli==2.0.1
     #   pytest
 twine==4.0.2
     # via -r requirements/doc.in
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   -r requirements/test.txt
     #   asgiref
     #   pydata-sphinx-theme
     #   rich
-urllib3==2.0.4
+urllib3==2.0.5
     # via
     #   requests
     #   twine
-zipp==3.16.2
+zipp==3.17.0
     # via
     #   importlib-metadata
     #   importlib-resources
