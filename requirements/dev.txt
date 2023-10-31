@@ -265,9 +265,6 @@ tox==3.28.0
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/ci.txt
-    #   tox-battery
-tox-battery==0.6.2
-    # via -r requirements/ci.txt
 typing-extensions==4.7.1
     # via
     #   -r requirements/ci.txt
