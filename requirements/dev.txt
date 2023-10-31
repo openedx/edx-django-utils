@@ -4,13 +4,13 @@
 #
 #    make upgrade
 #
-annotated-types==0.6.0
+annotated-types==0.5.0
     # via pydantic
 asgiref==3.7.2
     # via
     #   -r requirements/quality.txt
     #   django
-astroid==3.0.1
+astroid==2.15.6
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -19,7 +19,7 @@ build==1.0.3
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cffi==1.16.0
+cffi==1.15.1
     # via
     #   -r requirements/quality.txt
     #   pynacl
@@ -41,10 +41,9 @@ code-annotations==1.5.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-coverage[toml]==7.3.2
+coverage[toml]==7.3.1
     # via
     #   -r requirements/quality.txt
-    #   coverage
     #   pytest-cov
 ddt==1.6.0
     # via -r requirements/quality.txt
@@ -60,7 +59,7 @@ distlib==0.3.7
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==3.2.22
+django==3.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -71,7 +70,7 @@ django-crum==0.7.9
     # via -r requirements/quality.txt
 django-waffle==4.0.0
     # via -r requirements/quality.txt
-edx-i18n-tools==1.3.0
+edx-i18n-tools==1.1.0
     # via -r requirements/dev.in
 edx-lint==5.3.4
     # via -r requirements/quality.txt
@@ -79,7 +78,7 @@ exceptiongroup==1.1.3
     # via
     #   -r requirements/quality.txt
     #   pytest
-filelock==3.12.4
+filelock==3.12.3
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -106,8 +105,10 @@ jinja2==3.1.2
     #   jinja2-pluralize
 jinja2-pluralize==0.3.0
     # via diff-cover
-lxml==4.9.3
-    # via edx-i18n-tools
+lazy-object-proxy==1.9.0
+    # via
+    #   -r requirements/quality.txt
+    #   astroid
 markupsafe==2.1.3
     # via
     #   -r requirements/quality.txt
@@ -118,9 +119,9 @@ mccabe==0.7.0
     #   pylint
 mock==5.1.0
     # via -r requirements/quality.txt
-newrelic==9.1.1
+newrelic==9.0.0
     # via -r requirements/quality.txt
-packaging==23.2
+packaging==23.1
     # via
     #   -r requirements/ci.txt
     #   -r requirements/pip-tools.txt
@@ -136,7 +137,7 @@ pbr==5.11.1
     #   stevedore
 pip-tools==7.3.0
     # via -r requirements/pip-tools.txt
-platformdirs==3.11.0
+platformdirs==3.10.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -151,27 +152,27 @@ pluggy==1.3.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-psutil==5.9.6
+psutil==5.9.5
     # via -r requirements/quality.txt
 py==1.11.0
     # via
     #   -r requirements/ci.txt
     #   tox
-pycodestyle==2.11.1
+pycodestyle==2.11.0
     # via -r requirements/quality.txt
 pycparser==2.21
     # via
     #   -r requirements/quality.txt
     #   cffi
-pydantic==2.4.2
+pydantic==2.3.0
     # via inflect
-pydantic-core==2.10.1
+pydantic-core==2.6.3
     # via pydantic
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.16.1
     # via diff-cover
-pylint==3.0.2
+pylint==2.17.5
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -182,7 +183,7 @@ pylint-celery==0.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-pylint-django==2.5.4
+pylint-django==2.5.3
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -264,12 +265,14 @@ tox==3.28.0
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/ci.txt
-typing-extensions==4.8.0
+typing-extensions==4.7.1
     # via
+    #   -r requirements/ci.txt
     #   -r requirements/quality.txt
     #   annotated-types
     #   asgiref
     #   astroid
+    #   filelock
     #   inflect
     #   pydantic
     #   pydantic-core
@@ -282,7 +285,11 @@ wheel==0.41.2
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-zipp==3.17.0
+wrapt==1.15.0
+    # via
+    #   -r requirements/quality.txt
+    #   astroid
+zipp==3.16.2
     # via
     #   -r requirements/pip-tools.txt
     #   importlib-metadata
