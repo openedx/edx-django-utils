@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.8.0] - 2023-11-03
+--------------------
+
+Changed
+~~~~~~~
+* Adjusted ``get_plugin_apps`` to log at info level rather than debug and with more detail, though with a comment that this may not actually end up logging.
+
 [5.7.0] - 2023-08-04
 --------------------
 
