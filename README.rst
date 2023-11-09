@@ -49,56 +49,10 @@ Documentation
 
 The full documentation is in the docs directory, and is published to https://edx-django-utils.readthedocs.org.
 
-Getting Started
----------------
+Getting Started with Development
+--------------------------------
 
-One Time Setup
-~~~~~~~~~~~~~~
-.. code-block::
-
-  # clone the repo
-  git clone git@github.com:edx/edx-django-utils.git
-  cd edx-django-utils
-
-  # setup a virtualenv using virtualenvwrapper with the same name as the repo and activate it.
-  # $(basename $(pwd)) will give you the name of the current working directory, in this case ``edx-django-utils``
-  mkvirtualenv -p python3 $(basename $(pwd))
-
-
-Every time you develop something in this repo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. code-block::
-
-  # Activate the virtualenv.
-  workon edx-django-utils
-
-  # Grab the latest code.
-  git checkout master
-  git pull
-
-  # Install the dev requirements
-  make requirements
-
-  # Run the tests
-  make test
-
-  # Make a new branch for your changes
-  git checkout -b <your_github_username>/<short_description>
-
-  # Using your favorite editor, edit the code to make your change.
-  vim …
-
-  # Run your new tests
-  pytest ./path/to/new/tests
-
-  # Run all the test
-  make test
-
-  # Commit all your changes
-  git commit …
-  git push
-
-  # Open a PR and ask for review.
+Please see the Open edX documentation for `guidance on Python development <https://docs.openedx.org/en/latest/developers/how-tos/get-ready-for-python-dev.html>`_ in this repo.
 
 Design Pattern followed by packages
 -----------------------------------
