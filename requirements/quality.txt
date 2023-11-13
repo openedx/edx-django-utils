@@ -8,7 +8,7 @@ asgiref==3.7.2
     # via
     #   -r requirements/test.txt
     #   django
-astroid==2.15.5
+astroid==2.15.6
     # via
     #   pylint
     #   pylint-celery
@@ -16,7 +16,7 @@ cffi==1.15.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-click==8.1.3
+click==8.1.7
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -24,28 +24,29 @@ click==8.1.3
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.3.0
+code-annotations==1.5.0
     # via edx-lint
-coverage[toml]==7.2.6
+coverage[toml]==7.3.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 ddt==1.6.0
     # via -r requirements/test.txt
-dill==0.3.6
+dill==0.3.7
     # via pylint
-django==3.2.19
+django==3.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-crum
+    #   django-waffle
 django-crum==0.7.9
     # via -r requirements/test.txt
-django-waffle==3.0.0
+django-waffle==4.0.0
     # via -r requirements/test.txt
 edx-lint==5.3.4
     # via -r requirements/quality.in
-exceptiongroup==1.1.1
+exceptiongroup==1.1.3
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -61,13 +62,13 @@ jinja2==3.1.2
     # via code-annotations
 lazy-object-proxy==1.9.0
     # via astroid
-markupsafe==2.1.2
+markupsafe==2.1.3
     # via jinja2
 mccabe==0.7.0
     # via pylint
-mock==5.0.2
+mock==5.1.0
     # via -r requirements/test.txt
-newrelic==8.8.0
+newrelic==9.0.0
     # via -r requirements/test.txt
 packaging==23.1
     # via
@@ -77,15 +78,15 @@ pbr==5.11.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==3.5.1
+platformdirs==3.10.0
     # via pylint
-pluggy==1.0.0
+pluggy==1.3.0
     # via
     #   -r requirements/test.txt
     #   pytest
 psutil==5.9.5
     # via -r requirements/test.txt
-pycodestyle==2.10.0
+pycodestyle==2.11.0
     # via -r requirements/quality.in
 pycparser==2.21
     # via
@@ -93,7 +94,7 @@ pycparser==2.21
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==2.17.4
+pylint==2.17.5
     # via
     #   edx-lint
     #   pylint-celery
@@ -109,7 +110,7 @@ pylint-plugin-utils==0.8.2
     #   pylint-django
 pynacl==1.5.0
     # via -r requirements/test.txt
-pytest==7.3.1
+pytest==7.4.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -120,11 +121,11 @@ pytest-django==4.5.2
     # via -r requirements/test.txt
 python-slugify==8.0.1
     # via code-annotations
-pytz==2023.3
+pytz==2023.3.post1
     # via
     #   -r requirements/test.txt
     #   django
-pyyaml==6.0
+pyyaml==6.0.1
     # via code-annotations
 six==1.16.0
     # via edx-lint
@@ -146,9 +147,9 @@ tomli==2.0.1
     #   coverage
     #   pylint
     #   pytest
-tomlkit==0.11.8
+tomlkit==0.12.1
     # via pylint
-typing-extensions==4.6.2
+typing-extensions==4.7.1
     # via
     #   -r requirements/test.txt
     #   asgiref
