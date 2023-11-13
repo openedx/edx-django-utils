@@ -1,7 +1,7 @@
 """
 Tests for the RequestCacheMiddleware.
 """
-from unittest.mock import MagicMock
+from unittest.mock import MagicMock, Mock
 
 from django.test import RequestFactory, TestCase
 
@@ -17,7 +17,8 @@ class TestRequestCacheMiddleware(TestCase):  # pylint: disable=missing-class-doc
 
     def setUp(self):
         super().setUp()
-        self.middleware = middleware.RequestCacheMiddleware()
+        self.mock_response = Mock()
+        self.middleware = middleware.RequestCacheMiddleware(self.mock_response)
         self.request = RequestFactory().get('/')
 
         self.request_cache = RequestCache()
@@ -50,7 +51,8 @@ class TestTieredCacheMiddleware(TestCase):  # pylint: disable=missing-class-docs
 
     def setUp(self):
         super().setUp()
-        self.middleware = middleware.TieredCacheMiddleware()
+        self.mock_response = Mock()
+        self.middleware = middleware.TieredCacheMiddleware(self.mock_response)
         self.request = RequestFactory().get('/')
         self.request.user = self._mock_user(is_staff=True)
 
