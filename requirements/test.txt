@@ -8,15 +8,17 @@ asgiref==3.7.2
     # via
     #   -r requirements/base.txt
     #   django
-cffi==1.15.1
+cffi==1.16.0
     # via
     #   -r requirements/base.txt
     #   pynacl
 click==8.1.7
     # via -r requirements/base.txt
-coverage[toml]==7.3.1
-    # via pytest-cov
-ddt==1.6.0
+coverage[toml]==7.3.2
+    # via
+    #   coverage
+    #   pytest-cov
+ddt==1.7.0
     # via -r requirements/test.in
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -33,17 +35,17 @@ iniconfig==2.0.0
     # via pytest
 mock==5.1.0
     # via -r requirements/test.in
-newrelic==9.0.0
+newrelic==9.1.2
     # via -r requirements/base.txt
-packaging==23.1
+packaging==23.2
     # via pytest
-pbr==5.11.1
+pbr==6.0.0
     # via
     #   -r requirements/base.txt
     #   stevedore
 pluggy==1.3.0
     # via pytest
-psutil==5.9.5
+psutil==5.9.6
     # via -r requirements/base.txt
 pycparser==2.21
     # via
@@ -51,13 +53,13 @@ pycparser==2.21
     #   cffi
 pynacl==1.5.0
     # via -r requirements/base.txt
-pytest==7.4.2
+pytest==7.4.3
     # via
     #   pytest-cov
     #   pytest-django
 pytest-cov==4.1.0
     # via -r requirements/test.in
-pytest-django==4.5.2
+pytest-django==4.7.0
     # via -r requirements/test.in
 pytz==2023.3.post1
     # via
@@ -73,7 +75,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.7.1
+typing-extensions==4.8.0
     # via
     #   -r requirements/base.txt
     #   asgiref
