@@ -18,7 +18,7 @@ babel==2.13.1
     #   sphinx
 beautifulsoup4==4.12.2
     # via pydata-sphinx-theme
-certifi==2023.7.22
+certifi==2023.11.17
     # via requests
 cffi==1.16.0
     # via
@@ -97,7 +97,7 @@ mock==5.1.0
     # via -r requirements/test.txt
 more-itertools==10.1.0
     # via jaraco-classes
-newrelic==9.1.2
+newrelic==9.2.0
     # via -r requirements/test.txt
 nh3==0.2.14
     # via readme-renderer
@@ -125,7 +125,7 @@ pycparser==2.21
     #   cffi
 pydata-sphinx-theme==0.13.3
     # via sphinx-book-theme
-pygments==2.16.1
+pygments==2.17.1
     # via
     #   accessible-pygments
     #   doc8
@@ -164,7 +164,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.6.0
+rich==13.7.0
     # via twine
 secretstorage==3.3.3
     # via keyring
