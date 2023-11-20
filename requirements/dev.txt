@@ -129,7 +129,7 @@ mccabe==0.7.0
     #   pylint
 mock==5.1.0
     # via -r requirements/quality.txt
-newrelic==9.1.2
+newrelic==9.2.0
     # via -r requirements/quality.txt
 packaging==23.2
     # via
@@ -173,13 +173,13 @@ pycparser==2.21
     # via
     #   -r requirements/quality.txt
     #   cffi
-pydantic==2.5.0
+pydantic==2.5.1
     # via inflect
-pydantic-core==2.14.1
+pydantic-core==2.14.3
     # via pydantic
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pygments==2.16.1
+pygments==2.17.1
     # via diff-cover
 pylint==3.0.2
     # via
@@ -269,7 +269,7 @@ tomli==2.0.1
     #   pyproject-hooks
     #   pytest
     #   tox
-tomlkit==0.12.2
+tomlkit==0.12.3
     # via
     #   -r requirements/quality.txt
     #   pylint
