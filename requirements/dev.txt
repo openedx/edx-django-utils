@@ -86,7 +86,7 @@ edx-i18n-tools==1.3.0
     # via -r requirements/dev.in
 edx-lint==5.3.6
     # via -r requirements/quality.txt
-exceptiongroup==1.1.3
+exceptiongroup==1.2.0
     # via
     #   -r requirements/quality.txt
     #   pytest
@@ -173,13 +173,13 @@ pycparser==2.21
     # via
     #   -r requirements/quality.txt
     #   cffi
-pydantic==2.5.1
+pydantic==2.5.2
     # via inflect
-pydantic-core==2.14.3
+pydantic-core==2.14.5
     # via pydantic
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pygments==2.17.1
+pygments==2.17.2
     # via diff-cover
 pylint==3.0.2
     # via
@@ -285,11 +285,11 @@ typing-extensions==4.8.0
     #   pydantic
     #   pydantic-core
     #   pylint
-virtualenv==20.24.6
+virtualenv==20.24.7
     # via
     #   -r requirements/ci.txt
     #   tox
-wheel==0.41.3
+wheel==0.42.0
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
