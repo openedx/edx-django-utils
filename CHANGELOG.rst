@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.9.0] - 2023-11-27
+--------------------
+
+Removed
+~~~~~~~
+* Removed ``edx_django_utils.cache.disable_forced_cache_miss_for_none`` which was added in ``5.7.0``.
+
 [5.8.0] - 2023-11-03
 --------------------
 
