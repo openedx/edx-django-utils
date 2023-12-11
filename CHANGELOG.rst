@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.10.0] - 2024-01-02
+---------------------
+
+Added
+~~~~~
+* Added manufacture_data management command
+
 [5.9.0] - 2023-11-27
 --------------------
 
