@@ -38,7 +38,7 @@ class::
 
    from django.apps import AppConfig
    from edx_django_utils.plugins.constants import (
-       PluginURLs, PluginSettings, PluginContexts
+       PluginURLs, PluginSettings, PluginSignals, PluginContexts
    )
    class MyAppConfig(AppConfig):
        name = 'full_python_path.my_app'
