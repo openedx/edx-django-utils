@@ -30,6 +30,8 @@ This repository includes shared utilities for:
 
 * `Security Utilities`_: Includes a middleware to add CSP response headers.
 
+* `Data Generation`_: Management command for generating Django data based on model factories.
+
 .. _Cache Utilities: edx_django_utils/cache/README.rst
 
 .. _Django User and Group Utilities: edx_django_utils/user/README.rst
@@ -43,6 +45,8 @@ This repository includes shared utilities for:
 .. _Plugin Infrastructure: edx_django_utils/plugins/README.rst
 
 .. _Security Utilities: edx_django_utils/security/README.rst
+
+.. _Data Generation: edx_django_utils/data_generation/README.rst
 
 Documentation
 -------------

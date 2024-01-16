@@ -41,6 +41,8 @@ INSTALLED_APPS = (
     "edx_django_utils",
     "edx_django_utils.admin.tests",
     "edx_django_utils.user",
+    'edx_django_utils.data_generation',
+    'edx_django_utils.data_generation.tests',
 )
 
 LOCALE_PATHS = [root("edx_django_utils", "conf", "locale")]
