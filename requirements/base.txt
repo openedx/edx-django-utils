@@ -20,11 +20,11 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==4.1.0
     # via -r requirements/base.in
-newrelic==9.3.0
+newrelic==9.5.0
     # via -r requirements/base.in
 pbr==6.0.0
     # via stevedore
-psutil==5.9.7
+psutil==5.9.8
     # via -r requirements/base.in
 pycparser==2.21
     # via cffi
