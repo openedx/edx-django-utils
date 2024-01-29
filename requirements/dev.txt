@@ -52,18 +52,18 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.4.0
+coverage[toml]==7.4.1
     # via
     #   -r requirements/quality.txt
     #   coverage
     #   pytest-cov
-ddt==1.7.0
+ddt==1.7.1
     # via -r requirements/quality.txt
 diff-cover==6.2.1
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/dev.in
-dill==0.3.7
+dill==0.3.8
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -92,7 +92,7 @@ exceptiongroup==1.2.0
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/quality.txt
-faker==22.0.0
+faker==22.5.1
     # via
     #   -r requirements/quality.txt
     #   factory-boy
@@ -115,7 +115,7 @@ isort==5.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-jinja2==3.1.2
+jinja2==3.1.3
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -123,9 +123,9 @@ jinja2==3.1.2
     #   jinja2-pluralize
 jinja2-pluralize==0.3.0
     # via diff-cover
-lxml==5.0.0
+lxml==5.1.0
     # via edx-i18n-tools
-markupsafe==2.1.3
+markupsafe==2.1.4
     # via
     #   -r requirements/quality.txt
     #   jinja2
@@ -135,7 +135,7 @@ mccabe==0.7.0
     #   pylint
 mock==5.1.0
     # via -r requirements/quality.txt
-newrelic==9.3.0
+newrelic==9.6.0
     # via -r requirements/quality.txt
 packaging==23.2
     # via
@@ -161,7 +161,7 @@ platformdirs==4.1.0
     #   pylint
     #   tox
     #   virtualenv
-pluggy==1.3.0
+pluggy==1.4.0
     # via
     #   -r requirements/ci.txt
     #   -r requirements/quality.txt
@@ -170,7 +170,7 @@ pluggy==1.3.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-psutil==5.9.7
+psutil==5.9.8
     # via -r requirements/quality.txt
 pycodestyle==2.11.1
     # via -r requirements/quality.txt
@@ -216,7 +216,7 @@ pyproject-hooks==1.0.0
     # via
     #   -r requirements/pip-tools.txt
     #   build
-pytest==7.4.4
+pytest==8.0.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -230,7 +230,7 @@ python-dateutil==2.8.2
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
     #   faker
-python-slugify==8.0.1
+python-slugify==8.0.2
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -281,7 +281,7 @@ tomlkit==0.12.3
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.11.4
+tox==4.12.1
     # via -r requirements/ci.txt
 typing-extensions==4.9.0
     # via
