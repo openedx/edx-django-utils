@@ -33,7 +33,7 @@ exceptiongroup==1.2.0
     # via pytest
 factory-boy==3.3.0
     # via -r requirements/test.in
-faker==22.5.1
+faker==22.6.0
     # via factory-boy
 iniconfig==2.0.0
     # via pytest
@@ -63,11 +63,11 @@ pytest==8.0.0
     #   pytest-django
 pytest-cov==4.1.0
     # via -r requirements/test.in
-pytest-django==4.7.0
+pytest-django==4.8.0
     # via -r requirements/test.in
 python-dateutil==2.8.2
     # via faker
-pytz==2023.3.post1
+pytz==2024.1
     # via
     #   -r requirements/base.txt
     #   django
