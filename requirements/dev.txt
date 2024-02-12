@@ -71,7 +71,7 @@ distlib==0.3.8
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==3.2.23
+django==3.2.24
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -92,7 +92,7 @@ exceptiongroup==1.2.0
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/quality.txt
-faker==22.6.0
+faker==23.1.0
     # via
     #   -r requirements/quality.txt
     #   factory-boy
@@ -178,9 +178,9 @@ pycparser==2.21
     # via
     #   -r requirements/quality.txt
     #   cffi
-pydantic==2.6.0
+pydantic==2.6.1
     # via inflect
-pydantic-core==2.16.1
+pydantic-core==2.16.2
     # via pydantic
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
@@ -230,7 +230,7 @@ python-dateutil==2.8.2
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
     #   faker
-python-slugify==8.0.3
+python-slugify==8.0.4
     # via
     #   -r requirements/quality.txt
     #   code-annotations
