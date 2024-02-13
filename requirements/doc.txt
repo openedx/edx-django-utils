@@ -243,6 +243,8 @@ urllib3==2.2.1
     # via
     #   requests
     #   twine
+wheel==0.42.0
+    # via -r requirements/doc.in
 zipp==3.18.1
     # via
     #   importlib-metadata
