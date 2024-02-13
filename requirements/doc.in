@@ -10,3 +10,4 @@ Sphinx                    # Documentation builder
 twine
 factory-boy
 pytest                      #Needed?
+wheel

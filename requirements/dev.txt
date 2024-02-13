@@ -92,7 +92,7 @@ exceptiongroup==1.2.0
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/quality.txt
-faker==23.1.0
+faker==23.2.0
     # via
     #   -r requirements/quality.txt
     #   factory-boy
