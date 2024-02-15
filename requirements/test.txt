@@ -33,7 +33,7 @@ exceptiongroup==1.2.0
     # via pytest
 factory-boy==3.3.0
     # via -r requirements/test.in
-faker==23.1.0
+faker==23.2.0
     # via factory-boy
 iniconfig==2.0.0
     # via pytest
