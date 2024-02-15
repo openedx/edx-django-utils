@@ -67,7 +67,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==23.1.0
+faker==23.2.0
     # via
     #   -r requirements/test.txt
     #   factory-boy

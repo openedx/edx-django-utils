@@ -53,7 +53,7 @@ exceptiongroup==1.2.0
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/test.txt
-faker==23.1.0
+faker==23.2.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -168,3 +168,5 @@ typing-extensions==4.9.0
     #   astroid
     #   faker
     #   pylint
+wheel==0.42.0
+    # via -r requirements/quality.in
