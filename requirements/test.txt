@@ -15,9 +15,7 @@ cffi==1.16.0
 click==8.1.7
     # via -r requirements/base.txt
 coverage[toml]==7.4.1
-    # via
-    #   coverage
-    #   pytest-cov
+    # via pytest-cov
 ddt==1.7.1
     # via -r requirements/test.in
     # via
@@ -33,7 +31,7 @@ exceptiongroup==1.2.0
     # via pytest
 factory-boy==3.3.0
     # via -r requirements/test.in
-faker==23.1.0
+faker==23.2.1
     # via factory-boy
 iniconfig==2.0.0
     # via pytest
@@ -57,7 +55,7 @@ pycparser==2.21
     #   cffi
 pynacl==1.5.0
     # via -r requirements/base.txt
-pytest==8.0.0
+pytest==8.0.1
     # via
     #   pytest-cov
     #   pytest-django

@@ -29,7 +29,6 @@ code-annotations==1.6.0
 coverage[toml]==7.4.1
     # via
     #   -r requirements/test.txt
-    #   coverage
     #   pytest-cov
 ddt==1.7.1
     # via -r requirements/test.txt
@@ -53,7 +52,7 @@ exceptiongroup==1.2.0
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/test.txt
-faker==23.1.0
+faker==23.2.1
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -115,7 +114,7 @@ pylint-plugin-utils==0.8.2
     #   pylint-django
 pynacl==1.5.0
     # via -r requirements/test.txt
-pytest==8.0.0
+pytest==8.0.1
     # via
     #   -r requirements/test.txt
     #   pytest-cov
