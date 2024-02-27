@@ -66,7 +66,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==23.2.1
+faker==23.2.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -234,6 +234,8 @@ urllib3==2.2.1
     # via
     #   requests
     #   twine
+wheel==0.42.0
+    # via -r requirements/doc.in
 zipp==3.17.0
     # via
     #   importlib-metadata
