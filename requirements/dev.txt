@@ -15,11 +15,15 @@ astroid==3.1.0
     #   -r requirements/quality.txt
     #   pylint
     #   pylint-celery
-build==1.0.3
+backports-zoneinfo==0.2.1
+    # via
+    #   -r requirements/quality.txt
+    #   django
+build==1.1.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-cachetools==5.3.2
+cachetools==5.3.3
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -70,7 +74,7 @@ distlib==0.3.8
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==3.2.24
+django==4.2.10
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -91,7 +95,7 @@ exceptiongroup==1.2.0
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/quality.txt
-faker==23.2.1
+faker==23.3.0
     # via
     #   -r requirements/quality.txt
     #   factory-boy
@@ -177,7 +181,7 @@ pycparser==2.21
     # via
     #   -r requirements/quality.txt
     #   cffi
-pydantic==2.6.2
+pydantic==2.6.3
     # via inflect
 pydantic-core==2.16.3
     # via pydantic
@@ -216,7 +220,7 @@ pyproject-hooks==1.0.0
     #   -r requirements/pip-tools.txt
     #   build
     #   pip-tools
-pytest==8.0.2
+pytest==8.1.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
@@ -225,7 +229,7 @@ pytest-cov==4.1.0
     # via -r requirements/quality.txt
 pytest-django==4.8.0
     # via -r requirements/quality.txt
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via
     #   -r requirements/dev.in
     #   -r requirements/quality.txt
@@ -234,10 +238,6 @@ python-slugify==8.0.4
     # via
     #   -r requirements/quality.txt
     #   code-annotations
-pytz==2024.1
-    # via
-    #   -r requirements/quality.txt
-    #   django
 pyyaml==6.0.1
     # via
     #   -r requirements/quality.txt
@@ -277,7 +277,7 @@ tomli==2.0.1
     #   pyproject-hooks
     #   pytest
     #   tox
-tomlkit==0.12.3
+tomlkit==0.12.4
     # via
     #   -r requirements/quality.txt
     #   pylint

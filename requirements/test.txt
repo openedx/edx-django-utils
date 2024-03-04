@@ -8,6 +8,10 @@ asgiref==3.7.2
     # via
     #   -r requirements/base.txt
     #   django
+backports-zoneinfo==0.2.1
+    # via
+    #   -r requirements/base.txt
+    #   django
 cffi==1.16.0
     # via
     #   -r requirements/base.txt
@@ -31,7 +35,7 @@ exceptiongroup==1.2.0
     # via pytest
 factory-boy==3.3.0
     # via -r requirements/test.in
-faker==23.2.1
+faker==23.3.0
     # via factory-boy
 iniconfig==2.0.0
     # via pytest
@@ -55,7 +59,7 @@ pycparser==2.21
     #   cffi
 pynacl==1.5.0
     # via -r requirements/base.txt
-pytest==8.0.2
+pytest==8.1.0
     # via
     #   pytest-cov
     #   pytest-django
@@ -63,12 +67,8 @@ pytest-cov==4.1.0
     # via -r requirements/test.in
 pytest-django==4.8.0
     # via -r requirements/test.in
-python-dateutil==2.8.2
+python-dateutil==2.9.0.post0
     # via faker
-pytz==2024.1
-    # via
-    #   -r requirements/base.txt
-    #   django
 six==1.16.0
     # via python-dateutil
 sqlparse==0.4.4
