@@ -11,6 +11,16 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.11.0] - 2024-03-06
+---------------------
+Added
+~~~~~
+* Added support for ``Python 3.12``
+
+Removed
+~~~~~~~
+* Dropped support for ``Django 3.2``
+
 [5.10.1] - 2024-01-17
 ---------------------
 

@@ -21,3 +21,6 @@ sphinx==4.2.0
 
 # version 1.0.0 requires docutils >0.19 but sphinx@4.2.0 needs docutils<0.18
 doc8<1.0.0
+
+# Needed for Django 4.2 + Python 3.12 compatibility
+backports.zoneinfo; python_version<"3.9"

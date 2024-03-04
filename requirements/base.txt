@@ -6,8 +6,10 @@
 #
 asgiref==3.7.2
     # via django
-backports-zoneinfo==0.2.1
-    # via django
+backports-zoneinfo==0.2.1 ; python_version < "3.9"
+    # via
+    #   -c requirements/constraints.txt
+    #   django
 cffi==1.16.0
     # via pynacl
 click==8.1.7

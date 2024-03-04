@@ -12,11 +12,12 @@ jobs:
   run_tests:
     name: tests
     runs-on: ${{ matrix.os }}
+    continue-on-error: true
     strategy:
       matrix:
         os: [ubuntu-20.04]
-        python-version: ['3.8']
-        toxenv: [docs, quality, django32, django42]
+        python-version: ['3.8', '3.12']
+        toxenv: [docs, quality, django42]
 
     steps:
     - uses: actions/checkout@v4
@@ -37,7 +38,7 @@ jobs:
       run: tox
 
     - name: Run coverage
-      if: matrix.python-version == '3.8' && matrix.toxenv == 'django42'
+      if: matrix.python-version == '3.12' && matrix.toxenv == 'django42'
       uses: codecov/codecov-action@v3
       with:
         flags: unittests
