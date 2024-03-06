@@ -41,7 +41,7 @@ cryptography==42.0.5
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-django==4.2.10
+django==4.2.11
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -70,7 +70,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==23.3.0
+faker==24.0.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -146,7 +146,7 @@ pygments==2.17.2
     #   sphinx
 pynacl==1.5.0
     # via -r requirements/test.txt
-pytest==8.1.0
+pytest==8.0.2
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
