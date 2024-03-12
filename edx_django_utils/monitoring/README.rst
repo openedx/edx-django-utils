@@ -7,6 +7,13 @@ See ``__init__.py`` for a list of everything included in the public API.
 
 If, for some reason, you need low level access to the newrelic agent, please extend this library to implement the feature that you want. Applications should never include ``import newrelic.agent`` directly.
 
+Choice of monitoring tools
+--------------------------
+
+The most complete support is for New Relic, but there is also initial support for OpenTelemetry and Datadog.
+
+The Django setting ``OPENEDX_TELEMETRY`` can be set to a list of implementations, e.g. ``['edx_django_utils.monitoring.NewRelicBackend', 'edx_django_utils.monitoring.OpenTelemetryBackend']``.
+
 Using Custom Attributes
 -----------------------
 

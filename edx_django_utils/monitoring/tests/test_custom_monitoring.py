@@ -6,7 +6,7 @@ Note: See test_middleware.py for the rest of the middleware tests.
 from unittest.mock import Mock, call, patch
 
 import ddt
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (
@@ -150,6 +150,13 @@ class TestCustomMonitoringMiddleware(TestCase):
         mock_set_custom_attributes_for_course_key.assert_called_with('key')
 
     @patch('newrelic.agent.record_exception')
-    def test_record_exception(self, mock_record_exception):
-        record_exception()
-        mock_record_exception.assert_called_once()
+    @patch('edx_django_utils.monitoring.tests.test_backends.TestingBackend.record_exception')
+    def test_record_exception(self, mock_testing_record_exception, mock_nr_record_exception):
+        """Test that exception-recording fans out to different backends."""
+        with override_settings(OPENEDX_TELEMETRY=[
+                'edx_django_utils.monitoring.NewRelicBackend',
+                'edx_django_utils.monitoring.tests.test_backends.TestingBackend',
+        ]):
+            record_exception()
+        mock_testing_record_exception.assert_called_once()
+        mock_nr_record_exception.assert_called_once()

@@ -11,6 +11,12 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.12.0] - 2024-03-28
+---------------------
+Added
+~~~~~
+* Initial support for sending monitoring data to OpenTelemetry collector or Datadog agent, configured by new Django setting ``OPENEDX_TELEMETRY``. See monitoring README for details.
+
 [5.11.0] - 2024-03-06
 ---------------------
 Added

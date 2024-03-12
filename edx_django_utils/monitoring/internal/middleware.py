@@ -1,8 +1,5 @@
 """
 Middleware for monitoring.
-
-At this time, monitoring details can only be reported to New Relic.
-
 """
 import base64
 import hashlib
@@ -23,12 +20,9 @@ from django.utils.deprecation import MiddlewareMixin
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.logging import encrypt_for_log
 
+from .backends import configured_backends
+
 log = logging.getLogger(__name__)
-try:
-    import newrelic.agent
-except ImportError:  # pragma: no cover
-    log.warning("Unable to load NewRelic agent module")
-    newrelic = None  # pylint: disable=invalid-name
 
 
 _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
@@ -77,17 +71,14 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
 
     Make sure to add below the request cache in MIDDLEWARE.
 
-    This middleware will only call on the newrelic agent if there are any attributes
+    This middleware will only telemetry collector if there are any attributes
     to report for this request, so it will not incur any processing overhead for
     request handlers which do not record custom attributes.
-
-    Note: New Relic adds custom attributes to events, which is what is being used here.
-
     """
     @classmethod
     def _get_attributes_cache(cls):
         """
-        Get a request cache specifically for New Relic custom attributes.
+        Get a request cache specifically for custom attributes.
         """
         return RequestCache(namespace=_REQUEST_CACHE_NAMESPACE)
 
@@ -126,9 +117,9 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
     @classmethod
     def _batch_report(cls):
         """
-        Report the collected custom attributes to New Relic.
+        Report the collected custom attributes.
         """
-        if not newrelic:  # pragma: no cover
+        if not configured_backends():  # pragma: no cover
             return
         attributes_cache = cls._get_attributes_cache()
         for key, value in attributes_cache.data.items():
@@ -157,8 +148,8 @@ def _set_custom_attribute(key, value):
 
     Note: Can't use public method in ``utils.py`` due to circular reference.
     """
-    if newrelic:  # pragma: no cover
-        newrelic.agent.add_custom_parameter(key, value)
+    for backend in configured_backends():
+        backend.set_attribute(key, value)
 
 
 class MonitoringMemoryMiddleware(MiddlewareMixin):
@@ -499,7 +490,7 @@ def split_ascii_log_message(msg, chunk_size):
         yield msg  # no need for continuation messages
     else:
         # Generate a unique-enough collation ID for this message.
-        h = hashlib.shake_128(msg.encode()).digest(6)  # pylint/#4039 pylint: disable=too-many-function-args
+        h = hashlib.shake_128(msg.encode()).digest(6)
         group_id = base64.b64encode(h).decode().rstrip('=')
 
         for i in range(chunk_count):
