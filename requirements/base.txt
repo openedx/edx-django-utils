@@ -14,6 +14,8 @@ cffi==1.16.0
     # via pynacl
 click==8.1.7
     # via -r requirements/base.in
+deprecated==1.2.14
+    # via opentelemetry-api
 django==4.2.11
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -24,7 +26,13 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==4.1.0
     # via -r requirements/base.in
-newrelic==9.7.0
+importlib-metadata==6.11.0
+    # via
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   opentelemetry-api
+newrelic==9.7.1
+    # via -r requirements/base.in
+opentelemetry-api==1.23.0
     # via -r requirements/base.in
 pbr==6.0.0
     # via stevedore
@@ -40,3 +48,7 @@ stevedore==5.2.0
     # via -r requirements/base.in
 typing-extensions==4.10.0
     # via asgiref
+wrapt==1.16.0
+    # via deprecated
+zipp==3.17.0
+    # via importlib-metadata
