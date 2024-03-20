@@ -207,6 +207,7 @@ class TieredCache:
                 if and for how long to cache in the django cache. A timeout of
                 0 will skip the django cache. If timeout is provided, use that
                 timeout for the key; otherwise use the default cache timeout.
+                (in seconds)
 
         """
         DEFAULT_REQUEST_CACHE.set(key, value)
