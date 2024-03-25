@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.7.2
+asgiref==3.8.1
     # via django
 backports-zoneinfo==0.2.1 ; python_version < "3.9"
     # via
@@ -24,7 +24,7 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==4.1.0
     # via -r requirements/base.in
-newrelic==9.7.0
+newrelic==9.7.1
     # via -r requirements/base.in
 pbr==6.0.0
     # via stevedore
