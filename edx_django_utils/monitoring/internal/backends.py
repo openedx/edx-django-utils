@@ -89,7 +89,7 @@ class OpenTelemetryBackend(TelemetryBackend):
 
     API reference: https://opentelemetry-python.readthedocs.io/en/latest/
     """
-    # pylint: disable=import-error,import-outside-toplevel
+    # pylint: disable=import-outside-toplevel
     def __init__(self):
         # If import fails, the backend won't be used.
         from opentelemetry import trace
@@ -115,7 +115,7 @@ class DatadogBackend(TelemetryBackend):
 
     API reference: https://ddtrace.readthedocs.io/en/stable/api.html
     """
-    # pylint: disable=import-error,import-outside-toplevel
+    # pylint: disable=import-outside-toplevel
     def __init__(self):
         # If import fails, the backend won't be used.
         from ddtrace import tracer

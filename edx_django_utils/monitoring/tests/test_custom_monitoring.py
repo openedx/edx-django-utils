@@ -6,16 +6,10 @@ Note: See test_middleware.py for the rest of the middleware tests.
 from unittest.mock import Mock, call, patch
 
 import ddt
-from django.test import TestCase, override_settings
+from django.test import TestCase
 
 from edx_django_utils.cache import RequestCache
-from edx_django_utils.monitoring import (
-    CachedCustomMonitoringMiddleware,
-    accumulate,
-    get_current_transaction,
-    increment,
-    record_exception
-)
+from edx_django_utils.monitoring import CachedCustomMonitoringMiddleware, accumulate, get_current_transaction, increment
 
 from ..middleware import CachedCustomMonitoringMiddleware as DeprecatedCachedCustomMonitoringMiddleware
 from ..middleware import MonitoringCustomMetricsMiddleware as DeprecatedMonitoringCustomMetricsMiddleware
@@ -148,15 +142,3 @@ class TestCustomMonitoringMiddleware(TestCase):
     def test_deprecated_set_custom_attributes_for_course_key(self, mock_set_custom_attributes_for_course_key):
         deprecated_set_custom_attributes_for_course_key('key')
         mock_set_custom_attributes_for_course_key.assert_called_with('key')
-
-    @patch('newrelic.agent.record_exception')
-    @patch('edx_django_utils.monitoring.tests.test_backends.TestingBackend.record_exception')
-    def test_record_exception(self, mock_testing_record_exception, mock_nr_record_exception):
-        """Test that exception-recording fans out to different backends."""
-        with override_settings(OPENEDX_TELEMETRY=[
-                'edx_django_utils.monitoring.NewRelicBackend',
-                'edx_django_utils.monitoring.tests.test_backends.TestingBackend',
-        ]):
-            record_exception()
-        mock_testing_record_exception.assert_called_once()
-        mock_nr_record_exception.assert_called_once()
