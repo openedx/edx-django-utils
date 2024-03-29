@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+
+[5.12.0] - 2024-03-29
+---------------------
+Added
+~~~~~
+* Added support for ``Python 3.11``
+
 [5.11.0] - 2024-03-06
 ---------------------
 Added
