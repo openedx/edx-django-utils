@@ -69,9 +69,6 @@ docs/edx_django_utils.*.rst
 requirements/private.in
 requirements/private.txt
 
-# tox environment temporary artifacts
-tests/__init__.py
-
 # Development task artifacts
 default.db
 
