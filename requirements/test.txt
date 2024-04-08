@@ -36,13 +36,13 @@ exceptiongroup==1.2.0
     # via pytest
 factory-boy==3.3.0
     # via -r requirements/test.in
-faker==24.3.0
+faker==24.7.1
     # via factory-boy
 iniconfig==2.0.0
     # via pytest
 mock==5.1.0
     # via -r requirements/test.in
-newrelic==9.7.1
+newrelic==9.8.0
     # via -r requirements/base.txt
 packaging==24.0
     # via pytest
@@ -54,7 +54,7 @@ pluggy==1.4.0
     # via pytest
 psutil==5.9.8
     # via -r requirements/base.txt
-pycparser==2.21
+pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
@@ -82,7 +82,7 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/base.txt
     #   asgiref

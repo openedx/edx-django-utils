@@ -16,6 +16,8 @@ babel==2.14.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
+backports-tarfile==1.0.0
+    # via jaraco-context
 backports-zoneinfo==0.2.1 ; python_version < "3.9"
     # via
     #   -c requirements/constraints.txt
@@ -71,7 +73,7 @@ factory-boy==3.3.0
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==24.3.0
+faker==24.7.1
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -90,9 +92,9 @@ iniconfig==2.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-jaraco-classes==3.3.1
+jaraco-classes==3.4.0
     # via keyring
-jaraco-context==4.3.0
+jaraco-context==5.3.0
     # via keyring
 jaraco-functools==4.0.0
     # via keyring
@@ -102,7 +104,7 @@ jeepney==0.8.0
     #   secretstorage
 jinja2==3.1.3
     # via sphinx
-keyring==25.0.0
+keyring==25.1.0
     # via twine
 markdown-it-py==3.0.0
     # via rich
@@ -116,9 +118,9 @@ more-itertools==10.2.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==9.7.1
+newrelic==9.8.0
     # via -r requirements/test.txt
-nh3==0.2.15
+nh3==0.2.17
     # via readme-renderer
 packaging==24.0
     # via
@@ -138,7 +140,7 @@ pluggy==1.4.0
     #   pytest
 psutil==5.9.8
     # via -r requirements/test.txt
-pycparser==2.21
+pycparser==2.22
     # via
     #   -r requirements/test.txt
     #   cffi
@@ -232,7 +234,7 @@ tomli==2.0.1
     #   pytest
 twine==5.0.0
     # via -r requirements/doc.in
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/test.txt
     #   asgiref
@@ -243,7 +245,7 @@ urllib3==2.2.1
     # via
     #   requests
     #   twine
-wheel==0.42.0
+wheel==0.43.0
     # via -r requirements/doc.in
 zipp==3.18.1
     # via
