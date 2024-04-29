@@ -50,6 +50,16 @@ class TelemetryBackend(ABC):
         Record the exception that is currently being handled.
         """
 
+    @abstractmethod
+    def initialize_celery_monitoring(self, *args, **kwargs):
+        """
+        Instrument celery to be monitored by the monitoring service.
+
+        Optional kwargs:
+        worker_process_init - required for open telemetry to integrate to the clery signal.
+        Import from from celery.signals.
+        """
+
 
 class NewRelicBackend(TelemetryBackend):
     """
@@ -77,6 +87,9 @@ class NewRelicBackend(TelemetryBackend):
         # https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/recordexception-python-agent-api/
         newrelic.agent.record_exception()
 
+    def initialize_celery_monitoring(self, *args, **kwargs):
+        pass
+
 
 class OpenTelemetryBackend(TelemetryBackend):
     """
@@ -93,7 +106,9 @@ class OpenTelemetryBackend(TelemetryBackend):
     def __init__(self):
         # If import fails, the backend won't be used.
         from opentelemetry import trace
+        from opentelemetry.instrumentation.celery import CeleryInstrumentor
         self.otel_trace = trace
+        self.instrumentor = CeleryInstrumentor
 
     def set_attribute(self, key, value):
         # Sets the value on the current span, not necessarily the root
@@ -103,6 +118,16 @@ class OpenTelemetryBackend(TelemetryBackend):
     def record_exception(self):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
+    def initialize_celery_monitoring(self,*args, **kwargs):
+        worker_process_init = kwargs.get('worker_process_init', None)
+        if worker_process_init is not None:
+            @worker_process_init.connect(weak=False)
+            def init_celery_tracing(*args, **kwargs):
+                self.instrumentor().instrument()
+        else:
+            raise Exception(
+                "the worker_process_init celery signal must be provided for OpenTelemetry to monitor celery tasks."
+                )
 
 class DatadogBackend(TelemetryBackend):
     """
@@ -118,8 +143,9 @@ class DatadogBackend(TelemetryBackend):
     # pylint: disable=import-outside-toplevel
     def __init__(self):
         # If import fails, the backend won't be used.
-        from ddtrace import tracer
+        from ddtrace import tracer, patch
         self.dd_tracer = tracer
+        self.patch = patch
 
     def set_attribute(self, key, value):
         if root_span := self.dd_tracer.current_root_span():
@@ -128,6 +154,9 @@ class DatadogBackend(TelemetryBackend):
     def record_exception(self):
         if span := self.dd_tracer.current_span():
             span.set_traceback()
+
+    def initialize_celery_monitoring(self, worker_process_init):
+        self.patch(celery=True)
 
 
 # This has to be cached rather than computed on load because otherwise
@@ -172,6 +201,6 @@ def configured_backends():
 
 
 @receiver(setting_changed)
-def _reset_state(sender, **kwargs):  # pylint: disable=unused-argument
+def _reset_state(**kwargs):  # pylint: disable=unused-argument
     """Reset caches when settings change during unit tests."""
     configured_backends.cache_clear()

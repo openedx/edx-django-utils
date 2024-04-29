@@ -14,8 +14,6 @@ cleared before the next request.
 We try to keep track of our custom monitoring at:
 https://openedx.atlassian.net/wiki/spaces/PERF/pages/54362736/Custom+Attributes+in+New+Relic
 
-At this time, the custom monitoring will only be reported to New Relic.
-
 """
 from .backends import configured_backends
 from .middleware import CachedCustomMonitoringMiddleware
@@ -24,7 +22,6 @@ try:
     import newrelic.agent
 except ImportError:  # pragma: no cover
     newrelic = None  # pylint: disable=invalid-name
-
 
 def accumulate(name, value):
     """
@@ -110,3 +107,11 @@ def background_task(*args, **kwargs):
         return newrelic.agent.background_task(*args, **kwargs)
     else:
         return noop_decorator
+
+def initialize_celery_monitoring(*args, **kwargs):
+    """
+    Set monitoring custom attribute.
+    This is not cached.
+    """
+    for backend in configured_backends():
+        backend.initialize_celery_monitoring(*args, **kwargs)
