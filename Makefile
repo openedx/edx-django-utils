@@ -74,8 +74,7 @@ test: clean ## run tests in the current virtualenv
 diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml
 
-test-all: ## run tests on every supported Python/Django combination
-	tox -e quality
+test-all: clean ## run quality checks as well as tests on every supported Python/Django combination
 	tox
 
 validate: quality test ## run tests and quality checks
