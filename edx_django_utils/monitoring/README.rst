@@ -10,9 +10,36 @@ If, for some reason, you need low level access to the newrelic agent, please ext
 Choice of monitoring tools
 --------------------------
 
-The most complete support is for New Relic, but there is also initial support for OpenTelemetry and Datadog.
+The most complete feature support is for New Relic (the default), but there is also initial support for OpenTelemetry and Datadog.
 
-The Django setting ``OPENEDX_TELEMETRY`` can be set to a list of implementations, e.g. ``['edx_django_utils.monitoring.NewRelicBackend', 'edx_django_utils.monitoring.OpenTelemetryBackend']``.
+The Django setting ``OPENEDX_TELEMETRY`` can be set to a list of implementations, e.g. ``['edx_django_utils.monitoring.NewRelicBackend', 'edx_django_utils.monitoring.OpenTelemetryBackend']``. All of the implementations that can be loaded will be used for all applicable telemetry calls.
+
+Feature support matrix for built-in telemetry backends:
+
+.. list-table::
+   :header-rows: 1
+   :widths: 55, 15, 15, 15
+
+   * -
+     - New Relic
+     - OpenTelemetry
+     - Datadog
+   * - Custom span attributes (``set_custom_attribute``, ``accumulate``, ``increment``,  etc.)
+     - ✅ (on root span)
+     - ✅ (on current span)
+     - ✅ (on root span)
+   * - Retrieve and manipulate spans (``function_trace``, ``get_current_transaction``, ``ignore_transaction``, ``set_monitoring_transaction_name``)
+     - ✅
+     - ❌
+     - ❌
+   * - Record exceptions (``record_exception``)
+     - ✅
+     - ✅
+     - ✅
+   * - Instrument non-web tasks (``background_task``)
+     - ✅
+     - ❌
+     - ❌
 
 Using Custom Attributes
 -----------------------

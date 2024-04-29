@@ -71,7 +71,7 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
 
     Make sure to add below the request cache in MIDDLEWARE.
 
-    This middleware will only telemetry collector if there are any attributes
+    This middleware will only call on the telemetry collector if there are any attributes
     to report for this request, so it will not incur any processing overhead for
     request handlers which do not record custom attributes.
     """

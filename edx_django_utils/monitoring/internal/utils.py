@@ -100,7 +100,7 @@ def background_task(*args, **kwargs):
     This function only supports New Relic.
 
     For more details, see:
-    https://docs.newrelic.com/docs/apm/agents/python-agent/supported-features/monitor-non-web-scripts-worker-processes-tasks-functions
+    https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/backgroundtask-python-agent-api/
 
     """
     def noop_decorator(func):

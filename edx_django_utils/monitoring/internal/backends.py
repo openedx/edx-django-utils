@@ -130,8 +130,11 @@ class DatadogBackend(TelemetryBackend):
             span.set_traceback()
 
 
-# This has to be cached rather than computed on load because otherwise
-# we get a (silent) circular import.
+# We're using an lru_cache instead of assigning the result to a variable on
+# module load. With the default settings (pointing to a TelemetryBackend
+# in this very module), this function can't be successfully called until
+# the module finishes loading, otherwise we get a circular import error
+# that will cause the backend to be dropped from the list.
 @lru_cache
 def configured_backends():
     """
