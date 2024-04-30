@@ -11,13 +11,14 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+
 [5.14.0] - 2024-03-28
 ---------------------
 Added
 ~~~~~
 * Initial support for sending monitoring data from Celery to  OpenTelemetry collector or Datadog agent.
 
-[5.13.0] - 2024-03-28
+[5.13.0] - 2024-04-30
 ---------------------
 Added
 ~~~~~
