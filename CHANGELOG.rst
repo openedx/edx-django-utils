@@ -11,7 +11,7 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
-[5.13.0] - 2024-04-29
+[5.13.0] - 2024-04-30
 ---------------------
 Added
 ~~~~~
