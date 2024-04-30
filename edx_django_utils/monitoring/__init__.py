@@ -3,6 +3,7 @@ Metrics utilities public api
 
 See README.rst for details.
 """
+from .internal.backends import DatadogBackend, NewRelicBackend, OpenTelemetryBackend, TelemetryBackend
 from .internal.code_owner.middleware import CodeOwnerMonitoringMiddleware
 from .internal.code_owner.utils import (
     get_code_owner_from_module,
