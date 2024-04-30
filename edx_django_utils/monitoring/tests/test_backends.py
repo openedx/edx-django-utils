@@ -1,13 +1,13 @@
 """
 Tests for TelemetryBackend and implementations.
 """
-from unittest.mock import patch
+from unittest.mock import Mock, patch
 
 import ddt
 import pytest
 from django.test import TestCase, override_settings
 
-from edx_django_utils.monitoring import record_exception, set_custom_attribute
+from edx_django_utils.monitoring import initialize_celery_monitoring, record_exception, set_custom_attribute
 from edx_django_utils.monitoring.internal.backends import configured_backends
 
 
@@ -151,3 +151,19 @@ class TestBackendsFanOut(TestCase):
         mock_nr_record_exception.assert_called_once()
         mock_otel_record_exception.assert_called_once()
         mock_dd_span.assert_called_once()
+
+    # Record exception on current span, not root span.
+    @patch('ddtrace.patch')
+    def test_initialize_celery_monitoring(
+            self, mock_dd_patch
+    ):
+        celery_signal_decorator_mock = Mock()
+        with override_settings(OPENEDX_TELEMETRY=[
+                'edx_django_utils.monitoring.NewRelicBackend',
+                'edx_django_utils.monitoring.OpenTelemetryBackend',
+                'edx_django_utils.monitoring.DatadogBackend',
+        ]):
+            initialize_celery_monitoring(worker_process_init=celery_signal_decorator_mock)
+        mock_dd_patch.assert_called_once()
+        # celery hook should be defined, but not called.
+        self.assertFalse(celery_signal_decorator_mock.called)

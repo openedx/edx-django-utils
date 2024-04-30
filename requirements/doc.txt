@@ -8,6 +8,10 @@ accessible-pygments==0.0.4
     # via pydata-sphinx-theme
 alabaster==0.7.13
     # via sphinx
+amqp==5.2.0
+    # via
+    #   -r requirements/test.txt
+    #   kombu
 asgiref==3.8.1
     # via
     #   -r requirements/test.txt
@@ -21,13 +25,21 @@ babel==2.14.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
-backports-zoneinfo==0.2.1 ; python_version < "3.9"
+backports-tarfile==1.1.1
+    # via jaraco-context
+backports-zoneinfo[tzdata]==0.2.1 ; python_version < "3.9"
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
+    #   celery
     #   django
+    #   kombu
 beautifulsoup4==4.12.3
     # via pydata-sphinx-theme
+billiard==4.2.0
+    # via
+    #   -r requirements/test.txt
+    #   celery
 bytecode==0.15.1
     # via
     #   -r requirements/test.txt
@@ -36,6 +48,8 @@ cattrs==23.2.3
     # via
     #   -r requirements/test.txt
     #   ddtrace
+celery==5.4.0
+    # via -r requirements/test.txt
 certifi==2024.2.2
     # via requests
 cffi==1.16.0
@@ -46,20 +60,37 @@ cffi==1.16.0
 charset-normalizer==3.3.2
     # via requests
 click==8.1.7
-    # via -r requirements/test.txt
-coverage[toml]==7.4.4
+    # via
+    #   -r requirements/test.txt
+    #   celery
+    #   click-didyoumean
+    #   click-plugins
+    #   click-repl
+click-didyoumean==0.3.1
+    # via
+    #   -r requirements/test.txt
+    #   celery
+click-plugins==1.1.1
+    # via
+    #   -r requirements/test.txt
+    #   celery
+click-repl==0.3.0
+    # via
+    #   -r requirements/test.txt
+    #   celery
+coverage[toml]==7.5.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 cryptography==42.0.5
     # via secretstorage
-ddsketch==2.0.4
+ddsketch==3.0.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==2.7.5
+ddtrace==2.8.3
     # via -r requirements/test.txt
 deprecated==1.2.14
     # via
@@ -90,7 +121,7 @@ envier==0.5.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
-exceptiongroup==1.2.0
+exceptiongroup==1.2.1
     # via
     #   -r requirements/test.txt
     #   cattrs
@@ -99,11 +130,11 @@ factory-boy==3.3.0
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==24.4.0
+faker==25.0.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
-idna==3.6
+idna==3.7
     # via requests
 imagesize==1.4.1
     # via sphinx
@@ -120,11 +151,11 @@ iniconfig==2.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-jaraco-classes==3.3.1
+jaraco-classes==3.4.0
     # via keyring
-jaraco-context==4.3.0
+jaraco-context==5.3.0
     # via keyring
-jaraco-functools==4.0.0
+jaraco-functools==4.0.1
     # via keyring
 jeepney==0.8.0
     # via
@@ -132,8 +163,12 @@ jeepney==0.8.0
     #   secretstorage
 jinja2==3.1.3
     # via sphinx
-keyring==25.0.0
+keyring==25.2.0
     # via twine
+kombu==5.3.7
+    # via
+    #   -r requirements/test.txt
+    #   celery
 markdown-it-py==3.0.0
     # via rich
 markupsafe==2.1.5
@@ -146,7 +181,7 @@ more-itertools==10.2.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==9.8.0
+newrelic==9.9.0
     # via -r requirements/test.txt
 nh3==0.2.17
     # via readme-renderer
@@ -154,6 +189,18 @@ opentelemetry-api==1.24.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
+    #   opentelemetry-instrumentation
+    #   opentelemetry-instrumentation-celery
+opentelemetry-instrumentation==0.45b0
+    # via
+    #   -r requirements/test.txt
+    #   opentelemetry-instrumentation-celery
+opentelemetry-instrumentation-celery==0.45b0
+    # via -r requirements/test.txt
+opentelemetry-semantic-conventions==0.45b0
+    # via
+    #   -r requirements/test.txt
+    #   opentelemetry-instrumentation-celery
 packaging==24.0
     # via
     #   -r requirements/test.txt
@@ -166,18 +213,21 @@ pbr==6.0.0
     #   stevedore
 pkginfo==1.10.0
     # via twine
-pluggy==1.4.0
+pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
+prompt-toolkit==3.0.43
+    # via
+    #   -r requirements/test.txt
+    #   click-repl
 protobuf==5.26.1
     # via
     #   -r requirements/test.txt
-    #   ddsketch
     #   ddtrace
 psutil==5.9.8
     # via -r requirements/test.txt
-pycparser==2.21
+pycparser==2.22
     # via
     #   -r requirements/test.txt
     #   cffi
@@ -193,7 +243,7 @@ pygments==2.17.2
     #   sphinx
 pynacl==1.5.0
     # via -r requirements/test.txt
-pytest==8.1.1
+pytest==8.2.0
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
@@ -206,6 +256,7 @@ pytest-django==4.8.0
 python-dateutil==2.9.0.post0
     # via
     #   -r requirements/test.txt
+    #   celery
     #   faker
 pytz==2024.1
     # via babel
@@ -258,7 +309,7 @@ sphinxcontrib-qthelp==1.0.3
     # via sphinx
 sphinxcontrib-serializinghtml==1.1.5
     # via sphinx
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -274,26 +325,42 @@ tomli==2.0.1
     #   pytest
 twine==5.0.0
     # via -r requirements/doc.in
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/test.txt
     #   asgiref
     #   bytecode
     #   cattrs
     #   ddtrace
-    #   faker
+    #   kombu
     #   pydata-sphinx-theme
     #   rich
+tzdata==2024.1
+    # via
+    #   -r requirements/test.txt
+    #   backports-zoneinfo
+    #   celery
 urllib3==2.2.1
     # via
     #   requests
     #   twine
+vine==5.1.0
+    # via
+    #   -r requirements/test.txt
+    #   amqp
+    #   celery
+    #   kombu
+wcwidth==0.2.13
+    # via
+    #   -r requirements/test.txt
+    #   prompt-toolkit
 wheel==0.43.0
     # via -r requirements/doc.in
 wrapt==1.16.0
     # via
     #   -r requirements/test.txt
     #   deprecated
+    #   opentelemetry-instrumentation
 xmltodict==0.13.0
     # via
     #   -r requirements/test.txt

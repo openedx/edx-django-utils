@@ -4,6 +4,10 @@
 #
 #    make upgrade
 #
+amqp==5.2.0
+    # via
+    #   -r requirements/test.txt
+    #   kombu
 asgiref==3.8.1
     # via
     #   -r requirements/test.txt
@@ -17,11 +21,17 @@ attrs==23.2.0
     #   -r requirements/test.txt
     #   cattrs
     #   ddtrace
-backports-zoneinfo==0.2.1 ; python_version < "3.9"
+backports-zoneinfo[tzdata]==0.2.1 ; python_version < "3.9"
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/test.txt
+    #   celery
     #   django
+    #   kombu
+billiard==4.2.0
+    # via
+    #   -r requirements/test.txt
+    #   celery
 bytecode==0.15.1
     # via
     #   -r requirements/test.txt
@@ -30,6 +40,8 @@ cattrs==23.2.3
     # via
     #   -r requirements/test.txt
     #   ddtrace
+celery==5.4.0
+    # via -r requirements/test.txt
 cffi==1.16.0
     # via
     #   -r requirements/test.txt
@@ -37,24 +49,40 @@ cffi==1.16.0
 click==8.1.7
     # via
     #   -r requirements/test.txt
+    #   celery
+    #   click-didyoumean
     #   click-log
+    #   click-plugins
+    #   click-repl
     #   code-annotations
     #   edx-lint
+click-didyoumean==0.3.1
+    # via
+    #   -r requirements/test.txt
+    #   celery
 click-log==0.4.0
     # via edx-lint
-code-annotations==1.7.0
+click-plugins==1.1.1
+    # via
+    #   -r requirements/test.txt
+    #   celery
+click-repl==0.3.0
+    # via
+    #   -r requirements/test.txt
+    #   celery
+code-annotations==1.8.0
     # via edx-lint
-coverage[toml]==7.4.4
+coverage[toml]==7.5.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-ddsketch==2.0.4
+ddsketch==3.0.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==2.7.5
+ddtrace==2.8.3
     # via -r requirements/test.txt
 deprecated==1.2.14
     # via
@@ -78,14 +106,14 @@ envier==0.5.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
-exceptiongroup==1.2.0
+exceptiongroup==1.2.1
     # via
     #   -r requirements/test.txt
     #   cattrs
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/test.txt
-faker==24.4.0
+faker==25.0.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -104,18 +132,34 @@ isort==5.13.2
     #   pylint
 jinja2==3.1.3
     # via code-annotations
+kombu==5.3.7
+    # via
+    #   -r requirements/test.txt
+    #   celery
 markupsafe==2.1.5
     # via jinja2
 mccabe==0.7.0
     # via pylint
 mock==5.1.0
     # via -r requirements/test.txt
-newrelic==9.8.0
+newrelic==9.9.0
     # via -r requirements/test.txt
 opentelemetry-api==1.24.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
+    #   opentelemetry-instrumentation
+    #   opentelemetry-instrumentation-celery
+opentelemetry-instrumentation==0.45b0
+    # via
+    #   -r requirements/test.txt
+    #   opentelemetry-instrumentation-celery
+opentelemetry-instrumentation-celery==0.45b0
+    # via -r requirements/test.txt
+opentelemetry-semantic-conventions==0.45b0
+    # via
+    #   -r requirements/test.txt
+    #   opentelemetry-instrumentation-celery
 packaging==24.0
     # via
     #   -r requirements/test.txt
@@ -124,22 +168,25 @@ pbr==6.0.0
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==4.2.0
+platformdirs==4.2.1
     # via pylint
-pluggy==1.4.0
+pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
+prompt-toolkit==3.0.43
+    # via
+    #   -r requirements/test.txt
+    #   click-repl
 protobuf==5.26.1
     # via
     #   -r requirements/test.txt
-    #   ddsketch
     #   ddtrace
 psutil==5.9.8
     # via -r requirements/test.txt
 pycodestyle==2.11.1
     # via -r requirements/quality.in
-pycparser==2.21
+pycparser==2.22
     # via
     #   -r requirements/test.txt
     #   cffi
@@ -161,7 +208,7 @@ pylint-plugin-utils==0.8.2
     #   pylint-django
 pynacl==1.5.0
     # via -r requirements/test.txt
-pytest==8.1.1
+pytest==8.2.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -173,6 +220,7 @@ pytest-django==4.8.0
 python-dateutil==2.9.0.post0
     # via
     #   -r requirements/test.txt
+    #   celery
     #   faker
 python-slugify==8.0.4
     # via code-annotations
@@ -187,7 +235,7 @@ six==1.16.0
     #   python-dateutil
 snowballstemmer==2.2.0
     # via pydocstyle
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -206,7 +254,7 @@ tomli==2.0.1
     #   pytest
 tomlkit==0.12.4
     # via pylint
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/test.txt
     #   asgiref
@@ -214,12 +262,28 @@ typing-extensions==4.10.0
     #   bytecode
     #   cattrs
     #   ddtrace
-    #   faker
+    #   kombu
     #   pylint
+tzdata==2024.1
+    # via
+    #   -r requirements/test.txt
+    #   backports-zoneinfo
+    #   celery
+vine==5.1.0
+    # via
+    #   -r requirements/test.txt
+    #   amqp
+    #   celery
+    #   kombu
+wcwidth==0.2.13
+    # via
+    #   -r requirements/test.txt
+    #   prompt-toolkit
 wrapt==1.16.0
     # via
     #   -r requirements/test.txt
     #   deprecated
+    #   opentelemetry-instrumentation
 xmltodict==0.13.0
     # via
     #   -r requirements/test.txt
@@ -228,3 +292,6 @@ zipp==3.18.1
     # via
     #   -r requirements/test.txt
     #   importlib-metadata
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools

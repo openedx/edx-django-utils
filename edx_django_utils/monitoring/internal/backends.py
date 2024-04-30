@@ -97,7 +97,7 @@ class OpenTelemetryBackend(TelemetryBackend):
 
     Requirements to use:
 
-    - Install `opentelemetry-api` Python package
+    - Install `opentelemetry-api` and `opentelemetry-instrumentation-celery` Python packages.
     - Configure and initialize OpenTelemetry
 
     API reference: https://opentelemetry-python.readthedocs.io/en/latest/
@@ -118,7 +118,7 @@ class OpenTelemetryBackend(TelemetryBackend):
     def record_exception(self):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
-    def initialize_celery_monitoring(self,*args, **kwargs):
+    def initialize_celery_monitoring(self, *args, **kwargs):
         worker_process_init = kwargs.get('worker_process_init', None)
         if worker_process_init is not None:
             @worker_process_init.connect(weak=False)
@@ -128,6 +128,7 @@ class OpenTelemetryBackend(TelemetryBackend):
             raise Exception(
                 "the worker_process_init celery signal must be provided for OpenTelemetry to monitor celery tasks."
                 )
+
 
 class DatadogBackend(TelemetryBackend):
     """
@@ -143,7 +144,7 @@ class DatadogBackend(TelemetryBackend):
     # pylint: disable=import-outside-toplevel
     def __init__(self):
         # If import fails, the backend won't be used.
-        from ddtrace import tracer, patch
+        from ddtrace import patch, tracer
         self.dd_tracer = tracer
         self.patch = patch
 
@@ -155,7 +156,7 @@ class DatadogBackend(TelemetryBackend):
         if span := self.dd_tracer.current_span():
             span.set_traceback()
 
-    def initialize_celery_monitoring(self, worker_process_init):
+    def initialize_celery_monitoring(self, *args, **kwargs):
         self.patch(celery=True)
 
 
@@ -201,6 +202,6 @@ def configured_backends():
 
 
 @receiver(setting_changed)
-def _reset_state(**kwargs):  # pylint: disable=unused-argument
+def _reset_state(sender, **kwargs):  # pylint: disable=unused-argument
     """Reset caches when settings change during unit tests."""
     configured_backends.cache_clear()

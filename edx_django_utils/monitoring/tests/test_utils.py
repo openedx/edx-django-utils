@@ -6,6 +6,7 @@ from unittest.mock import patch
 
 from edx_django_utils.monitoring import background_task
 
+
 @patch('edx_django_utils.monitoring.internal.utils.newrelic')
 def test_background_task_wrapper(wrapped_nr):
     # We are verifying that this returns the correct decorated function

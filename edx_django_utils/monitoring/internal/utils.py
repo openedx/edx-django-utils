@@ -23,6 +23,7 @@ try:
 except ImportError:  # pragma: no cover
     newrelic = None  # pylint: disable=invalid-name
 
+
 def accumulate(name, value):
     """
     Accumulate monitoring custom attribute for the current request.
@@ -107,6 +108,7 @@ def background_task(*args, **kwargs):
         return newrelic.agent.background_task(*args, **kwargs)
     else:
         return noop_decorator
+
 
 def initialize_celery_monitoring(*args, **kwargs):
     """

@@ -26,9 +26,9 @@ from .internal.utils import (
     accumulate,
     background_task,
     increment,
+    initialize_celery_monitoring,
     record_exception,
     set_custom_attribute,
-    initialize_celery_monitoring,
     set_custom_attributes_for_course_key
 )
 # "set_custom_metric*" methods are deprecated
