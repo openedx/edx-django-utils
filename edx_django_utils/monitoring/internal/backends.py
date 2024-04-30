@@ -60,6 +60,7 @@ class TelemetryBackend(ABC):
         Import from from celery.signals.
         """
 
+
 class NewRelicBackend(TelemetryBackend):
     """
     Send telemetry to New Relic.
