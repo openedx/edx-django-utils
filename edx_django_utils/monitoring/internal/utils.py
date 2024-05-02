@@ -17,6 +17,7 @@ https://openedx.atlassian.net/wiki/spaces/PERF/pages/54362736/Custom+Attributes+
 At this time, the custom monitoring will only be reported to New Relic.
 
 """
+from .backends import configured_backends
 from .middleware import CachedCustomMonitoringMiddleware
 
 try:
@@ -62,40 +63,33 @@ def set_custom_attributes_for_course_key(course_key):
     """
     Set monitoring custom attributes related to a course key.
 
-    This is not cached, and only support reporting to New Relic Insights.
+    This is not cached.
 
     """
-    if newrelic:  # pragma: no cover
-        newrelic.agent.add_custom_parameter('course_id', str(course_key))
-        newrelic.agent.add_custom_parameter('org', str(course_key.org))
+    set_custom_attribute('course_id', str(course_key))
+    set_custom_attribute('org', str(course_key.org))
 
 
 def set_custom_attribute(key, value):
     """
     Set monitoring custom attribute.
 
-    This is not cached, and only support reporting to New Relic Insights.
-
+    This is not cached.
     """
-    if newrelic:  # pragma: no cover
-        # note: parameter is new relic's older name for attributes
-        newrelic.agent.add_custom_parameter(key, value)
+    for backend in configured_backends():
+        backend.set_attribute(key, value)
 
 
 def record_exception():
     """
-    Records a caught exception to the monitoring system.
+    Record a caught exception to the monitoring system.
 
     Note: By default, only unhandled exceptions are monitored. This function
     can be called to record exceptions as monitored errors, even if you handle
     the exception gracefully from a user perspective.
-
-    For more details, see:
-    https://docs.newrelic.com/docs/agents/python-agent/python-agent-api/recordexception-python-agent-api
-
     """
-    if newrelic:  # pragma: no cover
-        newrelic.agent.record_exception()
+    for backend in configured_backends():
+        backend.record_exception()
 
 
 def background_task(*args, **kwargs):
@@ -103,8 +97,10 @@ def background_task(*args, **kwargs):
     Handles monitoring for background tasks that are not passed in through the web server like
     celery and event consuming tasks.
 
+    This function only supports New Relic.
+
     For more details, see:
-    https://docs.newrelic.com/docs/apm/agents/python-agent/supported-features/monitor-non-web-scripts-worker-processes-tasks-functions
+    https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/backgroundtask-python-agent-api/
 
     """
     def noop_decorator(func):

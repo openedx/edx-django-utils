@@ -12,6 +12,11 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
+attrs==23.2.0
+    # via
+    #   -r requirements/test.txt
+    #   cattrs
+    #   ddtrace
 babel==2.14.0
     # via
     #   pydata-sphinx-theme
@@ -23,6 +28,14 @@ backports-zoneinfo==0.2.1 ; python_version < "3.9"
     #   django
 beautifulsoup4==4.12.3
     # via pydata-sphinx-theme
+bytecode==0.15.1
+    # via
+    #   -r requirements/test.txt
+    #   ddtrace
+cattrs==23.2.3
+    # via
+    #   -r requirements/test.txt
+    #   ddtrace
 certifi==2024.2.2
     # via requests
 cffi==1.16.0
@@ -40,8 +53,18 @@ coverage[toml]==7.4.4
     #   pytest-cov
 cryptography==42.0.5
     # via secretstorage
+ddsketch==2.0.4
+    # via
+    #   -r requirements/test.txt
+    #   ddtrace
 ddt==1.7.2
     # via -r requirements/test.txt
+ddtrace==2.7.5
+    # via -r requirements/test.txt
+deprecated==1.2.14
+    # via
+    #   -r requirements/test.txt
+    #   opentelemetry-api
 django==4.2.11
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -63,15 +86,20 @@ docutils==0.17.1
     #   readme-renderer
     #   restructuredtext-lint
     #   sphinx
+envier==0.5.1
+    # via
+    #   -r requirements/test.txt
+    #   ddtrace
 exceptiongroup==1.2.0
     # via
     #   -r requirements/test.txt
+    #   cattrs
     #   pytest
 factory-boy==3.3.0
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==24.3.0
+faker==24.4.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -82,7 +110,9 @@ imagesize==1.4.1
 importlib-metadata==6.11.0
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -r requirements/test.txt
     #   keyring
+    #   opentelemetry-api
     #   twine
 importlib-resources==6.4.0
     # via keyring
@@ -116,10 +146,14 @@ more-itertools==10.2.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==9.7.1
+newrelic==9.8.0
     # via -r requirements/test.txt
-nh3==0.2.15
+nh3==0.2.17
     # via readme-renderer
+opentelemetry-api==1.24.0
+    # via
+    #   -r requirements/test.txt
+    #   ddtrace
 packaging==24.0
     # via
     #   -r requirements/test.txt
@@ -136,6 +170,11 @@ pluggy==1.4.0
     # via
     #   -r requirements/test.txt
     #   pytest
+protobuf==5.26.1
+    # via
+    #   -r requirements/test.txt
+    #   ddsketch
+    #   ddtrace
 psutil==5.9.8
     # via -r requirements/test.txt
 pycparser==2.21
@@ -192,6 +231,8 @@ secretstorage==3.3.3
 six==1.16.0
     # via
     #   -r requirements/test.txt
+    #   ddsketch
+    #   ddtrace
     #   python-dateutil
 snowballstemmer==2.2.0
     # via sphinx
@@ -220,6 +261,7 @@ sphinxcontrib-serializinghtml==1.1.5
 sqlparse==0.4.4
     # via
     #   -r requirements/test.txt
+    #   ddtrace
     #   django
 stevedore==5.2.0
     # via
@@ -236,6 +278,9 @@ typing-extensions==4.10.0
     # via
     #   -r requirements/test.txt
     #   asgiref
+    #   bytecode
+    #   cattrs
+    #   ddtrace
     #   faker
     #   pydata-sphinx-theme
     #   rich
@@ -243,10 +288,19 @@ urllib3==2.2.1
     # via
     #   requests
     #   twine
-wheel==0.42.0
+wheel==0.43.0
     # via -r requirements/doc.in
+wrapt==1.16.0
+    # via
+    #   -r requirements/test.txt
+    #   deprecated
+xmltodict==0.13.0
+    # via
+    #   -r requirements/test.txt
+    #   ddtrace
 zipp==3.18.1
     # via
+    #   -r requirements/test.txt
     #   importlib-metadata
     #   importlib-resources
 
