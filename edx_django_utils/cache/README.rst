@@ -3,7 +3,7 @@ Cache Utils
 
 Cache utilities that implement `OEP-0022: Caching in Django`_.
 
-.. _`OEP-0022: Caching in Django`: https://github.com/openedx/open-edx-proposals/blob/master/oeps/oep-0022-bp-django-caches.rst
+.. _`OEP-0022: Caching in Django`: https://github.com/openedx/open-edx-proposals/blob/master/oeps/best-practices/oep-0022-bp-django-caches.rst
 
 get_cache_key
 -------------
