@@ -55,7 +55,7 @@ class NewRelicBackend(TelemetryBackend):
     """
     Send telemetry to New Relic.
 
-    https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/guide-using-python-agent-api/
+    API reference: https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/guide-using-python-agent-api/
     """
     def __init__(self):
         if newrelic is None:
@@ -82,11 +82,6 @@ class OpenTelemetryBackend(TelemetryBackend):
     """
     Send telemetry via OpenTelemetry.
 
-    Requirements to use:
-
-    - Install `opentelemetry-api` Python package
-    - Configure and initialize OpenTelemetry
-
     API reference: https://opentelemetry-python.readthedocs.io/en/latest/
     """
     # pylint: disable=import-outside-toplevel
@@ -107,11 +102,6 @@ class OpenTelemetryBackend(TelemetryBackend):
 class DatadogBackend(TelemetryBackend):
     """
     Send telemetry to Datadog via ddtrace.
-
-    Requirements to use:
-
-    - Install `ddtrace` Python package
-    - Initialize ddtrace, either via ddtrace-run or ddtrace.auto
 
     API reference: https://ddtrace.readthedocs.io/en/stable/api.html
     """

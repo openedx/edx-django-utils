@@ -41,6 +41,23 @@ Feature support matrix for built-in telemetry backends:
      - ❌
      - ❌
 
+Additional requirements for using these backends:
+
+- ``edx_django_utils.monitoring.NewRelicBackend``:
+
+  - Install the ``newrelic`` Python package
+  - Initialize newrelic, either via the ``newrelic-admin run-program`` wrapper or ``newrelic.agent`` API calls during server startup
+
+- ``edx_django_utils.monitoring.OpenTelemetryBackend``:
+
+  - Install the ``opentelemetry-api`` Python package
+  - Initialize opentelemetry, either via the ``opentelemetry-instrument`` wrapper or ``opentelemetry.instrumentation`` API calls during server startup
+
+- ``edx_django_utils.monitoring.DatadogBackend``:
+
+  - Install the ``ddtrace`` Python package
+  - Initialize ddtrace, either via the ``ddtrace-run`` wrapper or ``ddtrace.auto`` API calls during server startup
+
 Using Custom Attributes
 -----------------------
 
