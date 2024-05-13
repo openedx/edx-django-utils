@@ -27,13 +27,13 @@ cffi==1.16.0
     #   pynacl
 click==8.1.7
     # via -r requirements/base.txt
-coverage[toml]==7.4.4
+coverage[toml]==7.5.1
     # via pytest-cov
-ddsketch==2.0.4
+ddsketch==3.0.1
     # via ddtrace
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==2.7.5
+ddtrace==2.8.4
     # via -r requirements/test.in
 deprecated==1.2.14
     # via opentelemetry-api
@@ -48,13 +48,13 @@ django-waffle==4.1.0
     # via -r requirements/base.txt
 envier==0.5.1
     # via ddtrace
-exceptiongroup==1.2.0
+exceptiongroup==1.2.1
     # via
     #   cattrs
     #   pytest
 factory-boy==3.3.0
     # via -r requirements/test.in
-faker==24.4.0
+faker==25.1.0
     # via factory-boy
 importlib-metadata==6.11.0
     # via
@@ -64,7 +64,7 @@ iniconfig==2.0.0
     # via pytest
 mock==5.1.0
     # via -r requirements/test.in
-newrelic==9.8.0
+newrelic==9.9.0
     # via
     #   -r requirements/base.txt
     #   -r requirements/test.in
@@ -78,21 +78,19 @@ pbr==6.0.0
     # via
     #   -r requirements/base.txt
     #   stevedore
-pluggy==1.4.0
+pluggy==1.5.0
     # via pytest
 protobuf==5.26.1
-    # via
-    #   ddsketch
-    #   ddtrace
+    # via ddtrace
 psutil==5.9.8
     # via -r requirements/base.txt
-pycparser==2.21
+pycparser==2.22
     # via
     #   -r requirements/base.txt
     #   cffi
 pynacl==1.5.0
     # via -r requirements/base.txt
-pytest==8.1.1
+pytest==8.2.0
     # via
     #   pytest-cov
     #   pytest-django
@@ -107,7 +105,7 @@ six==1.16.0
     #   ddsketch
     #   ddtrace
     #   python-dateutil
-sqlparse==0.4.4
+sqlparse==0.5.0
     # via
     #   -r requirements/base.txt
     #   ddtrace
@@ -118,14 +116,13 @@ tomli==2.0.1
     # via
     #   coverage
     #   pytest
-typing-extensions==4.10.0
+typing-extensions==4.11.0
     # via
     #   -r requirements/base.txt
     #   asgiref
     #   bytecode
     #   cattrs
     #   ddtrace
-    #   faker
 wrapt==1.16.0
     # via deprecated
 xmltodict==0.13.0
