@@ -14,6 +14,7 @@ from .internal.middleware import (
     CachedCustomMonitoringMiddleware,
     CookieMonitoringMiddleware,
     DeploymentMonitoringMiddleware,
+    FrontendMonitoringMiddleware,
     MonitoringMemoryMiddleware
 )
 from .internal.transactions import (

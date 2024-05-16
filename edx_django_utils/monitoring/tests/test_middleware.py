@@ -7,6 +7,7 @@ import re
 from unittest.mock import Mock, call, patch
 
 import ddt
+from django.http import HttpRequest, HttpResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
@@ -16,6 +17,7 @@ from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (
     CookieMonitoringMiddleware,
     DeploymentMonitoringMiddleware,
+    FrontendMonitoringMiddleware,
     MonitoringMemoryMiddleware
 )
 
@@ -322,3 +324,59 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
         for name, value in cookies_dict.items():
             factory.cookies[name] = value
         return factory.request()
+
+
+@ddt.ddt
+class FrontendMonitoringMiddlewareTestCase(TestCase):
+    """
+    Tests for FrontendMonitoringMiddleware.
+    """
+    def setUp(self):
+        super().setUp()
+        self.script = "<script>test script</script>"
+
+    @patch("edx_django_utils.monitoring.internal.middleware.FrontendMonitoringMiddleware.inject_script")
+    def test_frontend_middleware_without_setting_variable(self, mock_inject_script):
+        """
+        Test that middleware behaves correctly when setting variable is not defined.
+        """
+        response_html = '<html><head></head><body></body><html>'
+        middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(response_html, content_type='text/html'))
+        response = middleware(HttpRequest())
+        # Assert that the response content remains unchanged if settings not defined
+        assert response.content == response_html.encode()
+
+        mock_inject_script.assert_not_called()
+
+    @ddt.data(
+        ('<html><body></body><html>', '<body>'),
+        ('<html><head></head><body></body><html>', '</head>'),
+        ('<head></head><body></body>', '</head>'),
+        ('<body></body>', '<body>'),
+    )
+    @ddt.unpack
+    def test_frontend_middleware_script_with_body_tag(self, response_html, expected_tag):
+        """
+        Test that script is inserted at the right place.
+        """
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(response_html, content_type='text/html'))
+            response = middleware(HttpRequest())
+
+        # Assert that the script is inserted at the right place
+        assert f"{self.script}{expected_tag}".encode() in response.content
+
+    @ddt.data(
+        '<html></html>',
+        '<html><head></head></html>',
+        '<head></head>',
+    )
+    def test_frontend_middleware_without_body_tag(self, response_html):
+        """
+        Test that middleware behavior is correct when no body tag is found in the response.
+        """
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(response_html, content_type='text/html'))
+            response = middleware(HttpRequest())
+        # Assert that the response content remains unchanged if no body tag is found
+        assert response.content == response_html.encode()
