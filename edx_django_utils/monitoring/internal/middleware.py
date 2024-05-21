@@ -468,7 +468,7 @@ class CookieMonitoringMiddleware:
 
 class FrontendMonitoringMiddleware:
     """
-    Middleware for adding the forntend monitoring scripts to the response
+    Middleware for adding the frontend monitoring scripts to the response.
     """
     def __init__(self, get_response):
         self.get_response = get_response
@@ -484,7 +484,8 @@ class FrontendMonitoringMiddleware:
         # .. setting_description: Scripts to inject to response for frontend monitoring, this can
         #    have multiple scripts as we support multiple telemetry backends at once, so we can
         #    provide multiple frontend scripts in a multiline string for multiple platforms tracking.
-        #    Best is to have one at a time for better performance.
+        #    Best is to have one at a time for better performance. This should contain HTML script tag or
+        #    tags that will be inserted in response's HTML.
         frontend_scripts = getattr(settings, 'OPENEDX_TELEMETRY_FRONTEND_SCRIPTS', None)
 
         if not frontend_scripts:
@@ -503,10 +504,6 @@ class FrontendMonitoringMiddleware:
         """
         body = re.search(_HTML_BODY_REGEX, content, re.IGNORECASE)
 
-        # If there is no body tag in html, don't add monitoring scripts
-        if not body:
-            return content
-
         def insert_html_at_index(index):
             return content[:index] + script.encode() + content[index:]
 
@@ -516,8 +513,12 @@ class FrontendMonitoringMiddleware:
         if head_closing_tag:
             return insert_html_at_index(head_closing_tag.start())
 
-        # If not head tag, add scripts before the start of body tag
-        return insert_html_at_index(body.start())
+        # If not head tag, add scripts just after the start of body tag, if present.
+        if body:
+            return insert_html_at_index(body.start())
+
+        # Don't add the script if both head and body tag is missing.
+        return content
 
 
 # This function should be cleaned up and made into a general logging utility, but it will first
