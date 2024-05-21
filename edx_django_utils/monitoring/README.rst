@@ -107,7 +107,7 @@ Simply add ``DeploymentMonitoringMiddleware`` to monitor the python and django v
 Frontend Monitoring Middleware
 --------------------------------
 
-This middleware ``FrontendMonitoringMiddleware`` inserts frontend monitoring related HTML script tags to the response, see docstringfor details.
+This middleware ``FrontendMonitoringMiddleware`` inserts frontend monitoring related HTML script tags to the response, see docstring for details.
 
 Monitoring Memory Usage
 -----------------------
