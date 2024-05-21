@@ -78,6 +78,7 @@ Here is how you add the middleware:
         'edx_django_utils.monitoring.CookieMonitoringMiddleware',
         'edx_django_utils.monitoring.CodeOwnerMonitoringMiddleware',
         'edx_django_utils.monitoring.CachedCustomMonitoringMiddleware',
+        'edx_django_utils.monitoring.FrontendMonitoringMiddleware',
         'edx_django_utils.monitoring.MonitoringMemoryMiddleware',
     )
 
@@ -102,6 +103,11 @@ Deployment Monitoring Middleware
 --------------------------------
 
 Simply add ``DeploymentMonitoringMiddleware`` to monitor the python and django version of each request. See docstring for details.
+
+Frontend Monitoring Middleware
+--------------------------------
+
+This middleware ``FrontendMonitoringMiddleware`` inserts frontend monitoring related HTML script tags to the response, see docstringfor details.
 
 Monitoring Memory Usage
 -----------------------
