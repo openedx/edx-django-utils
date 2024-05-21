@@ -7,7 +7,7 @@ import re
 from unittest.mock import Mock, call, patch
 
 import ddt
-from django.http import HttpRequest, HttpResponse
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
@@ -353,11 +353,10 @@ class FrontendMonitoringMiddlewareTestCase(TestCase):
         """
         Test that middleware doesn't insert script tag for json requests
         """
-        original_html = '<html><head></head><body></body><html>'
-        middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(original_html, content_type='application/json'))
+        middleware = FrontendMonitoringMiddleware(lambda r: JsonResponse({"dummy": True}))
         response = middleware(HttpRequest())
         # Assert that the response content remains unchanged if settings not defined
-        assert response.content == original_html.encode()
+        assert response.content == b'{"dummy": true}'
 
         mock_inject_script.assert_not_called()
 
