@@ -476,7 +476,9 @@ class FrontendMonitoringMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
 
-        if response.status_code != 200 or not response['Content-Type'].startswith('text/html'):
+        content_type = response.headers.get('Content-Type', '')
+
+        if response.status_code != 200 or not content_type.startswith('text/html'):
             return response
 
         # .. setting_name: OPENEDX_TELEMETRY_FRONTEND_SCRIPTS
