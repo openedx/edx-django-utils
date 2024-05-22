@@ -513,7 +513,7 @@ class FrontendMonitoringMiddleware:
         if head_closing_tag:
             return insert_html_at_index(head_closing_tag.start())
 
-        # If not head tag, add scripts just after the start of body tag, if present.
+        # If not head tag, add scripts just before the start of body tag, if present.
         if body:
             return insert_html_at_index(body.start())
 
