@@ -8,6 +8,7 @@ import logging
 import math
 import platform
 import random
+import re
 import warnings
 from uuid import uuid4
 
@@ -27,6 +28,9 @@ log = logging.getLogger(__name__)
 
 _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
 _REQUEST_CACHE_NAMESPACE = f'{_DEFAULT_NAMESPACE}.custom_attributes'
+
+_HTML_HEAD_REGEX = br"<\/head\s*>"
+_HTML_BODY_REGEX = br"<body\b[^>]*>"
 
 
 class DeploymentMonitoringMiddleware:
@@ -460,6 +464,61 @@ class CookieMonitoringMiddleware:
 
         for piece in split_ascii_log_message(msg, chunk_size):
             log.info(piece)
+
+
+class FrontendMonitoringMiddleware:
+    """
+    Middleware for adding the frontend monitoring scripts to the response.
+    """
+    def __init__(self, get_response):
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+
+        if response.status_code != 200 or not response['Content-Type'].startswith('text/html'):
+            return response
+
+        # .. setting_name: OPENEDX_TELEMETRY_FRONTEND_SCRIPTS
+        # .. setting_default: None
+        # .. setting_description: Scripts to inject to response for frontend monitoring, this can
+        #    have multiple scripts as we support multiple telemetry backends at once, so we can
+        #    provide multiple frontend scripts in a multiline string for multiple platforms tracking.
+        #    Best is to have one at a time for better performance. This should contain HTML script tag or
+        #    tags that will be inserted in response's HTML.
+        frontend_scripts = getattr(settings, 'OPENEDX_TELEMETRY_FRONTEND_SCRIPTS', None)
+
+        if not frontend_scripts:
+            return response
+
+        if not isinstance(frontend_scripts, str):
+            # Prevent a certain kind of easy mistake.
+            raise Exception("OPENEDX_TELEMETRY_FRONTEND_SCRIPTS must be a string.")
+
+        response.content = self.inject_script(response.content, frontend_scripts)
+        return response
+
+    def inject_script(self, content, script):
+        """
+        Add script to the response, if body tag is present.
+        """
+        body = re.search(_HTML_BODY_REGEX, content, re.IGNORECASE)
+
+        def insert_html_at_index(index):
+            return content[:index] + script.encode() + content[index:]
+
+        head_closing_tag = re.search(_HTML_HEAD_REGEX, content, re.IGNORECASE)
+
+        # If head tag is present, insert the monitoring scripts just before the closing of head tag
+        if head_closing_tag:
+            return insert_html_at_index(head_closing_tag.start())
+
+        # If not head tag, add scripts just before the start of body tag, if present.
+        if body:
+            return insert_html_at_index(body.start())
+
+        # Don't add the script if both head and body tag is missing.
+        return content
 
 
 # This function should be cleaned up and made into a general logging utility, but it will first

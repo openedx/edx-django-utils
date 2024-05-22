@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.14.0] - 2024-05-22
+---------------------
+Added
+~~~~~
+* Added middleware named ``FrontendMonitoringMiddleware`` for inserting frontend monitoring HTML script tags to response, configured by new Django setting ``OPENEDX_TELEMETRY_FRONTEND_SCRIPTS``.
+
+
 [5.13.0] - 2024-04-30
 ---------------------
 Added
