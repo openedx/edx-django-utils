@@ -46,7 +46,14 @@ import requests
     default=1,
     help="Optionally specify the number of times to retry a graphql request before exiting. Default is 1.",
 )
-def main(regex, policy_id, dashboard_guid, skip_text_widgets, retries):
+@click.option(
+    '--only-identifiers',
+    required=False,
+    is_flag=True,
+    default=False,
+    help="Optionally specify the number of times to retry a graphql request before exiting. Default is 1.",
+)
+def main(regex, policy_id, dashboard_guid, skip_text_widgets, retries, only_identifiers):
     """
     Search NRQL and markdown in New Relic alert policies and dashboards using regex.
 
@@ -78,9 +85,9 @@ def main(regex, policy_id, dashboard_guid, skip_text_widgets, retries):
 
     account_ids = get_account_ids(headers, retries)
     for account_id in account_ids:
-        search_alert_policies(compiled_regex, account_id, headers, policy_id, retries)
+        search_alert_policies(compiled_regex, account_id, headers, policy_id, retries, only_identifiers)
     print()
-    search_dashboards(compiled_regex, headers, dashboard_guid, skip_text_widgets, retries)
+    search_dashboards(compiled_regex, headers, dashboard_guid, skip_text_widgets, retries, only_identifiers)
     print(flush=True)
 
 
@@ -173,7 +180,7 @@ NRQL_ALERT_CONDITIONS_TEMPLATE = Template("""
 """)
 
 
-def search_alert_policies(regex, account_id, headers, policy_id, retries):
+def search_alert_policies(regex, account_id, headers, policy_id, retries, only_identifiers):
     """
     Searches New Relic alert policy NRQL using the regex argument.
 
@@ -227,23 +234,30 @@ def search_alert_policies(regex, account_id, headers, policy_id, retries):
                 # Print the alert policy header for the first alert condition matched
                 if policy['id'] not in policy_ids_printed:
                     policy_ids_printed[policy['id']] = True
-                    print('\n')
-                    print(
-                        f"Found in \"{policy['name']}\" "
-                        # NOTE: The API doesn't provide a link to the policy, so this is a static link to
-                        #   the alert policies home page.
-                        f"(policy_id={policy['id']}, search_link=https://onenr.io/0X8woZOZvQx):"
-                    )
-                    print('')
+                    if not only_identifiers:
+                      print('\n')
+                      print(
+                          f"Found in \"{policy['name']}\" "
+                          # NOTE: The API doesn't provide a link to the policy, so this is a static link to
+                          #   the alert policies home page.
+                          f"(policy_id={policy['id']}, search_link=https://onenr.io/0X8woZOZvQx):"
+                      )
+                      print('')
 
-                # Print the alert condition that matched
-                print(f"- {nrql_condition['name']}: {nrql_query}")
+                if not only_identifiers:
+                  # Print the alert condition that matched
+                  print(f"- {nrql_condition['name']}: {nrql_query}")
 
     if policy_ids_printed:
-        command_line = ''
-        for policy_id in policy_ids_printed.keys():
-            command_line += f'--policy_id {policy_id} '
-        print("\n\nRun again with found policies: {}".format(command_line))
+        if only_identifiers:
+            print("\n\nFollowing policy ids are of policies which matched against the regex")
+            for policy_id in policy_ids_printed.keys():
+                print(policy_id)
+        else:
+          command_line = ''
+          for policy_id in policy_ids_printed.keys():
+              command_line += f'--policy_id {policy_id} '
+          print("\n\nRun again with found policies: {}".format(command_line))
     else:
         print("\n\nNo alert policies matched.")
 
@@ -293,7 +307,7 @@ DASHBOARD_ENTITY_QUERY = """
 """
 
 
-def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets, retries):
+def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets, retries, only_identifiers):
     """
     Searches New Relic alert policy NRQL using the regex argument.
 
@@ -327,6 +341,7 @@ def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets, retries
         dashboards = [dashboard for dashboard in dashboards if dashboard['guid'] in dashboard_guid]
     print(f"Searching for regex {regex.pattern} in {len(dashboards)} dashboards...")
     dashboard_guids_printed = {}
+    dashboard_names_printed = {}
     for dashboard in dashboards:
         print('.', end='', flush=True)
         found = False
@@ -359,22 +374,31 @@ def search_dashboards(regex, headers, dashboard_guid, skip_text_widgets, retries
                                 found_text = query
                     # Print the dashboard header for the first widget/nrql that matches
                     if found:
+                        if dashboard['name'] not in dashboard_names_printed:
+                            dashboard_names_printed[dashboard['name']] = True
                         if dashboard['guid'] not in dashboard_guids_printed:
                             dashboard_guids_printed[dashboard['guid']] = True
-                            print('\n')
-                            print(
-                                f"Found in \"{dashboard['name']}\" "
-                                f"(guid={dashboard['guid']}, link={dashboard['permalink']}):"
-                            )
-                            print('')
-                            # Print the widget NRQL that matches
-                        print(f"- {widget['title']}: {found_text}")
+                            if not only_identifiers:
+                                print('\n')
+                                print(
+                                    f"Found in \"{dashboard['name']}\" "
+                                    f"(guid={dashboard['guid']}, link={dashboard['permalink']}):"
+                                )
+                                print('')
+                                # Print the widget NRQL that matches
+                        if not only_identifiers:
+                            print(f"- {widget['title']}: {found_text}")
 
     if dashboard_guids_printed:
-        command_line = ''
-        for dashboard_guid in dashboard_guids_printed.keys():
-            command_line += f'--dashboard_guid {dashboard_guid} '
-        print("\n\nRun again with found dashboards: {}".format(command_line))
+        if only_identifiers:
+            print("\n\nFollowing are the name of Dashboards which matched against the regex")
+            for name in dashboard_guids_printed.keys():
+                print(name)
+        else:
+            command_line = ''
+            for dashboard_guid in dashboard_guids_printed.keys():
+                command_line += f'--dashboard_guid {dashboard_guid} '
+            print("\n\nRun again with found dashboards: {}".format(command_line))
     else:
         print("\n\nNo dashboards found that match.")
 
