@@ -477,8 +477,12 @@ class FrontendMonitoringMiddleware:
         response = self.get_response(request)
 
         content_type = response.headers.get('Content-Type', '')
+        content_disposition = response.headers.get('Content-Disposition')
 
         if response.status_code != 200 or not content_type.startswith('text/html'):
+            return response
+
+        if content_disposition is not None and content_disposition.split(";")[0].strip().lower() == "attachment":
             return response
 
         # .. setting_name: OPENEDX_TELEMETRY_FRONTEND_SCRIPTS
@@ -497,7 +501,13 @@ class FrontendMonitoringMiddleware:
             # Prevent a certain kind of easy mistake.
             raise Exception("OPENEDX_TELEMETRY_FRONTEND_SCRIPTS must be a string.")
 
+        original_content_len = len(response.content)
         response.content = self.inject_script(response.content, frontend_scripts)
+
+        # If HTML is added and Content-Length already set, make sure Content-Length header is updated.
+        # If not browsers can trim response, as we are adding HTML to the response.
+        if len(response.content) != original_content_len and response.headers.get("Content-Length"):
+            response.headers["Content-Length"] = str(len(response.content))
         return response
 
     def inject_script(self, content, script):

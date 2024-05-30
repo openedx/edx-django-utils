@@ -392,3 +392,30 @@ class FrontendMonitoringMiddlewareTestCase(TestCase):
             response = middleware(HttpRequest())
         # Assert that the response content remains unchanged if no body tag is found
         assert response.content == original_html.encode()
+
+    def test_frontend_middleware_content_length_header_already_set(self):
+        """
+        Test that middleware updates the Centent-Length header, when its already set.
+        """
+        original_html = '<head></head>'
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(
+                original_html, content_type='text/html', headers={'Content-Length': len(original_html)}))
+            response = middleware(HttpRequest())
+        # Assert that the response content contains script tag
+        assert self.script.encode() in response.content
+        # Assert that the Centent-Length header is updated and script length is added.
+        assert response.headers.get('Content-Length') == str(len(original_html) + len(self.script))
+
+    def test_frontend_middleware_content_length_header_not_set(self):
+        """
+        Test that middleware doesn't set the Content-Length header when it's not already set.
+        """
+        original_html = '<head></head>'
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(original_html, content_type='text/html'))
+            response = middleware(HttpRequest())
+        # Assert that the response content contains script tag
+        assert self.script.encode() in response.content
+        # Assert that the Centent-Length header isn't updated, when not set already
+        assert response.headers.get('Content-Length') is None
