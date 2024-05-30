@@ -108,6 +108,7 @@ Frontend Monitoring Middleware
 --------------------------------
 
 This middleware ``FrontendMonitoringMiddleware`` inserts frontend monitoring related HTML script tags to the response, see docstring for details.
+In addition to adding the FrontendMonitoringMiddleware, you will need to enable a waffle switch ``edx_django_utils.monitoring.enable_frontend_monitoring_middleware`` to enable the frontend monitoring.
 
 Monitoring Memory Usage
 -----------------------

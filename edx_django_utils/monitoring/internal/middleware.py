@@ -476,6 +476,10 @@ class FrontendMonitoringMiddleware:
     def __call__(self, request):
         response = self.get_response(request)
 
+        # Disable the middleware if flag isn't enabled
+        if not self._is_enabled():
+            return response
+
         content_type = response.headers.get('Content-Type', '')
         content_disposition = response.headers.get('Content-Disposition')
 
@@ -531,6 +535,12 @@ class FrontendMonitoringMiddleware:
 
         # Don't add the script if both head and body tag is missing.
         return content
+
+    def _is_enabled(self):
+        """
+        Returns whether this middleware is enabled.
+        """
+        return waffle.switch_is_active('edx_django_utils.monitoring.enable_frontend_monitoring_middleware')
 
 
 # This function should be cleaned up and made into a general logging utility, but it will first
