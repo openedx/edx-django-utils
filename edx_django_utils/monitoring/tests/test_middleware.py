@@ -7,8 +7,8 @@ import re
 from unittest.mock import Mock, call, patch
 
 import ddt
-from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.core.exceptions import MiddlewareNotUsed
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
@@ -425,7 +425,7 @@ class FrontendMonitoringMiddlewareTestCase(TestCase):
     @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
     def test_frontend_middleware_content_length_header_already_set(self):
         """
-        Test that middleware updates the Centent-Length header, when its already set.
+        Test that middleware updates the Content-Length header, when its already set.
         """
         original_html = '<head></head>'
         with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
@@ -434,7 +434,7 @@ class FrontendMonitoringMiddlewareTestCase(TestCase):
             response = middleware(HttpRequest())
         # Assert that the response content contains script tag
         assert self.script.encode() in response.content
-        # Assert that the Centent-Length header is updated and script length is added.
+        # Assert that the Content-Length header is updated and script length is added.
         assert response.headers.get('Content-Length') == str(len(original_html) + len(self.script))
 
     @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
@@ -448,5 +448,5 @@ class FrontendMonitoringMiddlewareTestCase(TestCase):
             response = middleware(HttpRequest())
         # Assert that the response content contains script tag
         assert self.script.encode() in response.content
-        # Assert that the Centent-Length header isn't updated, when not set already
+        # Assert that the Content-Length header isn't updated, when not set already
         assert response.headers.get('Content-Length') is None
