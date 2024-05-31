@@ -16,6 +16,7 @@ import django
 import psutil
 import waffle  # pylint: disable=invalid-django-waffle-import
 from django.conf import settings
+from django.core.exceptions import MiddlewareNotUsed
 from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
@@ -471,14 +472,14 @@ class FrontendMonitoringMiddleware:
     Middleware for adding the frontend monitoring scripts to the response.
     """
     def __init__(self, get_response):
+        # Disable the middleware if flag isn't enabled
+        if not self._is_enabled():
+            raise MiddlewareNotUsed
+
         self.get_response = get_response
 
     def __call__(self, request):
         response = self.get_response(request)
-
-        # Disable the middleware if flag isn't enabled
-        if not self._is_enabled():
-            return response
 
         content_type = response.headers.get('Content-Type', '')
         content_disposition = response.headers.get('Content-Disposition')

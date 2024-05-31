@@ -8,6 +8,7 @@ from unittest.mock import Mock, call, patch
 
 import ddt
 from django.http import HttpRequest, HttpResponse, JsonResponse
+from django.core.exceptions import MiddlewareNotUsed
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
@@ -342,11 +343,11 @@ class FrontendMonitoringMiddlewareTestCase(TestCase):
         """
         original_html = '<head></head>'
         with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
-            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(original_html, content_type='text/html'))
-            response = middleware(HttpRequest())
-        # Assert that the response content remains unchanged if flag isn't enabled
-        assert self.script.encode() not in response.content
-        assert original_html.encode() == response.content
+            self.assertRaises(
+                MiddlewareNotUsed,
+                FrontendMonitoringMiddleware,
+                lambda r: HttpResponse(original_html, content_type='text/html')
+            )
 
     @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
     def test_frontend_middleware_with_waffle_enabled(self):
