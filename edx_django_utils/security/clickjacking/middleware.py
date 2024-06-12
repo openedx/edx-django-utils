@@ -5,13 +5,13 @@ The headers get set to the platform default which we assume is `DENY`.
 However, there's a number of paths that are set to `SAMEORIGIN` which
 we identify via regexes stored in a django setting in the application calling this.
 """
-import re
 
 from django.conf import settings
-from django.middleware.clickjacking import XFrameOptionsMiddleware
-
 from django.http.request import HttpRequest
 from django.http.response import HttpResponse
+from django.middleware.clickjacking import XFrameOptionsMiddleware
+
+import re
 
 PERMISSIBLE_VALUES = ['DENY', 'SAMEORIGIN', 'ALLOW']
 
