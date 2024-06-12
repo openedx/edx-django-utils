@@ -15,15 +15,18 @@ from django.http.response import HttpResponse
 
 PERMISSIBLE_VALUES = ['DENY', 'SAMEORIGIN', 'ALLOW']
 
+
 class InvalidHeaderValueError(ValueError):
     """ A custom error that is thrown when we try to set an invalid value for a header """
     pass
+
 
 def _validate_header_value(value):
     if value not in PERMISSIBLE_VALUES:
         raise InvalidHeaderValueError(
             f'Invalid value "{value}" for header "X-Frame-Options"'
         )
+
 
 class EdxXFrameOptionsMiddleware(XFrameOptionsMiddleware):
     """

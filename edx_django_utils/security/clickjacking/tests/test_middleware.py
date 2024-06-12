@@ -13,7 +13,6 @@ from edx_django_utils.security.clickjacking.middleware import EdxXFrameOptionsMi
 class TestEdxXFrameOptionsMiddleware(TestCase):
     """Test the actual middleware."""
 
-
     @patch('edx_django_utils.security.clickjacking.middleware._validate_header_value')
     @patch('edx_django_utils.security.clickjacking.middleware.settings')
     def test_x_frame_setting_must_apply_on_no_override(self, settings, validate_header):
@@ -33,7 +32,6 @@ class TestEdxXFrameOptionsMiddleware(TestCase):
 
         assert response.headers['X-Frame-Options'] == 'SAMEORIGIN'
         validate_header.assert_called_once_with('SAMEORIGIN')
-
 
     @patch('edx_django_utils.security.clickjacking.middleware._validate_header_value')
     @patch('edx_django_utils.security.clickjacking.middleware.settings')
@@ -56,7 +54,6 @@ class TestEdxXFrameOptionsMiddleware(TestCase):
 
         assert response.headers['X-Frame-Options'] == 'SAMEORIGIN'
 
-
     @patch('edx_django_utils.security.clickjacking.middleware._validate_header_value')
     @patch('edx_django_utils.security.clickjacking.middleware.settings')
     def test_on_override_for_non_matching_urls_is_deny(self, settings, validate_header):
@@ -77,7 +74,6 @@ class TestEdxXFrameOptionsMiddleware(TestCase):
         middleware.process_response(request, response)
 
         assert response.headers['X-Frame-Options'] == 'DENY'
-
 
     def test_x_frame_defaults_to_deny(self):
         """
