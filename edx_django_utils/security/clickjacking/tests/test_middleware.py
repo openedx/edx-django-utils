@@ -2,11 +2,12 @@
 Tests for Content-Security-Policy middleware.
 """
 
-import ddt
-from edx_django_utils.security.clickjacking.middleware import EdxXFrameOptionsMiddleware
-
 from unittest import TestCase
 from unittest.mock import MagicMock, patch
+
+import ddt
+
+from edx_django_utils.security.clickjacking.middleware import EdxXFrameOptionsMiddleware
 
 
 @ddt.ddt
