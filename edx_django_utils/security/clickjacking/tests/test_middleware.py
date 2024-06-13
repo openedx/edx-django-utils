@@ -9,7 +9,6 @@ from unittest import TestCase
 from unittest.mock import MagicMock, patch
 
 
-
 @ddt.ddt
 class TestEdxXFrameOptionsMiddleware(TestCase):
     """Test the actual middleware."""
