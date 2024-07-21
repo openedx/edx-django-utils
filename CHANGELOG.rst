@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.14.2] - 2024-05-31
+---------------------
+Fixed
+~~~~~
+* FrontendMonitoringMiddleware now updates the Content-Length header if its already set.
+* FrontendMonitoringMiddleware will now be enabled once waffle switch named ``edx_django_utils.monitoring.enable_frontend_monitoring_middleware`` is enabled.
+
 [5.14.1] - 2024-05-22
 ---------------------
 Fixed

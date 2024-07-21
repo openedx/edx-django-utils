@@ -16,6 +16,7 @@ import django
 import psutil
 import waffle  # pylint: disable=invalid-django-waffle-import
 from django.conf import settings
+from django.core.exceptions import MiddlewareNotUsed
 from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
@@ -471,14 +472,22 @@ class FrontendMonitoringMiddleware:
     Middleware for adding the frontend monitoring scripts to the response.
     """
     def __init__(self, get_response):
+        # Disable the middleware if flag isn't enabled
+        if not self._is_enabled():
+            raise MiddlewareNotUsed
+
         self.get_response = get_response
 
     def __call__(self, request):
         response = self.get_response(request)
 
         content_type = response.headers.get('Content-Type', '')
+        content_disposition = response.headers.get('Content-Disposition')
 
         if response.status_code != 200 or not content_type.startswith('text/html'):
+            return response
+
+        if content_disposition is not None and content_disposition.split(";")[0].strip().lower() == "attachment":
             return response
 
         # .. setting_name: OPENEDX_TELEMETRY_FRONTEND_SCRIPTS
@@ -497,7 +506,13 @@ class FrontendMonitoringMiddleware:
             # Prevent a certain kind of easy mistake.
             raise Exception("OPENEDX_TELEMETRY_FRONTEND_SCRIPTS must be a string.")
 
+        original_content_len = len(response.content)
         response.content = self.inject_script(response.content, frontend_scripts)
+
+        # If HTML is added and Content-Length already set, make sure Content-Length header is updated.
+        # If not browsers can trim response, as we are adding HTML to the response.
+        if len(response.content) != original_content_len and response.headers.get("Content-Length"):
+            response.headers["Content-Length"] = str(len(response.content))
         return response
 
     def inject_script(self, content, script):
@@ -521,6 +536,12 @@ class FrontendMonitoringMiddleware:
 
         # Don't add the script if both head and body tag is missing.
         return content
+
+    def _is_enabled(self):
+        """
+        Returns whether this middleware is enabled.
+        """
+        return waffle.switch_is_active('edx_django_utils.monitoring.enable_frontend_monitoring_middleware')
 
 
 # This function should be cleaned up and made into a general logging utility, but it will first
