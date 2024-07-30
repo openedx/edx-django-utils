@@ -17,15 +17,11 @@ from .internal.middleware import (
     FrontendMonitoringMiddleware,
     MonitoringMemoryMiddleware
 )
-from .internal.transactions import (
-    function_trace,
-    get_current_transaction,
-    ignore_transaction,
-    set_monitoring_transaction_name
-)
+from .internal.transactions import get_current_transaction, ignore_transaction, set_monitoring_transaction_name
 from .internal.utils import (
     accumulate,
     background_task,
+    function_trace,
     increment,
     record_exception,
     set_custom_attribute,

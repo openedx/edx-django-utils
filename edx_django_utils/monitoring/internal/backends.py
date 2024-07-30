@@ -50,6 +50,18 @@ class TelemetryBackend(ABC):
         Record the exception that is currently being handled.
         """
 
+    @abstractmethod
+    def create_span(self, name):
+        """
+        Start a tracing span with the given name, returning a context manager instance.
+
+        The caller must use the return value in a `with` statement or similar so that the
+        span is guaranteed to be closed appropriately.
+
+        Implementations should create a new child span parented to the current span,
+        or create a new root span if not currently in a span.
+        """
+
 
 class NewRelicBackend(TelemetryBackend):
     """
@@ -77,6 +89,13 @@ class NewRelicBackend(TelemetryBackend):
         # https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/recordexception-python-agent-api/
         newrelic.agent.record_exception()
 
+    def create_span(self, name):
+        if newrelic.version_info[0] >= 5:
+            return newrelic.agent.FunctionTrace(name)
+        else:
+            nr_transaction = newrelic.agent.current_transaction()
+            return newrelic.agent.FunctionTrace(nr_transaction, name)
+
 
 class OpenTelemetryBackend(TelemetryBackend):
     """
@@ -98,6 +117,10 @@ class OpenTelemetryBackend(TelemetryBackend):
     def record_exception(self):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
+    def create_span(self, name):
+        # Currently, this is not implemented.
+        pass
+
 
 class DatadogBackend(TelemetryBackend):
     """
@@ -118,6 +141,9 @@ class DatadogBackend(TelemetryBackend):
     def record_exception(self):
         if span := self.dd_tracer.current_span():
             span.set_traceback()
+
+    def create_span(self, name):
+        return self.dd_tracer.trace(name)
 
 
 # We're using an lru_cache instead of assigning the result to a variable on
