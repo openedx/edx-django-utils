@@ -7,6 +7,24 @@ Using edx-cookiecutter
 ^^^^^^^^^^^^^^^^^^^^^^
 The simplest way to create a new plugin for edx-platform is to use the edx-cookiecutter tool. After creating a new repository, follow the instructions for cookiecutter-django-app. This will allow you to skip step 1 below, as the cookie cutter will create a skeleton App Config for you.
 
+Warning
+^^^^^^^
+
+.. warning:: Plugin apps do not load at the usual point in Django's startup sequence. This section describes some known adverse effects of this.
+
+Django settings are not available during module initialization in a plugin app, as the app's code is first imported before the settings module has been imported. While the following code will usually do the right thing in a Django app, it will always get the *default* value in a plugin app:
+
+.. code:: python
+
+    from django.conf import settings
+
+    # Always returns None (when run at top level)
+    SOME_FEATURE = getattr(settings, 'SOME_FEATURE', None)
+
+Instead, this initialization should be moved to the ``ready()`` method or similar.
+
+(See `<https://github.com/openedx/edx-django-utils/issues/438>`__ for possible ways to remove this stumbling block in the future.)
+
 Manual setup
 ^^^^^^^^^^^^
 
