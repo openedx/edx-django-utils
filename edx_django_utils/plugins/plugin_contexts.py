@@ -40,7 +40,7 @@ def get_plugins_view_context(project_type, view_name, existing_context=None):
     for (context_function, plugin_name) in context_functions:
         try:
             plugin_context = context_function(existing_context)
-        except Exception as exc:  # pylint: disable=broad-except
+        except Exception as exc:
             # We're catching this because we don't want the core to blow up when a
             # plugin is broken. This exception will probably need some sort of
             # monitoring hooked up to it to make sure that these errors don't go

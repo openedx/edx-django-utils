@@ -10,14 +10,11 @@
 
 # Common constraints for edx repos
 -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
- 
+
 # diff-cover latest requires (pluggy>=0.13.1,<0.14.0)
 # which conflicts with pytest(pluggy>=0.12,<2.0.0) and tox(pluggy>0.12) both of these fetch pluggy==1.0.0
 diff-cover<6.2.2
 
-
-# greater version failing docs build
-sphinx==4.2.0
 
 # version 1.0.0 requires docutils >0.19 but sphinx@4.2.0 needs docutils<0.18
 doc8<1.0.0

@@ -152,7 +152,7 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
         ),
     )
     @ddt.unpack
-    def test_code_owner_transaction_mapping_hits_and_misses(
+    def test_code_owner_transaction_mapping_hits_and_misses(  # pylint: disable=too-many-positional-arguments
         self, path_module, transaction_name, expected_owner, mock_newrelic_agent, mock_set_custom_attribute, _
     ):
         mock_newrelic_agent.current_transaction().name = transaction_name
@@ -199,7 +199,7 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
         ),
     )
     @ddt.unpack
-    def test_code_owner_transaction_mapping_with_catch_all(
+    def test_code_owner_transaction_mapping_with_catch_all(  # pylint: disable=too-many-positional-arguments
         self, path_module, transaction_name, expected_owner, mock_newrelic_agent, mock_set_custom_attribute, _
     ):
         mock_newrelic_agent.current_transaction().name = transaction_name
@@ -288,10 +288,11 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
         with self.assertRaises(TypeError):
             self.middleware(request)
 
-    def _assert_code_owner_custom_attributes(self, mock_set_custom_attribute, expected_code_owner=None,
-                                             path_module=None, has_path_error=False,
-                                             transaction_name=None, has_transaction_error=False,
-                                             check_theme_and_squad=False):
+    def _assert_code_owner_custom_attributes(  # pylint: disable=too-many-positional-arguments
+            self, mock_set_custom_attribute, expected_code_owner=None,
+            path_module=None, has_path_error=False,
+            transaction_name=None, has_transaction_error=False,
+            check_theme_and_squad=False):
         """ Performs a set of assertions around having set the proper custom attributes. """
         call_list = []
         if expected_code_owner:

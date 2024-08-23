@@ -70,9 +70,12 @@ class DeploymentMonitoringMiddleware:
         _set_custom_attribute('python_version', platform.python_version())
 
 
-class CachedCustomMonitoringMiddleware(MiddlewareMixin):
+class MonitoringSupportMiddleware(MiddlewareMixin):
     """
-    Middleware batch reports cached custom attributes at the end of a request.
+    Middleware to support monitoring.
+
+    1. Middleware batch reports cached custom attributes at the end of a request.
+    2. Middleware adds error span tags to the root span.
 
     Make sure to add below the request cache in MIDDLEWARE.
 
@@ -130,6 +133,13 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
         for key, value in attributes_cache.data.items():
             _set_custom_attribute(key, value)
 
+    def _tag_root_span_with_error(self, exception):
+        """
+        Tags the root span with the exception information for all configured backends.
+        """
+        for backend in configured_backends():
+            backend.tag_root_span_with_error(exception)
+
     # Whether or not there was an exception, report any custom NR attributes that
     # may have been collected.
 
@@ -140,11 +150,21 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
         self._batch_report()
         return response
 
-    def process_exception(self, request, exception):    # pylint: disable=W0613
+    def process_exception(self, request, exception):
         """
         Django middleware handler to process an exception
         """
         self._batch_report()
+        self._tag_root_span_with_error(exception)
+
+
+class CachedCustomMonitoringMiddleware(MonitoringSupportMiddleware):
+    """
+    DEPRECATED: Use MonitoringSupportMiddleware instead.
+
+    This is the old name for the MonitoringSupportMiddleware. We are keeping it
+    around for backwards compatibility until it can be fully removed.
+    """
 
 
 def _set_custom_attribute(key, value):
