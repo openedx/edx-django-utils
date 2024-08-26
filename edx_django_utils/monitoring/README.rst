@@ -28,7 +28,11 @@ Feature support matrix for built-in telemetry backends:
      - ✅ (on root span)
      - ✅ (on current span)
      - ✅ (on root span)
-   * - Retrieve and manipulate spans (``function_trace``, ``get_current_transaction``, ``ignore_transaction``, ``set_monitoring_transaction_name``)
+   * - Create a new span (``function_trace``)
+     - ✅
+     - ❌
+     - ✅
+   * - Retrieve and manipulate spans (``get_current_transaction``, ``ignore_transaction``, ``set_monitoring_transaction_name``)
      - ✅
      - ❌
      - ❌

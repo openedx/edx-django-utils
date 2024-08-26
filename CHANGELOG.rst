@@ -11,6 +11,12 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.15.0] - 2024-07-29
+---------------------
+Added
+~~~~~
+* Added Datadog implementation of ``function_trace`` and allowed implementation to be configurable.
+
 [5.14.2] - 2024-05-31
 ---------------------
 Fixed

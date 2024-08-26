@@ -17,6 +17,8 @@ https://openedx.atlassian.net/wiki/spaces/PERF/pages/54362736/Custom+Attributes+
 At this time, the custom monitoring will only be reported to New Relic.
 
 """
+from contextlib import ExitStack, contextmanager
+
 from .backends import configured_backends
 from .middleware import CachedCustomMonitoringMiddleware
 
@@ -90,6 +92,24 @@ def record_exception():
     """
     for backend in configured_backends():
         backend.record_exception()
+
+
+@contextmanager
+def function_trace(function_name):
+    """
+    Wraps a chunk of code that we want to appear as a separate, explicit,
+    segment in our monitoring tools.
+    """
+    # Not covering this because if we mock it, we're not really testing anything
+    # anyway. If something did break, it should show up in tests for apps that
+    # use this code with whatever uses it.
+    # ExitStack handles the underlying context managers.
+    with ExitStack() as stack:
+        for backend in configured_backends():
+            context = backend.create_span(function_name)
+            if context is not None:
+                stack.enter_context(context)
+        yield
 
 
 def background_task(*args, **kwargs):
