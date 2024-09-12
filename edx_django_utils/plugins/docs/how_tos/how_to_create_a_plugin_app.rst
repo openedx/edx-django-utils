@@ -48,7 +48,7 @@ file::
        }
    )
 
-3. (optional, but recommended) Create a top-level settings/ directory with common.py and production.py modules. This will allow you to use the PluginSettings.CONFIG option as written below.
+3. (optional, but recommended) Create a top-level settings/ directory with common.py, devstack.py and production.py modules. This will allow you to use the PluginSettings.CONFIG option as written below.
 
 4. configure the Plugin App in their AppConfig. The app must have a ``plugin_app`` field set to a dictionary, even if the dictionary is empty. Note that in this example, we are explicitly configuring plugins for use in edx-platform. If your plugin is going to be used in another IDA, you may have different project and settings types. You will need to look at the IDA in question for what values it expects. You may want to add new values to the relevant enums.
 
@@ -101,13 +101,15 @@ class::
 
                    # Configure each settings, as needed.
                    'production': {
-
                        # The python path (relative to this app) to the settings module for the relevant Project Type and Settings Type.
                        # Optional; Defaults to 'settings'.
                        PluginSettings.RELATIVE_PATH: 'settings.production',
                    },
                    'common': {
                        PluginSettings.RELATIVE_PATH: 'settings.common',
+                   },
+                   'devstack': {
+                       PluginSettings.RELATIVE_PATH: 'settings.devstack',
                    },
                }
            },
@@ -174,6 +176,7 @@ OR use string constants when they cannot import from djangoapps.plugins::
                'lms.djangoapp': {
                    'production': { 'relative_path': 'settings.production' },
                    'common': { 'relative_path': 'settings.common' },
+                   'devstack': { 'relative_path': 'settings.devstack' },
                }
            },
            'signals_config': {
