@@ -6,10 +6,10 @@ Note: See test_middleware.py for the rest of the middleware tests.
 from unittest.mock import Mock, call, patch
 
 import ddt
-from django.test import TestCase
+from django.test import TestCase, override_settings
 
 from edx_django_utils.cache import RequestCache
-from edx_django_utils.monitoring import CachedCustomMonitoringMiddleware, accumulate, get_current_transaction, increment
+from edx_django_utils.monitoring import MonitoringSupportMiddleware, accumulate, get_current_transaction, increment
 
 from ..middleware import CachedCustomMonitoringMiddleware as DeprecatedCachedCustomMonitoringMiddleware
 from ..middleware import MonitoringCustomMetricsMiddleware as DeprecatedMonitoringCustomMetricsMiddleware
@@ -31,8 +31,8 @@ class TestCustomMonitoringMiddleware(TestCase):
 
     @patch('newrelic.agent')
     @ddt.data(
-        (CachedCustomMonitoringMiddleware, False, 'process_response'),
-        (CachedCustomMonitoringMiddleware, False, 'process_exception'),
+        (MonitoringSupportMiddleware, False, 'process_response'),
+        (MonitoringSupportMiddleware, False, 'process_exception'),
         (DeprecatedCachedCustomMonitoringMiddleware, True, 'process_response'),
         (DeprecatedMonitoringCustomMetricsMiddleware, True, 'process_response'),
     )
@@ -76,7 +76,7 @@ class TestCustomMonitoringMiddleware(TestCase):
 
     @patch('newrelic.agent')
     @ddt.data(
-        (CachedCustomMonitoringMiddleware, False),
+        (MonitoringSupportMiddleware, False),
         (DeprecatedCachedCustomMonitoringMiddleware, True),
         (DeprecatedMonitoringCustomMetricsMiddleware, True),
     )
@@ -112,6 +112,21 @@ class TestCustomMonitoringMiddleware(TestCase):
 
         # Assert call args to newrelic.agent.add_custom_parameter().
         mock_newrelic_agent.add_custom_parameter.assert_has_calls(nr_agent_calls_expected, any_order=True)
+
+    @patch('ddtrace.Tracer.current_root_span')
+    def test_error_tagging(self, mock_get_root_span):
+        # Ensure that we continue to support tagging exceptions in MonitoringSupportMiddleware.
+        # This is only implemented for DatadogBackend at the moment.
+        fake_exception = Exception()
+        mock_root_span = Mock()
+        mock_get_root_span.return_value = mock_root_span
+        with override_settings(OPENEDX_TELEMETRY=['edx_django_utils.monitoring.DatadogBackend']):
+            MonitoringSupportMiddleware(self.mock_response).process_exception(
+                'fake request', fake_exception
+            )
+            mock_root_span.set_exc_info.assert_called_with(
+                type(fake_exception), fake_exception, fake_exception.__traceback__
+            )
 
     @patch('newrelic.agent')
     def test_get_current_transaction(self, mock_newrelic_agent):

@@ -15,7 +15,8 @@ from .internal.middleware import (
     CookieMonitoringMiddleware,
     DeploymentMonitoringMiddleware,
     FrontendMonitoringMiddleware,
-    MonitoringMemoryMiddleware
+    MonitoringMemoryMiddleware,
+    MonitoringSupportMiddleware
 )
 from .internal.transactions import get_current_transaction, ignore_transaction, set_monitoring_transaction_name
 from .internal.utils import (
