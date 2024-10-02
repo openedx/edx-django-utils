@@ -11,6 +11,18 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[5.16.0] - 2024-09-27
+---------------------
+Added
+~~~~~
+* Added a new method to backends for ``tag_root_span_with_error`` and added Datadog implementation of the functionality.
+* Uses the new method to tag the root span when processing exceptions.
+
+Changed
+~~~~~~~
+* Renamed ``CachedCustomMonitoringMiddleware`` to ``MonitoringSupportMiddleware`` and deprecated the old name. It will be removed in a future release.
+
+
 [5.15.0] - 2024-07-29
 ---------------------
 Added
