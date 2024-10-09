@@ -121,7 +121,7 @@ def _get_catch_all_code_owner():
     try:
         code_owner = get_code_owner_from_module('*')
         return code_owner
-    except Exception as e:  # pylint: disable=broad-except; #pragma: no cover
+    except Exception as e:  # pragma: no cover
         # will remove broad exceptions after ensuring all proper cases are covered
         set_custom_attribute('deprecated_broad_except___get_module_from_current_transaction', e.__class__)
         return None

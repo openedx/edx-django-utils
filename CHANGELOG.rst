@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[6.0.0] - 2024-10-09
+---------------------
+Added
+~~~~~
+* Added support for python3.12
+* Dropped support for python<3.12 versions
+
 [5.16.0] - 2024-09-27
 ---------------------
 Added
@@ -21,7 +28,6 @@ Added
 Changed
 ~~~~~~~
 * Renamed ``CachedCustomMonitoringMiddleware`` to ``MonitoringSupportMiddleware`` and deprecated the old name. It will be removed in a future release.
-
 
 [5.15.0] - 2024-07-29
 ---------------------

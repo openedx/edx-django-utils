@@ -107,7 +107,7 @@ class CodeOwnerMonitoringMiddleware:
         # TODO: Replace ImportError with ModuleNotFoundError when Python 3.5 support is dropped.
         except (ImportError, Resolver404) as e:
             return None, str(e)
-        except Exception as e:  # pylint: disable=broad-except; #pragma: no cover
+        except Exception as e:  # pragma: no cover
             # will remove broad exceptions after ensuring all proper cases are covered
             set_custom_attribute('deprecated_broad_except__get_module_from_request_path', e.__class__)
             return None, str(e)
@@ -131,7 +131,7 @@ class CodeOwnerMonitoringMiddleware:
             module = transaction_name.split(':')[0]
             set_custom_attribute('code_owner_transaction_name', transaction_name)
             return module, None
-        except Exception as e:  # pylint: disable=broad-except
+        except Exception as e:
             # will remove broad exceptions after ensuring all proper cases are covered
             set_custom_attribute('deprecated_broad_except___get_module_from_current_transaction', e.__class__)
             return None, str(e)
