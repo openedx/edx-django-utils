@@ -18,7 +18,6 @@ Added
 * Added support for python3.12
 * Dropped support for python<3.12 versions
 
-
 [5.16.0] - 2024-09-27
 ---------------------
 Added
