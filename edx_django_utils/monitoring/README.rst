@@ -32,7 +32,11 @@ Feature support matrix for built-in telemetry backends:
      - ✅
      - ❌
      - ✅
-   * - Retrieve and manipulate spans (``get_current_transaction``, ``ignore_transaction``, ``set_monitoring_transaction_name``)
+   * - Set local root span name (``set_monitoring_transaction_name``)
+     - ✅
+     - ❌
+     - ✅
+   * - Retrieve and manipulate spans (``get_current_transaction``, ``ignore_transaction``)
      - ✅
      - ❌
      - ❌

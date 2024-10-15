@@ -16,24 +16,16 @@ except ImportError:
     newrelic = None  # pylint: disable=invalid-name
 
 
-def set_monitoring_transaction_name(name, group=None, priority=None):
-    """
-    Sets the transaction name for monitoring.
-
-    This is not cached, and only support reporting to New Relic.
-
-    """
-    if newrelic:  # pragma: no cover
-        newrelic.agent.set_transaction_name(name, group, priority)
-
-
 def ignore_transaction():
     """
-    Ignore the transaction in monitoring
+    Ignore the transaction in monitoring. Only works for NewRelic.
 
     This allows us to ignore code paths that are unhelpful to include, such as
     `/health/` checks.
+
     """
+    # Note: This is not being ported over to backends, because we don't have
+    # an equivalent for Datadog. For Datadog, use filter/ignore rules.
     if newrelic:  # pragma: no cover
         newrelic.agent.ignore_transaction()
 

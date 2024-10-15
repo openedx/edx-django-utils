@@ -112,6 +112,19 @@ def function_trace(function_name):
         yield
 
 
+def set_monitoring_transaction_name(name, group=None, priority=None):
+    """
+    Sets the name, group, and priority for the current root span.
+
+    Current root span refers to the most ancestral span in the current process, rather than
+    to the trace root, which may be outside of the process.
+
+    Group and priority may not be supported by all backends.
+    """
+    for backend in configured_backends():
+        backend.set_local_root_span_name(name, group=group, priority=priority)
+
+
 def background_task(*args, **kwargs):
     """
     Handles monitoring for background tasks that are not passed in through the web server like

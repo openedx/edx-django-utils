@@ -11,6 +11,12 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+[6.1.0] - 2024-10-15
+---------------------
+Changed
+~~~~~~~
+* Added Datadog implementation of  ``set_monitoring_transaction_name`` and refactored the functionality.
+
 [6.0.0] - 2024-10-09
 ---------------------
 Added
