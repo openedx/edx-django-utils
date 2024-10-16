@@ -9,7 +9,7 @@ import ddt
 from django.test import TestCase, override_settings
 
 from edx_django_utils.cache import RequestCache
-from edx_django_utils.monitoring import MonitoringSupportMiddleware, accumulate, get_current_transaction, increment
+from edx_django_utils.monitoring import MonitoringSupportMiddleware, accumulate, increment
 
 from ..middleware import CachedCustomMonitoringMiddleware as DeprecatedCachedCustomMonitoringMiddleware
 from ..middleware import MonitoringCustomMetricsMiddleware as DeprecatedMonitoringCustomMetricsMiddleware
@@ -127,16 +127,6 @@ class TestCustomMonitoringMiddleware(TestCase):
             mock_root_span.set_exc_info.assert_called_with(
                 type(fake_exception), fake_exception, fake_exception.__traceback__
             )
-
-    @patch('newrelic.agent')
-    def test_get_current_transaction(self, mock_newrelic_agent):
-        mock_newrelic_agent.current_transaction().name = 'fake-transaction'
-        current_transaction = get_current_transaction()
-        self.assertEqual(current_transaction.name, 'fake-transaction')
-
-    def test_get_current_transaction_without_newrelic(self):
-        current_transaction = get_current_transaction()
-        self.assertEqual(current_transaction.name, None)
 
     @patch('edx_django_utils.monitoring.utils.internal_accumulate')
     def test_deprecated_accumulate(self, mock_accumulate):

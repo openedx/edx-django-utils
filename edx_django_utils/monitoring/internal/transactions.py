@@ -28,35 +28,3 @@ def ignore_transaction():
     # an equivalent for Datadog. For Datadog, use filter/ignore rules.
     if newrelic:  # pragma: no cover
         newrelic.agent.ignore_transaction()
-
-
-class MonitoringTransaction():
-    """
-    Represents a monitoring transaction (likely the current transaction).
-    """
-    def __init__(self, transaction):
-        self.transaction = transaction
-
-    @property
-    def name(self):
-        """
-        The name of the transaction.
-
-        For NewRelic, the name may look like:
-            openedx.core.djangoapps.contentserver.middleware:StaticContentServer
-
-        """
-        if self.transaction and hasattr(self.transaction, 'name'):
-            return self.transaction.name
-        return None
-
-
-def get_current_transaction():
-    """
-    Returns the current transaction.
-    """
-    current_transaction = None
-    if newrelic:
-        current_transaction = newrelic.agent.current_transaction()
-
-    return MonitoringTransaction(current_transaction)
