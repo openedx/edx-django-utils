@@ -36,7 +36,7 @@ Feature support matrix for built-in telemetry backends:
      - ✅
      - ❌
      - ✅
-   * - Retrieve and manipulate spans (``get_current_transaction``, ``ignore_transaction``)
+   * - Manipulate spans (``ignore_transaction``)
      - ✅
      - ❌
      - ❌
@@ -44,10 +44,6 @@ Feature support matrix for built-in telemetry backends:
      - ✅
      - ✅
      - ✅
-   * - Instrument non-web tasks (``background_task``)
-     - ✅
-     - ❌
-     - ❌
 
 Additional requirements for using these backends:
 

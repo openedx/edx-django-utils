@@ -18,10 +18,9 @@ from .internal.middleware import (
     MonitoringMemoryMiddleware,
     MonitoringSupportMiddleware
 )
-from .internal.transactions import get_current_transaction, ignore_transaction
+from .internal.transactions import ignore_transaction
 from .internal.utils import (
     accumulate,
-    background_task,
     function_trace,
     increment,
     record_exception,

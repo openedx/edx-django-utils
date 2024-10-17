@@ -11,6 +11,13 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+7.0.0 - 2024-10-16
+------------------
+Removed
+~~~~~~~
+* Remove unused ``background_task`` monitoring function.
+* Remove ``get_current_transaction`` (used internally only) from the public API.
+
 [6.1.0] - 2024-10-15
 ---------------------
 Changed
