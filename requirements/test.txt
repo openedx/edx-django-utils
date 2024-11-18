@@ -6,40 +6,40 @@
 #
 asgiref==3.8.1
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    #   -r requirements/base.txt
     #   django
-bytecode==0.15.1
+bytecode==0.16.0
     # via ddtrace
 cffi==1.17.1
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    #   -r requirements/base.txt
     #   pynacl
 click==8.1.7
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
-coverage[toml]==7.6.4
+    # via -r requirements/base.txt
+coverage[toml]==7.6.7
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==2.14.4
+ddtrace==2.16.2
     # via -r requirements/test.in
-deprecated==1.2.14
+deprecated==1.2.15
     # via opentelemetry-api
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    #   -r requirements/base.txt
     #   django-crum
     #   django-waffle
 django-crum==0.7.9
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
-django-waffle==4.1.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    # via -r requirements/base.txt
+django-waffle==4.2.0
+    # via -r requirements/base.txt
 envier==0.6.1
     # via ddtrace
 factory-boy==3.3.1
     # via -r requirements/test.in
-faker==30.8.1
+faker==33.0.0
     # via factory-boy
-importlib-metadata==8.4.0
+importlib-metadata==8.5.0
     # via opentelemetry-api
 iniconfig==2.0.0
     # via pytest
@@ -47,35 +47,35 @@ mock==5.1.0
     # via -r requirements/test.in
 newrelic==10.2.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    #   -r requirements/base.txt
     #   -r requirements/test.in
-opentelemetry-api==1.27.0
+opentelemetry-api==1.28.1
     # via
     #   -r requirements/test.in
     #   ddtrace
-packaging==24.1
+packaging==24.2
     # via pytest
 pbr==6.1.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    #   -r requirements/base.txt
     #   stevedore
 pluggy==1.5.0
     # via pytest
 protobuf==5.28.3
     # via ddtrace
 psutil==6.1.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    # via -r requirements/base.txt
 pycparser==2.22
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    #   -r requirements/base.txt
     #   cffi
 pynacl==1.5.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    # via -r requirements/base.txt
 pytest==8.3.3
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==5.0.0
+pytest-cov==6.0.0
     # via -r requirements/test.in
 pytest-django==4.9.0
     # via -r requirements/test.in
@@ -83,12 +83,12 @@ python-dateutil==2.9.0.post0
     # via faker
 six==1.16.0
     # via python-dateutil
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    #   -r requirements/base.txt
     #   django
 stevedore==5.3.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/base.txt
+    # via -r requirements/base.txt
 typing-extensions==4.12.2
     # via
     #   ddtrace
@@ -99,5 +99,5 @@ wrapt==1.16.0
     #   deprecated
 xmltodict==0.14.2
     # via ddtrace
-zipp==3.20.2
+zipp==3.21.0
     # via importlib-metadata
