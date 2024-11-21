@@ -231,13 +231,13 @@ class CodeOwnerMetricMiddlewareTests(TestCase):
             mock_set_custom_attribute, has_path_error=True, has_transaction_error=True
         )
 
-    @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
+    @patch('edx_django_utils.monitoring.internal.code_owner.middleware.set_custom_attribute')
     def test_code_owner_no_mappings(self, mock_set_custom_attribute):
         request = RequestFactory().get('/test/')
         self.middleware(request)
         mock_set_custom_attribute.assert_not_called()
 
-    @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
+    @patch('edx_django_utils.monitoring.internal.code_owner.middleware.set_custom_attribute')
     def test_code_owner_transaction_no_mappings(self, mock_set_custom_attribute):
         request = RequestFactory().get('/bad/path/')
         self.middleware(request)

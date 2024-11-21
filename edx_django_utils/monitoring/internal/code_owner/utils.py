@@ -88,7 +88,9 @@ def get_code_owner_mappings():
     # .. setting_description: Used for monitoring and reporting of ownership. Use a
     #      dict with keys of code owner name and value as a list of dotted path
     #      module names owned by the code owner.
-    code_owner_mappings = getattr(settings, 'CODE_OWNER_MAPPINGS', {})
+    code_owner_mappings = getattr(settings, 'CODE_OWNER_MAPPINGS', None)
+    if code_owner_mappings is None:
+        return None
 
     try:
         for code_owner in code_owner_mappings:
