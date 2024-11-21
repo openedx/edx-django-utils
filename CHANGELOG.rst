@@ -11,6 +11,12 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+7.0.1 - 2024-11-21
+------------------
+Fixed
+~~~~~
+* Fix bug where code owner custom attributes were being defined, even when the CODE_OWNER_MAPPINGS setting was not defined.
+
 7.0.0 - 2024-10-16
 ------------------
 Removed
