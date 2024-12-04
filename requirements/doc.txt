@@ -10,7 +10,7 @@ alabaster==1.0.0
     # via sphinx
 asgiref==3.8.1
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   django
 babel==2.16.0
     # via
@@ -20,48 +20,48 @@ backports-tarfile==1.2.0
     # via jaraco-context
 beautifulsoup4==4.12.3
     # via pydata-sphinx-theme
-bytecode==0.15.1
+bytecode==0.16.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   ddtrace
 certifi==2024.8.30
     # via requests
 cffi==1.17.1
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   cryptography
     #   pynacl
 charset-normalizer==3.4.0
     # via requests
 click==8.1.7
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
-coverage[toml]==7.6.4
+    # via -r requirements/test.txt
+coverage[toml]==7.6.8
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest-cov
-cryptography==43.0.3
+cryptography==44.0.0
     # via secretstorage
 ddt==1.7.2
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
-ddtrace==2.14.4
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
-deprecated==1.2.14
+    # via -r requirements/test.txt
+ddtrace==2.17.2
+    # via -r requirements/test.txt
+deprecated==1.2.15
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   opentelemetry-api
 django==4.2.16
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   django-crum
     #   django-waffle
 django-crum==0.7.9
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
-django-waffle==4.1.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    # via -r requirements/test.txt
+django-waffle==4.2.0
+    # via -r requirements/test.txt
 doc8==0.11.2
     # via
-    #   -c /home/runner/work/edx-django-utils/edx-django-utils/requirements/constraints.txt
+    #   -c requirements/constraints.txt
     #   -r requirements/doc.in
 docutils==0.21.2
     # via
@@ -72,29 +72,28 @@ docutils==0.21.2
     #   sphinx
 envier==0.6.1
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   ddtrace
 factory-boy==3.3.1
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
     #   -r requirements/doc.in
-faker==30.8.1
+    #   -r requirements/test.txt
+faker==33.1.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   factory-boy
 idna==3.10
     # via requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==8.4.0
+importlib-metadata==8.5.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   keyring
     #   opentelemetry-api
-    #   twine
 iniconfig==2.0.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest
 jaraco-classes==3.4.0
     # via keyring
@@ -117,43 +116,44 @@ markupsafe==3.0.2
 mdurl==0.1.2
     # via markdown-it-py
 mock==5.1.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    # via -r requirements/test.txt
 more-itertools==10.5.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.2.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
-nh3==0.2.18
+newrelic==10.3.1
+    # via -r requirements/test.txt
+nh3==0.2.19
     # via readme-renderer
-opentelemetry-api==1.27.0
+opentelemetry-api==1.28.2
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   ddtrace
-packaging==24.1
+packaging==24.2
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest
     #   sphinx
+    #   twine
 pbr==6.1.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   stevedore
-pkginfo==1.10.0
+pkginfo==1.11.2
     # via twine
 pluggy==1.5.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   pytest
-protobuf==5.28.3
+protobuf==5.29.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   ddtrace
 psutil==6.1.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    # via -r requirements/test.txt
 pycparser==2.22
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   cffi
 pydata-sphinx-theme==0.16.0
     # via sphinx-book-theme
@@ -166,20 +166,20 @@ pygments==2.18.0
     #   rich
     #   sphinx
 pynacl==1.5.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
-pytest==8.3.3
+    # via -r requirements/test.txt
+pytest==8.3.4
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
     #   -r requirements/doc.in
+    #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==5.0.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+pytest-cov==6.0.0
+    # via -r requirements/test.txt
 pytest-django==4.9.0
-    # via -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    # via -r requirements/test.txt
 python-dateutil==2.9.0.post0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   faker
 readme-renderer==44.0
     # via
@@ -196,13 +196,13 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.9.3
+rich==13.9.4
     # via twine
 secretstorage==3.3.3
     # via keyring
 six==1.16.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   python-dateutil
 snowballstemmer==2.2.0
     # via sphinx
@@ -227,19 +227,19 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   django
-stevedore==5.3.0
+stevedore==5.4.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   doc8
-twine==5.1.1
+twine==6.0.1
     # via -r requirements/doc.in
 typing-extensions==4.12.2
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   ddtrace
     #   faker
     #   pydata-sphinx-theme
@@ -247,18 +247,18 @@ urllib3==2.2.3
     # via
     #   requests
     #   twine
-wheel==0.44.0
+wheel==0.45.1
     # via -r requirements/doc.in
-wrapt==1.16.0
+wrapt==1.17.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   ddtrace
     #   deprecated
 xmltodict==0.14.2
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   ddtrace
-zipp==3.20.2
+zipp==3.21.0
     # via
-    #   -r /home/runner/work/edx-django-utils/edx-django-utils/requirements/test.txt
+    #   -r requirements/test.txt
     #   importlib-metadata

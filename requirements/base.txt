@@ -18,9 +18,9 @@ django==4.2.16
     #   django-waffle
 django-crum==0.7.9
     # via -r requirements/base.in
-django-waffle==4.1.0
+django-waffle==4.2.0
     # via -r requirements/base.in
-newrelic==10.2.0
+newrelic==10.3.1
     # via -r requirements/base.in
 pbr==6.1.0
     # via stevedore
@@ -30,7 +30,7 @@ pycparser==2.22
     # via cffi
 pynacl==1.5.0
     # via -r requirements/base.in
-sqlparse==0.5.1
+sqlparse==0.5.2
     # via django
-stevedore==5.3.0
+stevedore==5.4.0
     # via -r requirements/base.in
