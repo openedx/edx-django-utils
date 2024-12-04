@@ -11,6 +11,12 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+7.1.0 - 2024-12-05
+------------------
+Added
+~~~~~
+* Added signals monitoring_support_process_request, monitoring_support_process_response, and monitoring_support_process_exception to the MonitoringSupportMiddleware to enable plugging in monitoring capabilities.
+
 7.0.1 - 2024-11-21
 ------------------
 Fixed

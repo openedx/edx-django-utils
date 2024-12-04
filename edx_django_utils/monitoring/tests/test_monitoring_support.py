@@ -1,15 +1,21 @@
 """
-Tests for CachedCustomMonitoringMiddleware and associated utilities.
+Tests for MonitoringSupportMiddleware and associated utilities.
 
 Note: See test_middleware.py for the rest of the middleware tests.
 """
-from unittest.mock import Mock, call, patch
+from contextlib import contextmanager
+from unittest.mock import ANY, Mock, call, patch
 
 import ddt
 from django.test import TestCase, override_settings
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import MonitoringSupportMiddleware, accumulate, increment
+from edx_django_utils.monitoring.signals import (
+    monitoring_support_process_exception,
+    monitoring_support_process_request,
+    monitoring_support_process_response
+)
 
 from ..middleware import CachedCustomMonitoringMiddleware as DeprecatedCachedCustomMonitoringMiddleware
 from ..middleware import MonitoringCustomMetricsMiddleware as DeprecatedMonitoringCustomMetricsMiddleware
@@ -20,13 +26,13 @@ from ..utils import set_custom_attributes_for_course_key as deprecated_set_custo
 
 
 @ddt.ddt
-class TestCustomMonitoringMiddleware(TestCase):
+class TestMonitoringSupportMiddleware(TestCase):
     """
     Test the monitoring_utils middleware and helpers
     """
     def setUp(self):
         super().setUp()
-        self.mock_response = Mock()
+        self.mock_get_response = Mock()
         RequestCache.clear_all_namespaces()
 
     @patch('newrelic.agent')
@@ -57,7 +63,7 @@ class TestCustomMonitoringMiddleware(TestCase):
         ]
 
         # fake a response to trigger attributes reporting
-        middleware_method = getattr(cached_monitoring_middleware_class(self.mock_response), middleware_method_name)
+        middleware_method = getattr(cached_monitoring_middleware_class(self.mock_get_response), middleware_method_name)
         middleware_method(
             'fake request',
             'fake response',
@@ -96,9 +102,9 @@ class TestCustomMonitoringMiddleware(TestCase):
             call('error_adding_accumulated_metric', 'name=hello, new_value=10, cached_value=None'),
         ]
 
-        self.mock_response = Mock()
+        self.mock_get_response = Mock()
         # fake a response to trigger metrics reporting
-        cached_monitoring_middleware_class(self.mock_response).process_response(
+        cached_monitoring_middleware_class(self.mock_get_response).process_response(
             'fake request',
             'fake response',
         )
@@ -113,6 +119,58 @@ class TestCustomMonitoringMiddleware(TestCase):
         # Assert call args to newrelic.agent.add_custom_parameter().
         mock_newrelic_agent.add_custom_parameter.assert_has_calls(nr_agent_calls_expected, any_order=True)
 
+    @contextmanager
+    def catch_signal(self, signal):
+        """
+        Catch django signal and return the mocked handler.
+        """
+        handler = Mock()
+        signal.connect(handler)
+        yield handler
+        signal.disconnect(handler)
+
+    def test_process_request_signal(self):
+        """
+        Test middleware sends process request signal.
+        """
+        with self.catch_signal(monitoring_support_process_request) as handler:
+            MonitoringSupportMiddleware(self.mock_get_response).process_request(
+                'fake request'
+            )
+
+            handler.assert_called_once_with(
+                signal=ANY, sender=MonitoringSupportMiddleware, request='fake request'
+            )
+
+    def test_process_response_signal(self):
+        """
+        Test middleware sends process response signal.
+        """
+        with self.catch_signal(monitoring_support_process_response) as handler:
+            MonitoringSupportMiddleware(self.mock_get_response).process_response(
+                'fake request', 'fake response'
+            )
+
+            handler.assert_called_once_with(
+                signal=ANY, sender=MonitoringSupportMiddleware,
+                request='fake request', response='fake response'
+            )
+
+    def test_process_exception_signal(self):
+        """
+        Test middleware sends process exception signal.
+        """
+        fake_exception = Exception()
+        with self.catch_signal(monitoring_support_process_exception) as handler:
+            MonitoringSupportMiddleware(self.mock_get_response).process_exception(
+                'fake request', fake_exception
+            )
+
+            handler.assert_called_once_with(
+                signal=ANY, sender=MonitoringSupportMiddleware,
+                request='fake request', exception=fake_exception
+            )
+
     @patch('ddtrace.Tracer.current_root_span')
     def test_error_tagging(self, mock_get_root_span):
         # Ensure that we continue to support tagging exceptions in MonitoringSupportMiddleware.
@@ -121,7 +179,7 @@ class TestCustomMonitoringMiddleware(TestCase):
         mock_root_span = Mock()
         mock_get_root_span.return_value = mock_root_span
         with override_settings(OPENEDX_TELEMETRY=['edx_django_utils.monitoring.DatadogBackend']):
-            MonitoringSupportMiddleware(self.mock_response).process_exception(
+            MonitoringSupportMiddleware(self.mock_get_response).process_exception(
                 'fake request', fake_exception
             )
             mock_root_span.set_exc_info.assert_called_with(

@@ -1,7 +1,8 @@
 """
-Metrics utilities public api
+Monitoring utilities public api
 
-See README.rst for details.
+Does not include signals.py, which is also part of the public api.
+See README.rst for additional details.
 """
 from .internal.backends import DatadogBackend, NewRelicBackend, OpenTelemetryBackend, TelemetryBackend
 from .internal.code_owner.middleware import CodeOwnerMonitoringMiddleware

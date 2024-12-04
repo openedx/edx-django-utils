@@ -21,6 +21,11 @@ from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.logging import encrypt_for_log
+from edx_django_utils.monitoring.signals import (
+    monitoring_support_process_exception,
+    monitoring_support_process_request,
+    monitoring_support_process_response
+)
 
 from .backends import configured_backends
 
@@ -74,10 +79,13 @@ class MonitoringSupportMiddleware(MiddlewareMixin):
     """
     Middleware to support monitoring.
 
-    1. Middleware batch reports cached custom attributes at the end of a request.
-    2. Middleware adds error span tags to the root span.
+    1. Send process request, response, and exception signals to enable
+       plugins to add custom monitoring.
+    2. Middleware batch reports cached custom attributes at the end of a request.
+    3. Middleware adds error span tags to the root span.
 
-    Make sure to add below the request cache in MIDDLEWARE.
+    Make sure to add below the request cache in MIDDLEWARE, but as early
+    in the stack of middleware as possible.
 
     This middleware will only call on the telemetry collector if there are any attributes
     to report for this request, so it will not incur any processing overhead for
@@ -140,13 +148,24 @@ class MonitoringSupportMiddleware(MiddlewareMixin):
         for backend in configured_backends():
             backend.tag_root_span_with_error(exception)
 
-    # Whether or not there was an exception, report any custom NR attributes that
+    # Whether or not there was an exception, report any custom attributes that
     # may have been collected.
+
+    def process_request(self, request):
+        """
+        Django middleware handler to process a request
+        """
+        monitoring_support_process_request.send_robust(
+            sender=self.__class__, request=request
+        )
 
     def process_response(self, request, response):
         """
         Django middleware handler to process a response
         """
+        monitoring_support_process_response.send_robust(
+            sender=self.__class__, request=request, response=response
+        )
         self._batch_report()
         return response
 
@@ -154,6 +173,9 @@ class MonitoringSupportMiddleware(MiddlewareMixin):
         """
         Django middleware handler to process an exception
         """
+        monitoring_support_process_exception.send_robust(
+            sender=self.__class__, request=request, exception=exception
+        )
         self._batch_report()
         self._tag_root_span_with_error(exception)
 

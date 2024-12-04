@@ -78,18 +78,26 @@ Here is how you add the middleware:
         'edx_django_utils.cache.middleware.RequestCacheMiddleware',
 
         # Add monitoring middleware immediately after RequestCacheMiddleware
+        'edx_django_utils.monitoring.MonitoringSupportMiddleware',
         'edx_django_utils.monitoring.DeploymentMonitoringMiddleware',
         'edx_django_utils.monitoring.CookieMonitoringMiddleware',
         'edx_django_utils.monitoring.CodeOwnerMonitoringMiddleware',
-        'edx_django_utils.monitoring.CachedCustomMonitoringMiddleware',
         'edx_django_utils.monitoring.FrontendMonitoringMiddleware',
         'edx_django_utils.monitoring.MonitoringMemoryMiddleware',
     )
 
-Cached Custom Monitoring Middleware
------------------------------------
+Monitoring Support Middleware and Monitoring Plugins
+----------------------------------------------------
 
-The middleware ``CachedCustomMonitoringMiddleware`` is required to allow certain utility methods, like ``accumulate`` and ``increment``, to work appropriately.
+The middleware ``MonitoringSupportMiddleware`` provides a number of monitoring capabilities:
+
+* It enables plugging in outside monitoring capabilities, by sending the signals ``monitoring_support_process_request``, ``monitoring_support_process_response``, and ``monitoring_support_process_exception``. These can be useful because this middleware should be available in all Open edX services, and should appear early enough in the list of middleware to monitor most requests, even those that respond early from another middleware.
+* It allows certain utility methods, like ``accumulate`` and ``increment``, to work appropriately.
+* It adds error span tags to the root span.
+
+In order to use the monitoring signals, import them as follows::
+
+    from edx_django_utils.monitoring.signals import monitoring_support_process_response
 
 Code Owner Custom Attribute
 ---------------------------
