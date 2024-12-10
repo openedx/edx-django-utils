@@ -17,6 +17,9 @@ https://openedx.atlassian.net/wiki/spaces/PERF/pages/54362736/Custom+Attributes+
 At this time, the custom monitoring will only be reported to New Relic.
 
 """
+from contextlib import ExitStack, contextmanager
+
+from .backends import configured_backends
 from .middleware import CachedCustomMonitoringMiddleware
 
 try:
@@ -62,40 +65,64 @@ def set_custom_attributes_for_course_key(course_key):
     """
     Set monitoring custom attributes related to a course key.
 
-    This is not cached, and only support reporting to New Relic Insights.
+    This is not cached.
 
     """
-    if newrelic:  # pragma: no cover
-        newrelic.agent.add_custom_parameter('course_id', str(course_key))
-        newrelic.agent.add_custom_parameter('org', str(course_key.org))
+    set_custom_attribute('course_id', str(course_key))
+    set_custom_attribute('org', str(course_key.org))
 
 
 def set_custom_attribute(key, value):
     """
     Set monitoring custom attribute.
 
-    This is not cached, and only support reporting to New Relic Insights.
-
+    This is not cached.
     """
-    if newrelic:  # pragma: no cover
-        # note: parameter is new relic's older name for attributes
-        newrelic.agent.add_custom_parameter(key, value)
+    for backend in configured_backends():
+        backend.set_attribute(key, value)
 
 
 def record_exception():
     """
-    Records a caught exception to the monitoring system.
+    Record a caught exception to the monitoring system.
 
     Note: By default, only unhandled exceptions are monitored. This function
     can be called to record exceptions as monitored errors, even if you handle
     the exception gracefully from a user perspective.
-
-    For more details, see:
-    https://docs.newrelic.com/docs/agents/python-agent/python-agent-api/recordexception-python-agent-api
-
     """
-    if newrelic:  # pragma: no cover
-        newrelic.agent.record_exception()
+    for backend in configured_backends():
+        backend.record_exception()
+
+
+@contextmanager
+def function_trace(function_name):
+    """
+    Wraps a chunk of code that we want to appear as a separate, explicit,
+    segment in our monitoring tools.
+    """
+    # Not covering this because if we mock it, we're not really testing anything
+    # anyway. If something did break, it should show up in tests for apps that
+    # use this code with whatever uses it.
+    # ExitStack handles the underlying context managers.
+    with ExitStack() as stack:
+        for backend in configured_backends():
+            context = backend.create_span(function_name)
+            if context is not None:
+                stack.enter_context(context)
+        yield
+
+
+def set_monitoring_transaction_name(name, group=None, priority=None):
+    """
+    Sets the name, group, and priority for the current root span.
+
+    Current root span refers to the most ancestral span in the current process, rather than
+    to the trace root, which may be outside of the process.
+
+    Group and priority may not be supported by all backends.
+    """
+    for backend in configured_backends():
+        backend.set_local_root_span_name(name, group=group, priority=priority)
 
 
 def background_task(*args, **kwargs):
@@ -103,8 +130,10 @@ def background_task(*args, **kwargs):
     Handles monitoring for background tasks that are not passed in through the web server like
     celery and event consuming tasks.
 
+    This function only supports New Relic.
+
     For more details, see:
-    https://docs.newrelic.com/docs/apm/agents/python-agent/supported-features/monitor-non-web-scripts-worker-processes-tasks-functions
+    https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/backgroundtask-python-agent-api/
 
     """
     def noop_decorator(func):

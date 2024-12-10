@@ -88,7 +88,9 @@ def get_code_owner_mappings():
     # .. setting_description: Used for monitoring and reporting of ownership. Use a
     #      dict with keys of code owner name and value as a list of dotted path
     #      module names owned by the code owner.
-    code_owner_mappings = getattr(settings, 'CODE_OWNER_MAPPINGS', {})
+    code_owner_mappings = getattr(settings, 'CODE_OWNER_MAPPINGS', None)
+    if code_owner_mappings is None:
+        return None
 
     try:
         for code_owner in code_owner_mappings:
@@ -121,7 +123,7 @@ def _get_catch_all_code_owner():
     try:
         code_owner = get_code_owner_from_module('*')
         return code_owner
-    except Exception as e:  # pylint: disable=broad-except; #pragma: no cover
+    except Exception as e:  # pragma: no cover
         # will remove broad exceptions after ensuring all proper cases are covered
         set_custom_attribute('deprecated_broad_except___get_module_from_current_transaction', e.__class__)
         return None

@@ -7,6 +7,8 @@ import re
 from unittest.mock import Mock, call, patch
 
 import ddt
+from django.core.exceptions import MiddlewareNotUsed
+from django.http import HttpRequest, HttpResponse, JsonResponse
 from django.test import TestCase
 from django.test.client import RequestFactory
 from django.test.utils import override_settings
@@ -16,6 +18,7 @@ from edx_django_utils.cache import RequestCache
 from edx_django_utils.monitoring import (
     CookieMonitoringMiddleware,
     DeploymentMonitoringMiddleware,
+    FrontendMonitoringMiddleware,
     MonitoringMemoryMiddleware
 )
 
@@ -322,3 +325,128 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
         for name, value in cookies_dict.items():
             factory.cookies[name] = value
         return factory.request()
+
+
+@ddt.ddt
+class FrontendMonitoringMiddlewareTestCase(TestCase):
+    """
+    Tests for FrontendMonitoringMiddleware.
+    """
+    def setUp(self):
+        super().setUp()
+        self.script = "<script>test script</script>"
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', False)
+    def test_frontend_middleware_with_waffle_diasbled(self):
+        """
+        Test that middleware is disabled when waffle flag is not enabled.
+        """
+        original_html = '<head></head>'
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            self.assertRaises(
+                MiddlewareNotUsed,
+                FrontendMonitoringMiddleware,
+                lambda r: HttpResponse(original_html, content_type='text/html')
+            )
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
+    def test_frontend_middleware_with_waffle_enabled(self):
+        """
+        Test that middleware works as expected when flag is enabled.
+        """
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse('<head></head>', content_type='text/html'))
+            response = middleware(HttpRequest())
+        # Assert that the script is inserted into the response when flag is enabled
+        assert self.script.encode() in response.content
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
+    @patch("edx_django_utils.monitoring.internal.middleware.FrontendMonitoringMiddleware.inject_script")
+    def test_frontend_middleware_without_setting_variable(self, mock_inject_script):
+        """
+        Test that middleware behaves correctly when setting variable is not defined.
+        """
+        original_html = '<html><head></head><body></body><html>'
+        middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(original_html, content_type='text/html'))
+        response = middleware(HttpRequest())
+        # Assert that the response content remains unchanged if settings not defined
+        assert response.content == original_html.encode()
+
+        mock_inject_script.assert_not_called()
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
+    @patch("edx_django_utils.monitoring.internal.middleware.FrontendMonitoringMiddleware.inject_script")
+    def test_frontend_middleware_for_json_requests(self, mock_inject_script):
+        """
+        Test that middleware doesn't insert script tag for json requests
+        """
+        middleware = FrontendMonitoringMiddleware(lambda r: JsonResponse({"dummy": True}))
+        response = middleware(HttpRequest())
+        # Assert that the response content remains unchanged if settings not defined
+        assert response.content == b'{"dummy": true}'
+
+        mock_inject_script.assert_not_called()
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
+    @ddt.data(
+        ('<html><body></body><html>', '<body>'),
+        ('<html><head></head><body></body><html>', '</head>'),
+        ('<head></head><body></body>', '</head>'),
+        ('<body></body>', '<body>'),
+        ('<head></head>', '</head>'),
+    )
+    @ddt.unpack
+    def test_frontend_middleware_with_head_and_body_tag(self, original_html, expected_tag):
+        """
+        Test that script is inserted at the right place.
+        """
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(original_html, content_type='text/html'))
+            response = middleware(HttpRequest())
+
+        # Assert that the script is inserted at the right place
+        assert f"{self.script}{expected_tag}".encode() in response.content
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
+    @ddt.data(
+        '<html></html>',
+        '<center></center>',
+    )
+    def test_frontend_middleware_without_head_and_body_tag(self, original_html):
+        """
+        Test that middleware behavior is correct when both of head and body tag are missing in the response.
+        """
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(original_html, content_type='text/html'))
+            response = middleware(HttpRequest())
+        # Assert that the response content remains unchanged if no body tag is found
+        assert response.content == original_html.encode()
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
+    def test_frontend_middleware_content_length_header_already_set(self):
+        """
+        Test that middleware updates the Content-Length header, when its already set.
+        """
+        original_html = '<head></head>'
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(
+                original_html, content_type='text/html', headers={'Content-Length': len(original_html)}))
+            response = middleware(HttpRequest())
+        # Assert that the response content contains script tag
+        assert self.script.encode() in response.content
+        # Assert that the Content-Length header is updated and script length is added.
+        assert response.headers.get('Content-Length') == str(len(original_html) + len(self.script))
+
+    @override_switch('edx_django_utils.monitoring.enable_frontend_monitoring_middleware', True)
+    def test_frontend_middleware_content_length_header_not_set(self):
+        """
+        Test that middleware doesn't set the Content-Length header when it's not already set.
+        """
+        original_html = '<head></head>'
+        with override_settings(OPENEDX_TELEMETRY_FRONTEND_SCRIPTS=self.script):
+            middleware = FrontendMonitoringMiddleware(lambda r: HttpResponse(original_html, content_type='text/html'))
+            response = middleware(HttpRequest())
+        # Assert that the response content contains script tag
+        assert self.script.encode() in response.content
+        # Assert that the Content-Length header isn't updated, when not set already
+        assert response.headers.get('Content-Length') is None

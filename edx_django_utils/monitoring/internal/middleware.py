@@ -1,8 +1,5 @@
 """
 Middleware for monitoring.
-
-At this time, monitoring details can only be reported to New Relic.
-
 """
 import base64
 import hashlib
@@ -11,6 +8,7 @@ import logging
 import math
 import platform
 import random
+import re
 import warnings
 from uuid import uuid4
 
@@ -18,21 +16,27 @@ import django
 import psutil
 import waffle  # pylint: disable=invalid-django-waffle-import
 from django.conf import settings
+from django.core.exceptions import MiddlewareNotUsed
 from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.logging import encrypt_for_log
+from edx_django_utils.monitoring.signals import (
+    monitoring_support_process_exception,
+    monitoring_support_process_request,
+    monitoring_support_process_response
+)
+
+from .backends import configured_backends
 
 log = logging.getLogger(__name__)
-try:
-    import newrelic.agent
-except ImportError:  # pragma: no cover
-    log.warning("Unable to load NewRelic agent module")
-    newrelic = None  # pylint: disable=invalid-name
 
 
 _DEFAULT_NAMESPACE = 'edx_django_utils.monitoring'
 _REQUEST_CACHE_NAMESPACE = f'{_DEFAULT_NAMESPACE}.custom_attributes'
+
+_HTML_HEAD_REGEX = br"<\/head\s*>"
+_HTML_BODY_REGEX = br"<body\b[^>]*>"
 
 
 class DeploymentMonitoringMiddleware:
@@ -71,23 +75,26 @@ class DeploymentMonitoringMiddleware:
         _set_custom_attribute('python_version', platform.python_version())
 
 
-class CachedCustomMonitoringMiddleware(MiddlewareMixin):
+class MonitoringSupportMiddleware(MiddlewareMixin):
     """
-    Middleware batch reports cached custom attributes at the end of a request.
+    Middleware to support monitoring.
 
-    Make sure to add below the request cache in MIDDLEWARE.
+    1. Send process request, response, and exception signals to enable
+       plugins to add custom monitoring.
+    2. Middleware batch reports cached custom attributes at the end of a request.
+    3. Middleware adds error span tags to the root span.
 
-    This middleware will only call on the newrelic agent if there are any attributes
+    Make sure to add below the request cache in MIDDLEWARE, but as early
+    in the stack of middleware as possible.
+
+    This middleware will only call on the telemetry collector if there are any attributes
     to report for this request, so it will not incur any processing overhead for
     request handlers which do not record custom attributes.
-
-    Note: New Relic adds custom attributes to events, which is what is being used here.
-
     """
     @classmethod
     def _get_attributes_cache(cls):
         """
-        Get a request cache specifically for New Relic custom attributes.
+        Get a request cache specifically for custom attributes.
         """
         return RequestCache(namespace=_REQUEST_CACHE_NAMESPACE)
 
@@ -126,29 +133,60 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
     @classmethod
     def _batch_report(cls):
         """
-        Report the collected custom attributes to New Relic.
+        Report the collected custom attributes.
         """
-        if not newrelic:  # pragma: no cover
+        if not configured_backends():  # pragma: no cover
             return
         attributes_cache = cls._get_attributes_cache()
         for key, value in attributes_cache.data.items():
             _set_custom_attribute(key, value)
 
-    # Whether or not there was an exception, report any custom NR attributes that
+    def _tag_root_span_with_error(self, exception):
+        """
+        Tags the root span with the exception information for all configured backends.
+        """
+        for backend in configured_backends():
+            backend.tag_root_span_with_error(exception)
+
+    # Whether or not there was an exception, report any custom attributes that
     # may have been collected.
+
+    def process_request(self, request):
+        """
+        Django middleware handler to process a request
+        """
+        monitoring_support_process_request.send_robust(
+            sender=self.__class__, request=request
+        )
 
     def process_response(self, request, response):
         """
         Django middleware handler to process a response
         """
+        monitoring_support_process_response.send_robust(
+            sender=self.__class__, request=request, response=response
+        )
         self._batch_report()
         return response
 
-    def process_exception(self, request, exception):    # pylint: disable=W0613
+    def process_exception(self, request, exception):
         """
         Django middleware handler to process an exception
         """
+        monitoring_support_process_exception.send_robust(
+            sender=self.__class__, request=request, exception=exception
+        )
         self._batch_report()
+        self._tag_root_span_with_error(exception)
+
+
+class CachedCustomMonitoringMiddleware(MonitoringSupportMiddleware):
+    """
+    DEPRECATED: Use MonitoringSupportMiddleware instead.
+
+    This is the old name for the MonitoringSupportMiddleware. We are keeping it
+    around for backwards compatibility until it can be fully removed.
+    """
 
 
 def _set_custom_attribute(key, value):
@@ -157,8 +195,8 @@ def _set_custom_attribute(key, value):
 
     Note: Can't use public method in ``utils.py`` due to circular reference.
     """
-    if newrelic:  # pragma: no cover
-        newrelic.agent.add_custom_parameter(key, value)
+    for backend in configured_backends():
+        backend.set_attribute(key, value)
 
 
 class MonitoringMemoryMiddleware(MiddlewareMixin):
@@ -471,6 +509,83 @@ class CookieMonitoringMiddleware:
             log.info(piece)
 
 
+class FrontendMonitoringMiddleware:
+    """
+    Middleware for adding the frontend monitoring scripts to the response.
+    """
+    def __init__(self, get_response):
+        # Disable the middleware if flag isn't enabled
+        if not self._is_enabled():
+            raise MiddlewareNotUsed
+
+        self.get_response = get_response
+
+    def __call__(self, request):
+        response = self.get_response(request)
+
+        content_type = response.headers.get('Content-Type', '')
+        content_disposition = response.headers.get('Content-Disposition')
+
+        if response.status_code != 200 or not content_type.startswith('text/html'):
+            return response
+
+        if content_disposition is not None and content_disposition.split(";")[0].strip().lower() == "attachment":
+            return response
+
+        # .. setting_name: OPENEDX_TELEMETRY_FRONTEND_SCRIPTS
+        # .. setting_default: None
+        # .. setting_description: Scripts to inject to response for frontend monitoring, this can
+        #    have multiple scripts as we support multiple telemetry backends at once, so we can
+        #    provide multiple frontend scripts in a multiline string for multiple platforms tracking.
+        #    Best is to have one at a time for better performance. This should contain HTML script tag or
+        #    tags that will be inserted in response's HTML.
+        frontend_scripts = getattr(settings, 'OPENEDX_TELEMETRY_FRONTEND_SCRIPTS', None)
+
+        if not frontend_scripts:
+            return response
+
+        if not isinstance(frontend_scripts, str):
+            # Prevent a certain kind of easy mistake.
+            raise Exception("OPENEDX_TELEMETRY_FRONTEND_SCRIPTS must be a string.")
+
+        original_content_len = len(response.content)
+        response.content = self.inject_script(response.content, frontend_scripts)
+
+        # If HTML is added and Content-Length already set, make sure Content-Length header is updated.
+        # If not browsers can trim response, as we are adding HTML to the response.
+        if len(response.content) != original_content_len and response.headers.get("Content-Length"):
+            response.headers["Content-Length"] = str(len(response.content))
+        return response
+
+    def inject_script(self, content, script):
+        """
+        Add script to the response, if body tag is present.
+        """
+        body = re.search(_HTML_BODY_REGEX, content, re.IGNORECASE)
+
+        def insert_html_at_index(index):
+            return content[:index] + script.encode() + content[index:]
+
+        head_closing_tag = re.search(_HTML_HEAD_REGEX, content, re.IGNORECASE)
+
+        # If head tag is present, insert the monitoring scripts just before the closing of head tag
+        if head_closing_tag:
+            return insert_html_at_index(head_closing_tag.start())
+
+        # If not head tag, add scripts just before the start of body tag, if present.
+        if body:
+            return insert_html_at_index(body.start())
+
+        # Don't add the script if both head and body tag is missing.
+        return content
+
+    def _is_enabled(self):
+        """
+        Returns whether this middleware is enabled.
+        """
+        return waffle.switch_is_active('edx_django_utils.monitoring.enable_frontend_monitoring_middleware')
+
+
 # This function should be cleaned up and made into a general logging utility, but it will first
 # need some work to make it able to handle multibyte characters.
 #
@@ -499,7 +614,7 @@ def split_ascii_log_message(msg, chunk_size):
         yield msg  # no need for continuation messages
     else:
         # Generate a unique-enough collation ID for this message.
-        h = hashlib.shake_128(msg.encode()).digest(6)  # pylint/#4039 pylint: disable=too-many-function-args
+        h = hashlib.shake_128(msg.encode()).digest(6)
         group_id = base64.b64encode(h).decode().rstrip('=')
 
         for i in range(chunk_count):

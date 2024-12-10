@@ -150,7 +150,8 @@ class TestClientIP(TestCase):
         # Warning: Bad IP address
         ('Some-Thing', 0, {'HTTP_SOME_THING': 'XXXXXXXXX'}, None, "invalid IP"),
     )
-    def test_get_trusted_header_ip(self, header_name, index, add_meta, expected, warning_substr):
+    def test_get_trusted_header_ip(  # pylint: disable=too-many-positional-arguments
+            self, header_name, index, add_meta, expected, warning_substr):
         self.request.META.update(add_meta)
 
         with warning_messages() as caught_warnings:

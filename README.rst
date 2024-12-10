@@ -30,6 +30,8 @@ This repository includes shared utilities for:
 
 * `Security Utilities`_: Includes a middleware to add CSP response headers.
 
+* `Data Generation`_: Management command for generating Django data based on model factories.
+
 .. _Cache Utilities: edx_django_utils/cache/README.rst
 
 .. _Django User and Group Utilities: edx_django_utils/user/README.rst
@@ -44,61 +46,17 @@ This repository includes shared utilities for:
 
 .. _Security Utilities: edx_django_utils/security/README.rst
 
+.. _Data Generation: edx_django_utils/data_generation/README.rst
+
 Documentation
 -------------
 
 The full documentation is in the docs directory, and is published to https://edx-django-utils.readthedocs.org.
 
-Getting Started
----------------
+Getting Started with Development
+--------------------------------
 
-One Time Setup
-~~~~~~~~~~~~~~
-.. code-block::
-
-  # clone the repo
-  git clone git@github.com:edx/edx-django-utils.git
-  cd edx-django-utils
-
-  # setup a virtualenv using virtualenvwrapper with the same name as the repo and activate it.
-  # $(basename $(pwd)) will give you the name of the current working directory, in this case ``edx-django-utils``
-  mkvirtualenv -p python3 $(basename $(pwd))
-
-
-Every time you develop something in this repo
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-.. code-block::
-
-  # Activate the virtualenv.
-  workon edx-django-utils
-
-  # Grab the latest code.
-  git checkout master
-  git pull
-
-  # Install the dev requirements
-  make requirements
-
-  # Run the tests
-  make test
-
-  # Make a new branch for your changes
-  git checkout -b <your_github_username>/<short_description>
-
-  # Using your favorite editor, edit the code to make your change.
-  vim …
-
-  # Run your new tests
-  pytest ./path/to/new/tests
-
-  # Run all the test
-  make test
-
-  # Commit all your changes
-  git commit …
-  git push
-
-  # Open a PR and ask for review.
+Please see the Open edX documentation for `guidance on Python development <https://docs.openedx.org/en/latest/developers/how-tos/get-ready-for-python-dev.html>`_ in this repo.
 
 Design Pattern followed by packages
 -----------------------------------
@@ -160,7 +118,7 @@ file in this repo.
 Reporting Security Issues
 -------------------------
 
-Please do not report security issues in public. Please email security@edx.org.
+Please do not report security issues in public. Please email security@openedx.org.
 
 License
 -------

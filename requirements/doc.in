@@ -8,3 +8,6 @@ sphinx-book-theme         # Common theme for all Open edX projects
 readme_renderer           # Validates README.rst for usage on PyPI
 Sphinx                    # Documentation builder
 twine
+factory-boy
+pytest                      #Needed?
+wheel

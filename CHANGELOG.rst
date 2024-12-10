@@ -11,6 +11,117 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+7.1.0 - 2024-12-05
+------------------
+Added
+~~~~~
+* Added signals monitoring_support_process_request, monitoring_support_process_response, and monitoring_support_process_exception to the MonitoringSupportMiddleware to enable plugging in monitoring capabilities.
+
+7.0.1 - 2024-11-21
+------------------
+Fixed
+~~~~~
+* Fix bug where code owner custom attributes were being defined, even when the CODE_OWNER_MAPPINGS setting was not defined.
+
+7.0.0 - 2024-10-16
+------------------
+Removed
+~~~~~~~
+* Remove unused ``background_task`` monitoring function.
+* Remove ``get_current_transaction`` (used internally only) from the public API.
+
+[6.1.0] - 2024-10-15
+---------------------
+Changed
+~~~~~~~
+* Added Datadog implementation of  ``set_monitoring_transaction_name`` and refactored the functionality.
+
+[6.0.0] - 2024-10-09
+---------------------
+Added
+~~~~~
+* Added support for python3.12
+* Dropped support for python<3.12 versions
+
+[5.16.0] - 2024-09-27
+---------------------
+Added
+~~~~~
+* Added a new method to backends for ``tag_root_span_with_error`` and added Datadog implementation of the functionality.
+* Uses the new method to tag the root span when processing exceptions.
+
+Changed
+~~~~~~~
+* Renamed ``CachedCustomMonitoringMiddleware`` to ``MonitoringSupportMiddleware`` and deprecated the old name. It will be removed in a future release.
+
+[5.15.0] - 2024-07-29
+---------------------
+Added
+~~~~~
+* Added Datadog implementation of ``function_trace`` and allowed implementation to be configurable.
+
+[5.14.2] - 2024-05-31
+---------------------
+Fixed
+~~~~~
+* FrontendMonitoringMiddleware now updates the Content-Length header if its already set.
+* FrontendMonitoringMiddleware will now be enabled once waffle switch named ``edx_django_utils.monitoring.enable_frontend_monitoring_middleware`` is enabled.
+
+[5.14.1] - 2024-05-22
+---------------------
+Fixed
+~~~~~
+* Added default value while getting content-type header to avoid KeyError.
+
+[5.14.0] - 2024-05-22
+---------------------
+Added
+~~~~~
+* Added middleware named ``FrontendMonitoringMiddleware`` for inserting frontend monitoring HTML script tags to response, configured by new Django setting ``OPENEDX_TELEMETRY_FRONTEND_SCRIPTS``.
+
+[5.13.0] - 2024-04-30
+---------------------
+Added
+~~~~~
+* Initial support for sending monitoring data to OpenTelemetry collector or Datadog agent, configured by new Django setting ``OPENEDX_TELEMETRY``. See monitoring README for details.
+
+[5.12.0] - 2024-03-29
+---------------------
+Added
+~~~~~
+* Added support for ``Python 3.11``
+
+[5.11.0] - 2024-03-06
+---------------------
+Added
+~~~~~
+* Added support for ``Python 3.12``
+
+Removed
+~~~~~~~
+* Dropped support for ``Django 3.2``
+
+[5.10.1] - 2024-01-17
+---------------------
+
+Added
+~~~~~
+* Added manufacture_data management command
+
+[5.9.0] - 2023-11-27
+--------------------
+
+Removed
+~~~~~~~
+* Removed ``edx_django_utils.cache.disable_forced_cache_miss_for_none`` which was added in ``5.7.0``.
+
+[5.8.0] - 2023-11-03
+--------------------
+
+Changed
+~~~~~~~
+* Adjusted ``get_plugin_apps`` to log at info level rather than debug and with more detail, though with a comment that this may not actually end up logging.
+
 [5.7.0] - 2023-08-04
 --------------------
 

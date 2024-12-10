@@ -6,7 +6,6 @@ import logging
 from django.urls import resolve
 from django.urls.exceptions import Resolver404
 
-from ..transactions import get_current_transaction
 from ..utils import set_custom_attribute
 from .utils import (
     _get_catch_all_code_owner,
@@ -15,7 +14,46 @@ from .utils import (
     set_code_owner_custom_attributes
 )
 
+try:
+    import newrelic.agent
+except ImportError:
+    newrelic = None  # pylint: disable=invalid-name
+
 log = logging.getLogger(__name__)
+
+
+class MonitoringTransaction():
+    """
+    Represents a monitoring transaction (likely the current transaction).
+    """
+    def __init__(self, transaction):
+        self.transaction = transaction
+
+    @property
+    def name(self):
+        """
+        The name of the transaction.
+
+        For NewRelic, the name may look like:
+            openedx.core.djangoapps.contentserver.middleware:StaticContentServer
+
+        """
+        if self.transaction and hasattr(self.transaction, 'name'):
+            return self.transaction.name
+        return None
+
+
+def get_current_transaction():
+    """
+    Returns the current transaction. This is only used internally and won't
+    be ported over to the backends framework, because transactions will be
+    very different based on the backend.
+    """
+    current_transaction = None
+    if newrelic:
+        current_transaction = newrelic.agent.current_transaction()
+
+    return MonitoringTransaction(current_transaction)
 
 
 class CodeOwnerMonitoringMiddleware:
@@ -107,7 +145,7 @@ class CodeOwnerMonitoringMiddleware:
         # TODO: Replace ImportError with ModuleNotFoundError when Python 3.5 support is dropped.
         except (ImportError, Resolver404) as e:
             return None, str(e)
-        except Exception as e:  # pylint: disable=broad-except; #pragma: no cover
+        except Exception as e:  # pragma: no cover
             # will remove broad exceptions after ensuring all proper cases are covered
             set_custom_attribute('deprecated_broad_except__get_module_from_request_path', e.__class__)
             return None, str(e)
@@ -131,7 +169,7 @@ class CodeOwnerMonitoringMiddleware:
             module = transaction_name.split(':')[0]
             set_custom_attribute('code_owner_transaction_name', transaction_name)
             return module, None
-        except Exception as e:  # pylint: disable=broad-except
+        except Exception as e:
             # will remove broad exceptions after ensuring all proper cases are covered
             set_custom_attribute('deprecated_broad_except___get_module_from_current_transaction', e.__class__)
             return None, str(e)

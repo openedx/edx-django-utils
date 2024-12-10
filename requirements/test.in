@@ -4,6 +4,10 @@
 -r base.txt               # Core dependencies for this package
 
 ddt                       # Run a test case multiple times with different input
+factory_boy               # Test factory framework
 mock                      # Backport of unittest.mock, available in Python 3.3
 pytest-cov                # pytest extension for code coverage statistics
 pytest-django             # pytest extension for better Django support
+newrelic                  # Required for testing NewRelicBackend
+opentelemetry-api         # Required for testing OpenTelemetryBackend
+ddtrace                   # Required for testing DatadogBackend

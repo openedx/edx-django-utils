@@ -23,5 +23,7 @@ def get_plugin_apps(project_type):
         if getattr(app_config, constants.PLUGIN_APP_CLASS_ATTRIBUTE_NAME, None)
         is not None
     ]
-    log.debug("Plugin Apps: Found %s", plugin_apps)
+    # Note: This may not actually get logged; in edx-platform at least, logging seems to be
+    # set at WARN at the time this is actually called.
+    log.info(f"WARN: Plugin apps: For project type {project_type!r}, found {plugin_apps!r}")
     return plugin_apps
