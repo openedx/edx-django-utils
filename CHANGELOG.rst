@@ -11,6 +11,49 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+7.1.0 - 2024-12-05
+------------------
+Added
+~~~~~
+* Added signals monitoring_support_process_request, monitoring_support_process_response, and monitoring_support_process_exception to the MonitoringSupportMiddleware to enable plugging in monitoring capabilities.
+
+7.0.1 - 2024-11-21
+------------------
+Fixed
+~~~~~
+* Fix bug where code owner custom attributes were being defined, even when the CODE_OWNER_MAPPINGS setting was not defined.
+
+7.0.0 - 2024-10-16
+------------------
+Removed
+~~~~~~~
+* Remove unused ``background_task`` monitoring function.
+* Remove ``get_current_transaction`` (used internally only) from the public API.
+
+[6.1.0] - 2024-10-15
+---------------------
+Changed
+~~~~~~~
+* Added Datadog implementation of  ``set_monitoring_transaction_name`` and refactored the functionality.
+
+[6.0.0] - 2024-10-09
+---------------------
+Added
+~~~~~
+* Added support for python3.12
+* Dropped support for python<3.12 versions
+
+[5.16.0] - 2024-09-27
+---------------------
+Added
+~~~~~
+* Added a new method to backends for ``tag_root_span_with_error`` and added Datadog implementation of the functionality.
+* Uses the new method to tag the root span when processing exceptions.
+
+Changed
+~~~~~~~
+* Renamed ``CachedCustomMonitoringMiddleware`` to ``MonitoringSupportMiddleware`` and deprecated the old name. It will be removed in a future release.
+
 [5.15.0] - 2024-07-29
 ---------------------
 Added

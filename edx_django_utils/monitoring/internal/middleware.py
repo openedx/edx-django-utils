@@ -21,6 +21,11 @@ from django.utils.deprecation import MiddlewareMixin
 
 from edx_django_utils.cache import RequestCache
 from edx_django_utils.logging import encrypt_for_log
+from edx_django_utils.monitoring.signals import (
+    monitoring_support_process_exception,
+    monitoring_support_process_request,
+    monitoring_support_process_response
+)
 
 from .backends import configured_backends
 
@@ -70,11 +75,17 @@ class DeploymentMonitoringMiddleware:
         _set_custom_attribute('python_version', platform.python_version())
 
 
-class CachedCustomMonitoringMiddleware(MiddlewareMixin):
+class MonitoringSupportMiddleware(MiddlewareMixin):
     """
-    Middleware batch reports cached custom attributes at the end of a request.
+    Middleware to support monitoring.
 
-    Make sure to add below the request cache in MIDDLEWARE.
+    1. Send process request, response, and exception signals to enable
+       plugins to add custom monitoring.
+    2. Middleware batch reports cached custom attributes at the end of a request.
+    3. Middleware adds error span tags to the root span.
+
+    Make sure to add below the request cache in MIDDLEWARE, but as early
+    in the stack of middleware as possible.
 
     This middleware will only call on the telemetry collector if there are any attributes
     to report for this request, so it will not incur any processing overhead for
@@ -130,21 +141,52 @@ class CachedCustomMonitoringMiddleware(MiddlewareMixin):
         for key, value in attributes_cache.data.items():
             _set_custom_attribute(key, value)
 
-    # Whether or not there was an exception, report any custom NR attributes that
+    def _tag_root_span_with_error(self, exception):
+        """
+        Tags the root span with the exception information for all configured backends.
+        """
+        for backend in configured_backends():
+            backend.tag_root_span_with_error(exception)
+
+    # Whether or not there was an exception, report any custom attributes that
     # may have been collected.
+
+    def process_request(self, request):
+        """
+        Django middleware handler to process a request
+        """
+        monitoring_support_process_request.send_robust(
+            sender=self.__class__, request=request
+        )
 
     def process_response(self, request, response):
         """
         Django middleware handler to process a response
         """
+        monitoring_support_process_response.send_robust(
+            sender=self.__class__, request=request, response=response
+        )
         self._batch_report()
         return response
 
-    def process_exception(self, request, exception):    # pylint: disable=W0613
+    def process_exception(self, request, exception):
         """
         Django middleware handler to process an exception
         """
+        monitoring_support_process_exception.send_robust(
+            sender=self.__class__, request=request, exception=exception
+        )
         self._batch_report()
+        self._tag_root_span_with_error(exception)
+
+
+class CachedCustomMonitoringMiddleware(MonitoringSupportMiddleware):
+    """
+    DEPRECATED: Use MonitoringSupportMiddleware instead.
+
+    This is the old name for the MonitoringSupportMiddleware. We are keeping it
+    around for backwards compatibility until it can be fully removed.
+    """
 
 
 def _set_custom_attribute(key, value):

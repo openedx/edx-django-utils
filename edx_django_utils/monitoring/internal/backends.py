@@ -62,6 +62,20 @@ class TelemetryBackend(ABC):
         or create a new root span if not currently in a span.
         """
 
+    @abstractmethod
+    def tag_root_span_with_error(self, exception):
+        """
+        Tags the root span with the given exception. This is primarily useful for
+        Datadog as New Relic handles this behavior correctly. Unclear if this is also needs to
+        be implemented for OTEL.
+        """
+
+    @abstractmethod
+    def set_local_root_span_name(self, name, group=None, priority=None):
+        """
+        Sets the name, group, and priority for a span.
+        """
+
 
 class NewRelicBackend(TelemetryBackend):
     """
@@ -96,6 +110,13 @@ class NewRelicBackend(TelemetryBackend):
             nr_transaction = newrelic.agent.current_transaction()
             return newrelic.agent.FunctionTrace(nr_transaction, name)
 
+    def tag_root_span_with_error(self, exception):
+        # Does not need to be implemented for NewRelic, because it is handled automatically.
+        pass
+
+    def set_local_root_span_name(self, name, group=None, priority=None):
+        newrelic.agent.set_transaction_name(name, group, priority)
+
 
 class OpenTelemetryBackend(TelemetryBackend):
     """
@@ -121,6 +142,14 @@ class OpenTelemetryBackend(TelemetryBackend):
         # Currently, this is not implemented.
         pass
 
+    def tag_root_span_with_error(self, exception):
+        # Currently, this is not implemented for OTel
+        pass
+
+    def set_local_root_span_name(self, name, group=None, priority=None):
+        # Currently this is not implemented
+        pass
+
 
 class DatadogBackend(TelemetryBackend):
     """
@@ -144,6 +173,15 @@ class DatadogBackend(TelemetryBackend):
 
     def create_span(self, name):
         return self.dd_tracer.trace(name)
+
+    def tag_root_span_with_error(self, exception):
+        root_span = self.dd_tracer.current_root_span()
+        root_span.set_exc_info(type(exception), exception, exception.__traceback__)
+
+    def set_local_root_span_name(self, name, group=None, priority=None):
+        # For Datadog, this updates the 'resource_name' to the given name.
+        local_root_span = self.dd_tracer.current_root_span()
+        local_root_span.resource = name
 
 
 # We're using an lru_cache instead of assigning the result to a variable on
