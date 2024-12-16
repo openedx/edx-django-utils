@@ -24,7 +24,7 @@ bytecode==0.16.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
-certifi==2024.8.30
+certifi==2024.12.14
     # via requests
 cffi==1.17.1
     # via
@@ -43,7 +43,7 @@ cryptography==44.0.0
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==2.17.2
+ddtrace==2.17.3
     # via -r requirements/test.txt
 deprecated==1.2.15
     # via
@@ -121,11 +121,11 @@ more-itertools==10.5.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.3.1
+newrelic==10.4.0
     # via -r requirements/test.txt
 nh3==0.2.19
     # via readme-renderer
-opentelemetry-api==1.28.2
+opentelemetry-api==1.29.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -227,7 +227,7 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django
