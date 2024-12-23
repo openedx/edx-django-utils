@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==3.3.6
+astroid==3.3.7
     # via
     #   pylint
     #   pylint-celery
@@ -20,7 +20,7 @@ cffi==1.17.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-click==8.1.7
+click==8.1.8
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -28,7 +28,7 @@ click==8.1.7
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==2.0.0
+code-annotations==2.1.0
     # via edx-lint
 coverage[toml]==7.6.9
     # via
@@ -36,7 +36,7 @@ coverage[toml]==7.6.9
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==2.17.2
+ddtrace==2.18.1
     # via -r requirements/test.txt
 deprecated==1.2.15
     # via
@@ -78,7 +78,7 @@ isort==5.13.2
     # via
     #   -r requirements/quality.in
     #   pylint
-jinja2==3.1.4
+jinja2==3.1.5
     # via code-annotations
 markupsafe==3.0.2
     # via jinja2
@@ -86,9 +86,9 @@ mccabe==0.7.0
     # via pylint
 mock==5.1.0
     # via -r requirements/test.txt
-newrelic==10.3.1
+newrelic==10.4.0
     # via -r requirements/test.txt
-opentelemetry-api==1.28.2
+opentelemetry-api==1.29.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -106,11 +106,11 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-protobuf==5.29.1
+protobuf==5.29.2
     # via
     #   -r requirements/test.txt
     #   ddtrace
-psutil==6.1.0
+psutil==6.1.1
     # via -r requirements/test.txt
 pycodestyle==2.12.1
     # via -r requirements/quality.in
@@ -160,7 +160,7 @@ six==1.17.0
     #   python-dateutil
 snowballstemmer==2.2.0
     # via pydocstyle
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django

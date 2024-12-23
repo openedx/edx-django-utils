@@ -14,13 +14,13 @@ cffi==1.17.1
     # via
     #   -r requirements/base.txt
     #   pynacl
-click==8.1.7
+click==8.1.8
     # via -r requirements/base.txt
 coverage[toml]==7.6.9
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==2.17.2
+ddtrace==2.18.1
     # via -r requirements/test.in
 deprecated==1.2.15
     # via opentelemetry-api
@@ -45,11 +45,11 @@ iniconfig==2.0.0
     # via pytest
 mock==5.1.0
     # via -r requirements/test.in
-newrelic==10.3.1
+newrelic==10.4.0
     # via
     #   -r requirements/base.txt
     #   -r requirements/test.in
-opentelemetry-api==1.28.2
+opentelemetry-api==1.29.0
     # via
     #   -r requirements/test.in
     #   ddtrace
@@ -61,9 +61,9 @@ pbr==6.1.0
     #   stevedore
 pluggy==1.5.0
     # via pytest
-protobuf==5.29.1
+protobuf==5.29.2
     # via ddtrace
-psutil==6.1.0
+psutil==6.1.1
     # via -r requirements/base.txt
 pycparser==2.22
     # via
@@ -83,7 +83,7 @@ python-dateutil==2.9.0.post0
     # via faker
 six==1.17.0
     # via python-dateutil
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
     #   django
