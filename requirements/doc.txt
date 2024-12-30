@@ -24,18 +24,18 @@ bytecode==0.16.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
-certifi==2024.8.30
+certifi==2024.12.14
     # via requests
 cffi==1.17.1
     # via
     #   -r requirements/test.txt
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.0
+charset-normalizer==3.4.1
     # via requests
-click==8.1.7
+click==8.1.8
     # via -r requirements/test.txt
-coverage[toml]==7.6.9
+coverage[toml]==7.6.10
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -43,7 +43,7 @@ cryptography==44.0.0
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==2.17.2
+ddtrace==2.18.1
     # via -r requirements/test.txt
 deprecated==1.2.15
     # via
@@ -105,9 +105,9 @@ jeepney==0.8.0
     # via
     #   keyring
     #   secretstorage
-jinja2==3.1.4
+jinja2==3.1.5
     # via sphinx
-keyring==25.5.0
+keyring==25.6.0
     # via twine
 markdown-it-py==3.0.0
     # via rich
@@ -121,11 +121,11 @@ more-itertools==10.5.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.3.1
+newrelic==10.4.0
     # via -r requirements/test.txt
-nh3==0.2.19
+nh3==0.2.20
     # via readme-renderer
-opentelemetry-api==1.28.2
+opentelemetry-api==1.29.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -145,17 +145,17 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-protobuf==5.29.1
+protobuf==5.29.2
     # via
     #   -r requirements/test.txt
     #   ddtrace
-psutil==6.1.0
+psutil==6.1.1
     # via -r requirements/test.txt
 pycparser==2.22
     # via
     #   -r requirements/test.txt
     #   cffi
-pydata-sphinx-theme==0.16.0
+pydata-sphinx-theme==0.16.1
     # via sphinx-book-theme
 pygments==2.18.0
     # via
@@ -227,7 +227,7 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-sqlparse==0.5.2
+sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django
@@ -243,7 +243,7 @@ typing-extensions==4.12.2
     #   ddtrace
     #   faker
     #   pydata-sphinx-theme
-urllib3==2.2.3
+urllib3==2.3.0
     # via
     #   requests
     #   twine
