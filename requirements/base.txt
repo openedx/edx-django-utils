@@ -10,7 +10,7 @@ cffi==1.17.1
     # via pynacl
 click==8.1.8
     # via -r requirements/base.in
-django==4.2.17
+django==4.2.18
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in

@@ -46,7 +46,7 @@ click-log==0.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -60,7 +60,7 @@ coverage[toml]==7.6.10
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-ddtrace==2.18.1
+ddtrace==2.19.1
     # via -r requirements/quality.txt
 deprecated==1.2.15
     # via
@@ -78,7 +78,7 @@ distlib==0.3.9
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.17
+django==4.2.18
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -99,7 +99,7 @@ envier==0.6.1
     #   ddtrace
 factory-boy==3.3.1
     # via -r requirements/quality.txt
-faker==33.3.0
+faker==33.3.1
     # via
     #   -r requirements/quality.txt
     #   factory-boy
@@ -146,7 +146,7 @@ mccabe==0.7.0
     #   pylint
 mock==5.1.0
     # via -r requirements/quality.txt
-more-itertools==10.5.0
+more-itertools==10.6.0
     # via inflect
 newrelic==10.4.0
     # via -r requirements/quality.txt
@@ -187,7 +187,7 @@ pluggy==1.5.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-protobuf==5.29.2
+protobuf==5.29.3
     # via
     #   -r requirements/quality.txt
     #   ddtrace
@@ -201,7 +201,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pygments==2.19.0
+pygments==2.19.1
     # via diff-cover
 pylint==3.3.3
     # via
@@ -292,7 +292,7 @@ typing-extensions==4.12.2
     #   ddtrace
     #   faker
     #   typeguard
-virtualenv==20.28.1
+virtualenv==20.29.1
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -300,7 +300,7 @@ wheel==0.45.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-wrapt==1.17.0
+wrapt==1.17.2
     # via
     #   -r requirements/quality.txt
     #   ddtrace
