@@ -95,7 +95,7 @@ def record_exception():
 
 
 @contextmanager
-def function_trace(function_name):
+def function_trace(function_name, **kwargs):
     """
     Wraps a chunk of code that we want to appear as a separate, explicit,
     segment in our monitoring tools.
@@ -106,7 +106,7 @@ def function_trace(function_name):
     # ExitStack handles the underlying context managers.
     with ExitStack() as stack:
         for backend in configured_backends():
-            context = backend.create_span(function_name)
+            context = backend.create_span(function_name, **kwargs)
             if context is not None:
                 stack.enter_context(context)
         yield

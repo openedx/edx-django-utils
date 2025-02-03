@@ -51,7 +51,7 @@ class TelemetryBackend(ABC):
         """
 
     @abstractmethod
-    def create_span(self, name):
+    def create_span(self, name, **kwargs):
         """
         Start a tracing span with the given name, returning a context manager instance.
 
@@ -60,6 +60,8 @@ class TelemetryBackend(ABC):
 
         Implementations should create a new child span parented to the current span,
         or create a new root span if not currently in a span.
+
+        Additional keyword arguments can be passed to customize the span creation.
         """
 
     @abstractmethod
@@ -103,7 +105,7 @@ class NewRelicBackend(TelemetryBackend):
         # https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/recordexception-python-agent-api/
         newrelic.agent.record_exception()
 
-    def create_span(self, name):
+    def create_span(self, name, **kwargs):
         if newrelic.version_info[0] >= 5:
             return newrelic.agent.FunctionTrace(name)
         else:
@@ -138,7 +140,7 @@ class OpenTelemetryBackend(TelemetryBackend):
     def record_exception(self):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
-    def create_span(self, name):
+    def create_span(self, name, **kwargs):
         # Currently, this is not implemented.
         pass
 
@@ -171,8 +173,8 @@ class DatadogBackend(TelemetryBackend):
         if span := self.dd_tracer.current_span():
             span.set_traceback()
 
-    def create_span(self, name):
-        return self.dd_tracer.trace(name)
+    def create_span(self, name, **kwargs):
+        return self.dd_tracer.trace(name, **kwargs)
 
     def tag_root_span_with_error(self, exception):
         root_span = self.dd_tracer.current_root_span()
