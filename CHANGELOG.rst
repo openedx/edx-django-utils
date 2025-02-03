@@ -11,6 +11,12 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+7.2.0 - 2025-02-03
+------------------
+Added
+~~~~~
+* Added support for passing `**kwargs` to the `create_span` method in the `TelemetryBackend` abstract class. This enables backends to accept additional span configuration options, such as custom metadata or attributes, when creating spans.
+
 7.1.0 - 2024-12-05
 ------------------
 Added
