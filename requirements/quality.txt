@@ -12,7 +12,7 @@ astroid==3.3.8
     # via
     #   pylint
     #   pylint-celery
-bytecode==0.16.0
+bytecode==0.16.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -28,23 +28,23 @@ click==8.1.8
     #   edx-lint
 click-log==0.4.0
     # via edx-lint
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via edx-lint
-coverage[toml]==7.6.10
+coverage[toml]==7.6.11
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==2.18.1
+ddtrace==2.20.0
     # via -r requirements/test.txt
-deprecated==1.2.15
+deprecated==1.2.18
     # via
     #   -r requirements/test.txt
     #   opentelemetry-api
 dill==0.3.9
     # via pylint
-django==4.2.17
+django==4.2.19
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -54,15 +54,15 @@ django-crum==0.7.9
     # via -r requirements/test.txt
 django-waffle==4.2.0
     # via -r requirements/test.txt
-edx-lint==5.4.1
+edx-lint==5.6.0
     # via -r requirements/quality.in
 envier==0.6.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
-factory-boy==3.3.1
+factory-boy==3.3.3
     # via -r requirements/test.txt
-faker==33.3.0
+faker==35.2.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -74,7 +74,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==5.13.2
+isort==6.0.0
     # via
     #   -r requirements/quality.in
     #   pylint
@@ -86,9 +86,9 @@ mccabe==0.7.0
     # via pylint
 mock==5.1.0
     # via -r requirements/test.txt
-newrelic==10.4.0
+newrelic==10.6.0
     # via -r requirements/test.txt
-opentelemetry-api==1.29.0
+opentelemetry-api==1.30.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -96,7 +96,7 @@ packaging==24.2
     # via
     #   -r requirements/test.txt
     #   pytest
-pbr==6.1.0
+pbr==6.1.1
     # via
     #   -r requirements/test.txt
     #   stevedore
@@ -106,7 +106,7 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-protobuf==5.29.2
+protobuf==5.29.3
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -120,7 +120,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.3.3
+pylint==3.3.4
     # via
     #   edx-lint
     #   pylint-celery
@@ -177,7 +177,7 @@ typing-extensions==4.12.2
     #   -r requirements/test.txt
     #   ddtrace
     #   faker
-wrapt==1.17.0
+wrapt==1.17.2
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -190,3 +190,6 @@ zipp==3.21.0
     # via
     #   -r requirements/test.txt
     #   importlib-metadata
+
+# The following packages are considered to be unsafe in a requirements file:
+# setuptools
