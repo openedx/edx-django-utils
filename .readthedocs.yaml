@@ -1,17 +1,29 @@
-# .readthedocs.yaml
+# .readthedocs.yml
 # Read the Docs configuration file
 # See https://docs.readthedocs.io/en/stable/config-file/v2.html for details
 
-# Required
+# Required: the version of this file's schema.
 version: 2
 
 # Build documentation in the docs/ directory with Sphinx
 sphinx:
-   configuration: docs/conf.py
-   # TODO: Fix autodoc warnings and set this to true. See https://github.com/openedx/edx-django-utils/issues/304
-   fail_on_warning: false
+  configuration: docs/conf.py
+    #  fail_on_warning: true
 
+# Optionally build your docs in additional formats such as PDF
+# formats:
+#   - pdf
+#   - epub
+
+# Set the version of python needed to build these docs.
+build:
+  os: "ubuntu-lts-latest"
+  tools:
+    python: "3.12"
+  apt_packages:
+    - graphviz
+
+# Optionally set the requirements required to build your docs
 python:
-   version: 3.8
-   install:
-   - requirements: requirements/doc.txt
+  install:
+    - requirements: requirements/doc.txt
