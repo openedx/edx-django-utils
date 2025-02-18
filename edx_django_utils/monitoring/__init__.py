@@ -24,6 +24,7 @@ from .internal.utils import (
     accumulate,
     function_trace,
     increment,
+    monitor_django_management_command,
     record_exception,
     set_custom_attribute,
     set_custom_attributes_for_course_key,

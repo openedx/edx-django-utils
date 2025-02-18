@@ -126,3 +126,28 @@ Monitoring Memory Usage
 -----------------------
 
 In addition to adding the MonitoringMemoryMiddleware, you will need to enable a waffle switch ``edx_django_utils.monitoring.enable_memory_middleware`` to enable the additional monitoring.
+
+Monitoring Django Management Commands
+-------------------------------------
+
+The ``monitor_django_management_command`` utility provides monitoring support for Django management commands.
+See the docstring for complete configuration details.
+
+Here's an example of how to integrate it into your ``manage.py``:
+
+.. code-block:: python
+
+    if __name__ == "__main__":
+        ...
+        from django.conf import settings
+        from django.core.management import execute_from_command_line
+
+        monitoring_enabled = getattr(settings, "ENABLE_CUSTOM_MANAGEMENT_COMMAND_MONITORING", False)
+
+        if monitoring_enabled and len(sys.argv) > 1:
+            from edx_django_utils.monitoring import monitor_django_management_command
+
+            with monitor_django_management_command(sys.argv[1]):
+                execute_from_command_line(sys.argv)
+        else:
+            execute_from_command_line(sys.argv)
