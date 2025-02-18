@@ -19,6 +19,8 @@ At this time, the custom monitoring will only be reported to New Relic.
 """
 from contextlib import ExitStack, contextmanager
 
+from django.conf import settings
+
 from .backends import configured_backends
 from .middleware import CachedCustomMonitoringMiddleware
 
@@ -26,6 +28,33 @@ try:
     import newrelic.agent
 except ImportError:  # pragma: no cover
     newrelic = None  # pylint: disable=invalid-name
+
+
+# pylint: disable=setting-boolean-default-value
+def _get_enable_custom_management_command_monitoring():
+    """
+    Returns whether custom Django management command monitoring is enabled.
+
+    .. setting_name: ENABLE_CUSTOM_MANAGEMENT_COMMAND_MONITORING
+    .. setting_default: False
+    .. setting_description: A boolean flag that determines whether Django management command executions
+        should be explicitly monitored.
+    """
+    return getattr(settings, 'ENABLE_CUSTOM_MANAGEMENT_COMMAND_MONITORING', False)
+
+
+def _get_django_management_monitoring_function_trace_name():
+    """
+    Returns the function trace name used for monitoring Django management commands.
+
+    .. setting_name: DJANGO_MANAGEMENT_MONITORING_FUNCTION_TRACE_NAME
+    .. setting_default: 'django.command'
+    .. setting_description: This setting specifies the function trace name that will be used when monitoring
+        Django management commands. It helps group and categorize monitoring spans for better visibility.
+    .. setting_warning: Ensure this setting is properly configured to align with your monitoring tools,
+        as an incorrect name may lead to untracked or misclassified spans.
+    """
+    return getattr(settings, 'DJANGO_MANAGEMENT_MONITORING_FUNCTION_TRACE_NAME', 'django.command')
 
 
 def accumulate(name, value):
@@ -143,3 +172,26 @@ def background_task(*args, **kwargs):
         return newrelic.agent.background_task(*args, **kwargs)
     else:
         return noop_decorator
+
+
+@contextmanager
+def monitor_django_management_command(name):
+    """
+    Context manager for monitoring Django management commands.
+
+    - Creates a monitoring span using `function_trace`, allowing the execution
+      of the command to be tracked explicitly in monitoring tools.
+    - Sets the transaction name using `set_monitoring_transaction_name`
+      to the name of the command, provided in the `name` argument.
+    - Only applies monitoring if `ENABLE_CUSTOM_MANAGEMENT_COMMAND_MONITORING` is enabled.
+    """
+
+    custom_command_monitoring_enabled = _get_enable_custom_management_command_monitoring()
+    trace_name = _get_django_management_monitoring_function_trace_name()
+
+    if custom_command_monitoring_enabled:
+        with function_trace(trace_name):
+            set_monitoring_transaction_name(name)
+            yield
+    else:
+        yield

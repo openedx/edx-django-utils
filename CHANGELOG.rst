@@ -11,6 +11,12 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+7.2.0 - 2025-02-18
+------------------
+Added
+~~~~~
+* Added ``monitor_django_management_command`` to enable monitoring of Django management commands.
+
 7.1.0 - 2024-12-05
 ------------------
 Added
