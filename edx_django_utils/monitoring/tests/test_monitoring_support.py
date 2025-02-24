@@ -171,7 +171,7 @@ class TestMonitoringSupportMiddleware(TestCase):
                 request='fake request', exception=fake_exception
             )
 
-    @patch('ddtrace.Tracer.current_root_span')
+    @patch('ddtrace._trace.tracer.Tracer.current_root_span')
     def test_error_tagging(self, mock_get_root_span):
         # Ensure that we continue to support tagging exceptions in MonitoringSupportMiddleware.
         # This is only implemented for DatadogBackend at the moment.
