@@ -17,11 +17,11 @@ build==1.2.2.post1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-bytecode==0.16.0
+bytecode==0.16.1
     # via
     #   -r requirements/quality.txt
     #   ddtrace
-cachetools==5.5.0
+cachetools==5.5.2
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -46,7 +46,7 @@ click-log==0.4.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
-code-annotations==2.1.0
+code-annotations==2.2.0
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -54,15 +54,15 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.6.10
+coverage[toml]==7.6.12
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-ddtrace==2.18.1
+ddtrace==3.0.0
     # via -r requirements/quality.txt
-deprecated==1.2.15
+deprecated==1.2.18
     # via
     #   -r requirements/quality.txt
     #   opentelemetry-api
@@ -78,7 +78,7 @@ distlib==0.3.9
     # via
     #   -r requirements/ci.txt
     #   virtualenv
-django==4.2.17
+django==4.2.19
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/quality.txt
@@ -91,19 +91,19 @@ django-waffle==4.2.0
     # via -r requirements/quality.txt
 edx-i18n-tools==1.6.3
     # via -r requirements/dev.in
-edx-lint==5.4.1
+edx-lint==5.6.0
     # via -r requirements/quality.txt
 envier==0.6.1
     # via
     #   -r requirements/quality.txt
     #   ddtrace
-factory-boy==3.3.1
+factory-boy==3.3.3
     # via -r requirements/quality.txt
-faker==33.3.0
+faker==36.1.1
     # via
     #   -r requirements/quality.txt
     #   factory-boy
-filelock==3.16.1
+filelock==3.17.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -118,7 +118,7 @@ iniconfig==2.0.0
     # via
     #   -r requirements/quality.txt
     #   pytest
-isort==5.13.2
+isort==6.0.0
     # via
     #   -r requirements/quality.txt
     #   pylint
@@ -130,7 +130,7 @@ jinja2==3.1.5
     #   jinja2-pluralize
 jinja2-pluralize==0.3.0
     # via diff-cover
-lxml[html-clean,html_clean]==5.3.0
+lxml[html-clean,html_clean]==5.3.1
     # via
     #   edx-i18n-tools
     #   lxml-html-clean
@@ -146,11 +146,11 @@ mccabe==0.7.0
     #   pylint
 mock==5.1.0
     # via -r requirements/quality.txt
-more-itertools==10.5.0
+more-itertools==10.6.0
     # via inflect
-newrelic==10.4.0
+newrelic==10.6.0
     # via -r requirements/quality.txt
-opentelemetry-api==1.29.0
+opentelemetry-api==1.30.0
     # via
     #   -r requirements/quality.txt
     #   ddtrace
@@ -165,7 +165,7 @@ packaging==24.2
     #   tox
 path==16.16.0
     # via edx-i18n-tools
-pbr==6.1.0
+pbr==6.1.1
     # via
     #   -r requirements/quality.txt
     #   stevedore
@@ -187,11 +187,11 @@ pluggy==1.5.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-protobuf==5.29.2
+protobuf==5.29.3
     # via
     #   -r requirements/quality.txt
     #   ddtrace
-psutil==6.1.1
+psutil==7.0.0
     # via -r requirements/quality.txt
 pycodestyle==2.12.1
     # via -r requirements/quality.txt
@@ -201,9 +201,9 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.txt
-pygments==2.19.0
+pygments==2.19.1
     # via diff-cover
-pylint==3.3.3
+pylint==3.3.4
     # via
     #   -r requirements/quality.txt
     #   edx-lint
@@ -225,7 +225,7 @@ pylint-plugin-utils==0.8.2
     #   pylint-django
 pynacl==1.5.0
     # via -r requirements/quality.txt
-pyproject-api==1.8.0
+pyproject-api==1.9.0
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -241,13 +241,10 @@ pytest==8.3.4
     #   pytest-django
 pytest-cov==6.0.0
     # via -r requirements/quality.txt
-pytest-django==4.9.0
+pytest-django==4.10.0
     # via -r requirements/quality.txt
 python-dateutil==2.9.0.post0
-    # via
-    #   -r requirements/dev.in
-    #   -r requirements/quality.txt
-    #   faker
+    # via -r requirements/dev.in
 python-slugify==8.0.4
     # via
     #   -r requirements/quality.txt
@@ -270,7 +267,7 @@ sqlparse==0.5.3
     # via
     #   -r requirements/quality.txt
     #   django
-stevedore==5.4.0
+stevedore==5.4.1
     # via
     #   -r requirements/quality.txt
     #   code-annotations
@@ -282,17 +279,20 @@ tomlkit==0.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.23.2
+tox==4.24.1
     # via -r requirements/ci.txt
-typeguard==4.4.1
+typeguard==4.4.2
     # via inflect
 typing-extensions==4.12.2
     # via
     #   -r requirements/quality.txt
     #   ddtrace
-    #   faker
     #   typeguard
-virtualenv==20.28.1
+tzdata==2025.1
+    # via
+    #   -r requirements/quality.txt
+    #   faker
+virtualenv==20.29.2
     # via
     #   -r requirements/ci.txt
     #   tox
@@ -300,7 +300,7 @@ wheel==0.45.1
     # via
     #   -r requirements/pip-tools.txt
     #   pip-tools
-wrapt==1.17.0
+wrapt==1.17.2
     # via
     #   -r requirements/quality.txt
     #   ddtrace
