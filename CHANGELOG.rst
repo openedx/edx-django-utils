@@ -11,6 +11,16 @@ Change Log
 
 .. There should always be an "Unreleased" section for changes pending release.
 
+Unreleased
+----------
+
+
+7.2.0 - 2025-02-26
+------------------
+Removed
+~~~~~~~
+* Removed deprecated monitoring middleware Classes
+
 7.1.0 - 2024-12-05
 ------------------
 Added
