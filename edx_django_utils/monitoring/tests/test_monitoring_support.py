@@ -10,7 +10,12 @@ import ddt
 from django.test import TestCase, override_settings
 
 from edx_django_utils.cache import RequestCache
-from edx_django_utils.monitoring import CachedCustomMonitoringMiddleware, MonitoringSupportMiddleware, accumulate, increment
+from edx_django_utils.monitoring import (
+    CachedCustomMonitoringMiddleware,
+    MonitoringSupportMiddleware,
+    accumulate,
+    increment
+)
 from edx_django_utils.monitoring.signals import (
     monitoring_support_process_exception,
     monitoring_support_process_request,
