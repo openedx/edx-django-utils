@@ -10,15 +10,18 @@ import ddt
 from django.test import TestCase, override_settings
 
 from edx_django_utils.cache import RequestCache
-from edx_django_utils.monitoring import MonitoringSupportMiddleware, accumulate, increment
+from edx_django_utils.monitoring import (
+    CachedCustomMonitoringMiddleware,
+    MonitoringSupportMiddleware,
+    accumulate,
+    increment
+)
 from edx_django_utils.monitoring.signals import (
     monitoring_support_process_exception,
     monitoring_support_process_request,
     monitoring_support_process_response
 )
 
-from ..middleware import CachedCustomMonitoringMiddleware as DeprecatedCachedCustomMonitoringMiddleware
-from ..middleware import MonitoringCustomMetricsMiddleware as DeprecatedMonitoringCustomMetricsMiddleware
 from ..utils import accumulate as deprecated_accumulate
 from ..utils import increment as deprecated_increment
 from ..utils import set_custom_attribute as deprecated_set_custom_attribute
@@ -39,8 +42,7 @@ class TestMonitoringSupportMiddleware(TestCase):
     @ddt.data(
         (MonitoringSupportMiddleware, False, 'process_response'),
         (MonitoringSupportMiddleware, False, 'process_exception'),
-        (DeprecatedCachedCustomMonitoringMiddleware, True, 'process_response'),
-        (DeprecatedMonitoringCustomMetricsMiddleware, True, 'process_response'),
+        (CachedCustomMonitoringMiddleware, False, 'process_response'),
     )
     @ddt.unpack
     def test_accumulate_and_increment(
@@ -83,8 +85,7 @@ class TestMonitoringSupportMiddleware(TestCase):
     @patch('newrelic.agent')
     @ddt.data(
         (MonitoringSupportMiddleware, False),
-        (DeprecatedCachedCustomMonitoringMiddleware, True),
-        (DeprecatedMonitoringCustomMetricsMiddleware, True),
+        (CachedCustomMonitoringMiddleware, False),
     )
     @ddt.unpack
     def test_accumulate_with_illegal_value(
