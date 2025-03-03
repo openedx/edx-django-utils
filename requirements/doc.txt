@@ -39,11 +39,11 @@ coverage[toml]==7.6.12
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==44.0.1
+cryptography==44.0.2
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.0.0
+ddtrace==3.1.0
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
@@ -103,7 +103,7 @@ jaraco-context==6.0.1
     # via keyring
 jaraco-functools==4.1.0
     # via keyring
-jeepney==0.8.0
+jeepney==0.9.0
     # via
     #   keyring
     #   secretstorage
@@ -125,7 +125,7 @@ more-itertools==10.6.0
     #   jaraco-functools
 newrelic==10.6.0
     # via -r requirements/test.txt
-nh3==0.2.20
+nh3==0.2.21
     # via readme-renderer
 opentelemetry-api==1.30.0
     # via
@@ -168,7 +168,7 @@ pygments==2.19.1
     #   sphinx
 pynacl==1.5.0
     # via -r requirements/test.txt
-pytest==8.3.4
+pytest==8.3.5
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
@@ -204,7 +204,7 @@ snowballstemmer==2.2.0
     # via sphinx
 soupsieve==2.6
     # via beautifulsoup4
-sphinx==8.2.1
+sphinx==8.2.3
     # via
     #   -r requirements/doc.in
     #   pydata-sphinx-theme
