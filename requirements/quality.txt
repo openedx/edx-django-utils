@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==3.3.8
+astroid==3.3.9
     # via
     #   pylint
     #   pylint-celery
@@ -36,7 +36,7 @@ coverage[toml]==7.6.12
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.1.0
+ddtrace==3.2.1
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
@@ -44,7 +44,7 @@ deprecated==1.2.18
     #   opentelemetry-api
 dill==0.3.9
     # via pylint
-django==4.2.19
+django==4.2.20
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -62,7 +62,7 @@ envier==0.6.1
     #   ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.txt
-faker==36.1.1
+faker==37.0.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -78,15 +78,15 @@ isort==6.0.1
     # via
     #   -r requirements/quality.in
     #   pylint
-jinja2==3.1.5
+jinja2==3.1.6
     # via code-annotations
 markupsafe==3.0.2
     # via jinja2
 mccabe==0.7.0
     # via pylint
-mock==5.1.0
+mock==5.2.0
     # via -r requirements/test.txt
-newrelic==10.6.0
+newrelic==10.7.0
     # via -r requirements/test.txt
 opentelemetry-api==1.30.0
     # via
@@ -106,7 +106,7 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-protobuf==5.29.3
+protobuf==6.30.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -120,7 +120,7 @@ pycparser==2.22
     #   cffi
 pydocstyle==6.3.0
     # via -r requirements/quality.in
-pylint==3.3.4
+pylint==3.3.5
     # via
     #   edx-lint
     #   pylint-celery
