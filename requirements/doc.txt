@@ -35,7 +35,7 @@ charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via -r requirements/test.txt
-coverage[toml]==7.6.12
+coverage[toml]==7.7.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -43,13 +43,13 @@ cryptography==44.0.2
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.1.0
+ddtrace==3.2.1
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
     #   -r requirements/test.txt
     #   opentelemetry-api
-django==4.2.19
+django==4.2.20
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -78,7 +78,7 @@ factory-boy==3.3.3
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==36.1.1
+faker==37.0.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -88,7 +88,7 @@ idna==3.10
     # via requests
 imagesize==1.4.1
     # via sphinx
-importlib-metadata==8.5.0
+importlib-metadata==8.6.1
     # via
     #   -r requirements/test.txt
     #   keyring
@@ -107,7 +107,7 @@ jeepney==0.9.0
     # via
     #   keyring
     #   secretstorage
-jinja2==3.1.5
+jinja2==3.1.6
     # via sphinx
 keyring==25.6.0
     # via twine
@@ -117,17 +117,17 @@ markupsafe==3.0.2
     # via jinja2
 mdurl==0.1.2
     # via markdown-it-py
-mock==5.1.0
+mock==5.2.0
     # via -r requirements/test.txt
 more-itertools==10.6.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.6.0
+newrelic==10.7.0
     # via -r requirements/test.txt
 nh3==0.2.21
     # via readme-renderer
-opentelemetry-api==1.30.0
+opentelemetry-api==1.31.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -146,7 +146,7 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-protobuf==5.29.3
+protobuf==6.30.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
