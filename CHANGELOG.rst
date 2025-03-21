@@ -14,6 +14,11 @@ Change Log
 Unreleased
 ----------
 
+7.3.0 - 2025-03-03
+------------------
+Added
+~~~~~
+* Added ``monitor_django_management_command`` to enable monitoring of Django management commands.
 
 7.2.0 - 2025-02-26
 ------------------
