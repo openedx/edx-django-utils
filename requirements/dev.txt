@@ -54,13 +54,13 @@ colorama==0.4.6
     # via
     #   -r requirements/ci.txt
     #   tox
-coverage[toml]==7.7.1
+coverage[toml]==7.8.0
     # via
     #   -r requirements/quality.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-ddtrace==3.2.1
+ddtrace==3.3.0
     # via -r requirements/quality.txt
 deprecated==1.2.18
     # via
@@ -99,7 +99,7 @@ envier==0.6.1
     #   ddtrace
 factory-boy==3.3.3
     # via -r requirements/quality.txt
-faker==37.0.2
+faker==37.1.0
     # via
     #   -r requirements/quality.txt
     #   factory-boy
@@ -148,7 +148,7 @@ mock==5.2.0
     # via -r requirements/quality.txt
 more-itertools==10.6.0
     # via inflect
-newrelic==10.7.0
+newrelic==10.8.0
     # via -r requirements/quality.txt
 opentelemetry-api==1.31.1
     # via
@@ -187,13 +187,13 @@ pluggy==1.5.0
     #   tox
 polib==1.2.0
     # via edx-i18n-tools
-protobuf==6.30.1
+protobuf==6.30.2
     # via
     #   -r requirements/quality.txt
     #   ddtrace
 psutil==7.0.0
     # via -r requirements/quality.txt
-pycodestyle==2.12.1
+pycodestyle==2.13.0
     # via -r requirements/quality.txt
 pycparser==2.22
     # via
@@ -279,11 +279,11 @@ tomlkit==0.13.2
     # via
     #   -r requirements/quality.txt
     #   pylint
-tox==4.24.2
+tox==4.25.0
     # via -r requirements/ci.txt
 typeguard==4.4.2
     # via inflect
-typing-extensions==4.12.2
+typing-extensions==4.13.0
     # via
     #   -r requirements/quality.txt
     #   ddtrace

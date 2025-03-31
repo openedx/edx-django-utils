@@ -35,7 +35,7 @@ charset-normalizer==3.4.1
     # via requests
 click==8.1.8
     # via -r requirements/test.txt
-coverage[toml]==7.7.1
+coverage[toml]==7.8.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
@@ -43,7 +43,7 @@ cryptography==44.0.2
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.2.1
+ddtrace==3.3.0
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
@@ -78,7 +78,7 @@ factory-boy==3.3.3
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==37.0.2
+faker==37.1.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -123,7 +123,7 @@ more-itertools==10.6.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.7.0
+newrelic==10.8.0
     # via -r requirements/test.txt
 nh3==0.2.21
     # via readme-renderer
@@ -146,7 +146,7 @@ pluggy==1.5.0
     # via
     #   -r requirements/test.txt
     #   pytest
-protobuf==6.30.1
+protobuf==6.30.2
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -194,7 +194,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==13.9.4
+rich==14.0.0
     # via twine
 roman-numerals-py==3.1.0
     # via sphinx
@@ -233,7 +233,7 @@ stevedore==5.4.1
     #   doc8
 twine==6.1.0
     # via -r requirements/doc.in
-typing-extensions==4.12.2
+typing-extensions==4.13.0
     # via
     #   -r requirements/test.txt
     #   beautifulsoup4
