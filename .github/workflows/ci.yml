@@ -6,8 +6,6 @@ on:
   pull_request:
     branches:
     - '**'
-
-
 jobs:
   run_tests:
     name: tests
@@ -17,7 +15,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         python-version: ['3.12']
-        toxenv: [docs, quality, django42, django51]
+        toxenv: [docs, quality, django42, django52]
 
     steps:
     - uses: actions/checkout@v4
