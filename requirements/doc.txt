@@ -43,7 +43,7 @@ cryptography==44.0.2
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.3.0
+ddtrace==3.3.1
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
@@ -123,7 +123,7 @@ more-itertools==10.6.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.8.0
+newrelic==10.8.1
     # via -r requirements/test.txt
 nh3==0.2.21
     # via readme-renderer
@@ -174,9 +174,9 @@ pytest==8.3.5
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.0.0
+pytest-cov==6.1.1
     # via -r requirements/test.txt
-pytest-django==4.10.0
+pytest-django==4.11.1
     # via -r requirements/test.txt
 readme-renderer==44.0
     # via
@@ -233,7 +233,7 @@ stevedore==5.4.1
     #   doc8
 twine==6.1.0
     # via -r requirements/doc.in
-typing-extensions==4.13.0
+typing-extensions==4.13.1
     # via
     #   -r requirements/test.txt
     #   beautifulsoup4
