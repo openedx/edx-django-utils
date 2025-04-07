@@ -20,7 +20,7 @@ coverage[toml]==7.8.0
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==3.3.0
+ddtrace==3.3.1
     # via -r requirements/test.in
 deprecated==1.2.18
     # via opentelemetry-api
@@ -45,7 +45,7 @@ iniconfig==2.1.0
     # via pytest
 mock==5.2.0
     # via -r requirements/test.in
-newrelic==10.8.0
+newrelic==10.8.1
     # via
     #   -r requirements/base.txt
     #   -r requirements/test.in
@@ -75,9 +75,9 @@ pytest==8.3.5
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.0.0
+pytest-cov==6.1.1
     # via -r requirements/test.in
-pytest-django==4.10.0
+pytest-django==4.11.1
     # via -r requirements/test.in
 sqlparse==0.5.3
     # via
@@ -85,7 +85,7 @@ sqlparse==0.5.3
     #   django
 stevedore==5.4.1
     # via -r requirements/base.txt
-typing-extensions==4.13.0
+typing-extensions==4.13.1
     # via ddtrace
 tzdata==2025.2
     # via faker
