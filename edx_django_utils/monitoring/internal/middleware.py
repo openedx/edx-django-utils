@@ -382,7 +382,7 @@ class CookieMonitoringMiddleware:
             id is available for authenticated calls.
 
         """
-        raw_header_cookie = request.META.get('HTTP_COOKIE', '')
+        raw_header_cookie = request.headers.get('cookie', '')
         cookie_header_size = len(raw_header_cookie.encode('utf-8'))
         # .. custom_attribute_name: cookies.header.size
         # .. custom_attribute_description: The total size in bytes of the cookie header.

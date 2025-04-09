@@ -53,7 +53,8 @@ class TestDeploymentMonitoringMiddleware(TestCase):
     """
     Test the DeploymentMonitoringMiddleware functionalities
     """
-    version_pattern = r'\d+(\.\d+){2}'
+    # To handle both major.minor and major.minor.patch versions
+    version_pattern = r'^\d+\.\d+(\.\d+)?'
 
     def setUp(self):
         super().setUp()
@@ -138,7 +139,7 @@ class CookieMonitoringMiddlewareTestCase(TestCase):
         middleware(request)
 
         mock_set_custom_attribute.assert_has_calls([
-            call('cookies.header.size', len(request.META['HTTP_COOKIE'])),
+            call('cookies.header.size', len(request.headers['cookie'])),
             call('cookies.header.corrupt_count', expected_corrupt_count),
             call('cookies.header.corrupt_key_count', expected_corrupt_key_count),
         ])
