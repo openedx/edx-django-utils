@@ -14,6 +14,11 @@ Change Log
 Unreleased
 ----------
 
+7.4.0 - 2025-04-10
+------------------
+* Same as 7.3.0
+* 7.3.0 tag was created but PyPI release job had failed
+
 7.3.0 - 2025-04-09
 ------------------
 Added
