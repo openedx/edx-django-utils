@@ -43,7 +43,7 @@ cryptography==44.0.2
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.3.1
+ddtrace==3.4.1
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
@@ -123,11 +123,11 @@ more-itertools==10.6.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.8.1
+newrelic==10.9.0
     # via -r requirements/test.txt
 nh3==0.2.21
     # via readme-renderer
-opentelemetry-api==1.31.1
+opentelemetry-api==1.32.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -233,7 +233,7 @@ stevedore==5.4.1
     #   doc8
 twine==6.1.0
     # via -r requirements/doc.in
-typing-extensions==4.13.1
+typing-extensions==4.13.2
     # via
     #   -r requirements/test.txt
     #   beautifulsoup4
