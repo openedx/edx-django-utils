@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/base.txt
     #   django
-bytecode==0.16.1
+bytecode==0.16.2
     # via ddtrace
 cffi==1.17.1
     # via
@@ -20,7 +20,7 @@ coverage[toml]==7.8.0
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==3.4.1
+ddtrace==3.5.1
     # via -r requirements/test.in
 deprecated==1.2.18
     # via opentelemetry-api
@@ -49,11 +49,11 @@ newrelic==10.9.0
     # via
     #   -r requirements/base.txt
     #   -r requirements/test.in
-opentelemetry-api==1.32.0
+opentelemetry-api==1.32.1
     # via
     #   -r requirements/test.in
     #   ddtrace
-packaging==24.2
+packaging==25.0
     # via pytest
 pbr==6.1.1
     # via
