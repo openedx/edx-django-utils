@@ -86,7 +86,7 @@ mccabe==0.7.0
     # via pylint
 mock==5.2.0
     # via -r requirements/test.txt
-newrelic==10.9.0
+newrelic==10.10.0
     # via -r requirements/test.txt
 opentelemetry-api==1.32.1
     # via

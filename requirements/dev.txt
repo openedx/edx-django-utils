@@ -89,7 +89,7 @@ django-crum==0.7.9
     # via -r requirements/quality.txt
 django-waffle==4.2.0
     # via -r requirements/quality.txt
-edx-i18n-tools==1.7.0
+edx-i18n-tools==1.8.0
     # via -r requirements/dev.in
 edx-lint==5.6.0
     # via -r requirements/quality.txt
@@ -130,7 +130,7 @@ jinja2==3.1.6
     #   jinja2-pluralize
 jinja2-pluralize==0.3.0
     # via diff-cover
-lxml[html-clean,html_clean]==5.3.2
+lxml[html-clean,html_clean]==5.4.0
     # via
     #   edx-i18n-tools
     #   lxml-html-clean
@@ -146,9 +146,9 @@ mccabe==0.7.0
     #   pylint
 mock==5.2.0
     # via -r requirements/quality.txt
-more-itertools==10.6.0
+more-itertools==10.7.0
     # via inflect
-newrelic==10.9.0
+newrelic==10.10.0
     # via -r requirements/quality.txt
 opentelemetry-api==1.32.1
     # via

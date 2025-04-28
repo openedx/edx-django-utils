@@ -24,7 +24,7 @@ bytecode==0.16.2
     # via
     #   -r requirements/test.txt
     #   ddtrace
-certifi==2025.1.31
+certifi==2025.4.26
     # via requests
 cffi==1.17.1
     # via
@@ -119,11 +119,11 @@ mdurl==0.1.2
     # via markdown-it-py
 mock==5.2.0
     # via -r requirements/test.txt
-more-itertools==10.6.0
+more-itertools==10.7.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.9.0
+newrelic==10.10.0
     # via -r requirements/test.txt
 nh3==0.2.21
     # via readme-renderer
