@@ -60,7 +60,7 @@ coverage[toml]==7.8.0
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-ddtrace==3.5.1
+ddtrace==3.6.0
     # via -r requirements/quality.txt
 deprecated==1.2.18
     # via
@@ -89,7 +89,7 @@ django-crum==0.7.9
     # via -r requirements/quality.txt
 django-waffle==4.2.0
     # via -r requirements/quality.txt
-edx-i18n-tools==1.8.0
+edx-i18n-tools==1.9.0
     # via -r requirements/dev.in
 edx-lint==5.6.0
     # via -r requirements/quality.txt
@@ -148,7 +148,7 @@ mock==5.2.0
     # via -r requirements/quality.txt
 more-itertools==10.7.0
     # via inflect
-newrelic==10.10.0
+newrelic==10.11.0
     # via -r requirements/quality.txt
 opentelemetry-api==1.32.1
     # via
@@ -203,7 +203,7 @@ pydocstyle==6.3.0
     # via -r requirements/quality.txt
 pygments==2.19.1
     # via diff-cover
-pylint==3.3.6
+pylint==3.3.7
     # via
     #   -r requirements/quality.txt
     #   edx-lint
