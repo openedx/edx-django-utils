@@ -33,7 +33,7 @@ cffi==1.17.1
     #   pynacl
 charset-normalizer==3.4.2
     # via requests
-click==8.1.8
+click==8.2.0
     # via -r requirements/test.txt
 coverage[toml]==7.8.0
     # via
@@ -43,13 +43,13 @@ cryptography==44.0.3
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.6.0
+ddtrace==3.7.0
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
     #   -r requirements/test.txt
     #   opentelemetry-api
-django==4.2.20
+django==4.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -127,7 +127,7 @@ newrelic==10.11.0
     # via -r requirements/test.txt
 nh3==0.2.21
     # via readme-renderer
-opentelemetry-api==1.32.1
+opentelemetry-api==1.33.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -200,7 +200,7 @@ roman-numerals-py==3.1.0
     # via sphinx
 secretstorage==3.3.3
     # via keyring
-snowballstemmer==2.2.0
+snowballstemmer==3.0.1
     # via sphinx
 soupsieve==2.7
     # via beautifulsoup4

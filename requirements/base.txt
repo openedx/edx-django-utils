@@ -8,9 +8,9 @@ asgiref==3.8.1
     # via django
 cffi==1.17.1
     # via pynacl
-click==8.1.8
+click==8.2.0
     # via -r requirements/base.in
-django==4.2.20
+django==4.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
