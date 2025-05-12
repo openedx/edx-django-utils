@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via
     #   -r requirements/test.txt
     #   django
-astroid==3.3.9
+astroid==3.3.10
     # via
     #   pylint
     #   pylint-celery
@@ -20,7 +20,7 @@ cffi==1.17.1
     # via
     #   -r requirements/test.txt
     #   pynacl
-click==8.1.8
+click==8.2.0
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -36,7 +36,7 @@ coverage[toml]==7.8.0
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.6.0
+ddtrace==3.7.0
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
@@ -44,7 +44,7 @@ deprecated==1.2.18
     #   opentelemetry-api
 dill==0.4.0
     # via pylint
-django==4.2.20
+django==4.2.21
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -88,7 +88,7 @@ mock==5.2.0
     # via -r requirements/test.txt
 newrelic==10.11.0
     # via -r requirements/test.txt
-opentelemetry-api==1.32.1
+opentelemetry-api==1.33.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -100,7 +100,7 @@ pbr==6.1.1
     # via
     #   -r requirements/test.txt
     #   stevedore
-platformdirs==4.3.7
+platformdirs==4.3.8
     # via pylint
 pluggy==1.5.0
     # via
@@ -151,7 +151,7 @@ pyyaml==6.0.2
     # via code-annotations
 six==1.17.0
     # via edx-lint
-snowballstemmer==2.2.0
+snowballstemmer==3.0.1
     # via pydocstyle
 sqlparse==0.5.3
     # via
