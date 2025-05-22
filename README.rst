@@ -24,7 +24,7 @@ This repository includes shared utilities for:
 * `Logging Utilities`_: Includes log filters and an encrypted logging helper.
 
 * `Monitoring Utilities`_: Includes Middleware and utilities for enhanced monitoring.
-  At this time, supports NewRelic monitoring.
+  Supports several monitoring backends.
 
 * `Plugin Infrastructure`_: Enables enhanced Django Plugin capabilities.
 
