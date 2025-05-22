@@ -14,6 +14,10 @@ Change Log
 Unreleased
 ----------
 
+8.0.0 - 2025-05-22
+------------------
+* **BREAKING CHANGE**: ``newrelic`` removed from dependencies. Users of New Relic should install the package separately in their services. `See relevant DEPR <https://github.com/openedx/public-engineering/issues/360>`_.
+
 7.4.0 - 2025-04-10
 ------------------
 * Same as 7.3.0

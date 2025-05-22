@@ -4,7 +4,6 @@
 
 Django                    # Web application framework
 django-waffle             # Allows for feature toggles in Django.
-newrelic                  # New Relic agent for performance monitoring
 psutil                    # Library for retrieving information on running processes and system utilization
 stevedore                 # Used by plugins to make importing easier
 django-crum               # Used by logging filters

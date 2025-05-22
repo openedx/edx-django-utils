@@ -1,16 +1,16 @@
 Monitoring Utils
 ================
 
-This is our primary abstraction from 3rd party monitoring libraries such as newrelic.agent. It includes middleware and utility methods for adding custom attributes and for better monitoring memory consumption.
+This is our primary abstraction from 3rd party monitoring libraries such as New Relic, Datadog, and OpenTelemetry. It includes middleware and utility methods for adding custom attributes and for better monitoring memory consumption.
 
 See ``__init__.py`` for a list of everything included in the public API.
 
-If, for some reason, you need low level access to the newrelic agent, please extend this library to implement the feature that you want. Applications should never include ``import newrelic.agent`` directly.
+If, for some reason, you need low level access to a monitoring library, please extend this library to implement the feature that you want. Applications should never include ``import newrelic.agent`` (or similar) directly.
 
 Choice of monitoring tools
 --------------------------
 
-The most complete feature support is for New Relic (the default), but there is also initial support for OpenTelemetry and Datadog.
+The most complete feature support is for New Relic (the default), but there is also relatively complete support for Datadog and preliminary support for OpenTelemetry. Private or alternative implementations can also be used.
 
 The Django setting ``OPENEDX_TELEMETRY`` can be set to a list of implementations, e.g. ``['edx_django_utils.monitoring.NewRelicBackend', 'edx_django_utils.monitoring.OpenTelemetryBackend']``. All of the implementations that can be loaded will be used for all applicable telemetry calls.
 
