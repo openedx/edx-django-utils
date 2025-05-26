@@ -8,7 +8,7 @@ asgiref==3.8.1
     # via django
 cffi==1.17.1
     # via pynacl
-click==8.2.0
+click==8.2.1
     # via -r requirements/base.in
 django==4.2.21
     # via
