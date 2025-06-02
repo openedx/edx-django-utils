@@ -43,7 +43,7 @@ cryptography==45.0.3
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.8.0
+ddtrace==3.8.1
     # via -r requirements/test.txt
 deprecated==1.2.18
     # via
@@ -146,7 +146,7 @@ pluggy==1.6.0
     # via
     #   -r requirements/test.txt
     #   pytest
-protobuf==6.31.0
+protobuf==6.31.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -259,7 +259,7 @@ xmltodict==0.14.2
     # via
     #   -r requirements/test.txt
     #   ddtrace
-zipp==3.21.0
+zipp==3.22.0
     # via
     #   -r requirements/test.txt
     #   importlib-metadata
