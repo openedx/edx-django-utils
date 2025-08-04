@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.8.1
+asgiref==3.9.1
     # via django
 cffi==1.17.1
     # via pynacl
@@ -12,7 +12,7 @@ click==8.2.1
     # via -r requirements/base.in
 django==4.2.23
     # via
-    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
     #   django-crum
     #   django-waffle
