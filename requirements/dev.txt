@@ -60,7 +60,7 @@ coverage[toml]==7.10.4
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/quality.txt
-ddtrace==3.12.1
+ddtrace==3.12.2
     # via -r requirements/quality.txt
 diff-cover==6.2.1
     # via
@@ -126,7 +126,7 @@ jinja2==3.1.6
     #   jinja2-pluralize
 jinja2-pluralize==0.3.0
     # via diff-cover
-lxml[html-clean]==6.0.0
+lxml[html-clean]==6.0.1
     # via
     #   edx-i18n-tools
     #   lxml-html-clean
@@ -161,7 +161,7 @@ packaging==25.0
     #   tox
 path==16.16.0
     # via edx-i18n-tools
-pbr==7.0.0
+pbr==7.0.1
     # via
     #   -r requirements/quality.txt
     #   stevedore

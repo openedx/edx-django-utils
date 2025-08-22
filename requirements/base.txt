@@ -20,7 +20,7 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==5.0.0
     # via -r requirements/base.in
-pbr==7.0.0
+pbr==7.0.1
     # via stevedore
 psutil==7.0.0
     # via -r requirements/base.in
