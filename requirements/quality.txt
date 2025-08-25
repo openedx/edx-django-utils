@@ -30,7 +30,7 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==2.3.0
     # via edx-lint
-coverage[toml]==7.10.4
+coverage[toml]==7.10.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
