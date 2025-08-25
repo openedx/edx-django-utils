@@ -18,7 +18,7 @@ babel==2.17.0
     #   sphinx
 backports-tarfile==1.2.0
     # via jaraco-context
-beautifulsoup4==4.13.4
+beautifulsoup4==4.13.5
     # via pydata-sphinx-theme
 bytecode==0.16.2
     # via
@@ -35,7 +35,7 @@ charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via -r requirements/test.txt
-coverage[toml]==7.10.4
+coverage[toml]==7.10.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
