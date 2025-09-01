@@ -20,8 +20,6 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==5.0.0
     # via -r requirements/base.in
-pbr==7.0.1
-    # via stevedore
 psutil==7.0.0
     # via -r requirements/base.in
 pycparser==2.22
@@ -30,8 +28,5 @@ pynacl==1.5.0
     # via -r requirements/base.in
 sqlparse==0.5.3
     # via django
-stevedore==5.4.1
+stevedore==5.5.0
     # via -r requirements/base.in
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
