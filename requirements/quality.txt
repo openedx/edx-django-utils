@@ -12,7 +12,7 @@ astroid==3.3.11
     # via
     #   pylint
     #   pylint-celery
-bytecode==0.16.2
+bytecode==0.17.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -30,17 +30,17 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==2.3.0
     # via edx-lint
-coverage[toml]==7.10.4
+coverage[toml]==7.10.6
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.12.2
+ddtrace==3.13.0
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
-django==4.2.23
+django==4.2.24
     # via
     #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -58,7 +58,7 @@ envier==0.6.1
     #   ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.txt
-faker==37.5.3
+faker==37.6.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -82,7 +82,7 @@ mccabe==0.7.0
     # via pylint
 mock==5.2.0
     # via -r requirements/test.txt
-newrelic==10.16.0
+newrelic==10.17.0
     # via -r requirements/test.txt
 opentelemetry-api==1.36.0
     # via
@@ -92,11 +92,7 @@ packaging==25.0
     # via
     #   -r requirements/test.txt
     #   pytest
-pbr==7.0.1
-    # via
-    #   -r requirements/test.txt
-    #   stevedore
-platformdirs==4.3.8
+platformdirs==4.4.0
     # via pylint
 pluggy==1.6.0
     # via
@@ -137,12 +133,12 @@ pylint-plugin-utils==0.9.0
     #   pylint-django
 pynacl==1.5.0
     # via -r requirements/test.txt
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.2.1
+pytest-cov==6.3.0
     # via -r requirements/test.txt
 pytest-django==4.11.1
     # via -r requirements/test.txt
@@ -158,7 +154,7 @@ sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.4.1
+stevedore==5.5.0
     # via
     #   -r requirements/test.txt
     #   code-annotations
@@ -166,7 +162,7 @@ text-unidecode==1.3
     # via python-slugify
 tomlkit==0.13.3
     # via pylint
-typing-extensions==4.14.1
+typing-extensions==4.15.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -183,6 +179,3 @@ zipp==3.23.0
     # via
     #   -r requirements/test.txt
     #   importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools

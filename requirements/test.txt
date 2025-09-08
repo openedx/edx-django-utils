@@ -8,7 +8,7 @@ asgiref==3.9.1
     # via
     #   -r requirements/base.txt
     #   django
-bytecode==0.16.2
+bytecode==0.17.0
     # via ddtrace
 cffi==1.17.1
     # via
@@ -16,11 +16,11 @@ cffi==1.17.1
     #   pynacl
 click==8.2.1
     # via -r requirements/base.txt
-coverage[toml]==7.10.4
+coverage[toml]==7.10.6
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==3.12.2
+ddtrace==3.13.0
     # via -r requirements/test.in
     # via
     #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -35,7 +35,7 @@ envier==0.6.1
     # via ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==37.5.3
+faker==37.6.0
     # via factory-boy
 importlib-metadata==8.7.0
     # via opentelemetry-api
@@ -43,7 +43,7 @@ iniconfig==2.1.0
     # via pytest
 mock==5.2.0
     # via -r requirements/test.in
-newrelic==10.16.0
+newrelic==10.17.0
     # via -r requirements/test.in
 opentelemetry-api==1.36.0
     # via
@@ -51,10 +51,6 @@ opentelemetry-api==1.36.0
     #   ddtrace
 packaging==25.0
     # via pytest
-pbr==7.0.1
-    # via
-    #   -r requirements/base.txt
-    #   stevedore
 pluggy==1.6.0
     # via
     #   pytest
@@ -71,11 +67,11 @@ pygments==2.19.2
     # via pytest
 pynacl==1.5.0
     # via -r requirements/base.txt
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.2.1
+pytest-cov==6.3.0
     # via -r requirements/test.in
 pytest-django==4.11.1
     # via -r requirements/test.in
@@ -83,9 +79,9 @@ sqlparse==0.5.3
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.4.1
+stevedore==5.5.0
     # via -r requirements/base.txt
-typing-extensions==4.14.1
+typing-extensions==4.15.0
     # via
     #   ddtrace
     #   opentelemetry-api
@@ -95,6 +91,3 @@ wrapt==1.17.3
     # via ddtrace
 zipp==3.23.0
     # via importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
