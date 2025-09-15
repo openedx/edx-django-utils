@@ -6,11 +6,11 @@
 #
 asgiref==3.9.1
     # via django
-cffi==1.17.1
+cffi==2.0.0
     # via pynacl
 click==8.2.1
     # via -r requirements/base.in
-django==4.2.23
+django==4.2.24
     # via
     #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
@@ -20,18 +20,13 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==5.0.0
     # via -r requirements/base.in
-pbr==7.0.1
-    # via stevedore
 psutil==7.0.0
     # via -r requirements/base.in
-pycparser==2.22
+pycparser==2.23
     # via cffi
-pynacl==1.5.0
+pynacl==1.6.0
     # via -r requirements/base.in
 sqlparse==0.5.3
     # via django
-stevedore==5.4.1
+stevedore==5.5.0
     # via -r requirements/base.in
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools

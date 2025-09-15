@@ -18,15 +18,15 @@ babel==2.17.0
     #   sphinx
 backports-tarfile==1.2.0
     # via jaraco-context
-beautifulsoup4==4.13.4
+beautifulsoup4==4.13.5
     # via pydata-sphinx-theme
-bytecode==0.16.2
+bytecode==0.17.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
 certifi==2025.8.3
     # via requests
-cffi==1.17.1
+cffi==2.0.0
     # via
     #   -r requirements/test.txt
     #   cryptography
@@ -35,17 +35,17 @@ charset-normalizer==3.4.3
     # via requests
 click==8.2.1
     # via -r requirements/test.txt
-coverage[toml]==7.10.4
+coverage[toml]==7.10.6
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==45.0.6
+cryptography==45.0.7
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.12.2
+ddtrace==3.14.0
     # via -r requirements/test.txt
-django==4.2.23
+django==4.2.24
     # via
     #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -74,7 +74,7 @@ factory-boy==3.3.3
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==37.5.3
+faker==37.6.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -115,15 +115,15 @@ mdurl==0.1.2
     # via markdown-it-py
 mock==5.2.0
     # via -r requirements/test.txt
-more-itertools==10.7.0
+more-itertools==10.8.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==10.16.0
+newrelic==10.17.0
     # via -r requirements/test.txt
 nh3==0.3.0
     # via readme-renderer
-opentelemetry-api==1.36.0
+opentelemetry-api==1.37.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -134,22 +134,18 @@ packaging==25.0
     #   pytest
     #   sphinx
     #   twine
-pbr==7.0.1
-    # via
-    #   -r requirements/test.txt
-    #   stevedore
 pluggy==1.6.0
     # via
     #   -r requirements/test.txt
     #   pytest
     #   pytest-cov
-protobuf==6.32.0
+protobuf==6.32.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
 psutil==7.0.0
     # via -r requirements/test.txt
-pycparser==2.22
+pycparser==2.23
     # via
     #   -r requirements/test.txt
     #   cffi
@@ -165,15 +161,15 @@ pygments==2.19.2
     #   readme-renderer
     #   rich
     #   sphinx
-pynacl==1.5.0
+pynacl==1.6.0
     # via -r requirements/test.txt
-pytest==8.4.1
+pytest==8.4.2
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==6.2.1
+pytest-cov==7.0.0
     # via -r requirements/test.txt
 pytest-django==4.11.1
     # via -r requirements/test.txt
@@ -197,11 +193,11 @@ rich==14.1.0
     # via twine
 roman-numerals-py==3.1.0
     # via sphinx
-secretstorage==3.3.3
+secretstorage==3.4.0
     # via keyring
 snowballstemmer==3.0.1
     # via sphinx
-soupsieve==2.7
+soupsieve==2.8
     # via beautifulsoup4
 sphinx==8.2.3
     # via
@@ -226,13 +222,13 @@ sqlparse==0.5.3
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.4.1
+stevedore==5.5.0
     # via
     #   -r requirements/test.txt
     #   doc8
-twine==6.1.0
+twine==6.2.0
     # via -r requirements/doc.in
-typing-extensions==4.14.1
+typing-extensions==4.15.0
     # via
     #   -r requirements/test.txt
     #   beautifulsoup4
@@ -257,6 +253,3 @@ zipp==3.23.0
     # via
     #   -r requirements/test.txt
     #   importlib-metadata
-
-# The following packages are considered to be unsafe in a requirements file:
-# setuptools
