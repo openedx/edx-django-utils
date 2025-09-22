@@ -20,7 +20,7 @@ cffi==2.0.0
     # via
     #   -r requirements/test.txt
     #   pynacl
-click==8.2.1
+click==8.3.0
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -30,13 +30,13 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==2.3.0
     # via edx-lint
-coverage[toml]==7.10.6
+coverage[toml]==7.10.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.14.0
+ddtrace==3.14.2
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
@@ -58,7 +58,7 @@ envier==0.6.1
     #   ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.txt
-faker==37.6.0
+faker==37.8.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -103,7 +103,7 @@ protobuf==6.32.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
-psutil==7.0.0
+psutil==7.1.0
     # via -r requirements/test.txt
 pycodestyle==2.14.0
     # via -r requirements/quality.in

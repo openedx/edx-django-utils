@@ -33,17 +33,17 @@ cffi==2.0.0
     #   pynacl
 charset-normalizer==3.4.3
     # via requests
-click==8.2.1
+click==8.3.0
     # via -r requirements/test.txt
-coverage[toml]==7.10.6
+coverage[toml]==7.10.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==45.0.7
+cryptography==46.0.1
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.14.0
+ddtrace==3.14.2
     # via -r requirements/test.txt
 django==4.2.24
     # via
@@ -74,7 +74,7 @@ factory-boy==3.3.3
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==37.6.0
+faker==37.8.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -143,7 +143,7 @@ protobuf==6.32.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
-psutil==7.0.0
+psutil==7.1.0
     # via -r requirements/test.txt
 pycparser==2.23
     # via

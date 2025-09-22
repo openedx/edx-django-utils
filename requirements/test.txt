@@ -14,13 +14,13 @@ cffi==2.0.0
     # via
     #   -r requirements/base.txt
     #   pynacl
-click==8.2.1
+click==8.3.0
     # via -r requirements/base.txt
-coverage[toml]==7.10.6
+coverage[toml]==7.10.7
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==3.14.0
+ddtrace==3.14.2
     # via -r requirements/test.in
     # via
     #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -35,7 +35,7 @@ envier==0.6.1
     # via ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==37.6.0
+faker==37.8.0
     # via factory-boy
 importlib-metadata==8.7.0
     # via opentelemetry-api
@@ -57,7 +57,7 @@ pluggy==1.6.0
     #   pytest-cov
 protobuf==6.32.1
     # via ddtrace
-psutil==7.0.0
+psutil==7.1.0
     # via -r requirements/base.txt
 pycparser==2.23
     # via
