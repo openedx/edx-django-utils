@@ -112,7 +112,7 @@ class TestBackendsFanOut(TestCase):
     Test that certain utility functions fan out to the backends.
     """
 
-    @patch('newrelic.agent.add_custom_parameter')
+    @patch('newrelic.agent.add_custom_attribute')
     @patch('opentelemetry.trace.span.NonRecordingSpan.set_attribute')
     # Patch out the span-getter, not the set_attribute call, because
     # it doesn't give us a span unless one is active. And I didn't
@@ -122,7 +122,7 @@ class TestBackendsFanOut(TestCase):
     @patch('ddtrace._trace.tracer.Tracer.current_root_span')
     def test_set_custom_attribute(
             self, mock_dd_root_span,
-            mock_otel_set_attribute, mock_nr_add_custom_parameter,
+            mock_otel_set_attribute, mock_nr_add_custom_attribute,
     ):
         with override_settings(OPENEDX_TELEMETRY=[
                 'edx_django_utils.monitoring.NewRelicBackend',
@@ -130,17 +130,17 @@ class TestBackendsFanOut(TestCase):
                 'edx_django_utils.monitoring.DatadogBackend',
         ]):
             set_custom_attribute('some_key', 'some_value')
-        mock_nr_add_custom_parameter.assert_called_once_with('some_key', 'some_value')
+        mock_nr_add_custom_attribute.assert_called_once_with('some_key', 'some_value')
         mock_otel_set_attribute.assert_called_once()
         mock_dd_root_span.assert_called_once()
 
-    @patch('newrelic.agent.record_exception')
+    @patch('newrelic.agent.notice_error')
     @patch('opentelemetry.trace.span.NonRecordingSpan.record_exception')
     # Record exception on current span, not root span.
     @patch('ddtrace._trace.tracer.Tracer.current_span')
     def test_record_exception(
             self, mock_dd_span,
-            mock_otel_record_exception, mock_nr_record_exception,
+            mock_otel_record_exception, mock_nr_notice_error,
     ):
         with override_settings(OPENEDX_TELEMETRY=[
                 'edx_django_utils.monitoring.NewRelicBackend',
@@ -148,6 +148,6 @@ class TestBackendsFanOut(TestCase):
                 'edx_django_utils.monitoring.DatadogBackend',
         ]):
             record_exception()
-        mock_nr_record_exception.assert_called_once()
+        mock_nr_notice_error.assert_called_once()
         mock_otel_record_exception.assert_called_once()
         mock_dd_span.assert_called_once()

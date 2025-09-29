@@ -93,15 +93,10 @@ class NewRelicBackend(TelemetryBackend):
         # `add_custom_span_attribute` that would better match
         # OpenTelemetry's behavior, which we could try exposing
         # through a new, more specific TelemetryBackend method.
-        #
-        # TODO: Update to newer name `add_custom_attribute`
-        # https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/addcustomparameter-python-agent-api/
-        newrelic.agent.add_custom_parameter(key, value)
+        newrelic.agent.add_custom_attribute(key, value)
 
     def record_exception(self):
-        # TODO: Replace with newrelic.agent.notice_error()
-        # https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/recordexception-python-agent-api/
-        newrelic.agent.record_exception()
+        newrelic.agent.notice_error()
 
     def create_span(self, name):
         if newrelic.version_info[0] >= 5:

@@ -71,16 +71,16 @@ class TestMonitoringSupportMiddleware(TestCase):
             'fake response',
         )
 
-        # Assert call counts to newrelic.agent.add_custom_parameter()
+        # Assert call counts to newrelic.agent.add_custom_attribute()
         expected_call_count = len(nr_agent_calls_expected)
         if is_deprecated:
             expected_call_count += 1
-        measured_call_count = mock_newrelic_agent.add_custom_parameter.call_count
+        measured_call_count = mock_newrelic_agent.add_custom_attribute.call_count
         self.assertEqual(expected_call_count, measured_call_count)
 
-        # Assert call args to newrelic.agent.add_custom_parameter().  Due to
+        # Assert call args to newrelic.agent.add_custom_attribute().  Due to
         # the nature of python dicts, call order is undefined.
-        mock_newrelic_agent.add_custom_parameter.assert_has_calls(nr_agent_calls_expected, any_order=True)
+        mock_newrelic_agent.add_custom_attribute.assert_has_calls(nr_agent_calls_expected, any_order=True)
 
     @patch('newrelic.agent')
     @ddt.data(
@@ -110,15 +110,15 @@ class TestMonitoringSupportMiddleware(TestCase):
             'fake response',
         )
 
-        # Assert call counts to newrelic.agent.add_custom_parameter()
+        # Assert call counts to newrelic.agent.add_custom_attribute()
         expected_call_count = len(nr_agent_calls_expected)
         if is_deprecated:
             expected_call_count += 1
-        measured_call_count = mock_newrelic_agent.add_custom_parameter.call_count
+        measured_call_count = mock_newrelic_agent.add_custom_attribute.call_count
         self.assertEqual(expected_call_count, measured_call_count)
 
-        # Assert call args to newrelic.agent.add_custom_parameter().
-        mock_newrelic_agent.add_custom_parameter.assert_has_calls(nr_agent_calls_expected, any_order=True)
+        # Assert call args to newrelic.agent.add_custom_attribute().
+        mock_newrelic_agent.add_custom_attribute.assert_has_calls(nr_agent_calls_expected, any_order=True)
 
     @contextmanager
     def catch_signal(self, signal):

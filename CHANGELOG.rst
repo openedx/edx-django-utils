@@ -14,6 +14,10 @@ Change Log
 Unreleased
 ----------
 
+8.0.1 - 2025-09-29
+------------------
+* Stop using deprecated newrelic function calls that were removed in newrelic 11.0.0 (use newer names instead)
+
 8.0.0 - 2025-05-22
 ------------------
 * **BREAKING CHANGE**: ``newrelic`` removed from dependencies. Users of New Relic should install the package separately in their services. `See relevant DEPR <https://github.com/openedx/public-engineering/issues/360>`_.

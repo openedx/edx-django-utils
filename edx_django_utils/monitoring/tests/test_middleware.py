@@ -76,10 +76,10 @@ class TestDeploymentMonitoringMiddleware(TestCase):
         middleware = DeploymentMonitoringMiddleware(Mock())
         middleware(Mock())
 
-        parameter_calls_count = mock_newrelic_agent.add_custom_parameter.call_count
+        parameter_calls_count = mock_newrelic_agent.add_custom_attribute.call_count
         assert parameter_calls_count == 2
 
-        function_calls = mock_newrelic_agent.add_custom_parameter.call_args_list
+        function_calls = mock_newrelic_agent.add_custom_attribute.call_args_list
         self._test_key_value_pair(function_calls[0], 'python_version')
         self._test_key_value_pair(function_calls[1], 'django_version')
 
