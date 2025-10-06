@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.9.1
+asgiref==3.10.0
     # via
     #   -r requirements/test.txt
     #   django
@@ -20,7 +20,7 @@ cffi==2.0.0
     # via
     #   -r requirements/test.txt
     #   pynacl
-click==8.2.1
+click==8.3.0
     # via
     #   -r requirements/test.txt
     #   click-log
@@ -30,19 +30,19 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==2.3.0
     # via edx-lint
-coverage[toml]==7.10.6
+coverage[toml]==7.10.7
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.14.0
+ddtrace==3.15.0
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
-django==4.2.24
+django==4.2.25
     # via
-    #   -c https:/raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
+    #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
     #   django-crum
     #   django-waffle
@@ -58,7 +58,7 @@ envier==0.6.1
     #   ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.txt
-faker==37.6.0
+faker==37.8.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -70,19 +70,19 @@ iniconfig==2.1.0
     # via
     #   -r requirements/test.txt
     #   pytest
-isort==6.0.1
+isort==6.1.0
     # via
     #   -r requirements/quality.in
     #   pylint
 jinja2==3.1.6
     # via code-annotations
-markupsafe==3.0.2
+markupsafe==3.0.3
     # via jinja2
 mccabe==0.7.0
     # via pylint
 mock==5.2.0
     # via -r requirements/test.txt
-newrelic==10.17.0
+newrelic==11.0.0
     # via -r requirements/test.txt
 opentelemetry-api==1.37.0
     # via
@@ -103,7 +103,7 @@ protobuf==6.32.1
     # via
     #   -r requirements/test.txt
     #   ddtrace
-psutil==7.0.0
+psutil==7.1.0
     # via -r requirements/test.txt
 pycodestyle==2.14.0
     # via -r requirements/quality.in
@@ -117,7 +117,7 @@ pygments==2.19.2
     # via
     #   -r requirements/test.txt
     #   pytest
-pylint==3.3.8
+pylint==3.3.9
     # via
     #   edx-lint
     #   pylint-celery
@@ -144,7 +144,7 @@ pytest-django==4.11.1
     # via -r requirements/test.txt
 python-slugify==8.0.4
     # via code-annotations
-pyyaml==6.0.2
+pyyaml==6.0.3
     # via code-annotations
 six==1.17.0
     # via edx-lint
@@ -165,7 +165,6 @@ tomlkit==0.13.3
 typing-extensions==4.15.0
     # via
     #   -r requirements/test.txt
-    #   ddtrace
     #   opentelemetry-api
 tzdata==2025.2
     # via
