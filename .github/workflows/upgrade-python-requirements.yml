@@ -13,7 +13,7 @@ jobs:
    call-upgrade-python-requirements-workflow:
     with:
        branch: ${{ github.event.inputs.branch || 'master' }}
-       team_reviewers: "arch-bom"
+       team_reviewers: "2u-arch-bom"
        email_address: arch-bom@edx.org
        send_success_notification: false
     secrets:

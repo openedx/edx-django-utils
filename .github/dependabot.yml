@@ -6,4 +6,4 @@ updates:
     schedule:
         interval: "weekly"
     reviewers:
-      - "openedx/arch-bom"
+      - "openedx/2u-arch-bom"
