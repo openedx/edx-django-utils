@@ -15,7 +15,7 @@ jobs:
        branch: ${{ github.event.inputs.branch || 'master' }}
        team_reviewers: "2u-arch-bom"
        email_address: arch-bom-upgrade-prs@2u-internal.jsmalerts.atlassian.net
-       send_success_notification: false
+       send_success_notification: true
     secrets:
        requirements_bot_github_token: ${{ secrets.REQUIREMENTS_BOT_GITHUB_TOKEN }}
        requirements_bot_github_email: ${{ secrets.REQUIREMENTS_BOT_GITHUB_EMAIL }}
