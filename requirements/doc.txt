@@ -31,19 +31,19 @@ cffi==2.0.0
     #   -r requirements/test.txt
     #   cryptography
     #   pynacl
-charset-normalizer==3.4.3
+charset-normalizer==3.4.4
     # via requests
 click==8.3.0
     # via -r requirements/test.txt
-coverage[toml]==7.10.7
+coverage[toml]==7.11.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==46.0.2
+cryptography==46.0.3
     # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.15.0
+ddtrace==3.16.0
     # via -r requirements/test.txt
 django==4.2.25
     # via
@@ -74,13 +74,13 @@ factory-boy==3.3.3
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==37.8.0
+faker==37.11.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
 id==1.5.0
     # via twine
-idna==3.10
+idna==3.11
     # via requests
 imagesize==1.4.1
     # via sphinx
@@ -89,7 +89,7 @@ importlib-metadata==8.7.0
     #   -r requirements/test.txt
     #   keyring
     #   opentelemetry-api
-iniconfig==2.1.0
+iniconfig==2.3.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -119,11 +119,11 @@ more-itertools==10.8.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==11.0.0
+newrelic==11.0.1
     # via -r requirements/test.txt
-nh3==0.3.0
+nh3==0.3.1
     # via readme-renderer
-opentelemetry-api==1.37.0
+opentelemetry-api==1.38.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -139,11 +139,11 @@ pluggy==1.6.0
     #   -r requirements/test.txt
     #   pytest
     #   pytest-cov
-protobuf==6.32.1
+protobuf==6.33.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
-psutil==7.1.0
+psutil==7.1.1
     # via -r requirements/test.txt
 pycparser==2.23
     # via
@@ -189,7 +189,7 @@ restructuredtext-lint==1.4.0
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==14.1.0
+rich==14.2.0
     # via twine
 roman-numerals-py==3.1.0
     # via sphinx
@@ -244,7 +244,7 @@ urllib3==2.5.0
     #   twine
 wheel==0.45.1
     # via -r requirements/doc.in
-wrapt==1.17.3
+wrapt==2.0.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
