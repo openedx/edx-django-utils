@@ -4,7 +4,7 @@
 #
 #    make upgrade
 #
-asgiref==3.10.0
+asgiref==3.11.1
     # via
     #   -r requirements/base.txt
     #   django
@@ -14,13 +14,13 @@ cffi==2.0.0
     # via
     #   -r requirements/base.txt
     #   pynacl
-click==8.3.0
+click==8.3.1
     # via -r requirements/base.txt
-coverage[toml]==7.10.7
+coverage[toml]==7.13.5
     # via pytest-cov
 ddt==1.7.2
     # via -r requirements/test.in
-ddtrace==3.15.0
+ddtrace==4.6.4
     # via -r requirements/test.in
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
@@ -35,57 +35,53 @@ envier==0.6.1
     # via ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.in
-faker==37.8.0
+faker==40.11.1
     # via factory-boy
-importlib-metadata==8.7.0
+importlib-metadata==8.7.1
     # via opentelemetry-api
-iniconfig==2.1.0
+iniconfig==2.3.0
     # via pytest
 mock==5.2.0
     # via -r requirements/test.in
-newrelic==11.0.0
+newrelic==12.0.0
     # via -r requirements/test.in
-opentelemetry-api==1.37.0
+opentelemetry-api==1.40.0
     # via
     #   -r requirements/test.in
     #   ddtrace
-packaging==25.0
+packaging==26.0
     # via pytest
 pluggy==1.6.0
     # via
     #   pytest
     #   pytest-cov
-protobuf==6.32.1
-    # via ddtrace
-psutil==7.1.0
+psutil==7.2.2
     # via -r requirements/base.txt
-pycparser==2.23
+pycparser==3.0
     # via
     #   -r requirements/base.txt
     #   cffi
 pygments==2.19.2
     # via pytest
-pynacl==1.6.0
+pynacl==1.6.2
     # via -r requirements/base.txt
-pytest==8.4.2
+pytest==9.0.2
     # via
     #   pytest-cov
     #   pytest-django
-pytest-cov==7.0.0
+pytest-cov==7.1.0
     # via -r requirements/test.in
-pytest-django==4.11.1
+pytest-django==4.12.0
     # via -r requirements/test.in
-sqlparse==0.5.3
+sqlparse==0.5.5
     # via
     #   -r requirements/base.txt
     #   django
-stevedore==5.5.0
+stevedore==5.7.0
     # via -r requirements/base.txt
 typing-extensions==4.15.0
     # via opentelemetry-api
-tzdata==2025.2
-    # via faker
-wrapt==1.17.3
+wrapt==2.1.2
     # via ddtrace
 zipp==3.23.0
     # via importlib-metadata

@@ -14,6 +14,8 @@ Change Log
 Unreleased
 ----------
 
+* Dropped Django 4.2 support; bumped ddtrace 3→4, opentelemetry-api 1.37→1.40, isort 6→8, pylint 3→4, wrapt 1→2
+
 8.0.1 - 2025-09-29
 ------------------
 * Stop using deprecated newrelic function calls that were removed in newrelic 11.0.0 (use newer names instead)

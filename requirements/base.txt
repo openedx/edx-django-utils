@@ -4,13 +4,13 @@
 #
 #    make upgrade
 #
-asgiref==3.10.0
+asgiref==3.11.1
     # via django
 cffi==2.0.0
     # via pynacl
-click==8.3.0
+click==8.3.1
     # via -r requirements/base.in
-django==4.2.25
+django==5.2.12
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/base.in
@@ -20,13 +20,13 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==5.0.0
     # via -r requirements/base.in
-psutil==7.1.0
+psutil==7.2.2
     # via -r requirements/base.in
-pycparser==2.23
+pycparser==3.0
     # via cffi
-pynacl==1.6.0
+pynacl==1.6.2
     # via -r requirements/base.in
-sqlparse==0.5.3
+sqlparse==0.5.5
     # via django
-stevedore==5.5.0
+stevedore==5.7.0
     # via -r requirements/base.in

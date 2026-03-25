@@ -8,44 +8,41 @@ accessible-pygments==0.0.5
     # via pydata-sphinx-theme
 alabaster==1.0.0
     # via sphinx
-asgiref==3.10.0
+asgiref==3.11.1
     # via
     #   -r requirements/test.txt
     #   django
-babel==2.17.0
+babel==2.18.0
     # via
     #   pydata-sphinx-theme
     #   sphinx
 backports-tarfile==1.2.0
     # via jaraco-context
-beautifulsoup4==4.14.2
+beautifulsoup4==4.14.3
     # via pydata-sphinx-theme
 bytecode==0.17.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
-certifi==2025.10.5
+certifi==2026.2.25
     # via requests
 cffi==2.0.0
     # via
     #   -r requirements/test.txt
-    #   cryptography
     #   pynacl
-charset-normalizer==3.4.3
+charset-normalizer==3.4.6
     # via requests
-click==8.3.0
+click==8.3.1
     # via -r requirements/test.txt
-coverage[toml]==7.10.7
+coverage[toml]==7.13.5
     # via
     #   -r requirements/test.txt
     #   pytest-cov
-cryptography==46.0.2
-    # via secretstorage
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.15.0
+ddtrace==4.6.4
     # via -r requirements/test.txt
-django==4.2.25
+django==5.2.12
     # via
     #   -c https://raw.githubusercontent.com/edx/edx-lint/master/edx_lint/files/common_constraints.txt
     #   -r requirements/test.txt
@@ -59,7 +56,7 @@ doc8==0.11.2
     # via
     #   -c requirements/constraints.txt
     #   -r requirements/doc.in
-docutils==0.21.2
+docutils==0.22.4
     # via
     #   doc8
     #   pydata-sphinx-theme
@@ -74,38 +71,34 @@ factory-boy==3.3.3
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
-faker==37.8.0
+faker==40.11.1
     # via
     #   -r requirements/test.txt
     #   factory-boy
-id==1.5.0
+id==1.6.1
     # via twine
-idna==3.10
+idna==3.11
     # via requests
-imagesize==1.4.1
+imagesize==2.0.0
     # via sphinx
-importlib-metadata==8.7.0
+importlib-metadata==8.7.1
     # via
     #   -r requirements/test.txt
     #   keyring
     #   opentelemetry-api
-iniconfig==2.1.0
+iniconfig==2.3.0
     # via
     #   -r requirements/test.txt
     #   pytest
 jaraco-classes==3.4.0
     # via keyring
-jaraco-context==6.0.1
+jaraco-context==6.1.2
     # via keyring
-jaraco-functools==4.3.0
+jaraco-functools==4.4.0
     # via keyring
-jeepney==0.9.0
-    # via
-    #   keyring
-    #   secretstorage
 jinja2==3.1.6
     # via sphinx
-keyring==25.6.0
+keyring==25.7.0
     # via twine
 markdown-it-py==4.0.0
     # via rich
@@ -119,37 +112,33 @@ more-itertools==10.8.0
     # via
     #   jaraco-classes
     #   jaraco-functools
-newrelic==11.0.0
+newrelic==12.0.0
     # via -r requirements/test.txt
-nh3==0.3.0
+nh3==0.3.4
     # via readme-renderer
-opentelemetry-api==1.37.0
+opentelemetry-api==1.40.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
-packaging==25.0
+packaging==26.0
     # via
     #   -r requirements/test.txt
-    #   pydata-sphinx-theme
     #   pytest
     #   sphinx
     #   twine
+    #   wheel
 pluggy==1.6.0
     # via
     #   -r requirements/test.txt
     #   pytest
     #   pytest-cov
-protobuf==6.32.1
-    # via
-    #   -r requirements/test.txt
-    #   ddtrace
-psutil==7.1.0
+psutil==7.2.2
     # via -r requirements/test.txt
-pycparser==2.23
+pycparser==3.0
     # via
     #   -r requirements/test.txt
     #   cffi
-pydata-sphinx-theme==0.15.4
+pydata-sphinx-theme==0.16.1
     # via sphinx-book-theme
 pygments==2.19.2
     # via
@@ -161,50 +150,47 @@ pygments==2.19.2
     #   readme-renderer
     #   rich
     #   sphinx
-pynacl==1.6.0
+pynacl==1.6.2
     # via -r requirements/test.txt
-pytest==8.4.2
+pytest==9.0.2
     # via
     #   -r requirements/doc.in
     #   -r requirements/test.txt
     #   pytest-cov
     #   pytest-django
-pytest-cov==7.0.0
+pytest-cov==7.1.0
     # via -r requirements/test.txt
-pytest-django==4.11.1
+pytest-django==4.12.0
     # via -r requirements/test.txt
 readme-renderer==44.0
     # via
     #   -r requirements/doc.in
     #   twine
-requests==2.32.5
+requests==2.33.0
     # via
-    #   id
     #   requests-toolbelt
     #   sphinx
     #   twine
 requests-toolbelt==1.0.0
     # via twine
-restructuredtext-lint==1.4.0
+restructuredtext-lint==2.0.2
     # via doc8
 rfc3986==2.0.0
     # via twine
-rich==14.1.0
+rich==14.3.3
     # via twine
-roman-numerals-py==3.1.0
+roman-numerals==4.1.0
     # via sphinx
-secretstorage==3.4.0
-    # via keyring
 snowballstemmer==3.0.1
     # via sphinx
-soupsieve==2.8
+soupsieve==2.8.3
     # via beautifulsoup4
-sphinx==8.2.3
+sphinx==9.0.4
     # via
     #   -r requirements/doc.in
     #   pydata-sphinx-theme
     #   sphinx-book-theme
-sphinx-book-theme==1.1.4
+sphinx-book-theme==1.2.0
     # via -r requirements/doc.in
 sphinxcontrib-applehelp==2.0.0
     # via sphinx
@@ -218,11 +204,11 @@ sphinxcontrib-qthelp==2.0.0
     # via sphinx
 sphinxcontrib-serializinghtml==2.0.0
     # via sphinx
-sqlparse==0.5.3
+sqlparse==0.5.5
     # via
     #   -r requirements/test.txt
     #   django
-stevedore==5.5.0
+stevedore==5.7.0
     # via
     #   -r requirements/test.txt
     #   doc8
@@ -234,17 +220,14 @@ typing-extensions==4.15.0
     #   beautifulsoup4
     #   opentelemetry-api
     #   pydata-sphinx-theme
-tzdata==2025.2
+urllib3==2.6.3
     # via
-    #   -r requirements/test.txt
-    #   faker
-urllib3==2.5.0
-    # via
+    #   id
     #   requests
     #   twine
-wheel==0.45.1
+wheel==0.46.3
     # via -r requirements/doc.in
-wrapt==1.17.3
+wrapt==2.1.2
     # via
     #   -r requirements/test.txt
     #   ddtrace
