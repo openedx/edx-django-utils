@@ -36,6 +36,7 @@ class TelemetryBackend(ABC):
     """
     Base class for telemetry sinks.
     """
+
     @abstractmethod
     def set_attribute(self, key, value):
         """
@@ -83,9 +84,12 @@ class NewRelicBackend(TelemetryBackend):
 
     API reference: https://docs.newrelic.com/docs/apm/agents/python-agent/python-agent-api/guide-using-python-agent-api/
     """
+
     def __init__(self):
         if newrelic is None:
-            raise Exception("Could not load New Relic monitoring backend; package not present.")
+            raise Exception(
+                "Could not load New Relic monitoring backend; package not present."
+            )
 
     def set_attribute(self, key, value):
         # Sets attribute on the transaction, rather than the current
@@ -119,11 +123,16 @@ class OpenTelemetryBackend(TelemetryBackend):
 
     API reference: https://opentelemetry-python.readthedocs.io/en/latest/
     """
+
     # pylint: disable=import-outside-toplevel
     def __init__(self):
         # If import fails, the backend won't be used.
         from opentelemetry import trace
+        from opentelemetry.sdk.trace import TracerProvider
+
+        trace.set_tracer_provider(TracerProvider())
         self.otel_trace = trace
+        self.otel_tracer = self.otel_trace.get_tracer(__name__)
 
     def set_attribute(self, key, value):
         # Sets the value on the current span, not necessarily the root
@@ -134,8 +143,7 @@ class OpenTelemetryBackend(TelemetryBackend):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
     def create_span(self, name):
-        # Currently, this is not implemented.
-        pass
+        return self.otel_tracer.start_span(name=name)
 
     def tag_root_span_with_error(self, exception):
         # Currently, this is not implemented for OTel
@@ -152,10 +160,12 @@ class DatadogBackend(TelemetryBackend):
 
     API reference: https://ddtrace.readthedocs.io/en/stable/api.html
     """
+
     # pylint: disable=import-outside-toplevel
     def __init__(self):
         # If import fails, the backend won't be used.
         from ddtrace import tracer
+
         self.dd_tracer = tracer
 
     def set_attribute(self, key, value):
@@ -199,12 +209,12 @@ def configured_backends():
     #   having the broadest support). Unusable options are ignored. Configuration
     #   of the backends themselves is via environment variables and system config files
     #   rather than via Django settings.
-    backend_classes = getattr(settings, 'OPENEDX_TELEMETRY', None)
+    backend_classes = getattr(settings, "OPENEDX_TELEMETRY", None)
     if isinstance(backend_classes, str):
         # Prevent a certain kind of easy mistake.
         raise Exception("OPENEDX_TELEMETRY must be a list, not a string.")
     if backend_classes is None:
-        backend_classes = ['edx_django_utils.monitoring.NewRelicBackend']
+        backend_classes = ["edx_django_utils.monitoring.NewRelicBackend"]
 
     backends = []
     for backend_class in backend_classes:
@@ -218,7 +228,9 @@ def configured_backends():
                     f"{cls} is not a subclass of TelemetryBackend"
                 )
         except BaseException as e:
-            log.warning(f"Could not load OPENEDX_TELEMETRY option {backend_class!r}: {e!r}")
+            log.warning(
+                f"Could not load OPENEDX_TELEMETRY option {backend_class!r}: {e!r}"
+            )
 
     return backends
 
