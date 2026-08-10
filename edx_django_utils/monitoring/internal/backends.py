@@ -51,7 +51,7 @@ class TelemetryBackend(ABC):
         """
 
     @abstractmethod
-    def create_span(self, name):
+    def create_span(self, name, operation_name=None):
         """
         Start a tracing span with the given name, returning a context manager instance.
 
@@ -60,6 +60,11 @@ class TelemetryBackend(ABC):
 
         Implementations should create a new child span parented to the current span,
         or create a new root span if not currently in a span.
+
+        Arguments:
+            name: label for the specific span (e.g. a function or method
+                path). Maps to OpenTelemetry's span name field.
+            operation_name: optional label for the class/type of operation (e.g. "django.request").
         """
 
     @abstractmethod
@@ -98,7 +103,8 @@ class NewRelicBackend(TelemetryBackend):
     def record_exception(self):
         newrelic.agent.notice_error()
 
-    def create_span(self, name):
+    def create_span(self, name, operation_name=None):  # pylint: disable=unused-argument
+        # The operation_name is ignored, but could be added as a custom attribute.
         if newrelic.version_info[0] >= 5:
             return newrelic.agent.FunctionTrace(name)
         else:
@@ -133,8 +139,9 @@ class OpenTelemetryBackend(TelemetryBackend):
     def record_exception(self):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
-    def create_span(self, name):
-        # Currently, this is not implemented.
+    def create_span(self, name, operation_name=None):
+        # Currently, this is not implemented. If implemented, operation_name
+        # (if provided) could be set as a span attribute.
         pass
 
     def tag_root_span_with_error(self, exception):
@@ -166,8 +173,12 @@ class DatadogBackend(TelemetryBackend):
         if span := self.dd_tracer.current_span():
             span.set_traceback()
 
-    def create_span(self, name):
-        return self.dd_tracer.trace(name)
+    def create_span(self, name, operation_name=None):
+        # The name is always used as the resource name. If the operation_name
+        # is provided, it will be used in place of the resource name as ddtrace's
+        # name argument.
+        dd_operation_name = operation_name if operation_name is not None else name
+        return self.dd_tracer.trace(dd_operation_name, resource=name)
 
     def tag_root_span_with_error(self, exception):
         root_span = self.dd_tracer.current_root_span()

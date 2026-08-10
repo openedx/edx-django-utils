@@ -8,7 +8,12 @@ import pytest
 from django.test import TestCase, override_settings
 
 from edx_django_utils.monitoring import record_exception, set_custom_attribute
-from edx_django_utils.monitoring.internal.backends import configured_backends
+from edx_django_utils.monitoring.internal.backends import (
+    DatadogBackend,
+    NewRelicBackend,
+    OpenTelemetryBackend,
+    configured_backends
+)
 
 
 @ddt.ddt
@@ -151,3 +156,27 @@ class TestBackendsFanOut(TestCase):
         mock_nr_notice_error.assert_called_once()
         mock_otel_record_exception.assert_called_once()
         mock_dd_span.assert_called_once()
+
+
+class TestCreateSpan(TestCase):
+    """
+    Test create_span's optional operation_name argument per backend.
+    """
+
+    @patch('ddtrace._trace.tracer.Tracer.trace')
+    def test_datadog_without_operation_name(self, mock_dd_trace):
+        DatadogBackend().create_span('some_name')
+        mock_dd_trace.assert_called_once_with('some_name', resource='some_name')
+
+    @patch('ddtrace._trace.tracer.Tracer.trace')
+    def test_datadog_with_operation_name(self, mock_dd_trace):
+        DatadogBackend().create_span('some_name', operation_name='some_operation')
+        mock_dd_trace.assert_called_once_with('some_operation', resource='some_name')
+
+    @patch('newrelic.agent.FunctionTrace')
+    def test_newrelic_with_operation_name(self, mock_nr_function_trace):
+        NewRelicBackend().create_span('some_name', operation_name='some_operation')
+        mock_nr_function_trace.assert_called_once_with('some_name')
+
+    def test_opentelemetry_with_operation_name(self):
+        assert OpenTelemetryBackend().create_span('some_name', operation_name='some_operation') is None
