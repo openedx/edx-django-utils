@@ -14,6 +14,10 @@ Change Log
 Unreleased
 ----------
 
+8.1.0 - 2026-08-07
+------------------
+* Adds optional ``operation_name`` argument to ``function_trace`` and ``TelemetryBackend.create_span``.
+
 8.0.1 - 2025-09-29
 ------------------
 * Stop using deprecated newrelic function calls that were removed in newrelic 11.0.0 (use newer names instead)
