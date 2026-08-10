@@ -81,7 +81,6 @@ Here is how you add the middleware:
         'edx_django_utils.monitoring.MonitoringSupportMiddleware',
         'edx_django_utils.monitoring.DeploymentMonitoringMiddleware',
         'edx_django_utils.monitoring.CookieMonitoringMiddleware',
-        'edx_django_utils.monitoring.CodeOwnerMonitoringMiddleware',
         'edx_django_utils.monitoring.FrontendMonitoringMiddleware',
         'edx_django_utils.monitoring.MonitoringMemoryMiddleware',
     )
@@ -98,11 +97,6 @@ The middleware ``MonitoringSupportMiddleware`` provides a number of monitoring c
 In order to use the monitoring signals, import them as follows::
 
     from edx_django_utils.monitoring.signals import monitoring_support_process_response
-
-Code Owner Custom Attribute
----------------------------
-
-See docstring for ``CodeOwnerMonitoringMiddleware`` for configuring the ``code_owner`` custom attribute for your IDA.
 
 Cookie Monitoring Middleware
 ----------------------------
