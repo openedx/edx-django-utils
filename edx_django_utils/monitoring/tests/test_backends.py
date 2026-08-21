@@ -7,7 +7,7 @@ import ddt
 import pytest
 from django.test import TestCase, override_settings
 
-from edx_django_utils.monitoring import record_exception, set_custom_attribute
+from edx_django_utils.monitoring import function_trace, record_exception, set_custom_attribute
 from edx_django_utils.monitoring.internal.backends import configured_backends
 
 
@@ -151,3 +151,24 @@ class TestBackendsFanOut(TestCase):
         mock_nr_notice_error.assert_called_once()
         mock_otel_record_exception.assert_called_once()
         mock_dd_span.assert_called_once()
+
+    @patch('newrelic.agent.FunctionTrace')
+    @patch('opentelemetry.trace.NoOpTracer.start_as_current_span')
+    # Same reasoning as test_set_custom_attribute: patch the concrete
+    # no-op tracer's method, since get_tracer() only returns something
+    # usable once called, and there's no active provider in this test.
+    @patch('ddtrace._trace.tracer.Tracer.trace')
+    def test_create_span(
+            self, mock_dd_trace,
+            mock_otel_start_span, mock_nr_function_trace,
+    ):
+        with override_settings(OPENEDX_TELEMETRY=[
+                'edx_django_utils.monitoring.NewRelicBackend',
+                'edx_django_utils.monitoring.OpenTelemetryBackend',
+                'edx_django_utils.monitoring.DatadogBackend',
+        ]):
+            with function_trace('some_function_name'):
+                pass
+        mock_nr_function_trace.assert_called_once_with('some_function_name')
+        mock_otel_start_span.assert_called_once_with('some_function_name')
+        mock_dd_trace.assert_called_once_with('some_function_name')

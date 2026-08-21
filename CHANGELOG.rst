@@ -14,6 +14,13 @@ Change Log
 Unreleased
 ----------
 
+8.0.2 - 2026-08-21
+------------------
+* Implement ``OpenTelemetryBackend.create_span()``, which was previously a
+  no-op. This means ``function_trace()`` now actually creates a span for the
+  OpenTelemetry backend, matching the existing New Relic and Datadog
+  backends, instead of silently doing nothing.
+
 8.0.1 - 2025-09-29
 ------------------
 * Stop using deprecated newrelic function calls that were removed in newrelic 11.0.0 (use newer names instead)
