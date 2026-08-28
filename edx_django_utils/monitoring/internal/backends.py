@@ -124,6 +124,7 @@ class OpenTelemetryBackend(TelemetryBackend):
         # If import fails, the backend won't be used.
         from opentelemetry import trace
         self.otel_trace = trace
+        self.otel_tracer = trace.get_tracer(__name__)
 
     def set_attribute(self, key, value):
         # Sets the value on the current span, not necessarily the root
@@ -134,8 +135,12 @@ class OpenTelemetryBackend(TelemetryBackend):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
     def create_span(self, name):
-        # Currently, this is not implemented.
-        pass
+        # Returns a new child span parented to the current span (or a new
+        # root span if none is active), matching the other backends'
+        # behavior. The caller is responsible for entering/exiting the
+        # returned context manager, same as with NewRelicBackend and
+        # DatadogBackend.
+        return self.otel_tracer.start_as_current_span(name)
 
     def tag_root_span_with_error(self, exception):
         # Currently, this is not implemented for OTel
