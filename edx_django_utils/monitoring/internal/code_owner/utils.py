@@ -3,6 +3,7 @@ Utilities for monitoring code_owner
 """
 import logging
 import re
+import warnings
 from functools import wraps
 
 from django.conf import settings
@@ -139,11 +140,23 @@ def set_code_owner_attribute_from_module(module):
     Note: These settings will be overridden by the CodeOwnerMonitoringMiddleware.
         This method can't be used to override web functions at this time.
 
+    .. deprecated::
+        This functionality (and the ``set_code_owner_attribute`` decorator that
+        uses it) is deprecated and will be removed. See
+        `DEPR: Code Owner Monitoring <https://github.com/openedx/edx-django-utils/issues/469>`_.
+
     Usage::
 
         set_code_owner_attribute_from_module(__name__)
 
     """
+    warnings.warn(
+        "set_code_owner_attribute_from_module and set_code_owner_attribute are deprecated and will be "
+        "removed. See https://github.com/openedx/edx-django-utils/issues/469 for details.",
+        DeprecationWarning,
+        stacklevel=2,
+    )
+    set_custom_attribute('deprecated_code_owner_celery_monitoring', module)
     set_custom_attribute('code_owner_module', module)
     code_owner = get_code_owner_from_module(module)
     if not code_owner:
@@ -174,6 +187,10 @@ def set_code_owner_attribute(wrapped_function):
 
     Celery tasks or other non-web functions do not use middleware, so we need
         an alternative way to set the code_owner custom attribute.
+
+    .. deprecated::
+        This decorator is deprecated and will be removed. See
+        `DEPR: Code Owner Monitoring <https://github.com/openedx/edx-django-utils/issues/469>`_.
 
     Usage::
 

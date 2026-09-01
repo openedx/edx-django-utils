@@ -132,6 +132,21 @@ class MonitoringUtilsTests(TestCase):
         set_code_owner_attribute_from_module(__name__)
         self._assert_set_custom_attribute(mock_set_custom_attribute, code_owner='team-red', module=__name__)
 
+    def test_set_code_owner_attribute_deprecation_warning(self):
+        with self.assertWarns(DeprecationWarning):
+            decorated_function('test')
+
+    def test_set_code_owner_attribute_from_module_deprecation_warning(self):
+        with self.assertWarns(DeprecationWarning):
+            set_code_owner_attribute_from_module(__name__)
+
+    @patch('edx_django_utils.monitoring.internal.code_owner.utils.set_custom_attribute')
+    def test_set_code_owner_attribute_from_module_deprecated_custom_attribute(self, mock_set_custom_attribute):
+        set_code_owner_attribute_from_module(__name__)
+        mock_set_custom_attribute.assert_has_calls(
+            [call('deprecated_code_owner_celery_monitoring', __name__)], any_order=True
+        )
+
     def _assert_set_custom_attribute(self, mock_set_custom_attribute, code_owner, module, check_theme_and_squad=False):
         """
         Helper to assert that the proper set_custom_metric calls were made.
