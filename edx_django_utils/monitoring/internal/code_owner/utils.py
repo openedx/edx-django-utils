@@ -136,9 +136,6 @@ def set_code_owner_attribute_from_module(module):
     Celery tasks or other non-web functions do not use middleware, so we need
         an alternative way to set the code_owner custom attribute.
 
-    Note: These settings will be overridden by the CodeOwnerMonitoringMiddleware.
-        This method can't be used to override web functions at this time.
-
     Usage::
 
         set_code_owner_attribute_from_module(__name__)

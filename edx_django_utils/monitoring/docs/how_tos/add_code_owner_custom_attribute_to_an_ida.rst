@@ -22,11 +22,6 @@ If you want to know about custom attributes in general, see :doc:`using_custom_a
 
 .. _ADR on monitoring by code owner: https://github.com/openedx/edx-platform/blob/master/lms/djangoapps/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
-Setting up the Middleware
--------------------------
-
-You simply need to add ``edx_django_utils.monitoring.CodeOwnerMonitoringMiddleware`` as described in the README to make this functionality available. Then it is ready to be configured.
-
 Handling celery tasks
 ---------------------
 
@@ -52,7 +47,7 @@ An untested potential alternative to the decorator is documented in the `Code Ow
 Configuring your app settings
 -----------------------------
 
-Once the Middleware is made available, simply set the Django Settings ``CODE_OWNER_MAPPINGS`` and ``CODE_OWNER_THEMES`` appropriately.
+Set the Django Settings ``CODE_OWNER_MAPPINGS`` and ``CODE_OWNER_THEMES`` appropriately.
 
 The following example shows how you can include an optional config for a catch-all using ``'*'``. Although you might expect this example to use Python, it is intentionally illustrated in YAML because the catch-all requires special care in YAML.
 

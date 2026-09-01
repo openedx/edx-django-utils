@@ -42,7 +42,6 @@ EdX utilities for Django Application development.
 
    monitoring/how_tos/add_code_owner_custom_attribute_to_an_ida
    monitoring/how_tos/using_custom_attributes
-   monitoring/how_tos/search_new_relic_nrql
    monitoring/how_tos/update_monitoring_for_squad_or_theme_changes
 
 .. toctree::
