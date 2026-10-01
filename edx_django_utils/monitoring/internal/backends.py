@@ -51,9 +51,15 @@ class TelemetryBackend(ABC):
         """
 
     @abstractmethod
-    def create_span(self, name):
+    def create_span(self, name, operation_name=None):
         """
         Start a tracing span with the given name, returning a context manager instance.
+
+        Arguments:
+            name: Label for this specific span (e.g. a function name).
+            operation_name: Optional label for the class or type of operation
+                (e.g. ``"edx.my_app.fetch_data"``) that this span represents. Backends
+                that have no equivalent concept may ignore it.
 
         The caller must use the return value in a `with` statement or similar so that the
         span is guaranteed to be closed appropriately.
@@ -98,7 +104,9 @@ class NewRelicBackend(TelemetryBackend):
     def record_exception(self):
         newrelic.agent.notice_error()
 
-    def create_span(self, name):
+    def create_span(self, name, operation_name=None):
+        # `operation_name` is accepted for interface compatibility but is not
+        # used; New Relic's FunctionTrace has no equivalent concept.
         if newrelic.version_info[0] >= 5:
             return newrelic.agent.FunctionTrace(name)
         else:
@@ -134,13 +142,18 @@ class OpenTelemetryBackend(TelemetryBackend):
     def record_exception(self):
         self.otel_trace.get_current_span().record_exception(sys.exc_info()[1])
 
-    def create_span(self, name):
+    def create_span(self, name, operation_name=None):
         # Returns a new child span parented to the current span (or a new
         # root span if none is active), matching the other backends'
         # behavior. The caller is responsible for entering/exiting the
         # returned context manager, same as with NewRelicBackend and
         # DatadogBackend.
-        return self.otel_tracer.start_as_current_span(name)
+        #
+        # OpenTelemetry has no separate operation name, so when one is given
+        # it is recorded as a span attribute.
+        if operation_name is None:
+            return self.otel_tracer.start_as_current_span(name)
+        return self.otel_tracer.start_as_current_span(name, attributes={'operation_name': operation_name})
 
     def tag_root_span_with_error(self, exception):
         # Currently, this is not implemented for OTel
@@ -171,8 +184,13 @@ class DatadogBackend(TelemetryBackend):
         if span := self.dd_tracer.current_span():
             span.set_traceback()
 
-    def create_span(self, name):
-        return self.dd_tracer.trace(name)
+    def create_span(self, name, operation_name=None):
+        # In Datadog, the first argument to `trace` is the operation name, and
+        # the resource defaults to it. When an operation name is given, use it
+        # there and keep `name` as the resource.
+        if operation_name is None:
+            return self.dd_tracer.trace(name)
+        return self.dd_tracer.trace(operation_name, resource=name)
 
     def tag_root_span_with_error(self, exception):
         root_span = self.dd_tracer.current_root_span()

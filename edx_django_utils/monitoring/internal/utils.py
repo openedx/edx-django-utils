@@ -95,10 +95,15 @@ def record_exception():
 
 
 @contextmanager
-def function_trace(function_name):
+def function_trace(function_name, operation_name=None):
     """
     Wraps a chunk of code that we want to appear as a separate, explicit,
     segment in our monitoring tools.
+
+    Arguments:
+        function_name: Label for this specific segment.
+        operation_name: Optional label for the class or type of operation. Not
+            all backends support this; see the monitoring README.
     """
     # Not covering this because if we mock it, we're not really testing anything
     # anyway. If something did break, it should show up in tests for apps that
@@ -106,7 +111,7 @@ def function_trace(function_name):
     # ExitStack handles the underlying context managers.
     with ExitStack() as stack:
         for backend in configured_backends():
-            context = backend.create_span(function_name)
+            context = backend.create_span(function_name, operation_name=operation_name)
             if context is not None:
                 stack.enter_context(context)
         yield

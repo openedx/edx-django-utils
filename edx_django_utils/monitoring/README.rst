@@ -30,7 +30,11 @@ Feature support matrix for built-in telemetry backends:
      - ✅ (on root span)
    * - Create a new span (``function_trace``)
      - ✅
-     - ❌
+     - ✅
+     - ✅
+   * - Operation name for a span (``function_trace(..., operation_name=...)``)
+     - ❌ (ignored)
+     - ✅ (as ``operation_name`` attribute)
      - ✅
    * - Set local root span name (``set_monitoring_transaction_name``)
      - ✅

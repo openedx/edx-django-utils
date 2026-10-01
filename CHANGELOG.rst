@@ -14,6 +14,15 @@ Change Log
 Unreleased
 ----------
 
+8.1.0 - 2026-10-01
+------------------
+* Add optional ``operation_name`` argument to ``function_trace()`` and to
+  ``TelemetryBackend.create_span()``. Datadog uses it as the span's operation
+  name (with ``name`` kept as the resource), OpenTelemetry records it as an
+  ``operation_name`` span attribute, and New Relic ignores it. Custom
+  ``TelemetryBackend`` subclasses should update their ``create_span`` signature
+  to accept ``operation_name=None``.
+
 8.0.2 - 2026-08-21
 ------------------
 * Implement ``OpenTelemetryBackend.create_span()``, which was previously a
