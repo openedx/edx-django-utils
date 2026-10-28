@@ -1,0 +1,175 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm>8.1"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "edx-django-utils"
+description = "EdX utilities for Django Application development."
+requires-python = ">=3.12"
+license = "Apache-2.0"
+license-files = ["LICENSE*"]
+authors = [
+    {name = "Open edX Project", email = "oscm@openedx.org"},
+]
+classifiers = [
+    'Development Status :: 3 - Alpha',
+    'Framework :: Django',
+    'Framework :: Django :: 4.2',
+    'Framework :: Django :: 5.2',
+    'Intended Audience :: Developers',
+    'Natural Language :: English',
+    'Programming Language :: Python :: 3',
+    'Programming Language :: Python :: 3.12',
+]
+keywords = [
+    "Django",
+    "edx",
+]
+
+dynamic = ["readme", "version"]
+
+dependencies = [
+    "Django",
+    "django-waffle",
+    "psutil",
+    "stevedore",
+    "django-crum",
+    "PyNaCl",
+    "click",
+]
+
+[project.scripts]
+log-sensitive = "edx_django_utils.logging.internal.log_sensitive:cli"
+
+[project.urls]
+Homepage = "https://github.com/openedx/edx-django-utils"
+Repository = "https://github.com/openedx/edx-django-utils"
+
+[dependency-groups]
+test-base = [
+    "ddt",
+    "factory_boy",
+    "mock",
+    "pytest-cov",
+    "pytest-django",
+    "newrelic",
+    "opentelemetry-api",
+    "ddtrace",
+]
+test = [
+    {include-group = "test-base"},
+    "Django>=5.2,<5.3",
+]
+django42 = [
+    {include-group = "test-base"},
+    "Django>=4.2,<4.3",
+]
+quality = [
+    {include-group = "test"},
+    "edx-lint",
+    "isort",
+    "pycodestyle",
+    "pydocstyle",
+]
+doc = [
+    {include-group = "test"},
+    "build",
+    "doc8",
+    "sphinx-book-theme",
+    "readme_renderer",
+    "Sphinx",
+    "twine",
+    "factory-boy",
+    "pytest",
+    "setuptools",
+    "wheel",
+]
+ci = [
+    "tox",
+    "tox-uv",
+]
+dev = [
+    {include-group = "quality"},
+    {include-group = "ci"},
+    "diff-cover",
+    "edx-i18n-tools",
+    "python-dateutil",
+]
+
+[tool.setuptools]
+include-package-data = false
+
+[tool.setuptools.dynamic]
+readme = {file = ["README.rst"], content-type = "text/x-rst"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"*" = [
+    "*.html",
+    "*.png",
+    "*.gif",
+    "*js",
+    "*.css",
+    "*jpg",
+    "*jpeg",
+    "*svg",
+]
+
+[tool.semantic_release]
+build_command = "pip install build && SETUPTOOLS_SCM_PRETEND_VERSION=$NEW_VERSION python -m build"
+
+[tool.setuptools_scm]
+version_scheme = 'only-version'
+local_scheme = 'no-local-version'
+fallback_version = "0.0.0.dev0"
+
+[tool.uv]
+conflicts = [
+    [{group = "test"}, {group = "django42"}],
+]
+constraint-dependencies = [
+    "Django<6.0",
+    "elasticsearch<7.14.0",
+    "social-auth-app-django<6.0.0",
+    "social-auth-core<5.0.0",
+    "pip<26.2.1",
+    "diff-cover<6.2.2",
+    "doc8<1.0.0",
+    "setuptools<82",
+]
+
+[tool.edx_lint]
+uv_constraints = [
+    # diff-cover latest requires (pluggy>=0.13.1,<0.14.0)
+    # which conflicts with pytest(pluggy>=0.12,<2.0.0) and tox(pluggy>0.12) both of these fetch pluggy==1.0.0
+    "diff-cover<6.2.2",
+    # version 1.0.0 requires docutils >0.19 but sphinx@4.2.0 needs docutils<0.18
+    "doc8<1.0.0",
+    # doc8<1.0.0 imports pkg_resources, which setuptools removed in 82.0.0
+    "setuptools<82",
+]
+
+[tool.coverage.run]
+branch = true
+data_file = ".coverage"
+source = ["src"]
+omit = [
+    "test_settings",
+    "*/migrations/*",
+    "*/admin.py",
+    "*/static/*",
+    "*/templates/*",
+    "*/plugins/*",
+]
+
+[tool.isort]
+indent = '    '
+line_length = 120
+multi_line_output = 3
+
+[tool.pytest.ini_options]
+DJANGO_SETTINGS_MODULE = "test_settings"
+addopts = "--cov --cov-report term-missing --cov-report xml"
+norecursedirs = [".*", "docs"]

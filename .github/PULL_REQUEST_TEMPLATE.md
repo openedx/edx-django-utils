@@ -32,15 +32,13 @@ instructions.
 **Merge checklist:**
 - [ ] All reviewers approved
 - [ ] CI build is green
-- [ ] Version bumped
-- [ ] Changelog record added
+- [ ] Commit messages (and PR title, if squash merging) use the correct
+      [Conventional Commits](https://docs.openedx.org/projects/openedx-proposals/en/latest/best-practices/oep-0051-bp-conventional-commits.html#specification) type — they determine the
+      release: `fix:` → patch, `feat:` → minor, `!` / `BREAKING CHANGE:` → major
 - [ ] Documentation updated (not only docstrings)
 - [ ] Commits are squashed
 
 **Post merge:**
-- [ ] Create a tag
-- [ ] Check new version is pushed to PyPi after tag-triggered build is
-      finished.
 - [ ] Delete working branch (if not needed anymore)
 
 **Author concerns:**
