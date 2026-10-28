@@ -51,6 +51,8 @@ upgrade: ## update python dependencies
 isort: ## fixes isort issues found during quality check
 	isort src/edx_django_utils manage.py test_settings.py
 
+quality: export DJANGO_SETTINGS_MODULE = test_settings
+quality: export PYTHONPATH = .
 quality: ## check coding style with pycodestyle and pylint
 	pylint src/edx_django_utils manage.py
 	pycodestyle src/edx_django_utils manage.py
