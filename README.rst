@@ -32,21 +32,21 @@ This repository includes shared utilities for:
 
 * `Data Generation`_: Management command for generating Django data based on model factories.
 
-.. _Cache Utilities: edx_django_utils/cache/README.rst
+.. _Cache Utilities: src/edx_django_utils/cache/README.rst
 
-.. _Django User and Group Utilities: edx_django_utils/user/README.rst
+.. _Django User and Group Utilities: src/edx_django_utils/user/README.rst
 
-.. _IP Address Utilities: edx_django_utils/ip/README.rst
+.. _IP Address Utilities: src/edx_django_utils/ip/README.rst
 
-.. _Logging Utilities: edx_django_utils/logging/README.rst
+.. _Logging Utilities: src/edx_django_utils/logging/README.rst
 
-.. _Monitoring Utilities: edx_django_utils/monitoring/README.rst
+.. _Monitoring Utilities: src/edx_django_utils/monitoring/README.rst
 
-.. _Plugin Infrastructure: edx_django_utils/plugins/README.rst
+.. _Plugin Infrastructure: src/edx_django_utils/plugins/README.rst
 
-.. _Security Utilities: edx_django_utils/security/README.rst
+.. _Security Utilities: src/edx_django_utils/security/README.rst
 
-.. _Data Generation: edx_django_utils/data_generation/README.rst
+.. _Data Generation: src/edx_django_utils/data_generation/README.rst
 
 Documentation
 -------------

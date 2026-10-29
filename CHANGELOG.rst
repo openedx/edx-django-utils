@@ -1,3 +1,7 @@
+.. DEPRECATED: This changelog is no longer maintained. Release notes are
+   published only on the GitHub Releases page:
+   https://github.com/openedx/edx-django-utils/releases
+
 Change Log
 ==========
 
@@ -571,7 +575,7 @@ Added
 
 * CodeOwnerMetricMiddleware was moved here (from edx-platform) in order to be able to take advantage of the ``code_owner`` metric in other IDAs. For details on this decision, see the `ADR for monitoring code owner`_. See the docstring for more details on usage.
 
-.. _ADR for monitoring code owner: https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
+.. _ADR for monitoring code owner: https://github.com/openedx/edx-django-utils/blob/master/src/edx_django_utils/monitoring/docs/decisions/0001-monitoring-by-code-owner.rst
 
 [3.2.3] - 2020-05-30
 --------------------
