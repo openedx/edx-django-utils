@@ -1,1 +1,1 @@
-.. include:: ../../edx_django_utils/plugins/README.rst
+.. include:: ../../src/edx_django_utils/plugins/README.rst

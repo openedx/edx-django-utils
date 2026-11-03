@@ -22,7 +22,7 @@ def get_code_owner_from_module(module):
     'openedx.features', because the former is more specific.
 
     See how to:
-    https://github.com/openedx/edx-django-utils/blob/master/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida.rst
+    https://github.com/openedx/edx-django-utils/blob/master/src/edx_django_utils/monitoring/docs/how_tos/add_code_owner_custom_attribute_to_an_ida.rst
 
     """
     if not module:
