@@ -13,7 +13,6 @@ jobs:
   run_tests:
     name: tests
     runs-on: ${{ matrix.os }}
-    continue-on-error: true
     strategy:
       matrix:
         os: [ubuntu-latest]
@@ -32,7 +31,7 @@ jobs:
       run: uv sync --locked --group ci
 
     - name: Run Tests
-      run: uv run tox -e ${{ matrix.toxenv }}
+      run: uv run --locked tox -e ${{ matrix.toxenv }}
 
     - name: Run coverage
       if: matrix.python-version == '3.12' && matrix.toxenv == 'django52'

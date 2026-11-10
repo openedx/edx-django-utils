@@ -4,14 +4,12 @@ prune .tx
 prune docs
 
 # Exclude root level configuration and build files
-exclude .coveragerc
 exclude .gitignore
 exclude .readthedocs.yaml
 exclude Makefile
 exclude catalog-info.yaml
 exclude codecov.yml
 exclude manage.py
-exclude openedx.yaml
 exclude pylintrc
 exclude pylintrc_tweaks
 exclude test_settings.py
