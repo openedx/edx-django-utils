@@ -20,7 +20,7 @@ django-crum==0.7.9
     # via -r requirements/base.in
 django-waffle==5.0.0
     # via -r requirements/base.in
-psutil==7.1.0
+psutil==7.1.1
     # via -r requirements/base.in
 pycparser==2.23
     # via cffi

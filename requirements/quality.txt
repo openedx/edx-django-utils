@@ -30,13 +30,13 @@ click-log==0.4.0
     # via edx-lint
 code-annotations==2.3.0
     # via edx-lint
-coverage[toml]==7.10.7
+coverage[toml]==7.11.0
     # via
     #   -r requirements/test.txt
     #   pytest-cov
 ddt==1.7.2
     # via -r requirements/test.txt
-ddtrace==3.15.0
+ddtrace==3.16.0
     # via -r requirements/test.txt
 dill==0.4.0
     # via pylint
@@ -58,7 +58,7 @@ envier==0.6.1
     #   ddtrace
 factory-boy==3.3.3
     # via -r requirements/test.txt
-faker==37.8.0
+faker==37.11.0
     # via
     #   -r requirements/test.txt
     #   factory-boy
@@ -66,7 +66,7 @@ importlib-metadata==8.7.0
     # via
     #   -r requirements/test.txt
     #   opentelemetry-api
-iniconfig==2.1.0
+iniconfig==2.3.0
     # via
     #   -r requirements/test.txt
     #   pytest
@@ -82,9 +82,9 @@ mccabe==0.7.0
     # via pylint
 mock==5.2.0
     # via -r requirements/test.txt
-newrelic==11.0.0
+newrelic==11.0.1
     # via -r requirements/test.txt
-opentelemetry-api==1.37.0
+opentelemetry-api==1.38.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
@@ -92,18 +92,18 @@ packaging==25.0
     # via
     #   -r requirements/test.txt
     #   pytest
-platformdirs==4.4.0
+platformdirs==4.5.0
     # via pylint
 pluggy==1.6.0
     # via
     #   -r requirements/test.txt
     #   pytest
     #   pytest-cov
-protobuf==6.32.1
+protobuf==6.33.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
-psutil==7.1.0
+psutil==7.1.1
     # via -r requirements/test.txt
 pycodestyle==2.14.0
     # via -r requirements/quality.in
@@ -170,7 +170,7 @@ tzdata==2025.2
     # via
     #   -r requirements/test.txt
     #   faker
-wrapt==1.17.3
+wrapt==2.0.0
     # via
     #   -r requirements/test.txt
     #   ddtrace
