@@ -109,13 +109,6 @@ Successful Transactions in Production::
   WHERE appName LIKE 'prod%' AND response.status LIKE '2%'
   SINCE 1 week ago LIMIT 50
 
-Production error counts by code_owner::
-
-  SELECT count(*) from TransactionError
-  WHERE appName LIKE 'prod%' AND code_owner IS NOT NULL
-  FACET code_owner, appName
-  SINCE 1 week ago LIMIT 50
-
 Advanced NRQL examples
 ~~~~~~~~~~~~~~~~~~~~~~
 
