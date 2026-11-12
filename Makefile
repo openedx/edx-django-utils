@@ -35,41 +35,36 @@ coverage: clean ## generate and view HTML coverage report
 	$(BROWSER) htmlcov/index.html
 
 docs: ## generate Sphinx HTML documentation, including API docs
-	tox -e docs
+	doc8 --ignore-path docs/_build README.rst docs
+	rm -f docs/edx_django_utils.rst
+	rm -f docs/modules.rst
+	make -C docs clean
+	make -C docs html
+	python -m build --wheel
+	twine check dist/*
 	$(BROWSER) docs/_build/html/index.html
 
-upgrade: export CUSTOM_COMPILE_COMMAND=make upgrade
-upgrade: ## update the requirements/*.txt files with the latest packages satisfying requirements/*.in
-	pip install -qr requirements/pip-tools.txt
-	# Make sure to compile files after any other files they include!
-	pip-compile --allow-unsafe --rebuild --upgrade -o requirements/pip.txt requirements/pip.in
-	pip-compile --no-emit-trusted-host --upgrade -o requirements/pip-tools.txt requirements/pip-tools.in
-	pip install -qr requirements/pip.txt
-	pip install -qr requirements/pip-tools.txt
-	pip-compile --no-emit-trusted-host --upgrade -o requirements/base.txt requirements/base.in
-	pip-compile --no-emit-trusted-host --upgrade -o requirements/test.txt requirements/test.in
-	pip-compile --no-emit-trusted-host --upgrade -o requirements/doc.txt requirements/doc.in
-	pip-compile --no-emit-trusted-host --upgrade -o requirements/quality.txt requirements/quality.in
-	pip-compile --no-emit-trusted-host --upgrade -o requirements/ci.txt requirements/ci.in
-	pip-compile --no-emit-trusted-host --upgrade -o requirements/dev.txt requirements/dev.in
-	# Let tox control the Django version for tests
-	sed '/^[dD]jango==/d' requirements/test.txt > requirements/test.tmp
-	mv requirements/test.tmp requirements/test.txt
+upgrade: ## update python dependencies
+	uv run --with edx-lint edx_lint write_uv_constraints pyproject.toml
+	uv lock --upgrade
 
 isort: ## fixes isort issues found during quality check
-	tox -e isort
+	isort src/edx_django_utils manage.py test_settings.py
 
+quality: export DJANGO_SETTINGS_MODULE = test_settings
+quality: export PYTHONPATH = .
 quality: ## check coding style with pycodestyle and pylint
-	tox -e quality
+	pylint src/edx_django_utils manage.py
+	pycodestyle src/edx_django_utils manage.py
+	pydocstyle src/edx_django_utils manage.py
+	isort --check-only --diff src/edx_django_utils manage.py test_settings.py
+	make selfcheck
 
 requirements: ## install development environment requirements
-	pip install -r requirements/pip.txt
-	pip install -qr requirements/pip-tools.txt
-	pip-sync requirements/dev.txt requirements/private.*
-	pip install . # CLI entry points
+	uv sync --locked --group dev
 
 test: clean ## run tests in the current virtualenv
-	pytest
+	python -Wd -m pytest $(PYTEST_ARGS)
 
 diff_cover: test ## find diff lines that need test coverage
 	diff-cover coverage.xml

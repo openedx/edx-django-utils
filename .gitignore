@@ -66,10 +66,6 @@ docs/modules.rst
 docs/edx_django_utils.rst
 docs/edx_django_utils.*.rst
 
-# Private requirements
-requirements/private.in
-requirements/private.txt
-
 # Development task artifacts
 default.db
 
