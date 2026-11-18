@@ -66,7 +66,9 @@ django42 = [
 ]
 quality = [
     {include-group = "test"},
-    "edx-lint",
+    # A real floor, not a placeholder: `edx_lint write_uv_constraints`, used by
+    # `make upgrade`, was added in 6.1.0; 6.2 ships the current global constraints.
+    "edx-lint>=6.2",
     "isort",
     "pycodestyle",
     "pydocstyle",
